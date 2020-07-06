@@ -16,7 +16,7 @@ QueryInvocationArguments >> runOn: aFamixPWBInvocation [
 			invArg
 				startPosition: arg startPosition;
 				stopPosition: arg stopPosition;
-				sender: aFamixPWBInvocation sender name;
+				sender: aFamixPWBInvocation sender;
 				receiver: aFamixPWBInvocation candidates anyOne name;
 				argumentString: (sourceText copyFrom: arg startPosition to: arg stopPosition) ].
 	^ MRLQueryResults withAll: arguments

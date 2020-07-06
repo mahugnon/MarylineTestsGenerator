@@ -32,6 +32,46 @@ MRLInvocationArgument >> lineNumberInSender: anObject [
 	lineNumberInSender := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+MRLInvocationArgument >> mrlAfterLogString [
+	^ String
+		streamContents: [ :aStream | 
+			aStream
+				<< 'f_mrl_log().log(';
+				<< argumentString;
+				<< ',';
+				<< '"';
+				<< sender name;
+				<< '"';
+				<< ',';
+				<< '"';
+				<< argumentString;
+				<< '-after-';
+				<< sender name;
+				<< '"';
+				<< ')' ]
+]
+
+{ #category : #'as yet unclassified' }
+MRLInvocationArgument >> mrlBeforeLogString [
+	^ String
+		streamContents: [ :aStream | 
+			aStream
+				<< 'f_mrl_log().log(';
+				<< argumentString;
+				<< ',';
+				<< '"';
+				<< sender name;
+				<< '"';
+				<< ',';
+				<< '"';
+				<< argumentString;
+				<< '-before-';
+				<< sender name;
+				<< '"';
+				<< ')' ]
+]
+
 { #category : #accessing }
 MRLInvocationArgument >> receiver [
 	^ receiver
@@ -40,6 +80,11 @@ MRLInvocationArgument >> receiver [
 { #category : #accessing }
 MRLInvocationArgument >> receiver: anObject [
 	receiver := anObject
+]
+
+{ #category : #'as yet unclassified' }
+MRLInvocationArgument >> saveMrlLogStrings [
+	
 ]
 
 { #category : #accessing }

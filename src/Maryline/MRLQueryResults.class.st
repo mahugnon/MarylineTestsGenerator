@@ -36,6 +36,11 @@ MRLQueryResults >> do: aBlock [
 	^ storage do: aBlock
 ]
 
+{ #category : #api }
+MRLQueryResults >> first [
+	^ storage first
+]
+
 { #category : #adding }
 MRLQueryResults >> initialize [
 
