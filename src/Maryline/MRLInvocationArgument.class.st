@@ -6,7 +6,7 @@ Class {
 		'receiver',
 		'startPosition',
 		'stopPosition',
-		'lineNumberInSender',
+		'invocationText',
 		'argumentString'
 	],
 	#category : #'Maryline-Models'
@@ -23,16 +23,16 @@ MRLInvocationArgument >> argumentString: anObject [
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> lineNumberInSender [
-	^ lineNumberInSender
+MRLInvocationArgument >> invocationText [
+	^ invocationText
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> lineNumberInSender: anObject [
-	lineNumberInSender := anObject
+MRLInvocationArgument >> invocationText: anObject [
+	invocationText := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #api }
 MRLInvocationArgument >> mrlAfterLogString [
 	^ String
 		streamContents: [ :aStream | 
@@ -52,7 +52,7 @@ MRLInvocationArgument >> mrlAfterLogString [
 				<< ')' ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #api }
 MRLInvocationArgument >> mrlBeforeLogString [
 	^ String
 		streamContents: [ :aStream | 
@@ -72,6 +72,18 @@ MRLInvocationArgument >> mrlBeforeLogString [
 				<< ')' ]
 ]
 
+{ #category : #api }
+MRLInvocationArgument >> mrlLogStringsFor: aLine [
+	^ String
+		streamContents: [ :aStream | 
+			aStream
+				<< self mrlBeforeLogString;
+				cr;
+				<< aLine;
+				cr;
+				<< self mrlAfterLogString ]
+]
+
 { #category : #accessing }
 MRLInvocationArgument >> receiver [
 	^ receiver
@@ -82,9 +94,18 @@ MRLInvocationArgument >> receiver: anObject [
 	receiver := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #api }
 MRLInvocationArgument >> saveMrlLogStrings [
-	
+	| lines senderText |
+	senderText := sender sourceText.
+	lines := senderText lines
+		select:
+			[ :aLine | aLine includesSubstring: self invocationText caseSensitive: false ].
+	lines
+		do: [ :aLine | 
+			sender
+				sourceText:
+					(senderText copyReplaceAll: aLine with: (self mrlLogStringsFor: aLine)) ]
 ]
 
 { #category : #accessing }
