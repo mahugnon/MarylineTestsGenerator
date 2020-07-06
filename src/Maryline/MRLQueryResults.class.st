@@ -7,6 +7,15 @@ Class {
 	#category : #'Maryline-Models'
 }
 
+{ #category : #'instance creation' }
+MRLQueryResults class >> withAll: aCollection [
+	"Create a new collection containing all the elements from aCollection."
+
+	^ self new
+		addAll: aCollection;
+		yourself
+]
+
 { #category : #adding }
 MRLQueryResults >> add: newObject [
 	"Include newObject as one of the receiver's elements. Answer newObject. 
@@ -15,11 +24,28 @@ MRLQueryResults >> add: newObject [
 	^ storage add: newObject
 ]
 
+{ #category : #adding }
+MRLQueryResults >> addAll: aCollection [
+	storage := aCollection
+]
+
 { #category : #enumerating }
 MRLQueryResults >> do: aBlock [
 	"Evaluate aBlock with each of the receiver's elements as the argument."
 
 	^ storage do: aBlock
+]
+
+{ #category : #adding }
+MRLQueryResults >> initialize [
+
+	super initialize.
+	self initialize: OrderedCollection new
+]
+
+{ #category : #adding }
+MRLQueryResults >> initialize: aCollectionForStorage [
+	storage := aCollectionForStorage
 ]
 
 { #category : #removing }
