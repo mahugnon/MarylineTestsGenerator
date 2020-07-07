@@ -1,7 +1,7 @@
 SmalltalkCISpec {
   #loading : [
     SCIMetacelloLoadSpec {
-      #baseline : 'RecoverPWBAnalyseTool',
+      #baseline : 'Maryline',
       #directory : 'src',
       #platforms : [  #pharo ]
     }
