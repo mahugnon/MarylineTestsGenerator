@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'testInvocation',
 		'toDelete',
-		'model'
+		'model',
+		'testFunction1'
 	],
 	#category : #'Maryline-Tests'
 }
@@ -71,12 +72,15 @@ MRLAbstractTests >> setUp [
 		startPos: 169;
 		endPos: 411;
 		mooseModel: model.
+	testFunction1 := FamixPWBFunction new
+		name: 'aFunction';
+		sourceAnchor: sourceAnchor.
 	testInvocation := MRLTestMockInvocation new
-		sender:
-			(FamixPWBFunction new
-				name: 'aFunction';
-				sourceAnchor: sourceAnchor);
-		candidates: {(FamixPWBFunction new name: 'f_del_ligne_suite')}.
+		sender: testFunction1;
+		candidates:
+			{(FamixPWBFunction new
+				parentType: FamixPWBUserObject new;
+				name: 'f_del_ligne_suite')}.
 	testInvocation
 		sourceText: 'f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")'
 ]
