@@ -7,8 +7,7 @@ Class {
 		'startPosition',
 		'stopPosition',
 		'invocationText',
-		'argumentString',
-		'sizeOfAddedCharacters'
+		'argumentString'
 	],
 	#category : #'Maryline-Models'
 }
@@ -24,14 +23,14 @@ MRLInvocationArgument >> argumentString: anObject [
 ]
 
 { #category : #api }
-MRLInvocationArgument >> insertMrlLogStrings: aString [
-	| lines |
-	lines := aString lines
-		select:
-			[ :aLine | aLine includesSubstring: self invocationText caseSensitive: false ].
-	^ lines
-		collect:
-			[ :aLine | aString copyReplaceAll: aLine with: (self mrlLogStringsFor: aLine) ]
+MRLInvocationArgument >> insertMrlLogStringsIn: aString [
+	| result |
+	(self invocationLines: aString)
+		do: [ :aLine | 
+			result := aString
+				copyReplaceAll: aLine
+				with: (self mrlLogStringsFor: aLine) ].
+	^ result
 ]
 
 { #category : #api }
@@ -117,32 +116,25 @@ MRLInvocationArgument >> receiver: anObject [
 
 { #category : #api }
 MRLInvocationArgument >> saveMrlLogStrings [
-	| lines sourceText file beforeSender afterSender senderText |
-	sizeOfAddedCharacters := 0.
+	| file beforeSenderText afterSenderText senderText |
 	file := sender sourceAnchor rootFolder asFileReference
 		resolve: sender sourceAnchor fileName.
-	sourceText := file contents.
-	beforeSender := sourceText
+	beforeSenderText := file contents
 		copyFrom: 1
 		to: sender sourceAnchor startPos - 1.
-	afterSender := sourceText
+	afterSenderText := file contents
 		copyFrom: sender sourceAnchor endPos + 1
-		to: sourceText size.
-	senderText := sourceText
+		to: file contents size.
+	senderText := file contents
 		copyFrom: sender sourceAnchor startPos
 		to: sender sourceAnchor endPos.
-	lines := self invocationLines: senderText.
-	lines
-		do: [ :aLine | 
-			senderText := senderText
-				copyReplaceAll: aLine
-				with: (self mrlLogStringsFor: aLine) ].
+	senderText := self insertMrlLogStringsIn: senderText.
 	file
 		writeStreamDo: [ :aStream | 
 			aStream
-				<< beforeSender;
+				<< beforeSenderText;
 				<< senderText;
-				<< afterSender ].
+				<< afterSenderText ].
 	sender sourceAnchor
 		endPos: sender sourceAnchor startPos + senderText size
 ]
