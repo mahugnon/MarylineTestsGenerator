@@ -7,7 +7,8 @@ Class {
 		'startPosition',
 		'stopPosition',
 		'invocationText',
-		'argumentString'
+		'argumentString',
+		'sizeOfAddedCharacters'
 	],
 	#category : #'Maryline-Models'
 }
@@ -20,6 +21,26 @@ MRLInvocationArgument >> argumentString [
 { #category : #accessing }
 MRLInvocationArgument >> argumentString: anObject [
 	argumentString := anObject
+]
+
+{ #category : #api }
+MRLInvocationArgument >> insertMrlLogStrings: aString [
+	| lines |
+	lines := aString lines
+		select:
+			[ :aLine | aLine includesSubstring: self invocationText caseSensitive: false ].
+	^ lines
+		collect:
+			[ :aLine | aString copyReplaceAll: aLine with: (self mrlLogStringsFor: aLine) ]
+]
+
+{ #category : #api }
+MRLInvocationArgument >> invocationLines: sourceText [
+	| lines |
+	lines := sourceText lines
+		select:
+			[ :aLine | aLine includesSubstring: self invocationText caseSensitive: false ].
+	^ lines asSet
 ]
 
 { #category : #accessing }
@@ -96,16 +117,34 @@ MRLInvocationArgument >> receiver: anObject [
 
 { #category : #api }
 MRLInvocationArgument >> saveMrlLogStrings [
-	| lines senderText |
-	senderText := sender sourceText.
-	lines := senderText lines
-		select:
-			[ :aLine | aLine includesSubstring: self invocationText caseSensitive: false ].
+	| lines sourceText file beforeSender afterSender senderText |
+	sizeOfAddedCharacters := 0.
+	file := sender sourceAnchor rootFolder asFileReference
+		resolve: sender sourceAnchor fileName.
+	sourceText := file contents.
+	beforeSender := sourceText
+		copyFrom: 1
+		to: sender sourceAnchor startPos - 1.
+	afterSender := sourceText
+		copyFrom: sender sourceAnchor endPos + 1
+		to: sourceText size.
+	senderText := sourceText
+		copyFrom: sender sourceAnchor startPos
+		to: sender sourceAnchor endPos.
+	lines := self invocationLines: senderText.
 	lines
 		do: [ :aLine | 
-			sender
-				sourceText:
-					(senderText copyReplaceAll: aLine with: (self mrlLogStringsFor: aLine)) ]
+			senderText := senderText
+				copyReplaceAll: aLine
+				with: (self mrlLogStringsFor: aLine) ].
+	file
+		writeStreamDo: [ :aStream | 
+			aStream
+				<< beforeSender;
+				<< senderText;
+				<< afterSender ].
+	sender sourceAnchor
+		endPos: sender sourceAnchor startPos + senderText size
 ]
 
 { #category : #accessing }

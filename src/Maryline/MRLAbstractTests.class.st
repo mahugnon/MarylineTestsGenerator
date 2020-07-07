@@ -2,14 +2,41 @@ Class {
 	#name : #MRLAbstractTests,
 	#superclass : #TestCase,
 	#instVars : [
-		'testInvocation'
+		'testInvocation',
+		'toDelete',
+		'model'
 	],
 	#category : #'Maryline-Tests'
 }
 
+{ #category : #public }
+MRLAbstractTests >> createDirectory: aString [
+	self toDelete addFirst: aString.
+	^ self filesystem
+		ensureCreateDirectory: (self filesystem pathFromString: aString)
+]
+
+{ #category : #public }
+MRLAbstractTests >> createFileNamed: aString content: aBlock [
+	self toDelete addFirst: aString.
+	aString asFileReference writeStreamDo: aBlock
+]
+
 { #category : #'as yet unclassified' }
 MRLAbstractTests >> exampleFunctionSource [
-	^ 'private function integer aFunction ();
+	^ 'global variables
+long gl_long1;
+global String  gs_string1;
+end variables
+	
+	shared variables
+long sl_long1;
+end variables
+type variables
+long il_long1;
+end variables
+	
+private function integer aFunction ();
   long lLong
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
 	var.isNull()
@@ -17,17 +44,52 @@ f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
 
   return LLONG
-end function'
+end function' 
+]
+
+{ #category : #public }
+MRLAbstractTests >> filesystem [
+	^ FileSystem disk
+]
+
+{ #category : #tests }
+MRLAbstractTests >> pwbLibString [
+	^ 'pwbLibs/pwbLib/'
 ]
 
 { #category : #running }
 MRLAbstractTests >> setUp [
+	| sourceAnchor |
+	self createDirectory: self pwbLibString.
+	model := FamixPWBModel new.
+	model rootFolder: self pwbLibString.
+	self
+		createFileNamed: self pwbLibString , 'fileLibA.sru'
+		content: [ :stream | stream nextPutAll: self exampleFunctionSource ].
+	sourceAnchor := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 169;
+		endPos: 411;
+		mooseModel: model.
 	testInvocation := MRLTestMockInvocation new
 		sender:
-			(MRLTestMockFunction new
+			(FamixPWBFunction new
 				name: 'aFunction';
-				sourceText: self exampleFunctionSource);
+				sourceAnchor: sourceAnchor);
 		candidates: {(FamixPWBFunction new name: 'f_del_ligne_suite')}.
 	testInvocation
 		sourceText: 'f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")'
+]
+
+{ #category : #running }
+MRLAbstractTests >> tearDown [
+	toDelete
+		select: [ :path | self filesystem exists: path ]
+		thenDo: [ :path | self filesystem delete: path ].
+	super tearDown
+]
+
+{ #category : #public }
+MRLAbstractTests >> toDelete [
+	^ toDelete ifNil: [ toDelete := OrderedCollection new ]
 ]

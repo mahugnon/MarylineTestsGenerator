@@ -43,5 +43,6 @@ f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
 f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-aFunction")
 
   return LLONG
-end function'
+end function'.
+	self tearDown
 ]
