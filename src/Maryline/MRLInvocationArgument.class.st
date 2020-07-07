@@ -122,9 +122,11 @@ MRLInvocationArgument >> saveMrlLogStrings [
 	beforeSenderText := file contents
 		copyFrom: 1
 		to: sender sourceAnchor startPos - 1.
-	afterSenderText := file contents
-		copyFrom: sender sourceAnchor endPos + 1
-		to: file contents size.
+	sender sourceAnchor endPos >= file contents size
+		ifTrue: [ afterSenderText := '' ]
+		ifFalse: [ afterSenderText := file contents
+				copyFrom: sender sourceAnchor endPos + 1
+				to: file contents size ].
 	senderText := file contents
 		copyFrom: sender sourceAnchor startPos
 		to: sender sourceAnchor endPos.
@@ -136,7 +138,7 @@ MRLInvocationArgument >> saveMrlLogStrings [
 				<< senderText;
 				<< afterSenderText ].
 	sender sourceAnchor
-		endPos: sender sourceAnchor startPos + senderText size
+		endPos: sender sourceAnchor startPos + senderText size - 1
 ]
 
 { #category : #accessing }
