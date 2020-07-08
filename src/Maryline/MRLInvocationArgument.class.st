@@ -67,7 +67,7 @@ MRLInvocationArgument >> mrlAfterLogString [
 				<< '"';
 				<< argumentString;
 				<< '-after-';
-				<< sender name;
+				<< receiver;
 				<< '"';
 				<< ')' ]
 ]
@@ -87,7 +87,7 @@ MRLInvocationArgument >> mrlBeforeLogString [
 				<< '"';
 				<< argumentString;
 				<< '-before-';
-				<< sender name;
+				<< receiver;
 				<< '"';
 				<< ')' ]
 ]

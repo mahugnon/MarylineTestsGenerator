@@ -12,22 +12,22 @@ MRLFunctionTests >> testSaveMrlLogStringsForArgumentsInAnchor [
 		equals:
 			'private function integer aFunction ();
   long lLong
-f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-aFunction")
-f_mrl_log().log(al_lig,"aFunction","al_lig-before-aFunction")
-f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-before-aFunction")
+f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-f_del_ligne_suite")
+f_mrl_log().log(al_lig,"aFunction","al_lig-before-f_del_ligne_suite")
+f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-before-f_del_ligne_suite")
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
-f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-after-aFunction")
-f_mrl_log().log(al_lig,"aFunction","al_lig-after-aFunction")
-f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-aFunction")
+f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-after-f_del_ligne_suite")
+f_mrl_log().log(al_lig,"aFunction","al_lig-after-f_del_ligne_suite")
+f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-f_del_ligne_suite")
 	var.isNull()
   anotherFunction(2, "blah")
-f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-aFunction")
-f_mrl_log().log(al_lig,"aFunction","al_lig-before-aFunction")
-f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-before-aFunction")
+f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-f_del_ligne_suite")
+f_mrl_log().log(al_lig,"aFunction","al_lig-before-f_del_ligne_suite")
+f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-before-f_del_ligne_suite")
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
-f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-after-aFunction")
-f_mrl_log().log(al_lig,"aFunction","al_lig-after-aFunction")
-f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-aFunction")
+f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-after-f_del_ligne_suite")
+f_mrl_log().log(al_lig,"aFunction","al_lig-after-f_del_ligne_suite")
+f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-f_del_ligne_suite")
 
   return LLONG
 end function'.
@@ -42,22 +42,22 @@ MRLFunctionTests >> testSaveMrlLogStringsForInvocationsInAnchor [
 		equals:
 			'private function integer aFunction ();
   long lLong
-f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-aFunction")
-f_mrl_log().log(al_lig,"aFunction","al_lig-before-aFunction")
-f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-before-aFunction")
+f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-f_del_ligne_suite")
+f_mrl_log().log(al_lig,"aFunction","al_lig-before-f_del_ligne_suite")
+f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-before-f_del_ligne_suite")
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
-f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-after-aFunction")
-f_mrl_log().log(al_lig,"aFunction","al_lig-after-aFunction")
-f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-aFunction")
+f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-after-f_del_ligne_suite")
+f_mrl_log().log(al_lig,"aFunction","al_lig-after-f_del_ligne_suite")
+f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-f_del_ligne_suite")
 	var.isNull()
   anotherFunction(2, "blah")
-f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-aFunction")
-f_mrl_log().log(al_lig,"aFunction","al_lig-before-aFunction")
-f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-before-aFunction")
+f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-f_del_ligne_suite")
+f_mrl_log().log(al_lig,"aFunction","al_lig-before-f_del_ligne_suite")
+f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-before-f_del_ligne_suite")
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
-f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-after-aFunction")
-f_mrl_log().log(al_lig,"aFunction","al_lig-after-aFunction")
-f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-aFunction")
+f_mrl_log().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec <> "dlq_rel"-after-f_del_ligne_suite")
+f_mrl_log().log(al_lig,"aFunction","al_lig-after-f_del_ligne_suite")
+f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-f_del_ligne_suite")
 
   return LLONG
 end function'.

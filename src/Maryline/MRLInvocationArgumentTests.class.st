@@ -10,7 +10,7 @@ MRLInvocationArgumentTests >> testMrlAfterLogString [
 		assert:
 			(QueryInvocationArguments runOn: testInvocation) first
 				mrlAfterLogString
-		equals: 'f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-aFunction")'
+		equals: 'f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-f_del_ligne_suite")'
 ]
 
 { #category : #tests }
@@ -20,7 +20,7 @@ MRLInvocationArgumentTests >> testMrlBeforeLogString [
 			(QueryInvocationArguments runOn: testInvocation) first
 				mrlBeforeLogString
 		equals:
-			'f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-aFunction")'
+			'f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-f_del_ligne_suite")'
 ]
 
 { #category : #tests }
@@ -33,14 +33,14 @@ MRLInvocationArgumentTests >> testSaveMrlLogStrings [
 		equals:
 			'private function integer aFunction ();
   long lLong
-f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-aFunction")
+f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-f_del_ligne_suite")
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
-f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-aFunction")
+f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-f_del_ligne_suite")
 	var.isNull()
   anotherFunction(2, "blah")
-f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-aFunction")
+f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-f_del_ligne_suite")
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
-f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-aFunction")
+f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-f_del_ligne_suite")
 
   return LLONG
 end function'.
