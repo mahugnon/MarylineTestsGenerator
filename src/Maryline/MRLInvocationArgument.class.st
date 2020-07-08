@@ -116,7 +116,7 @@ MRLInvocationArgument >> receiver: anObject [
 
 { #category : #api }
 MRLInvocationArgument >> saveMrlLogStrings [
-	| file beforeSenderText afterSenderText senderText |
+	| file beforeSenderText afterSenderText senderText initSize |
 	file := sender sourceAnchor rootFolder asFileReference
 		resolve: sender sourceAnchor fileName.
 	beforeSenderText := file contents
@@ -130,6 +130,7 @@ MRLInvocationArgument >> saveMrlLogStrings [
 	senderText := file contents
 		copyFrom: sender sourceAnchor startPos
 		to: sender sourceAnchor endPos.
+	initSize := senderText size.
 	senderText := self insertMrlLogStringsIn: senderText.
 	file
 		writeStreamDo: [ :aStream | 
@@ -137,6 +138,7 @@ MRLInvocationArgument >> saveMrlLogStrings [
 				<< beforeSenderText;
 				<< senderText;
 				<< afterSenderText ].
+	sender addedCharacter: senderText size - initSize.
 	sender sourceAnchor
 		endPos: sender sourceAnchor startPos + senderText size - 1
 ]

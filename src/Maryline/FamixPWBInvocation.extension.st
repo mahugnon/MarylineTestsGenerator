@@ -2,5 +2,8 @@ Extension { #name : #FamixPWBInvocation }
 
 { #category : #'*Maryline' }
 FamixPWBInvocation >> saveMrlLogStringsForArgumentsInAnchor [
-	(QueryInvocationArguments runOn: self) do: #saveMrlLogStrings
+	| arguments |
+	arguments := QueryInvocationArguments runOn: self.
+	arguments isEmptyOrNil
+		ifFalse: [ arguments do: #saveMrlLogStrings ]
 ]
