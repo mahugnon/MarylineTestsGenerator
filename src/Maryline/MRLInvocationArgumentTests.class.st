@@ -8,7 +8,7 @@ Class {
 MRLInvocationArgumentTests >> testMrlAfterLogString [
 	self
 		assert:
-			(QueryInvocationArguments runOn: testInvocation) first
+			(QueryInvocationArguments runOn: testInvocation1) first
 				mrlAfterLogString
 		equals: 'f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-f_del_ligne_suite")'
 ]
@@ -17,7 +17,7 @@ MRLInvocationArgumentTests >> testMrlAfterLogString [
 MRLInvocationArgumentTests >> testMrlBeforeLogString [
 	self
 		assert:
-			(QueryInvocationArguments runOn: testInvocation) first
+			(QueryInvocationArguments runOn: testInvocation1) first
 				mrlBeforeLogString
 		equals:
 			'f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-f_del_ligne_suite")'
@@ -26,7 +26,7 @@ MRLInvocationArgumentTests >> testMrlBeforeLogString [
 { #category : #tests }
 MRLInvocationArgumentTests >> testSaveMrlLogStrings [
 	| argument |
-	argument := (QueryInvocationArguments runOn: testInvocation) first.
+	argument := (QueryInvocationArguments runOn: testInvocation1) first.
 	argument saveMrlLogStrings.
 	self
 		assert: argument sender sourceText

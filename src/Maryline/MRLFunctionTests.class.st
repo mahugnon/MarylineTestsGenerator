@@ -6,9 +6,9 @@ Class {
 
 { #category : #tests }
 MRLFunctionTests >> testSaveMrlLogStringsForArgumentsInAnchor [
-	testInvocation saveMrlLogStringsForArgumentsInAnchor.
+	testInvocation1 saveMrlLogStringsForArgumentsInAnchor.
 	self
-		assert: testInvocation sender sourceText
+		assert: testInvocation1 sender sourceText
 		equals:
 			'private function integer aFunction ();
   long lLong

@@ -8,7 +8,7 @@ Class {
 MRLQueriesTests >> testQueryInvocationArguments [
 	self
 		assertCollection:
-			((QueryInvocationArguments runOn: testInvocation)
+			((QueryInvocationArguments runOn: testInvocation1)
 				collect: #argumentString)
 		hasSameElements:
 			(MRLQueryResults

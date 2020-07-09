@@ -2,10 +2,12 @@ Class {
 	#name : #MRLAbstractTests,
 	#superclass : #TestCase,
 	#instVars : [
-		'testInvocation',
 		'toDelete',
 		'model',
-		'testFunction1'
+		'testFunction1',
+		'testInvocation1',
+		'testInvocation2',
+		'testFunction2'
 	],
 	#category : #'Maryline-Tests'
 }
@@ -15,6 +17,13 @@ MRLAbstractTests >> createDirectory: aString [
 	self toDelete addFirst: aString.
 	^ self filesystem
 		ensureCreateDirectory: (self filesystem pathFromString: aString)
+]
+
+{ #category : #running }
+MRLAbstractTests >> createFile [
+	self
+		createFileNamed: self pwbLibString , 'fileLibA.sru'
+		content: [ :stream | stream nextPutAll: self exampleFunctionSource ]
 ]
 
 { #category : #public }
@@ -60,13 +69,17 @@ MRLAbstractTests >> pwbLibString [
 
 { #category : #running }
 MRLAbstractTests >> setUp [
-	| sourceAnchor |
 	self createDirectory: self pwbLibString.
 	model := FamixPWBModel new.
 	model rootFolder: self pwbLibString.
-	self
-		createFileNamed: self pwbLibString , 'fileLibA.sru'
-		content: [ :stream | stream nextPutAll: self exampleFunctionSource ].
+	self createFile.
+	self setUpFunction.
+	self setUpInvocations
+]
+
+{ #category : #running }
+MRLAbstractTests >> setUpFunction [
+	| sourceAnchor |
 	sourceAnchor := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 169;
@@ -75,14 +88,32 @@ MRLAbstractTests >> setUp [
 	testFunction1 := FamixPWBFunction new
 		name: 'aFunction';
 		sourceAnchor: sourceAnchor.
-	testInvocation := MRLTestMockInvocation new
+	testFunction2 := FamixPWBFunction new
+		parentType: FamixPWBUserObject new;
+		name: 'f_del_ligne_suite'
+]
+
+{ #category : #running }
+MRLAbstractTests >> setUpInvocations [
+	| sourceAnchorTestFunction1 sourceAnchorTestFunction2 |
+	sourceAnchorTestFunction1 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 221;
+		endPos: 279;
+		mooseModel: model.
+	sourceAnchorTestFunction2 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 324;
+		endPos: 382;
+		mooseModel: model.
+	testInvocation1 := FamixPWBInvocation new
+		sourceAnchor: sourceAnchorTestFunction1;
 		sender: testFunction1;
-		candidates:
-			{(FamixPWBFunction new
-				parentType: FamixPWBUserObject new;
-				name: 'f_del_ligne_suite')}.
-	testInvocation
-		sourceText: 'f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")'
+		candidates: {testFunction2}.
+	testInvocation2 := FamixPWBInvocation new
+		sourceAnchor: sourceAnchorTestFunction2;
+		sender: testFunction1;
+		candidates: {testFunction2}
 ]
 
 { #category : #running }

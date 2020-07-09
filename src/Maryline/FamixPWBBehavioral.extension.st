@@ -8,16 +8,18 @@ FamixPWBBehavioral >> addedCharacter [
 
 { #category : #'*Maryline' }
 FamixPWBBehavioral >> addedCharacter: anInteger [
+	self addedCharacter.
 	addedCharacter := addedCharacter + anInteger
 ]
 
 { #category : #'*Maryline' }
 FamixPWBBehavioral >> saveMrlLogStringsForInvocationsInAnchor [
-	((self outgoingInvocations
+	((((self outgoingInvocations
 		select: [ :inv | 
 			inv candidates
 				anySatisfy: [ :candidate | candidate parentType isNotNil ] ])
 		sortAscending: [ :each | each sourceAnchor startPos ])
+		groupedBy: #sourceText) values collect: [ :e | e first ])
 		do: [ :inv | 
 			inv sourceAnchor
 				startPos: inv sourceAnchor startPos + self addedCharacter.
