@@ -7,7 +7,15 @@ Class {
 		'testFunction1',
 		'testInvocation1',
 		'testInvocation2',
-		'testFunction2'
+		'testFunction2',
+		'sourceAnchorTestFunction3',
+		'sourceAnchorTestFunction4',
+		'sourceAnchorTestFunction1',
+		'sourceAnchorTestFunction2',
+		'testFunction3',
+		'sourceAnchor',
+		'testInvocation3',
+		'testInvocation4'
 	],
 	#category : #'Maryline-Tests'
 }
@@ -34,23 +42,11 @@ MRLAbstractTests >> createFileNamed: aString content: aBlock [
 
 { #category : #'as yet unclassified' }
 MRLAbstractTests >> exampleFunctionSource [
-	^ 'global variables
-long gl_long1;
-global String  gs_string1;
-end variables
-	
-	shared variables
-long sl_long1;
-end variables
-type variables
-long il_long1;
-end variables
-	
-private function integer aFunction ();
+	^ 'private function integer aFunction ();
   long lLong
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
 	var.isNull()
-  anotherFunction(2, "blah")
+ uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
 
   return LLONG
@@ -79,33 +75,20 @@ MRLAbstractTests >> setUp [
 
 { #category : #running }
 MRLAbstractTests >> setUpFunction [
-	| sourceAnchor |
-	sourceAnchor := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 169;
-		endPos: 411;
-		mooseModel: model.
 	testFunction1 := FamixPWBFunction new
 		name: 'aFunction';
 		sourceAnchor: sourceAnchor.
 	testFunction2 := FamixPWBFunction new
 		parentType: FamixPWBUserObject new;
-		name: 'f_del_ligne_suite'
+		name: 'f_del_ligne_suite'.
+	testFunction3 := FamixPWBFunction new
+		parentType: FamixPWBUserObject new;
+		name: 'uf_exist_col_dw'
 ]
 
 { #category : #running }
 MRLAbstractTests >> setUpInvocations [
-	| sourceAnchorTestFunction1 sourceAnchorTestFunction2 |
-	sourceAnchorTestFunction1 := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 221;
-		endPos: 279;
-		mooseModel: model.
-	sourceAnchorTestFunction2 := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 324;
-		endPos: 382;
-		mooseModel: model.
+	self setUpSourceAnchors.
 	testInvocation1 := FamixPWBInvocation new
 		sourceAnchor: sourceAnchorTestFunction1;
 		sender: testFunction1;
@@ -113,7 +96,44 @@ MRLAbstractTests >> setUpInvocations [
 	testInvocation2 := FamixPWBInvocation new
 		sourceAnchor: sourceAnchorTestFunction2;
 		sender: testFunction1;
-		candidates: {testFunction2}
+		candidates: {testFunction2}.
+	testInvocation3 := FamixPWBInvocation new
+		sourceAnchor: sourceAnchorTestFunction3;
+		sender: testFunction1;
+		candidates: {testFunction3}.
+	testInvocation4 := FamixPWBInvocation new
+		sourceAnchor: sourceAnchorTestFunction4;
+		sender: testFunction1;
+		candidates: {testFunction3}
+]
+
+{ #category : #running }
+MRLAbstractTests >> setUpSourceAnchors [
+	sourceAnchor := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 1;
+		endPos: 243;
+		mooseModel: model.
+	sourceAnchorTestFunction1 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 53;
+		endPos: 111;
+		mooseModel: model.
+	sourceAnchorTestFunction2 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 156;
+		endPos: 214;
+		mooseModel: model.
+	sourceAnchorTestFunction3 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 128;
+		endPos: 161;
+		mooseModel: model.
+	sourceAnchorTestFunction4 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 167;
+		endPos: 200;
+		mooseModel: model
 ]
 
 { #category : #running }
