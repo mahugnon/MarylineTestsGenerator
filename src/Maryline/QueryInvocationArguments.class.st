@@ -1,21 +1,8 @@
 Class {
 	#name : #QueryInvocationArguments,
 	#superclass : #MRLAbstractQuery,
-	#instVars : [
-		'alterFile'
-	],
 	#category : #'Maryline-Queries'
 }
-
-{ #category : #accessing }
-QueryInvocationArguments >> alterFile [
-	^ alterFile
-]
-
-{ #category : #accessing }
-QueryInvocationArguments >> alterFile: anObject [
-	alterFile := anObject
-]
 
 { #category : #running }
 QueryInvocationArguments >> runOn: aFamixPWBInvocation [
