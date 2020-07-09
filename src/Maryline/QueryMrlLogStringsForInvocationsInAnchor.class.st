@@ -24,8 +24,8 @@ QueryMrlLogStringsForInvocationsInAnchor >> runOn: aCollection with: aString [
 	sourceText := aString copy.
 	aCollection
 		do: [ :invocation | 
-			sourceText := QueryMrlLogStringsForArgumentsWithAnchorText new
-				runOn: (QueryInvocationArguments runOn: invocation)
+			sourceText := QueryMrlLogStringsForInvocationInAnchor new
+				runOn: invocation
 				with: sourceText ].
 	^ sourceText
 ]

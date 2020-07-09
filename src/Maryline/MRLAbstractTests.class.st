@@ -121,8 +121,8 @@ MRLAbstractTests >> setUpSourceAnchors [
 		mooseModel: model.
 	sourceAnchorTestFunction2 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
-		startPos: 156;
-		endPos: 214;
+		startPos: 167;
+		endPos: 200;
 		mooseModel: model.
 	sourceAnchorTestFunction3 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
