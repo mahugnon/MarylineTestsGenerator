@@ -27,9 +27,10 @@ MRLInvocationArgumentTests >> testMrlBeforeLogString [
 MRLInvocationArgumentTests >> testSaveMrlLogStrings [
 	| argument |
 	argument := (QueryInvocationArguments runOn: testInvocation1) first.
-	argument saveMrlLogStrings.
+
+	"argument saveMrlLogStrings."
 	self
-		assert: argument sender sourceText
+		assert: (argument generateInSourceTextMrlLogStrings: testFunction1 sourceText)
 		equals:
 			'private function integer aFunction ();
   long lLong
@@ -37,7 +38,7 @@ f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-f_del_ligne_suite")
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
 f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-f_del_ligne_suite")
 	var.isNull()
-  anotherFunction(2, "blah")
+ uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
 f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-f_del_ligne_suite")
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
 f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-after-f_del_ligne_suite")

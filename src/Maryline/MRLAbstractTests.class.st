@@ -68,6 +68,7 @@ MRLAbstractTests >> setUp [
 	self createDirectory: self pwbLibString.
 	model := FamixPWBModel new.
 	model rootFolder: self pwbLibString.
+		self setUpSourceAnchors.
 	self createFile.
 	self setUpFunction.
 	self setUpInvocations
@@ -88,7 +89,6 @@ MRLAbstractTests >> setUpFunction [
 
 { #category : #running }
 MRLAbstractTests >> setUpInvocations [
-	self setUpSourceAnchors.
 	testInvocation1 := FamixPWBInvocation new
 		sourceAnchor: sourceAnchorTestFunction1;
 		sender: testFunction1;
@@ -112,7 +112,7 @@ MRLAbstractTests >> setUpSourceAnchors [
 	sourceAnchor := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 1;
-		endPos: 243;
+		endPos: 289;
 		mooseModel: model.
 	sourceAnchorTestFunction1 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';

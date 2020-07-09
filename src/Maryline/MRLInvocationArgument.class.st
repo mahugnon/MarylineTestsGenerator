@@ -23,6 +23,54 @@ MRLInvocationArgument >> argumentString: anObject [
 ]
 
 { #category : #api }
+MRLInvocationArgument >> generateInSourceTextMrlLogStrings [
+	| file beforeSenderText afterSenderText senderText |
+	file := sender sourceAnchor rootFolder asFileReference
+		resolve: sender sourceAnchor fileName.
+	beforeSenderText := file contents
+		copyFrom: 1
+		to: sender sourceAnchor startPos - 1.
+	sender sourceAnchor endPos >= file contents size
+		ifTrue: [ afterSenderText := '' ]
+		ifFalse: [ afterSenderText := file contents
+				copyFrom: sender sourceAnchor endPos + 1
+				to: file contents size ].
+	senderText := file contents
+		copyFrom: sender sourceAnchor startPos
+		to: sender sourceAnchor endPos.
+	senderText := self insertMrlLogStringsIn: senderText.
+	^ String
+		streamContents: [ :aStream | 
+			aStream
+				<< beforeSenderText;
+				<< senderText;
+				<< afterSenderText ]
+]
+
+{ #category : #api }
+MRLInvocationArgument >> generateInSourceTextMrlLogStrings: aString [
+	| beforeSenderText afterSenderText senderText |
+	beforeSenderText := aString
+		copyFrom: 1
+		to: sender sourceAnchor startPos - 1.
+	sender sourceAnchor endPos >= aString size
+		ifTrue: [ afterSenderText := '' ]
+		ifFalse: [ afterSenderText := aString
+				copyFrom: sender sourceAnchor endPos + 1
+				to: aString size ].
+	senderText := aString
+		copyFrom: sender sourceAnchor startPos
+		to: sender sourceAnchor endPos.
+	senderText := self insertMrlLogStringsIn: senderText.
+	^ String
+		streamContents: [ :aStream | 
+			aStream
+				<< beforeSenderText;
+				<< senderText;
+				<< afterSenderText ]
+]
+
+{ #category : #api }
 MRLInvocationArgument >> insertMrlLogStringsIn: aString [
 	| result |
 	(self invocationLines: aString)
