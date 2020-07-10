@@ -157,9 +157,9 @@ MRLInvocationArgument >> mrlLogStringsFor: aLine [
 		streamContents: [ :aStream | 
 			aStream
 				<< self mrlBeforeLogString;
-				cr;
+				crlf;
 				<< aLine;
-				cr;
+				crlf;
 				<< self mrlAfterLogString ]
 ]
 

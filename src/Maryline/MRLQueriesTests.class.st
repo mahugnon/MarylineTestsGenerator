@@ -58,7 +58,7 @@ MRLQueriesTests >> testSaveMrlLogStringsForFunctionAlterFileInAnchor [
 	self
 		assert: file contents
 		equals:
-		'private function integer aFunction ();
+	'private function integer aFunction ();
   long lLong
 f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-f_del_ligne_suite")
 f_mrl_log().log(al_lig,"aFunction","al_lig-before-f_del_ligne_suite")
@@ -95,7 +95,7 @@ MRLQueriesTests >> testSaveMrlLogStringsForInvocationsInAnchor [
 	self
 		assert: (QueryMrlLogStringsForFunctionInAnchor runOn: testFunction1)
 		equals:
-		'private function integer aFunction ();
+	'private function integer aFunction ();
   long lLong
 f_mrl_log().log(adw_dlq,"aFunction","adw_dlq-before-f_del_ligne_suite")
 f_mrl_log().log(al_lig,"aFunction","al_lig-before-f_del_ligne_suite")
