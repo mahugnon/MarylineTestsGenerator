@@ -24,6 +24,19 @@ MRLInvocationArgumentTests >> testMrlBeforeLogString [
 ]
 
 { #category : #tests }
+MRLInvocationArgumentTests >> testMrlBeforeLogString1 [
+|arg|
+arg := MRLInvocationArgument new sender: testFunction1; receiver:'uf_rech_nv_param_prev';argumentString:'"PER_PAI"';yourself  .
+	
+	self
+		assert:
+			arg 
+				mrlBeforeLogString
+		equals:
+			'f_mrl_log().log("PER_PAI","aFunction","PER_PAI-before-uf_rech_nv_param_prev")'
+]
+
+{ #category : #tests }
 MRLInvocationArgumentTests >> testSaveMrlLogStrings [
 	| argument |
 	argument := (QueryInvocationArguments runOn: testInvocation1) first.

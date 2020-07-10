@@ -4,6 +4,12 @@ Class {
 	#category : #'Maryline-Queries'
 }
 
+{ #category : #initialization }
+QueryMrlLogStringsForFunctionInAnchor >> initialize [
+	super initialize.
+	alterFile := false
+]
+
 { #category : #running }
 QueryMrlLogStringsForFunctionInAnchor >> runOn: aFamixPWBBehaviour [
 	| sourceText invocations file |

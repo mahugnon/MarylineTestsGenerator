@@ -95,8 +95,9 @@ MRLInvocationArgument >> insertMrlLogStringsIn: aString [
 MRLInvocationArgument >> invocationLines: sourceText [
 	| lines |
 	lines := sourceText lines
-		select:
-			[ :aLine | aLine includesSubstring: self invocationText caseSensitive: false ].
+		select: [ :aLine | 
+			(aLine matchesRegex: '//.*') not
+				and: [ aLine includesSubstring: self invocationText caseSensitive: false ] ].
 	^ lines asSet
 ]
 
@@ -112,26 +113,24 @@ MRLInvocationArgument >> invocationText: anObject [
 
 { #category : #api }
 MRLInvocationArgument >> mrlAfterLogString [
-	^ String
-		streamContents: [ :aStream | 
-			aStream
-				<< 'f_mrl_log().log(';
-				<< argumentString;
-				<< ',';
-				<< '"';
-				<< sender name;
-				<< '"';
-				<< ',';
-				<< '"';
-				<< argumentString;
-				<< '-after-';
-				<< receiver;
-				<< '"';
-				<< ')' ]
+	^self mrlLogString: 'after'
 ]
 
 { #category : #api }
 MRLInvocationArgument >> mrlBeforeLogString [
+	^ self mrlLogString: 'before'
+]
+
+{ #category : #api }
+MRLInvocationArgument >> mrlLogString: aString [
+	| printable |
+	printable := argumentString copy.
+	self replacementMap keys
+		select: [ :key | printable includesSubstring: key asString ]
+		thenDo: [ :key | 
+			printable := printable
+				copyReplaceAll: key asString
+				with: (self replacementMap at: key) ].
 	^ String
 		streamContents: [ :aStream | 
 			aStream
@@ -143,8 +142,10 @@ MRLInvocationArgument >> mrlBeforeLogString [
 				<< '"';
 				<< ',';
 				<< '"';
-				<< argumentString;
-				<< '-before-';
+				<< printable;
+				<< '-';
+				<< aString;
+				<< '-';
 				<< receiver;
 				<< '"';
 				<< ')' ]
@@ -170,6 +171,16 @@ MRLInvocationArgument >> receiver [
 { #category : #accessing }
 MRLInvocationArgument >> receiver: anObject [
 	receiver := anObject
+]
+
+{ #category : #'as yet unclassified' }
+MRLInvocationArgument >> replacementMap [
+	^ {('/' -> '_dividedBy_').
+	('<>' -> '_isDifferentFrom_').
+	($" -> '').
+	($' -> '').
+	(' ' -> '').
+	('""' -> 'empty_string')} asOrderedDictionary
 ]
 
 { #category : #api }
