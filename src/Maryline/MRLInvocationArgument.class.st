@@ -134,7 +134,7 @@ MRLInvocationArgument >> mrlLogString: aString [
 	^ String
 		streamContents: [ :aStream | 
 			aStream
-				<< 'f_mrl_log().log(';
+				<< 'f_mrl_logger().log(';
 				<< argumentString;
 				<< ',';
 				<< '"';
