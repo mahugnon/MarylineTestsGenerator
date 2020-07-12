@@ -17,7 +17,9 @@ Class {
 		'sourceAnchorTestInvocation4',
 		'sourceAnchorTestInvocation5',
 		'sourceAnchorFunction1',
-		'sourceAnchorFunction2'
+		'sourceAnchorFunction2',
+		'sourceAnchorTestObject1',
+		'testPWBOject1'
 	],
 	#category : #'Maryline-Tests'
 }
@@ -72,10 +74,11 @@ MRLAbstractTests >> pwbLibString [
 { #category : #running }
 MRLAbstractTests >> setUp [
 	self createDirectory: self pwbLibString.
+	self createFile.
 	model := FamixPWBModel new.
 	model rootFolder: self pwbLibString.
-		self setUpSourceAnchors.
-	self createFile.
+	self setUpSourceAnchors.
+	self setUpPWBTestObjects.
 	self setUpFunction.
 	self setUpInvocations
 ]
@@ -84,14 +87,17 @@ MRLAbstractTests >> setUp [
 MRLAbstractTests >> setUpFunction [
 	testFunction1 := FamixPWBFunction new
 		name: 'aFunction';
-		sourceAnchor: sourceAnchorFunction1.
+		sourceAnchor: sourceAnchorFunction1;
+		parentType: testPWBOject1.
 	testFunction2 := FamixPWBFunction new
 		parentType: FamixPWBUserObject new;
 		name: 'f_del_ligne_suite';
-		sourceAnchor: sourceAnchorFunction2.
+		sourceAnchor: sourceAnchorFunction2;
+		parentType: testPWBOject1.
 	testFunction3 := FamixPWBFunction new
 		parentType: FamixPWBUserObject new;
-		name: 'uf_exist_col_dw'
+		name: 'uf_exist_col_dw';
+		parentType: testPWBOject1
 ]
 
 { #category : #running }
@@ -116,6 +122,14 @@ MRLAbstractTests >> setUpInvocations [
 		sourceAnchor: sourceAnchorTestInvocation5;
 		sender: testFunction2;
 		candidates: {testFunction3}
+]
+
+{ #category : #running }
+MRLAbstractTests >> setUpPWBTestObjects [
+	testPWBOject1 := FamixPWBUserObject new
+		mooseModel: model;
+		name: 'testPWBOject1';
+		sourceAnchor: sourceAnchorTestObject1.
 ]
 
 { #category : #running }
@@ -154,6 +168,11 @@ MRLAbstractTests >> setUpSourceAnchors [
 		fileName: 'fileLibA.sru';
 		startPos: 429;
 		endPos: 462;
+		mooseModel: model.
+	sourceAnchorTestObject1 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 1;
+		endPos: 475;
 		mooseModel: model
 ]
 

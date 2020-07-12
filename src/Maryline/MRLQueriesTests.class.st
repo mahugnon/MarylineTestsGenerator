@@ -6,13 +6,46 @@ Class {
 
 { #category : #tests }
 MRLQueriesTests >> testInsertMrlLogStringsForFunctionsInSource [
+	testPWBOject1
+		brPath:
+			{testFunction1.
+			testFunction2}.
 	self
 		assert:
-			((QueryInsertMrlLogStringsForFunctionsInSource new
-				runOn:
-					{testFunction1.
-					testFunction2}) at: testFunction2)
-		equals: 'private function integer f_del_ligne_suite(datawindow adw_param, long al_param, boolean ab_param)
+			(QueryInsertMrlLogStringsForBRFunctionsInPWBObjectInSource new
+				runOn: testPWBOject1) sourceText
+		equals:
+			'private function integer aFunction ();
+  long lLong
+f_mrl_logger().log(adw_dlq,"aFunction","adw_dlq-before-f_del_ligne_suite")
+f_mrl_logger().log(al_lig,"aFunction","al_lig-before-f_del_ligne_suite")
+f_mrl_logger().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec_isDifferentFrom_dlq_rel-before-f_del_ligne_suite")
+f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
+f_mrl_logger().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec_isDifferentFrom_dlq_rel-after-f_del_ligne_suite")
+f_mrl_logger().log(al_lig,"aFunction","al_lig-after-f_del_ligne_suite")
+f_mrl_logger().log(adw_dlq,"aFunction","adw_dlq-after-f_del_ligne_suite")
+	var.isNull()
+f_mrl_logger().log(''noe_lig'',"aFunction","noe_lig-before-uf_exist_col_dw")
+f_mrl_logger().log(adw_dlq,"aFunction","adw_dlq-before-uf_exist_col_dw")
+f_mrl_logger().log(''noe_cev'',"aFunction","noe_cev-before-uf_exist_col_dw")
+f_mrl_logger().log(adw_dlq,"aFunction","adw_dlq-before-uf_exist_col_dw")
+ uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
+f_mrl_logger().log(adw_dlq,"aFunction","adw_dlq-after-uf_exist_col_dw")
+f_mrl_logger().log(''noe_cev'',"aFunction","noe_cev-after-uf_exist_col_dw")
+f_mrl_logger().log(adw_dlq,"aFunction","adw_dlq-after-uf_exist_col_dw")
+f_mrl_logger().log(''noe_lig'',"aFunction","noe_lig-after-uf_exist_col_dw")
+f_mrl_logger().log(adw_dlq,"aFunction","adw_dlq-before-f_del_ligne_suite")
+f_mrl_logger().log(al_lig,"aFunction","al_lig-before-f_del_ligne_suite")
+f_mrl_logger().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec_isDifferentFrom_dlq_rel-before-f_del_ligne_suite")
+f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
+f_mrl_logger().log(is_col_dec <> "dlq_rel","aFunction","is_col_dec_isDifferentFrom_dlq_rel-after-f_del_ligne_suite")
+f_mrl_logger().log(al_lig,"aFunction","al_lig-after-f_del_ligne_suite")
+f_mrl_logger().log(adw_dlq,"aFunction","adw_dlq-after-f_del_ligne_suite")
+
+  return LLONG
+end function
+
+private function integer f_del_ligne_suite(datawindow adw_param, long al_param, boolean ab_param)
 f_mrl_logger().log(''noe_cev'',"f_del_ligne_suite","noe_cev-before-uf_exist_col_dw")
 f_mrl_logger().log(adw_dlq,"f_del_ligne_suite","adw_dlq-before-uf_exist_col_dw")
 uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
