@@ -5,6 +5,24 @@ Class {
 }
 
 { #category : #tests }
+MRLQueriesTests >> testInsertMrlLogStringsForFunctionsInSource [
+	self
+		assert:
+			((QueryInsertMrlLogStringsForFunctionsInSource new
+				runOn:
+					{testFunction1.
+					testFunction2}) at: testFunction2)
+		equals: 'private function integer f_del_ligne_suite(datawindow adw_param, long al_param, boolean ab_param)
+f_mrl_logger().log(''noe_cev'',"f_del_ligne_suite","noe_cev-before-uf_exist_col_dw")
+f_mrl_logger().log(adw_dlq,"f_del_ligne_suite","adw_dlq-before-uf_exist_col_dw")
+uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
+f_mrl_logger().log(adw_dlq,"f_del_ligne_suite","adw_dlq-after-uf_exist_col_dw")
+f_mrl_logger().log(''noe_cev'',"f_del_ligne_suite","noe_cev-after-uf_exist_col_dw")
+end function'.
+	self tearDown
+]
+
+{ #category : #tests }
 MRLQueriesTests >> testQueryInvocationArguments [
 	self
 		assertCollection:

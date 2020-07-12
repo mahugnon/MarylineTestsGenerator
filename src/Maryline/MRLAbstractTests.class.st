@@ -8,14 +8,16 @@ Class {
 		'testInvocation1',
 		'testInvocation2',
 		'testFunction2',
-		'sourceAnchorTestFunction3',
-		'sourceAnchorTestFunction4',
-		'sourceAnchorTestFunction1',
-		'sourceAnchorTestFunction2',
 		'testFunction3',
-		'sourceAnchor',
 		'testInvocation3',
-		'testInvocation4'
+		'testInvocation4',
+		'sourceAnchorTestInvocation1',
+		'sourceAnchorTestInvocation2',
+		'sourceAnchorTestInvocation3',
+		'sourceAnchorTestInvocation4',
+		'sourceAnchorTestInvocation5',
+		'sourceAnchorFunction1',
+		'sourceAnchorFunction2'
 	],
 	#category : #'Maryline-Tests'
 }
@@ -50,7 +52,11 @@ f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
 
   return LLONG
-end function' 
+end function
+
+private function integer f_del_ligne_suite(datawindow adw_param, long al_param, boolean ab_param)
+uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
+end function'
 ]
 
 { #category : #public }
@@ -78,10 +84,11 @@ MRLAbstractTests >> setUp [
 MRLAbstractTests >> setUpFunction [
 	testFunction1 := FamixPWBFunction new
 		name: 'aFunction';
-		sourceAnchor: sourceAnchor.
+		sourceAnchor: sourceAnchorFunction1.
 	testFunction2 := FamixPWBFunction new
 		parentType: FamixPWBUserObject new;
-		name: 'f_del_ligne_suite'.
+		name: 'f_del_ligne_suite';
+		sourceAnchor: sourceAnchorFunction2.
 	testFunction3 := FamixPWBFunction new
 		parentType: FamixPWBUserObject new;
 		name: 'uf_exist_col_dw'
@@ -90,49 +97,63 @@ MRLAbstractTests >> setUpFunction [
 { #category : #running }
 MRLAbstractTests >> setUpInvocations [
 	testInvocation1 := FamixPWBInvocation new
-		sourceAnchor: sourceAnchorTestFunction1;
+		sourceAnchor: sourceAnchorTestInvocation1;
 		sender: testFunction1;
 		candidates: {testFunction2}.
 	testInvocation2 := FamixPWBInvocation new
-		sourceAnchor: sourceAnchorTestFunction2;
+		sourceAnchor: sourceAnchorTestInvocation2;
 		sender: testFunction1;
 		candidates: {testFunction2}.
 	testInvocation3 := FamixPWBInvocation new
-		sourceAnchor: sourceAnchorTestFunction3;
+		sourceAnchor: sourceAnchorTestInvocation3;
 		sender: testFunction1;
 		candidates: {testFunction3}.
 	testInvocation4 := FamixPWBInvocation new
-		sourceAnchor: sourceAnchorTestFunction4;
+		sourceAnchor: sourceAnchorTestInvocation4;
 		sender: testFunction1;
+		candidates: {testFunction3}.
+	testInvocation4 := FamixPWBInvocation new
+		sourceAnchor: sourceAnchorTestInvocation5;
+		sender: testFunction2;
 		candidates: {testFunction3}
 ]
 
 { #category : #running }
 MRLAbstractTests >> setUpSourceAnchors [
-	sourceAnchor := FamixPWBIndexedFileAnchor new
+	sourceAnchorFunction1 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 1;
 		endPos: 289;
 		mooseModel: model.
-	sourceAnchorTestFunction1 := FamixPWBIndexedFileAnchor new
+	sourceAnchorTestInvocation1 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 53;
 		endPos: 111;
 		mooseModel: model.
-	sourceAnchorTestFunction2 := FamixPWBIndexedFileAnchor new
+	sourceAnchorTestInvocation2 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 167;
 		endPos: 200;
 		mooseModel: model.
-	sourceAnchorTestFunction3 := FamixPWBIndexedFileAnchor new
+	sourceAnchorTestInvocation3 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 128;
 		endPos: 161;
 		mooseModel: model.
-	sourceAnchorTestFunction4 := FamixPWBIndexedFileAnchor new
+	sourceAnchorTestInvocation4 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 167;
 		endPos: 200;
+		mooseModel: model.
+	sourceAnchorFunction2 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 292;
+		endPos: 475;
+		mooseModel: model.
+	sourceAnchorTestInvocation5 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 429;
+		endPos: 462;
 		mooseModel: model
 ]
 
