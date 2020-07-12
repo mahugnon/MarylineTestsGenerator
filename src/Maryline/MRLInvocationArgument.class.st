@@ -49,35 +49,16 @@ MRLInvocationArgument >> generateInSourceTextMrlLogStrings [
 
 { #category : #api }
 MRLInvocationArgument >> generateInSourceTextMrlLogStrings: aString [
-	| beforeSenderText afterSenderText oldSenderText newSenderText file newStartPos newEndPos sizeDiff |
-	file := sender sourceAnchor rootFolder asFileReference
-		resolve: sender sourceAnchor fileName.
-	sizeDiff := aString size - file contents size.
-	newStartPos := sender sourceAnchor startPos.
-	newEndPos := sender sourceAnchor endPos + sizeDiff.
-	beforeSenderText := aString copyFrom: 1 to: newStartPos - 1.
-	afterSenderText := newEndPos >= aString size
-		ifTrue: [ '' ]
-		ifFalse: [ aString copyFrom: newEndPos + 1 to: aString size ].
-	oldSenderText := file contents
-		copyFrom: sender sourceAnchor startPos
-		to: sender sourceAnchor endPos.
-	newSenderText := aString
-		copyFrom: sender sourceAnchor startPos
-		to: newEndPos.
-	(self invocationLines: oldSenderText)
+	| newSenderText |
+	newSenderText := aString copy.
+	(self invocationLines: aString)
 		do: [ :aLine | 
 			| mrlString |
 			mrlString := self mrlLogStringsFor: aLine.
 			newSenderText := (newSenderText includesSubstring: mrlString)
 				ifTrue: [ newSenderText copyReplaceAll: mrlString with: mrlString ]
 				ifFalse: [ newSenderText copyReplaceAll: aLine with: mrlString ] ].
-	^ String
-		streamContents: [ :aStream | 
-			aStream
-				<< beforeSenderText;
-				<< newSenderText;
-				<< afterSenderText ]
+	^ newSenderText
 ]
 
 { #category : #api }

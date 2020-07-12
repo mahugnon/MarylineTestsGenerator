@@ -39,7 +39,7 @@ MRLQueriesTests >> testSaveMrlLogStringsForArgumentsInAnchor [
 		assert:
 			(QueryMrlLogStringsForInvocationInAnchor new
 				runOn: testInvocation1
-				with: self exampleFunctionSource)
+				with: testFunction1 sourceText)
 		equals:
 			'private function integer aFunction ();
   long lLong
@@ -104,6 +104,10 @@ f_mrl_logger().log(al_lig,"aFunction","al_lig-after-f_del_ligne_suite")
 f_mrl_logger().log(adw_dlq,"aFunction","adw_dlq-after-f_del_ligne_suite")
 
   return LLONG
+end function
+
+private function integer f_del_ligne_suite(datawindow adw_param, long al_param, boolean ab_param)
+uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
 end function'.
 	self tearDown
 ]

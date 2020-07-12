@@ -15,7 +15,7 @@ QueryMrlLogStringsForFunctionInAnchor >> runOn: aFamixPWBBehaviour [
 	| sourceText invocations file |
 	file := aFamixPWBBehaviour sourceAnchor rootFolder asFileReference
 		resolve: aFamixPWBBehaviour sourceAnchor fileName.
-	sourceText := file contents.
+	sourceText := aFamixPWBBehaviour sourceText.
 	invocations := (((aFamixPWBBehaviour outgoingInvocations
 		select: [ :inv | 
 			inv candidates
@@ -26,6 +26,12 @@ QueryMrlLogStringsForFunctionInAnchor >> runOn: aFamixPWBBehaviour [
 		runOn: invocations
 		with: sourceText.
 	alterFile
-		ifTrue: [ file writeStreamDo: [ :stream | stream << sourceText ] ]
+		ifTrue: [ file
+				writeStreamDo: [ :aStream | 
+					aStream
+						<<
+							(file contents
+								copyReplaceAll: aFamixPWBBehaviour sourceText
+								with: sourceText) ] ]
 		ifFalse: [ ^ sourceText ]
 ]
