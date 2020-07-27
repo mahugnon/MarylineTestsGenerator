@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #running }
+QueryInvocationArguments >> removeNumbers: arguments [
+	^ arguments reject: [ :arg | arg isNumber ]
+]
+
+{ #category : #running }
 QueryInvocationArguments >> runOn: aFamixPWBInvocation [
 	| arguments sourceText |
 	sourceText := aFamixPWBInvocation sourceText
@@ -12,6 +17,7 @@ QueryInvocationArguments >> runOn: aFamixPWBInvocation [
 		with: ''.
 	arguments := (PWBCommonParser new functionInvocation
 		parse: sourceText) functionArguments functionArguments.
+	arguments := self removeNumbers: arguments.
 	^ arguments isEmptyOrNil
 		ifTrue: [ MRLQueryResults new ]
 		ifFalse: [ MRLQueryResults

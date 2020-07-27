@@ -67,6 +67,44 @@ end variables'
 ]
 
 { #category : #tests }
+MrlTestCasesGeneratorTest >> testGenerateVariables2 [
+	| mrlTestCase |
+	mrlTestCase := MrlTestCase new.
+	mrlTestCase
+		addVariable:
+			(MrlPWBVariable new
+				visibility: 'private';
+				typeName: 'w_remise_cheque';
+				name: 'iw_remise_cheque';
+				yourself);
+		addVariable:
+			(MrlPWBVariable new
+				visibility: 'private';
+				typeName: 'fake';
+				name: 'iw_fake';
+				yourself);
+				addVariable:
+			(MrlPWBVariable new
+				visibility: 'public';
+				typeName: 'ds_manque';
+				name: 'ids_manque';
+				yourself)
+				.
+	self
+		assert: mrlTestCase generateVariables
+		equals:
+		'type variables
+
+private:
+w_remise_cheque iw_remise_cheque
+fake iw_fake
+public:
+ds_manque ids_manque
+
+end variables'
+]
+
+{ #category : #tests }
 MrlTestCasesGeneratorTest >> testMrlGeneratorChooseTheRightTemplate [
 	generator entitySuper: 'TestCase'.
 	self assert: (generator generate isKindOf: MrlTestCase)

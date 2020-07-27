@@ -4,7 +4,10 @@ Class {
 	#instVars : [
 		'typeName',
 		'name',
-		'visibility'
+		'visibility',
+		'preContextValue',
+		'postContextValue',
+		'context'
 	],
 	#category : #'Maryline-TestsGenerator-Core'
 }
