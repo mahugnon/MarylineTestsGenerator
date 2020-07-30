@@ -7,7 +7,8 @@ Class {
 		'startPosition',
 		'stopPosition',
 		'invocationText',
-		'argumentString'
+		'argumentString',
+		'invocationLineNumber'
 	],
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
@@ -25,6 +26,7 @@ MRLInvocationArgument >> argumentString: anObject [
 { #category : #api }
 MRLInvocationArgument >> generateInSourceTextMrlLogStrings [
 	| file beforeSenderText afterSenderText senderText |
+	self flag: #toRemove.
 	file := sender sourceAnchor rootFolder asFileReference
 		resolve: sender sourceAnchor fileName.
 	beforeSenderText := file contents
@@ -70,6 +72,16 @@ MRLInvocationArgument >> insertMrlLogStringsIn: aString [
 				copyReplaceAll: aLine
 				with: (self mrlLogStringsFor: aLine) ].
 	^ result
+]
+
+{ #category : #accessing }
+MRLInvocationArgument >> invocationLineNumber [
+	^ invocationLineNumber
+]
+
+{ #category : #accessing }
+MRLInvocationArgument >> invocationLineNumber: anObject [
+	invocationLineNumber := anObject
 ]
 
 { #category : #api }
@@ -123,6 +135,10 @@ MRLInvocationArgument >> mrlLogString: aString [
 				<< '"';
 				<< ',';
 				<< '"';
+				<< sender parentType name;
+				<< '-';
+				<< invocationLineNumber asString;
+				<< '-';
 				<< printable;
 				<< '-';
 				<< aString;
