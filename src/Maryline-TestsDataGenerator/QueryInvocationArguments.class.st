@@ -18,6 +18,7 @@ QueryInvocationArguments >> runOn: aFamixPWBInvocation [
 	arguments := (PWBCommonParser new functionInvocation
 		parse: sourceText) functionArguments functionArguments.
 	arguments := self removeNumbers: arguments.
+
 	^ arguments isEmptyOrNil
 		ifTrue: [ MRLQueryResults new ]
 		ifFalse: [ MRLQueryResults
@@ -30,8 +31,10 @@ QueryInvocationArguments >> runOn: aFamixPWBInvocation [
 								startPosition: arg startPosition;
 								stopPosition: arg stopPosition;
 								sender: aFamixPWBInvocation sender;
-								invocationLineNumber: (sourceText lineNumberCorrespondingToIndex: arg startPosition);
-								invocationText: aFamixPWBInvocation sourceText;
+								invocationLineNumber:
+									(invArg file contents
+										lineNumberCorrespondingToIndex: aFamixPWBInvocation sourceAnchor startPos);
+								invocationText:  aFamixPWBInvocation sourceText;
 								receiver: aFamixPWBInvocation candidates anyOne name;
 								argumentString: (sourceText copyFrom: arg startPosition to: arg stopPosition) ]) ]
 ]

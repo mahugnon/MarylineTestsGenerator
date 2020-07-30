@@ -5,13 +5,23 @@ Class {
 }
 
 { #category : #tests }
+MRLInvocationArgumentTests >> testArgmentInvocationLineNumber [
+	self
+		assert:
+			(QueryInvocationArguments runOn: testInvocation1) first
+				invocationLineNumber
+		equals: 3
+]
+
+{ #category : #tests }
 MRLInvocationArgumentTests >> testMrlAfterLogString [
+	
 	self
 		assert:
 			(QueryInvocationArguments runOn: testInvocation1) first
 				mrlAfterLogString
 		equals:
-			'f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-1-adw_dlq-after-f_del_ligne_suite")'
+			'f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-3-adw_dlq-after-f_del_ligne_suite")'
 ]
 
 { #category : #tests }

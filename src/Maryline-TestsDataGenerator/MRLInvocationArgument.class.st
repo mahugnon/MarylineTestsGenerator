@@ -8,7 +8,8 @@ Class {
 		'stopPosition',
 		'invocationText',
 		'argumentString',
-		'invocationLineNumber'
+		'invocationLineNumber',
+		'file'
 	],
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
@@ -23,12 +24,18 @@ MRLInvocationArgument >> argumentString: anObject [
 	argumentString := anObject
 ]
 
+{ #category : #accessing }
+MRLInvocationArgument >> file [
+	file
+		ifNil: [ file := sender sourceAnchor rootFolder asFileReference
+				resolve: sender sourceAnchor fileName ].
+	^ file
+]
+
 { #category : #api }
 MRLInvocationArgument >> generateInSourceTextMrlLogStrings [
-	| file beforeSenderText afterSenderText senderText |
+	| beforeSenderText afterSenderText senderText |
 	self flag: #toRemove.
-	file := sender sourceAnchor rootFolder asFileReference
-		resolve: sender sourceAnchor fileName.
 	beforeSenderText := file contents
 		copyFrom: 1
 		to: sender sourceAnchor startPos - 1.
