@@ -5,7 +5,8 @@ Class {
 		'name',
 		'originalSyntax',
 		'cleanSyntax',
-		'script'
+		'script',
+		'selectSql'
 	],
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
@@ -18,7 +19,10 @@ MRLDatawindowInstanceGenrator >> cleanSyntax [
 { #category : #'as yet unclassified' }
 MRLDatawindowInstanceGenrator >> generationCreationCreationScript [
 	script := String
-		streamContents: [ :stream | self printCreateDatawindowScriptOn: stream ].
+		streamContents: [ :stream | 
+			self printCreateDatawindowScriptOn: stream.
+			self tranObjectString: stream.
+			self printSelectSqlOn: stream ].
 	(PWBDataWindowParser new dataWindowFile parse: cleanSyntax)
 		fileStatements
 		select: [ :each | each isKindOf: PWBASTGraphicComponent ]
@@ -85,6 +89,18 @@ MRLDatawindowInstanceGenrator >> printCreateDatawindowScriptOn: stream [
 		crlf
 ]
 
+{ #category : #'as yet unclassified' }
+MRLDatawindowInstanceGenrator >> printSelectSqlOn: aStream [
+	aStream
+		<< name;
+		<< '.SetSQLSelect(';
+		nextPut: $';
+		<< selectSql;
+		nextPut: $';
+		<< ')';
+		crlf
+]
+
 { #category : #accessing }
 MRLDatawindowInstanceGenrator >> script [
 	^ script
@@ -109,4 +125,12 @@ summary(height=8 color="536870912" )
 footer(height=0 color="536870912" )
 
 detail(height=72 color="536870912" )'
+]
+
+{ #category : #'as yet unclassified' }
+MRLDatawindowInstanceGenrator >> tranObjectString: aStream [
+	aStream
+		<< name;
+		<< '.SetTransObject(SqlCa)';
+		crlf
 ]
