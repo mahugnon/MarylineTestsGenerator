@@ -12,6 +12,13 @@ MRLDatawindowInstanceGenrationTests >> exampleData [
 ]
 
 { #category : #'as yet unclassified' }
+MRLDatawindowInstanceGenrationTests >> exampleSQLSelect [
+	^ ((IceBergProjectLocator
+		locationOfProjectRepo: 'MarylineTestsGenerator')
+		/ 'Resources/sqlSelect.txt') contents
+]
+
+{ #category : #'as yet unclassified' }
 MRLDatawindowInstanceGenrationTests >> exampleSyntax [
 	^ ((IceBergProjectLocator
 		locationOfProjectRepo: 'MarylineTestsGenerator')

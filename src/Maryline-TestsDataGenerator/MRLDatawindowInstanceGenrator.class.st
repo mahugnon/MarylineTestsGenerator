@@ -94,10 +94,11 @@ MRLDatawindowInstanceGenrator >> printSelectSqlOn: aStream [
 	aStream
 		<< name;
 		<< '.SetSQLSelect(';
-		nextPut: $';
+		nextPut: $";
 		<< selectSql;
-		nextPut: $';
+		nextPut: $";
 		<< ')';
+		
 		crlf
 ]
 
@@ -109,6 +110,16 @@ MRLDatawindowInstanceGenrator >> script [
 { #category : #accessing }
 MRLDatawindowInstanceGenrator >> script: aString [ 
 	script := aString
+]
+
+{ #category : #accessing }
+MRLDatawindowInstanceGenrator >> selectSql [
+	^ selectSql
+]
+
+{ #category : #accessing }
+MRLDatawindowInstanceGenrator >> selectSql: anObject [
+	selectSql := anObject
 ]
 
 { #category : #api }
