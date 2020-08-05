@@ -95,7 +95,7 @@ MRLDatawindowInstanceGenrator >> printSelectSqlOn: aStream [
 		<< name;
 		<< '.SetSQLSelect(';
 		nextPut: $";
-		<< selectSql;
+		<<( selectSql copyReplaceAll: String crlf  with:' ') ;
 		nextPut: $";
 		<< ')';
 		
