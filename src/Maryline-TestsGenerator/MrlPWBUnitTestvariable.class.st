@@ -18,7 +18,13 @@ MrlPWBUnitTestvariable class >> accept: aString [
 
 { #category : #visiting }
 MrlPWBUnitTestvariable class >> create: aTypeString [
-^ self subclasses detect: [ :sub| sub accept: aTypeString  ] ifFound: [ :found| found new type: aTypeString   ] ifNone: [ self error: 'Type not found. Update me please!!' ]
+	^ self subclasses
+		detect: [ :sub | sub accept: aTypeString ]
+		ifFound: [ :found | 
+			found new
+				type: aTypeString;
+				yourself ]
+		ifNone: [ self error: 'Type not found. Update me please!!' ]
 ]
 
 { #category : #accessing }
@@ -42,8 +48,23 @@ MrlPWBUnitTestvariable >> scope [
 ]
 
 { #category : #accessing }
+MrlPWBUnitTestvariable >> scope: anObject [
+	scope := anObject
+]
+
+{ #category : #accessing }
 MrlPWBUnitTestvariable >> type [
 	^ type
+]
+
+{ #category : #accessing }
+MrlPWBUnitTestvariable >> type: anObject [
+	type := anObject
+]
+
+{ #category : #accessing }
+MrlPWBUnitTestvariable >> value [
+	^ value
 ]
 
 { #category : #accessing }
@@ -54,4 +75,9 @@ MrlPWBUnitTestvariable >> value: anObject [
 { #category : #accessing }
 MrlPWBUnitTestvariable >> visibility [
 	^ visibility
+]
+
+{ #category : #accessing }
+MrlPWBUnitTestvariable >> visibility: anObject [
+	visibility := anObject
 ]

@@ -10,6 +10,10 @@ Class {
 	#category : #'Maryline-TestsGenerator-Core'
 }
 
+{ #category : #'as yet unclassified' }
+MrlPWBUnitTest class >> unitTestForInvocation: aFamixPWBInvocation [
+]
+
 { #category : #adding }
 MrlPWBUnitTest >> addAssertions: aMrlPWBUnitTestAssertion [
 	self assertions
