@@ -1,0 +1,22 @@
+  SELECT dlq.dlq_aoc,   dlq.dlq_dac,   dlq.dlq_uti,   dlq.liq_dss,   dlq.dlq_lig,   dlq.dlq_cre,   dlq.par_no,   
+		dlq.prt_no,   dlq.sou_no,   dlq.prs_no,   dlq.dlq_dds,   dlq.dlq_fds,   dlq.dlq_pxu,   dlq.dlq_qte,    dlq.dlq_cof,   
+         dlq.dlq_rel,   dlq.dlq_boa,   dlq.dlq_toa,   dlq.dlq_roa,   dlq.dlq_boc,   dlq.dlq_toc,   dlq.dlq_rba,   dlq.dlq_rbo,   
+         dlq.dlq_con,   dlq.dlq_for,   dlq.dlq_msf,   dlq.lqr_cod,dlq.dlq_grp,dlq.dlq_cat, dlq.dlq_ctr, dlq.prs_nat,
+		dlq.pds_qls,dlq.dlq_tox,dlq.dlq_rox,dlq.pds_ctr,dlq.rac_mon,dlq.dlq_mpc,dlq.dpn_ql2,dlq.num_den,
+         per.per_prm,   prs.prs_coc,   prs.prs_loc,   prs.des_val,   prs.des_lim, prs.act_typ, per.per_dns,   per.per_rgn,   
+         per.per_cin,   dlq.dlq_err,   dlq.dlq_sig,   dlq.dlq_mdp,   dlq.dlq_ndd,   dlq.dlq_mod,   dlq.dlq_rgp,   dlq.dlq_sub,
+		dlq.dlq_arc,dlq.dlq_rej, dlq.oam_cdp,dlq.typ_pai,   dlq.cod_not,dlq.psh_dmt,dlq.fam_dmt,   
+         dlq.lib_for,   dlq.lib_lim,dlq.prs_md1,dlq.prs_md2,dlq.cpl_cod,dlq.pfs_con,dlq.irw_lig,
+			'            ' 	as gar_alr,
+         '            '    as num_lig,
+		dlq.sln_ori,dlq.slb_ori,dlq.sln_rev,dlq.slb_rev,dlq.typ_sal,dlq.dlq_rev,dlq.dlq_mtb,dlq.exe_spe,
+		dlq.gpp_no,dlq.rgm_cam,      dlq.ent_cod,      dlq.grp_no ,dlq.noe_cev,dlq.ind_ini, dlq.ind_rst,   
+         dlq.ind_dss,   dlq.ind_lig,dlq.dlq_mfo,dlq.ete_no,dlq.dlq_seu,dlq.lpp_cod, dlq.dlq_rap,
+			' '    as dlq_bdd,  ' '	as dlq_rra, dlq.lig_org,   
+         0.00 as dec_tmp, dlq.mon_rep, dlq.dlq_mtf,
+		'  ' as sig_cas, 0.00 as mon_pch, 0.00 as mon_plf, num_eqi, eta_eqi, val_cas,
+		'          ' as sig_cas_opt,  '          ' as pds_ctr_opt, '' as ele_cal, 0 as pec_dss, chg_vue
+		, '' as rjp_mti, dqe_no, ' ' as cat_opt,' ' as  dqe_vis,' ' as plf_cas,' ' as plf_dyn,' ' as opt_cod,' ' as cat_eqi,' ' as  dqe_tyx
+    FROM dlq,   per,   prs  
+   WHERE ( dlq.par_no = per.par_no ) and  
+         ( prs.prs_no = dlq.prs_no )    
