@@ -5,7 +5,8 @@ Class {
 		'scope',
 		'name',
 		'type',
-		'value',
+		'beforeValue',
+		'afterValue',
 		'visibility'
 	],
 	#category : #'Maryline-TestsGenerator-Core'
@@ -25,6 +26,26 @@ MrlPWBUnitTestvariable class >> create: aTypeString [
 				type: aTypeString;
 				yourself ]
 		ifNone: [ self error: 'Type not found. Update me please!!' ]
+]
+
+{ #category : #accessing }
+MrlPWBUnitTestvariable >> afterValue [
+	^ afterValue
+]
+
+{ #category : #accessing }
+MrlPWBUnitTestvariable >> afterValue: anObject [
+	afterValue := anObject
+]
+
+{ #category : #accessing }
+MrlPWBUnitTestvariable >> beforeValue [
+	^ beforeValue
+]
+
+{ #category : #accessing }
+MrlPWBUnitTestvariable >> beforeValue: anObject [
+	beforeValue := anObject
 ]
 
 { #category : #accessing }
@@ -60,16 +81,6 @@ MrlPWBUnitTestvariable >> type [
 { #category : #accessing }
 MrlPWBUnitTestvariable >> type: anObject [
 	type := anObject
-]
-
-{ #category : #accessing }
-MrlPWBUnitTestvariable >> value [
-	^ value
-]
-
-{ #category : #accessing }
-MrlPWBUnitTestvariable >> value: anObject [
-	value := anObject
 ]
 
 { #category : #accessing }
