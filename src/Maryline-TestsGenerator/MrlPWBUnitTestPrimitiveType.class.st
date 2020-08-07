@@ -23,6 +23,6 @@ MrlPWBUnitTestPrimitiveType >> printPWBDeclarationScript [
 				space;
 				nextPut: $=;
 				space.
-			value printOn: stream.
+			beforeValue printOn: stream.
 			stream crlf ]
 ]

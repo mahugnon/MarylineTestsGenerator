@@ -20,6 +20,33 @@ end event
 ]
 
 { #category : #tests }
+MrlPWBUnitTestTest >> testTestUnitForASimpleFunctionScript [
+	| test1 |
+	test1 := MrlPWBUnitTest new name: 'pwbTest1'.
+	test1
+		addVariable:
+			((MrlPWBUnitTestvariable create: 'string')
+				name: 'ls_var';
+				beforeValue: 'baba');
+					addVariable:
+			((MrlPWBUnitTestvariable create: 'int')
+				name: 'li_var';
+				beforeValue: 5).
+	self
+		assert: test1 printPWBDeclarationScript
+		equals:
+			'event pwbTest1();
+
+string ls_var
+ls_var = "baba"
+int li_var
+li_var = 5
+return;
+end event
+'
+]
+
+{ #category : #tests }
 MrlPWBUnitTestTest >> testTestUnitWithPbObjectAndIntScript [
 	| test1 |
 	test1 := MrlPWBUnitTest new name: 'pwbTest1'.

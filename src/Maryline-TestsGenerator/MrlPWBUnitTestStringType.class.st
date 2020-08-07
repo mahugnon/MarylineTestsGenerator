@@ -23,7 +23,7 @@ MrlPWBUnitTestStringType >> printPWBDeclarationScript [
 				nextPut: $=;
 				space;
 				nextPut: $";
-				<< value;
+				<< beforeValue;
 				nextPut: $";
 				crlf ]
 ]

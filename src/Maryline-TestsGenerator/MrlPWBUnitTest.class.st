@@ -5,13 +5,21 @@ Class {
 		'name',
 		'assertions',
 		'variables',
-		'owner'
+		'owner',
+		'invocation'
 	],
 	#category : #'Maryline-TestsGenerator-Core'
 }
 
+{ #category : #visiting }
+MrlPWBUnitTest class >> accept: aFamixPWBInvocation [
+	^ self subclassResponsibility
+]
+
 { #category : #'as yet unclassified' }
 MrlPWBUnitTest class >> unitTestForInvocation: aFamixPWBInvocation [
+	^ (self subclasses detect: [ :sub | sub accept: aFamixPWBInvocation ])
+		new invocation: aFamixPWBInvocation
 ]
 
 { #category : #adding }
@@ -31,11 +39,6 @@ MrlPWBUnitTest >> addVariable: aMrlPWBUnitTestVariable [
 { #category : #accessing }
 MrlPWBUnitTest >> assertions [
 	^ assertions
-]
-
-{ #category : #accessing }
-MrlPWBUnitTest >> assertions: anObject [
-	assertions := anObject
 ]
 
 { #category : #accessing }
@@ -64,6 +67,16 @@ MrlPWBUnitTest >> end [
 MrlPWBUnitTest >> initialize [
 	variables := OrderedCollection new.
 	assertions := OrderedCollection new
+]
+
+{ #category : #accessing }
+MrlPWBUnitTest >> invocation [
+	^ invocation
+]
+
+{ #category : #accessing }
+MrlPWBUnitTest >> invocation: anObject [
+	invocation := anObject
 ]
 
 { #category : #accessing }

@@ -14,7 +14,7 @@ MrlPWBUnitTestComplexType >> printPWBDeclarationScript [
 	^ String
 		streamContents: [ :stream | 
 			stream
-				<< value;
+				<< beforeValue;
 				space;
 				<< name;
 				crlf;
@@ -24,6 +24,6 @@ MrlPWBUnitTestComplexType >> printPWBDeclarationScript [
 				space;
 				<< 'create';
 				space;
-				<<value;
+				<< beforeValue;
 				crlf ]
 ]
