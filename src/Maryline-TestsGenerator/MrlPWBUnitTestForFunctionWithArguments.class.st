@@ -10,7 +10,8 @@ MrlPWBUnitTestForFunctionWithArguments class >> accept: aFamixPWBInvocation [
 ]
 
 { #category : #accessing }
-MrlPWBUnitTestForFunctionWithArguments >> invocation: aFamixPWBInvocation [ 
+MrlPWBUnitTestForFunctionWithArguments >> invocation: aFamixPWBInvocation [
 	super invocation: aFamixPWBInvocation.
-	
+	receiver := invocation candidates anyOne setParameters.
+	receiver parameters do: [ :param | self addVariable: param ]
 ]

@@ -6,7 +6,8 @@ Class {
 		'assertions',
 		'variables',
 		'owner',
-		'invocation'
+		'invocation',
+		'receiver'
 	],
 	#category : #'Maryline-TestsGenerator-Core'
 }

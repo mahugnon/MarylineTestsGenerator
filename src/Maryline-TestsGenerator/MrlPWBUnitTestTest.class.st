@@ -1,6 +1,6 @@
 Class {
 	#name : #MrlPWBUnitTestTest,
-	#superclass : #TestCase,
+	#superclass : #MRLAbstractTests,
 	#category : #'Maryline-TestsGenerator-Tests'
 }
 
@@ -17,6 +17,14 @@ MrlPWBUnitTestTest >> testEmptyTestUnitScript [
 return;
 end event
 '
+]
+
+{ #category : #tests }
+MrlPWBUnitTestTest >> testGenerateUnitTestForFunction [
+	| test |
+	
+	test := MrlPWBUnitTest unitTestForInvocation: testInvocation1.
+	test printPWBDeclarationScript
 ]
 
 { #category : #tests }

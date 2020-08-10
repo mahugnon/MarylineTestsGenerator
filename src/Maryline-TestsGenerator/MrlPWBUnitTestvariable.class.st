@@ -1,3 +1,7 @@
+"
+Changer en strategy qui permet de converty un pararmetre . Du coup les arguments ne sont plus utiles. 
+J'ai besoin des parametres de la function pour connaitre la position de chaque variables
+"
 Class {
 	#name : #MrlPWBUnitTestvariable,
 	#superclass : #Object,
@@ -7,7 +11,8 @@ Class {
 		'type',
 		'beforeValue',
 		'afterValue',
-		'visibility'
+		'visibility',
+		'priority'
 	],
 	#category : #'Maryline-TestsGenerator-Core'
 }
