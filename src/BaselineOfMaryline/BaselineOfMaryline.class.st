@@ -7,21 +7,12 @@ Class {
 { #category : #baselines }
 BaselineOfMaryline >> baseline: spec [
 	<baseline>
-	self baselineOfIcebergProjectLocator: spec.
 	spec
 		for: #common
 		do: [ self baselineOfPowerBuilderParser: spec.
 			spec
 				package: 'Maryline'
-				with: [ spec requires: #('PowerBuilderParser' 'IcebergProjectLocator') ] ]
-]
-
-{ #category : #baselines }
-BaselineOfMaryline >> baselineOfIcebergProjectLocator: spec [
-	spec
-		baseline: 'IcebergProjectLocator'
-		with: [ spec
-				repository: 'github://mahugnon/IcebergProjectLocator:master/src' ]
+				with: [ spec requires: #('PowerBuilderParser') ] ]
 ]
 
 { #category : #baselines }
