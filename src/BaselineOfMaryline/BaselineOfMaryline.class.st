@@ -13,7 +13,7 @@ BaselineOfMaryline >> baseline: spec [
 		do: [ self baselineOfPowerBuilderParser: spec.
 			spec
 				package: 'Maryline'
-				with: [ spec requires: #('PowerBuilderParser' 'Iceberg-ProjectLocator') ] ]
+				with: [ spec requires: #('PowerBuilderParser' 'IcebergProjectLocator') ] ]
 ]
 
 { #category : #baselines }
