@@ -5,7 +5,7 @@ Class {
 		'variables',
 		'unitTests'
 	],
-	#category : #'Maryline-TestsGenerator-Core'
+	#category : #'Maryline-TestsGenerator-Model'
 }
 
 { #category : #'as yet unclassified' }

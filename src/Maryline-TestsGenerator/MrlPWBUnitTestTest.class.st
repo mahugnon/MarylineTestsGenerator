@@ -22,9 +22,24 @@ end event
 { #category : #tests }
 MrlPWBUnitTestTest >> testGenerateUnitTestForFunction [
 	| test |
-	
-	test := MrlPWBUnitTest unitTestForInvocation: testInvocation1.
-	test printPWBDeclarationScript
+	testFunction1 returnType: (FamixPWBBasicType new name: 'integer').
+	test := MrlPWBUnitTest
+		unitTestForInvocation:
+			(FamixPWBInvocation new
+				sender: testFunction2;
+				candidates: {testFunction1};
+				yourself).
+	self
+		assert: test printPWBDeclarationScript
+		equals:
+			'event test_aFunction();
+
+testPWBOject1 testPWBOject1
+testPWBOject1 = create testPWBOject1
+this.assert( 919 = l_testPWBOject1.aFunction())
+return;
+end event
+'
 ]
 
 { #category : #tests }

@@ -1,7 +1,7 @@
 Class {
 	#name : #MrlPWBUnitTestForSubRoutine,
 	#superclass : #MrlPWBUnitTest,
-	#category : #'Maryline-TestsGenerator-Core'
+	#category : #'Maryline-TestsGenerator-MrlTestUnitStrategy'
 }
 
 { #category : #visiting }

@@ -2,6 +2,7 @@ Class {
 	#name : #MrlPWBUnitTest,
 	#superclass : #Object,
 	#instVars : [
+		'functionUnderTest',
 		'name',
 		'assertions',
 		'variables',
@@ -24,7 +25,7 @@ MrlPWBUnitTest class >> unitTestForInvocation: aFamixPWBInvocation [
 ]
 
 { #category : #adding }
-MrlPWBUnitTest >> addAssertions: aMrlPWBUnitTestAssertion [
+MrlPWBUnitTest >> addAssertion: aMrlPWBUnitTestAssertion [
 	self assertions
 		detect: [ :assertion | assertion = aMrlPWBUnitTestAssertion ]
 		ifNone: [ assertions add: aMrlPWBUnitTestAssertion ]
@@ -49,7 +50,7 @@ MrlPWBUnitTest >> begin [
 			stream
 				<< 'event';
 				space;
-				<< name;
+				<< self name;
 				<< '();';
 				crlf ]
 ]
@@ -77,17 +78,15 @@ MrlPWBUnitTest >> invocation [
 
 { #category : #accessing }
 MrlPWBUnitTest >> invocation: anObject [
-	invocation := anObject
+	invocation := anObject.
+	self setUp
+
 ]
 
 { #category : #accessing }
 MrlPWBUnitTest >> name [
+	name ifNil: [ name := 'test_' , functionUnderTest name ].
 	^ name
-]
-
-{ #category : #accessing }
-MrlPWBUnitTest >> name: anObject [
-	name := anObject
 ]
 
 { #category : #accessing }
@@ -122,6 +121,23 @@ MrlPWBUnitTest >> removeVariable: aMrlPWBUnitTestVariable [
 		detect: [ :var | var = aMrlPWBUnitTestVariable ]
 		ifFound: [ variables remove: aMrlPWBUnitTestVariable ]
 		ifNone: [  ]
+]
+
+{ #category : #initialization }
+MrlPWBUnitTest >> setUp [
+	functionUnderTest := invocation candidates anyOne.
+	self
+		addVariable:
+			(MrlPWBUnitTestComplexType new
+				name: functionUnderTest parentType name;
+				beforeValue: functionUnderTest parentType name).
+	self
+		addAssertion:
+			(MrlPWBAssertion new
+				actual:
+					'l_' , functionUnderTest parentType name , '.'
+						, functionUnderTest name , '()';
+				expected: functionUnderTest returnType generateRandomValue)
 ]
 
 { #category : #accessing }

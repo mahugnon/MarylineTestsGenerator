@@ -19,7 +19,9 @@ Class {
 		'sourceAnchorFunction1',
 		'sourceAnchorFunction2',
 		'sourceAnchorTestObject1',
-		'testPWBOject1'
+		'testPWBOject1',
+		'sourceAnchorTestInvocation6',
+		'testInvocation6'
 	],
 	#category : #'Maryline-TestsDataGenerator-Tests'
 }
