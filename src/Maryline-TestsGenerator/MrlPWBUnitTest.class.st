@@ -90,6 +90,11 @@ MrlPWBUnitTest >> name [
 ]
 
 { #category : #accessing }
+MrlPWBUnitTest >> name: aString [ 
+	name := aString
+]
+
+{ #category : #accessing }
 MrlPWBUnitTest >> owner [
 	^ owner
 ]

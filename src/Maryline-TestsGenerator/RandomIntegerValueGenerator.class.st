@@ -12,5 +12,5 @@ RandomIntegerValueGenerator class >> accept: aString [
 
 { #category : #evaluating }
 RandomIntegerValueGenerator >> value [
-	^ (1 to: 1000) atRandom asString
+	^ 919 asString	"(1 to: 1000) atRandom "
 ]
