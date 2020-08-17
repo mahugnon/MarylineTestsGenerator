@@ -1,6 +1,6 @@
 Class {
 	#name : #MrlPWBUnitTestForFunctionWithOutArguments,
-	#superclass : #MrlPWBUnitTestForFunction,
+	#superclass : #MrlPWBUnitTest,
 	#category : #'Maryline-TestsGenerator-MrlTestUnitStrategy'
 }
 

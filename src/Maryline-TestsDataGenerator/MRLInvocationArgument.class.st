@@ -9,7 +9,8 @@ Class {
 		'invocationText',
 		'argumentString',
 		'invocationLineNumber',
-		'file'
+		'file',
+		'sampleValues'
 	],
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
@@ -185,6 +186,16 @@ MRLInvocationArgument >> replacementMap [
 	($' -> '').
 	(' ' -> '').
 	('""' -> 'empty_string')} asOrderedDictionary
+]
+
+{ #category : #accessing }
+MRLInvocationArgument >> sampleValues [
+	^ sampleValues
+]
+
+{ #category : #accessing }
+MRLInvocationArgument >> sampleValues: anObject [
+	sampleValues := anObject
 ]
 
 { #category : #api }
