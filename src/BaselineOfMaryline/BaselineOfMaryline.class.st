@@ -16,6 +16,14 @@ BaselineOfMaryline >> baseline: spec [
 ]
 
 { #category : #baselines }
+BaselineOfMaryline >> baselineOfP3: spec [
+	spec
+		baseline: 'P3'
+		with: [ spec
+				repository: 'github://svenvc/P3:v1.2' ]
+]
+
+{ #category : #baselines }
 BaselineOfMaryline >> baselineOfPowerBuilderParser: spec [
 	spec
 		baseline: 'PowerBuilderParser'
