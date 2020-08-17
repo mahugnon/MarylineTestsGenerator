@@ -140,7 +140,10 @@ end function
 
 private function integer f_del_ligne_suite(datawindow adw_param, long al_param, boolean ab_param)
 uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
-end function'
+end function
+
+private function integer aFunctionWithParam (int ai_arg1, Long al_arg2);
+return1'
 .
 	self tearDown
 ]
