@@ -11,16 +11,20 @@ QueryInvocationArguments >> removeNumbers: arguments [
 
 { #category : #running }
 QueryInvocationArguments >> runOn: aFamixPWBInvocation [
-	| arguments sourceText |
+	| arguments sourceText candidateParameters |
+	candidateParameters := aFamixPWBInvocation candidates anyOne
+		setParameters parameters sortAscending: #startPos.
 	sourceText := aFamixPWBInvocation sourceText
 		copyReplaceAll: '.'
 		with: ''.
 	arguments := (PWBCommonParser new functionInvocation
 		parse: sourceText) functionArguments functionArguments.
-	arguments := arguments isEmptyOrNil ifFalse:  [ self removeNumbers: arguments ].
+	arguments := arguments isEmptyOrNil
+		ifFalse: [ self removeNumbers: arguments ].
 	^ arguments isEmptyOrNil
 		ifTrue: [ MRLQueryResults new ]
-		ifFalse: [ MRLQueryResults
+		ifFalse: [ arguments := arguments sortAscending: #startPosition.
+			MRLQueryResults
 				withAll:
 					(arguments
 						collect: [ :arg | 
@@ -35,5 +39,5 @@ QueryInvocationArguments >> runOn: aFamixPWBInvocation [
 										lineNumberCorrespondingToIndex: aFamixPWBInvocation sourceAnchor startPos);
 								invocationText: aFamixPWBInvocation sourceText;
 								receiver: aFamixPWBInvocation candidates anyOne name;
-								argumentString: (sourceText copyFrom: arg startPosition to: arg stopPosition) ]) ]
+								argumentString: (candidateParameters at: (arguments indexOf: arg)) name ]) ]
 ]

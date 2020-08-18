@@ -20,3 +20,8 @@ MrlParameter class >> session [
 	session login.
 	^ session
 ]
+
+{ #category : #accessing }
+MrlParameter >> pwb_parameter_name [
+	^ pwb_parameter_name
+]

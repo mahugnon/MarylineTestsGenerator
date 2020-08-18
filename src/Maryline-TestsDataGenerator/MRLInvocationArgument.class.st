@@ -9,8 +9,7 @@ Class {
 		'invocationText',
 		'argumentString',
 		'invocationLineNumber',
-		'file',
-		'sampleValues'
+		'file'
 	],
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
@@ -178,7 +177,7 @@ MRLInvocationArgument >> receiver: anObject [
 	receiver := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #api }
 MRLInvocationArgument >> replacementMap [
 	^ {('/' -> '_dividedBy_').
 	('<>' -> '_isDifferentFrom_').
@@ -186,16 +185,6 @@ MRLInvocationArgument >> replacementMap [
 	($' -> '').
 	(' ' -> '').
 	('""' -> 'empty_string')} asOrderedDictionary
-]
-
-{ #category : #accessing }
-MRLInvocationArgument >> sampleValues [
-	^ sampleValues
-]
-
-{ #category : #accessing }
-MRLInvocationArgument >> sampleValues: anObject [
-	sampleValues := anObject
 ]
 
 { #category : #api }

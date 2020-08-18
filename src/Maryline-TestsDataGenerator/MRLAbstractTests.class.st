@@ -64,7 +64,7 @@ uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
 end function
 
 private function integer aFunctionWithParam (int ai_arg1, Long al_arg2);
-return1'
+return 1'
 ]
 
 { #category : #public }
@@ -94,21 +94,26 @@ MRLAbstractTests >> setUpFunction [
 	testFunction1 := FamixPWBFunction new
 		name: 'aFunction';
 		sourceAnchor: sourceAnchorFunction1;
-		parentType: testPWBOject1.
+		parentType: testPWBOject1;
+		mooseModel: model.
 	testFunction2 := FamixPWBFunction new
 		parentType: FamixPWBUserObject new;
 		name: 'f_del_ligne_suite';
+		mooseModel: model;
 		sourceAnchor: sourceAnchorFunction2;
 		parentType: testPWBOject1.
 	testFunction3 := FamixPWBFunction new
 		parentType: FamixPWBUserObject new;
+		mooseModel: model;
 		name: 'uf_exist_col_dw';
 		parentType: testPWBOject1.
 	testFunction3 := FamixPWBFunction new
 		parentType: FamixPWBUserObject new;
+		mooseModel: model;
 		name: 'aFunctionWithParam';
 		sourceAnchor: sourceAnchorFunction3;
-		parentType: testPWBOject1
+		parentType: testPWBOject1;
+		mooseModel: model
 ]
 
 { #category : #running }
@@ -177,8 +182,8 @@ MRLAbstractTests >> setUpSourceAnchors [
 		mooseModel: model.
 	sourceAnchorFunction3 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
-		startPos: 503;
-		endPos: 557;
+		startPos: 478;
+		endPos: 558;
 		mooseModel: model.
 	sourceAnchorTestInvocation5 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
