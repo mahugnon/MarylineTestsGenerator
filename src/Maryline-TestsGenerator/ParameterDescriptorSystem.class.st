@@ -1,9 +1,6 @@
 Class {
 	#name : #ParameterDescriptorSystem,
 	#superclass : #DescriptorSystem,
-	#instVars : [
-		'login'
-	],
 	#category : #'Maryline-TestsGenerator-Model'
 }
 
@@ -56,22 +53,6 @@ ParameterDescriptorSystem >> descriptorForMrlParameter: aDescriptor [
 	(aDescriptor newMapping: DirectMapping)
 		from: #timestamp
 		to: (table fieldNamed: 'timestamp')
-]
-
-{ #category : #'private protocol' }
-ParameterDescriptorSystem >> login [
-	| accessor |
-	login := Login new
-		database: PostgreSQLPlatform new;
-		username: 'honore';
-		password: 'honorem';
-		host: 'localhost';
-		port: '5432';
-		databaseName: 'maryline_database'.
-	accessor := DatabaseAccessor forLogin: login.
-	accessor login.
-	login secure: true.
-	^ login
 ]
 
 { #category : #'as yet unclassified' }

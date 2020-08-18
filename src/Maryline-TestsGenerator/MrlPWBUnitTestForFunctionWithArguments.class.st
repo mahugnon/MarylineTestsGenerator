@@ -6,7 +6,7 @@ Class {
 
 { #category : #visiting }
 MrlPWBUnitTestForFunctionWithArguments class >> accept: aFamixPWBInvocation [
-	^ aFamixPWBInvocation arguments isNotEmpty
+	^ false
 ]
 
 { #category : #accessing }

@@ -12,12 +12,14 @@ MrlPWBUnitTestForFunctionWithBasicTypeArguments class >> accept: aFamixPWBInvoca
 
 { #category : #accessing }
 MrlPWBUnitTestForFunctionWithBasicTypeArguments >> loadArgumentsValues [
-	^ (QueryInvocationArguments runOn: invocation)
+	| arguments |
+	arguments := QueryInvocationArguments runOn: invocation.
+	^ invocation candidates anyOne parameters
 		do: [ :arg | 
 			arg
 				sampleValues:
 					(MrlParameter
 						loadWhere: [ :each | 
-							each pwb_ligne_number = arg invocationLineNumber asString
+							each pwb_ligne_number = arguments anyOne invocationLineNumber asString
 								AND: [ each pwb_parameter_name = arg argumentString ] ]) ]
 ]
