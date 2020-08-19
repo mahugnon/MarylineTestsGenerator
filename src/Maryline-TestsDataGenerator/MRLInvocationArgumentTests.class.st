@@ -21,7 +21,7 @@ MRLInvocationArgumentTests >> testMrlAfterLogString [
 			(QueryInvocationArguments runOn: testInvocation1) first
 				mrlAfterLogString
 		equals:
-			'f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-3-adw_dlq-after-f_del_ligne_suite")'
+			'f_mrl_logger().log(adw_param,"aFunction","testPWBOject1-3-adw_param-after-f_del_ligne_suite")'
 ]
 
 { #category : #tests }
@@ -31,7 +31,7 @@ MRLInvocationArgumentTests >> testMrlBeforeLogString [
 			(QueryInvocationArguments runOn: testInvocation1) first
 				mrlBeforeLogString
 		equals:
-		'f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-3-adw_dlq-before-f_del_ligne_suite")'
+		'f_mrl_logger().log(adw_param,"aFunction","testPWBOject1-3-adw_param-before-f_del_ligne_suite")'
 ]
 
 { #category : #tests }
@@ -57,14 +57,14 @@ MRLInvocationArgumentTests >> testSaveMrlLogStrings [
 		assert: (argument generateInSourceTextMrlLogStrings: testFunction1 sourceText)
 		equals:'private function integer aFunction ();
   long lLong
-f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-3-adw_dlq-before-f_del_ligne_suite")
+f_mrl_logger().log(adw_param,"aFunction","testPWBOject1-3-adw_param-before-f_del_ligne_suite")
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
-f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-3-adw_dlq-after-f_del_ligne_suite")
+f_mrl_logger().log(adw_param,"aFunction","testPWBOject1-3-adw_param-after-f_del_ligne_suite")
 	var.isNull()
  uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
-f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-3-adw_dlq-before-f_del_ligne_suite")
+f_mrl_logger().log(adw_param,"aFunction","testPWBOject1-3-adw_param-before-f_del_ligne_suite")
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
-f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-3-adw_dlq-after-f_del_ligne_suite")
+f_mrl_logger().log(adw_param,"aFunction","testPWBOject1-3-adw_param-after-f_del_ligne_suite")
 
   return LLONG
 end function'
