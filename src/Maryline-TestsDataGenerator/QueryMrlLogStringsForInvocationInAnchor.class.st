@@ -26,7 +26,14 @@ QueryMrlLogStringsForInvocationInAnchor >> printInitalScriptOn: aString for: aFa
 								<< 'f_mrl_logger().return_value(';
 								space;
 								<< fullInvocationText;
+								nextPut: $,;
 								space;
+								<< aFamixPWBInvocation sourceAnchor startLine asString;
+								space;
+								nextPut: $,;
+								<< '"';
+								<< aFamixPWBInvocation candidates anyOne name;
+								<< '"';
 								nextPut: $);
 								crlf;
 								<< aLine ]) ].
