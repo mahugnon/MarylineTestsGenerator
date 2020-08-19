@@ -93,12 +93,9 @@ MRLInvocationArgument >> invocationLineNumber: anObject [
 
 { #category : #api }
 MRLInvocationArgument >> invocationLines: sourceText [
-	| lines |
-	lines := sourceText lines
-		select: [ :aLine | 
-			(aLine matchesRegex: '//.*') not
-				and: [ aLine includesSubstring: self invocationText caseSensitive: false ] ].
-	^ lines asSet
+	^ QueryInsertMrlCodeLines new
+		runOn: sourceText
+		with: self invocationText
 ]
 
 { #category : #accessing }
