@@ -21,7 +21,7 @@ MRLInvocationArgumentTests >> testMrlAfterLogString [
 			(QueryInvocationArguments runOn: testInvocation1) first
 				mrlAfterLogString
 		equals:
-			'f_mrl_logger().log(adw_param,"aFunction","testPWBOject1-3-adw_param-after-f_del_ligne_suite")'
+			'f_mrl_logger().log("adw_param","aFunction","testPWBOject1-3-adw_param-after-f_del_ligne_suite")'
 ]
 
 { #category : #tests }
@@ -31,20 +31,20 @@ MRLInvocationArgumentTests >> testMrlBeforeLogString [
 			(QueryInvocationArguments runOn: testInvocation1) first
 				mrlBeforeLogString
 		equals:
-		'f_mrl_logger().log(adw_param,"aFunction","testPWBOject1-3-adw_param-before-f_del_ligne_suite")'
+		'f_mrl_logger().log("adw_param","aFunction","testPWBOject1-3-adw_param-before-f_del_ligne_suite")'
 ]
 
 { #category : #tests }
 MRLInvocationArgumentTests >> testMrlBeforeLogString1 [
 |arg|
-arg := MRLInvocationArgument new sender: testFunction1; receiver:'uf_rech_nv_param_prev';argumentString:'"PER_PAI"';yourself  .
+arg := MRLInvocationArgument new sender: testFunction1; receiver:'uf_rech_nv_param_prev';argumentString:'PER_PAI';yourself  .
 	
 	self
 		assert:
 			arg 
 				mrlBeforeLogString
 		equals:
-			'f_mrl_logger().log("PER_PAI","aFunction","testPWBOject1-nil-PER_PAI-before-uf_rech_nv_param_prev")'
+		'f_mrl_logger().log("PER_PAI","aFunction","testPWBOject1-nil-PER_PAI-before-uf_rech_nv_param_prev")'
 ]
 
 { #category : #tests }
