@@ -86,7 +86,8 @@ MRLAbstractTests >> setUp [
 	self setUpSourceAnchors.
 	self setUpPWBTestObjects.
 	self setUpFunction.
-	self setUpInvocations
+	self setUpInvocations.
+	self setUpReturnType
 ]
 
 { #category : #running }
@@ -146,6 +147,15 @@ MRLAbstractTests >> setUpPWBTestObjects [
 		mooseModel: model;
 		name: 'testPWBOject1';
 		sourceAnchor: sourceAnchorTestObject1.
+]
+
+{ #category : #initialization }
+MRLAbstractTests >> setUpReturnType [
+	testFunction2
+		returnType:
+			(FamixPWBBasicType new
+				name: 'Integer';
+				mooseModel: model)
 ]
 
 { #category : #running }

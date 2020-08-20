@@ -23,21 +23,48 @@ QueryMrlLogStringsForInvocationInAnchor >> printInitalScriptOn: aString for: aFa
 							aStream
 								<< 'f_mrl_logger().setTimestamp()';
 								crlf;
-								<< 'f_mrl_logger().return_value(';
-								space;
-								<< fullInvocationText;
-								nextPut: $,;
-								space;
-								<< aFamixPWBInvocation sourceAnchor startLine asString;
-								space;
-								nextPut: $,;
-								<< '"';
-								<< aFamixPWBInvocation candidates anyOne name;
-								<< '"';
-								nextPut: $);
-								crlf;
+								<<
+									(self
+										returnValueString: aFamixPWBInvocation
+										fulInvocationText: fullInvocationText);
 								<< aLine ]) ].
 	^ result
+]
+
+{ #category : #printing }
+QueryMrlLogStringsForInvocationInAnchor >> returnValueString: aFamixPWBInvocation fulInvocationText: aString [
+	| returnType |
+	returnType := aFamixPWBInvocation candidates anyOne returnType.
+	returnType ifNil: [ ^ '' ].
+	returnType isString
+		ifFalse: [ returnType := returnType name ].
+	^ String
+		streamContents: [ :stream | 
+			stream
+				<< returnType;
+				space;
+				<< 'l_return';
+				crlf;
+				<< 'l_return';
+				space;
+				<< '=';
+				space;
+				<< aString;
+				crlf;
+				<< 'f_mrl_logger().return_value(';
+				space;
+				<< 'l_return';
+				nextPut: $,;
+				space;
+				<< aFamixPWBInvocation sourceAnchor startLine asString;
+				space;
+				nextPut: $,;
+				<< '"';
+				<< aFamixPWBInvocation candidates anyOne name;
+				<< '"';
+				space;
+				nextPut: $);
+				crlf ]
 ]
 
 { #category : #running }
