@@ -33,19 +33,23 @@ QueryMrlLogStringsForInvocationInAnchor >> printInitalScriptOn: aString for: aFa
 
 { #category : #printing }
 QueryMrlLogStringsForInvocationInAnchor >> returnValueString: aFamixPWBInvocation fulInvocationText: aString [
-	| returnType |
-	returnType := aFamixPWBInvocation candidates anyOne returnType.
+	| returnType behavior returnVar invocationLine |
+	behavior := aFamixPWBInvocation candidates anyOne.
+	returnType := behavior returnType.
+	invocationLine := aFamixPWBInvocation sourceAnchor startLine asString.
 	returnType ifNil: [ ^ '' ].
 	returnType isString
 		ifFalse: [ returnType := returnType name ].
+	returnVar := 'lvar' , Time current asSeconds asString
+		, invocationLine , '_' , behavior name , '_return'.
 	^ String
 		streamContents: [ :stream | 
 			stream
 				<< returnType;
 				space;
-				<< 'l_return';
+				<< returnVar;
 				crlf;
-				<< 'l_return';
+				<< returnVar;
 				space;
 				<< '=';
 				space;
@@ -53,10 +57,10 @@ QueryMrlLogStringsForInvocationInAnchor >> returnValueString: aFamixPWBInvocatio
 				crlf;
 				<< 'f_mrl_logger().return_value(';
 				space;
-				<< 'l_return';
+				<< returnVar;
 				nextPut: $,;
 				space;
-				<< aFamixPWBInvocation sourceAnchor startLine asString;
+				<< invocationLine;
 				space;
 				nextPut: $,;
 				<< '"';
