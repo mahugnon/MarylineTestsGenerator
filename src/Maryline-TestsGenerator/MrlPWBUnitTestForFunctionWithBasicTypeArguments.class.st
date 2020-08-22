@@ -10,6 +10,11 @@ MrlPWBUnitTestForFunctionWithBasicTypeArguments class >> accept: aFamixPWBInvoca
 		allSatisfy: [ :param | param isBasic ]
 ]
 
+{ #category : #visiting }
+MrlPWBUnitTestForFunctionWithBasicTypeArguments class >> acceptFunction: aFamixPWBFunction [
+	^ aFamixPWBFunction parameters allSatisfy: [ :param | param isBasic ]
+]
+
 { #category : #accessing }
 MrlPWBUnitTestForFunctionWithBasicTypeArguments >> loadArgumentsValues [
 	| arguments |

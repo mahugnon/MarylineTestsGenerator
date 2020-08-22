@@ -9,6 +9,11 @@ MrlPWBUnitTestForFunctionWithArguments class >> accept: aFamixPWBInvocation [
 	^ false
 ]
 
+{ #category : #visiting }
+MrlPWBUnitTestForFunctionWithArguments class >> acceptFunction: aFamixPWBFunction [
+	^ false
+]
+
 { #category : #accessing }
 MrlPWBUnitTestForFunctionWithArguments >> invocation: aFamixPWBInvocation [
 	super invocation: aFamixPWBInvocation.

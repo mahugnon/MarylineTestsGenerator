@@ -36,15 +36,16 @@ MRLInvocationArgumentTests >> testMrlBeforeLogString [
 
 { #category : #tests }
 MRLInvocationArgumentTests >> testMrlBeforeLogString1 [
-|arg|
-arg := MRLInvocationArgument new sender: testFunction1; receiver:'uf_rech_nv_param_prev';argumentString:'PER_PAI';yourself  .
-	
+	| arg |
+	arg := MRLInvocationArgument new
+		sender: testFunction1;
+		receiver: 'uf_rech_nv_param_prev';
+		argumentValue: 'PER_PAI';
+		yourself.
 	self
-		assert:
-			arg 
-				mrlBeforeLogString
+		assert: arg mrlBeforeLogString
 		equals:
-		'f_mrl_logger().log("PER_PAI","aFunction","testPWBOject1-nil-PER_PAI-before-uf_rech_nv_param_prev")'
+			'f_mrl_logger().log("PER_PAI","aFunction","testPWBOject1-nil-PER_PAI-before-uf_rech_nv_param_prev")'
 ]
 
 { #category : #tests }

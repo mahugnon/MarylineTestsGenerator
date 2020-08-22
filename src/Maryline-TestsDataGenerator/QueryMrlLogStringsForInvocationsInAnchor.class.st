@@ -22,6 +22,7 @@ QueryMrlLogStringsForInvocationsInAnchor >> runOn: aCollection [
 QueryMrlLogStringsForInvocationsInAnchor >> runOn: aCollection with: aString [
 	| sourceText |
 	sourceText := aString copy.
+	QueryMrlLogStringsForInvocationInAnchor resetIdentity .
 	aCollection
 		do: [ :invocation | 
 			sourceText := QueryMrlLogStringsForInvocationInAnchor new

@@ -1,8 +1,30 @@
 Class {
 	#name : #QueryMrlLogStringsForInvocationInAnchor,
 	#superclass : #MRLAbstractQuery,
+	#classVars : [
+		'identity'
+	],
 	#category : #'Maryline-TestsDataGenerator-Queries'
 }
+
+{ #category : #'instance creation' }
+QueryMrlLogStringsForInvocationInAnchor class >> identity [
+identity ifNil: [ identity := 0 ].
+identity := identity +1.
+^identity
+
+]
+
+{ #category : #'instance creation' }
+QueryMrlLogStringsForInvocationInAnchor class >> resetIdentity [
+identity =nil
+
+]
+
+{ #category : #'instance creation' }
+QueryMrlLogStringsForInvocationInAnchor >> identity [
+	^ self class identity asString
+]
 
 { #category : #printing }
 QueryMrlLogStringsForInvocationInAnchor >> printInitalScriptOn: aString for: aFamixPWBInvocation [
@@ -21,8 +43,6 @@ QueryMrlLogStringsForInvocationInAnchor >> printInitalScriptOn: aString for: aFa
 					(String
 						streamContents: [ :aStream | 
 							aStream
-								<< 'f_mrl_logger().setTimestamp()';
-								crlf;
 								<<
 									(self
 										returnValueString: aFamixPWBInvocation
@@ -40,8 +60,8 @@ QueryMrlLogStringsForInvocationInAnchor >> returnValueString: aFamixPWBInvocatio
 	returnType ifNil: [ ^ '' ].
 	returnType isString
 		ifFalse: [ returnType := returnType name ].
-	returnVar := 'lvar' , Time current asSeconds asString
-		, invocationLine , '_' , behavior name , '_return'.
+	returnVar := 'lvar' , invocationLine , self identity , '_'
+		, behavior name , '_return'.
 	^ String
 		streamContents: [ :stream | 
 			stream
@@ -64,7 +84,12 @@ QueryMrlLogStringsForInvocationInAnchor >> returnValueString: aFamixPWBInvocatio
 				space;
 				nextPut: $,;
 				<< '"';
-				<< aFamixPWBInvocation candidates anyOne name;
+				<< behavior name;
+				<< '"';
+				space;
+				nextPut: $,;
+				<< '"';
+				<< behavior parentType name;
 				<< '"';
 				space;
 				nextPut: $);

@@ -18,6 +18,20 @@ MrlPWBUnitTest class >> accept: aFamixPWBInvocation [
 	^ self subclassResponsibility
 ]
 
+{ #category : #visiting }
+MrlPWBUnitTest class >> acceptFunction: aFamixPWBFunction [
+	^ self subclassResponsibility
+]
+
+{ #category : #'as yet unclassified' }
+MrlPWBUnitTest class >> unitTestForFunction: aFamixPWBFunction [
+	aFamixPWBFunction parameters
+		ifNil: [ aFamixPWBFunction setParameters ].
+	^ (self subclasses
+		detect: [ :sub | sub acceptFunction: aFamixPWBFunction ]) new
+		invocation: aFamixPWBFunction
+]
+
 { #category : #'as yet unclassified' }
 MrlPWBUnitTest class >> unitTestForInvocation: aFamixPWBInvocation [
 	^ (self subclasses detect: [ :sub | sub accept: aFamixPWBInvocation ])

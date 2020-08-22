@@ -8,3 +8,8 @@ Class {
 MrlPWBUnitTestForFunctionWithOutArguments class >> accept: aFamixPWBInvocation [
 	^ aFamixPWBInvocation arguments isEmpty
 ]
+
+{ #category : #visiting }
+MrlPWBUnitTestForFunctionWithOutArguments class >> acceptFunction: aFamixPWBFunction [
+	^ aFamixPWBFunction parameters isEmpty
+]

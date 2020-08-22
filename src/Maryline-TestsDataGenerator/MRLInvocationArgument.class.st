@@ -7,7 +7,8 @@ Class {
 		'startPosition',
 		'stopPosition',
 		'invocationText',
-		'argumentString',
+		'argumentName',
+		'argumentValue',
 		'invocationLineNumber',
 		'file'
 	],
@@ -15,13 +16,23 @@ Class {
 }
 
 { #category : #accessing }
-MRLInvocationArgument >> argumentString [
-	^ argumentString
+MRLInvocationArgument >> argumentName [
+	^ argumentName
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> argumentString: anObject [
-	argumentString := anObject
+MRLInvocationArgument >> argumentName: anObject [
+	argumentName := anObject
+]
+
+{ #category : #accessing }
+MRLInvocationArgument >> argumentValue [
+	^ argumentValue
+]
+
+{ #category : #accessing }
+MRLInvocationArgument >> argumentValue: anObject [
+	argumentValue := anObject
 ]
 
 { #category : #accessing }
@@ -121,7 +132,7 @@ MRLInvocationArgument >> mrlBeforeLogString [
 { #category : #api }
 MRLInvocationArgument >> mrlLogString: aString [
 	| printable |
-	printable := argumentString copy.
+	printable := argumentName copy.
 	self replacementMap keys
 		select: [ :key | printable includesSubstring: key asString ]
 		thenDo: [ :key | 
@@ -133,7 +144,7 @@ MRLInvocationArgument >> mrlLogString: aString [
 			aStream
 				<< 'f_mrl_logger().log(';
 				<< '"';
-				<< argumentString;
+				<< argumentValue;
 				<< '"';
 				<< ',';
 				<< '"';

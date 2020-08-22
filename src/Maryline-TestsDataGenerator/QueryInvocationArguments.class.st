@@ -37,5 +37,6 @@ QueryInvocationArguments >> runOn: aFamixPWBInvocation [
 								invocationLineNumber: aFamixPWBInvocation sourceAnchor startLine;
 								invocationText: aFamixPWBInvocation sourceText;
 								receiver: aFamixPWBInvocation candidates anyOne name;
-								argumentString: (candidateParameters at: (arguments indexOf: arg)) name ]) ]
+								argumentValue: (sourceText copyFrom: arg startPosition to: arg stopPosition);
+								argumentName: (candidateParameters at: (arguments indexOf: arg)) name ]) ]
 ]
