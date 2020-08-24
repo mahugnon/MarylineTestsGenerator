@@ -2,12 +2,15 @@ Class {
 	#name : #MrlParameter,
 	#superclass : #MrlAbstractModel,
 	#instVars : [
-		'pwb_parameter_name',
-		'pwb_parameter_value',
-		'pwb_parameter_syntax',
-		'pwb_parameter_value_context',
-		'pwb_ligne_number',
-		'timestamp'
+		'parameter_id',
+		'parameter_name',
+		'parameter_before_value',
+		'parameter_after_value',
+		'parameter_syntax',
+		'line_number',
+		'timestamp',
+		'behavior_id',
+		'parameter_selectSql'
 	],
 	#category : #'Maryline-TestsGenerator-Model'
 }
@@ -22,6 +25,6 @@ MrlParameter class >> session [
 ]
 
 { #category : #accessing }
-MrlParameter >> pwb_parameter_name [
-	^ pwb_parameter_name
+MrlParameter >> parameter_name [
+	^ parameter_name
 ]

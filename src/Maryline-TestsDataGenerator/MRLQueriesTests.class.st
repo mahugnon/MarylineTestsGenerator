@@ -14,7 +14,49 @@ MRLQueriesTests >> testInsertMrlLogStringsForFunctionsInSource [
 		assert:
 			(QueryInsertMrlLogStringsForBRFunctionsInPWBObjectInSource new
 				runOn: testPWBOject1) sourceText
-		equals:''
+		equals:'private function integer aFunction ();
+  long lLong
+f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-3-adw_param-before-f_del_ligne_suite")
+f_mrl_logger().log(al_lig,"aFunction","testPWBOject1-3-al_param-before-f_del_ligne_suite")
+f_mrl_logger().log(is_col_dec <> "dlq_rel","aFunction","testPWBOject1-3-ab_param-before-f_del_ligne_suite")
+Integer lvar348_f_del_ligne_suite_return
+lvar348_f_del_ligne_suite_return = f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
+f_mrl_logger().return_value( lvar348_f_del_ligne_suite_return, 3 ,"f_del_ligne_suite" ,"testPWBOject1" )
+f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
+f_mrl_logger().log(is_col_dec <> "dlq_rel","aFunction","testPWBOject1-3-ab_param-after-f_del_ligne_suite")
+f_mrl_logger().log(al_lig,"aFunction","testPWBOject1-3-al_param-after-f_del_ligne_suite")
+f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-3-adw_param-after-f_del_ligne_suite")
+	var.isNull()
+f_mrl_logger().log(''noe_lig'',"aFunction","testPWBOject1-5-ai_arg1-before-aFunctionWithParam")
+f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-5-al_arg2-before-aFunctionWithParam")
+f_mrl_logger().log(''noe_cev'',"aFunction","testPWBOject1-5-ai_arg1-before-aFunctionWithParam")
+f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-5-ai_arg1-before-aFunctionWithParam")
+ uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
+f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-5-ai_arg1-after-aFunctionWithParam")
+f_mrl_logger().log(''noe_cev'',"aFunction","testPWBOject1-5-ai_arg1-after-aFunctionWithParam")
+f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-5-al_arg2-after-aFunctionWithParam")
+f_mrl_logger().log(''noe_lig'',"aFunction","testPWBOject1-5-ai_arg1-after-aFunctionWithParam")
+f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-3-adw_param-before-f_del_ligne_suite")
+f_mrl_logger().log(al_lig,"aFunction","testPWBOject1-3-al_param-before-f_del_ligne_suite")
+f_mrl_logger().log(is_col_dec <> "dlq_rel","aFunction","testPWBOject1-3-ab_param-before-f_del_ligne_suite")
+Integer lvar348_f_del_ligne_suite_return
+lvar348_f_del_ligne_suite_return = f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
+f_mrl_logger().return_value( lvar348_f_del_ligne_suite_return, 3 ,"f_del_ligne_suite" ,"testPWBOject1" )
+f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
+f_mrl_logger().log(is_col_dec <> "dlq_rel","aFunction","testPWBOject1-3-ab_param-after-f_del_ligne_suite")
+f_mrl_logger().log(al_lig,"aFunction","testPWBOject1-3-al_param-after-f_del_ligne_suite")
+f_mrl_logger().log(adw_dlq,"aFunction","testPWBOject1-3-adw_param-after-f_del_ligne_suite")
+
+  return LLONG
+end function
+
+private function integer f_del_ligne_suite(datawindow adw_param, long al_param, boolean ab_param)
+f_mrl_logger().log(''noe_cev'',"f_del_ligne_suite","testPWBOject1-12-ai_arg1-before-aFunctionWithParam")
+f_mrl_logger().log(adw_dlq,"f_del_ligne_suite","testPWBOject1-12-ai_arg1-before-aFunctionWithParam")
+uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
+f_mrl_logger().log(adw_dlq,"f_del_ligne_suite","testPWBOject1-12-ai_arg1-after-aFunctionWithParam")
+f_mrl_logger().log(''noe_cev'',"f_del_ligne_suite","testPWBOject1-12-ai_arg1-after-aFunctionWithParam")
+end function'
 			.
 	self tearDown
 ]

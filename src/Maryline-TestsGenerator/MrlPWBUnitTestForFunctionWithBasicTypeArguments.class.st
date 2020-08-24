@@ -26,5 +26,5 @@ MrlPWBUnitTestForFunctionWithBasicTypeArguments >> loadArgumentsValues [
 					(MrlParameter
 						loadWhere: [ :each | 
 							each pwb_ligne_number = arguments anyOne invocationLineNumber asString
-								AND: [ each pwb_parameter_name = arg argumentString ] ]) ]
+								AND: [ each parameter_name = arg argumentString ] ]) ]
 ]

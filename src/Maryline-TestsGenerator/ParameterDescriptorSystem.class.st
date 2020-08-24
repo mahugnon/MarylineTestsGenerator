@@ -18,12 +18,14 @@ ParameterDescriptorSystem >> allTableNames [
 
 { #category : #'as yet unclassified' }
 ParameterDescriptorSystem >> classModelForParameter: aClassModel [
-	aClassModel newAttributeNamed: #pwb_parameter_name.
-	aClassModel newAttributeNamed: #pwb_parameter_value.
-	aClassModel newAttributeNamed: #pwb_parameter_syntax.
-	"aClassModel newAttributeNamed: #pwb_parameter_selectSql."
-	aClassModel newAttributeNamed: #pwb_parameter_value_context.
-	aClassModel newAttributeNamed: #pwb_ligne_number.
+	aClassModel newAttributeNamed: #behavior_id.
+	aClassModel newAttributeNamed: #parameter_id.
+	aClassModel newAttributeNamed: #parameter_name.
+	aClassModel newAttributeNamed: #parameter_before_value.
+	aClassModel newAttributeNamed: #parameter_syntax.
+	"aClassModel newAttributeNamed: #parameter_selectSql."
+	aClassModel newAttributeNamed: #parameter_after_value.
+	aClassModel newAttributeNamed: #line_number.
 	aClassModel newAttributeNamed: #timestamp
 ]
 
@@ -31,25 +33,41 @@ ParameterDescriptorSystem >> classModelForParameter: aClassModel [
 ParameterDescriptorSystem >> descriptorForMrlParameter: aDescriptor [
 	| table |
 	table := self tableNamed: 'Parameter'.
+	
 	aDescriptor table: table.
+	
 	(aDescriptor newMapping: DirectMapping)
-		from: #pwb_parameter_name
-		to: (table fieldNamed: 'pwb_parameter_name').
+		from: #parameter_name
+		to: (table fieldNamed: 'parameter_name').
+		
 	(aDescriptor newMapping: DirectMapping)
-		from: #pwb_parameter_value
-		to: (table fieldNamed: 'pwb_parameter_value').
+		from: #parameter_before_value
+		to: (table fieldNamed: 'parameter_before_value').
+		
 	(aDescriptor newMapping: DirectMapping)
-		from: #pwb_parameter_syntax
-		to: (table fieldNamed: 'pwb_parameter_syntax').
+		from: #parameter_after_value
+		to: (table fieldNamed: 'parameter_after_value').
+		
+	(aDescriptor newMapping: DirectMapping)
+		from: #parameter_syntax
+		to: (table fieldNamed: 'parameter_syntax').
+		
 	"(aDescriptor newMapping: DirectMapping)
-		from: #pwb_parameter_selectSql
-		to: (table fieldNamed: 'pwb_parameter_selectSql')."
+		from: #parameter_selectSql
+		to: (table fieldNamed: 'parameter_selectSql').
+	"	
 	(aDescriptor newMapping: DirectMapping)
-		from: #pwb_parameter_value_context
-		to: (table fieldNamed: 'pwb_parameter_value_context').
+		from: #line_number
+		to: (table fieldNamed: 'line_number').
+		
 	(aDescriptor newMapping: DirectMapping)
-		from: #pwb_ligne_number
-		to: (table fieldNamed: 'pwb_ligne_number').
+		from: #behavior_id
+		to: (table fieldNamed: 'behavior_id').
+		
+	(aDescriptor newMapping: DirectMapping)
+		from: #parameter_id
+		to: (table fieldNamed: 'parameter_id').
+		
 	(aDescriptor newMapping: DirectMapping)
 		from: #timestamp
 		to: (table fieldNamed: 'timestamp')
@@ -57,24 +75,32 @@ ParameterDescriptorSystem >> descriptorForMrlParameter: aDescriptor [
 
 { #category : #'as yet unclassified' }
 ParameterDescriptorSystem >> tableForPARAMETER: aTable [
+	| fk_parameter |
+	(aTable createFieldNamed: 'parameter_id' type: platform int4)
+		bePrimaryKey.
+	fk_parameter := aTable
+		createFieldNamed: 'behavior_id'
+		type: platform int4.
 	aTable
-		createFieldNamed: 'pwb_parameter_name'
+		createFieldNamed: 'parameter_name'
 		type: (platform varChar: 100).
 	aTable
-		createFieldNamed: 'pwb_parameter_value'
+		createFieldNamed: 'parameter_after_value'
 		type: (platform varChar: 100).
 	aTable
-		createFieldNamed: 'pwb_parameter_syntax'
+		createFieldNamed: 'parameter_syntax'
 		type: (platform varChar: 100).
-	"aTable
-		createFieldNamed: 'pwb_parameter_selectSql'
-		type: (platform varChar: 100)."
+		
+		"	aTable
+		createFieldNamed: 'parameter_selectSql'
+		type: (platform varChar: 100).
+		"
 	aTable
-		createFieldNamed: 'pwb_parameter_value_context'
+		createFieldNamed: 'parameter_before_value'
 		type: (platform varChar: 100).
+	aTable createFieldNamed: 'line_number' type: (platform varChar: 100).
+	aTable createFieldNamed: 'timestamp' type: (platform varChar: 100).
 	aTable
-		createFieldNamed: 'pwb_ligne_number'
-		type: (platform varChar: 100).
-	(aTable createFieldNamed: 'timestamp' type: (platform varChar: 100))
-		bePrimaryKey
+		addForeignKeyFrom: fk_parameter
+		to: ((self tableNamed: 'PARAMETER') fieldNamed: 'behavior_id')
 ]

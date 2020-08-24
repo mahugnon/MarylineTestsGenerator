@@ -32,7 +32,7 @@ MrlInvocationLog class >> session [
 MrlInvocationLog >> loadParametersValue [
 	mrlParameters := ((MrlParameter
 		loadWhere: [ :each | each pwb_ligne_number = pwb_ligne_number ])
-		groupedBy: [ :each | each pwb_parameter_name ]) asOrderedDictionary
+		groupedBy: [ :each | each parameter_name ]) asOrderedDictionary
 ]
 
 { #category : #accessing }
