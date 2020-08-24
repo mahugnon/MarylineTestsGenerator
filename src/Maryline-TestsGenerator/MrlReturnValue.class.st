@@ -1,20 +1,20 @@
 Class {
-	#name : #MrlPossibleReturnValues,
+	#name : #MrlReturnValue,
 	#superclass : #MrlAbstractModel,
 	#instVars : [
 		'value',
-		'function_name',
-		'pwb_ligne_number',
+		'behavior_id',
+		'line_number',
 		'timestamp'
 	],
 	#category : #'Maryline-TestsGenerator-Model'
 }
 
 { #category : #'as yet unclassified' }
-MrlPossibleReturnValues class >> session [
+MrlReturnValue class >> session [
 	| session login |
 	login := self login.
-	session := Possible_return_valuesDescriptorSystem
+	session := MrlReturnValueDescriptorSystem
 		sessionForLogin: login.
 	session login.
 	^ session

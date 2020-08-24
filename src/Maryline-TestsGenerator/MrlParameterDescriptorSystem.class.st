@@ -1,23 +1,23 @@
 Class {
-	#name : #ParameterDescriptorSystem,
+	#name : #MrlParameterDescriptorSystem,
 	#superclass : #DescriptorSystem,
 	#category : #'Maryline-TestsGenerator-Model'
 }
 
 { #category : #'accessing structure variables' }
-ParameterDescriptorSystem class >> driver [
+MrlParameterDescriptorSystem class >> driver [
 	<script>
 	PharoDatabaseAccessor DefaultDriver: P3DatabaseDriver
 ]
 
 { #category : #accessing }
-ParameterDescriptorSystem >> allTableNames [
+MrlParameterDescriptorSystem >> allTableNames [
 	"Return a list of all the table names that this system uses."
 	^#('Parameter')
 ]
 
 { #category : #'as yet unclassified' }
-ParameterDescriptorSystem >> classModelForParameter: aClassModel [
+MrlParameterDescriptorSystem >> classModelForParameter: aClassModel [
 	aClassModel newAttributeNamed: #behavior_id.
 	aClassModel newAttributeNamed: #parameter_id.
 	aClassModel newAttributeNamed: #parameter_name.
@@ -30,7 +30,7 @@ ParameterDescriptorSystem >> classModelForParameter: aClassModel [
 ]
 
 { #category : #'as yet unclassified' }
-ParameterDescriptorSystem >> descriptorForMrlParameter: aDescriptor [
+MrlParameterDescriptorSystem >> descriptorForMrlParameter: aDescriptor [
 	| table |
 	table := self tableNamed: 'Parameter'.
 	
@@ -74,7 +74,7 @@ ParameterDescriptorSystem >> descriptorForMrlParameter: aDescriptor [
 ]
 
 { #category : #'as yet unclassified' }
-ParameterDescriptorSystem >> tableForPARAMETER: aTable [
+MrlParameterDescriptorSystem >> tableForPARAMETER: aTable [
 	| fk_parameter |
 	(aTable createFieldNamed: 'parameter_id' type: platform int4)
 		bePrimaryKey.

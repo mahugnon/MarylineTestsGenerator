@@ -19,7 +19,7 @@ Class {
 MrlParameter class >> session [
 	| session login |
 	login := self login.
-	session := ParameterDescriptorSystem sessionForLogin: login.
+	session := MrlParameterDescriptorSystem sessionForLogin: login.
 	session login.
 	^ session
 ]
