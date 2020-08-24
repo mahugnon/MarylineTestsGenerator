@@ -1,7 +1,7 @@
 Class {
 	#name : #MrlDescriptorAbstractSystem,
 	#superclass : #DescriptorSystem,
-	#category : #'Maryline-TestsGenerator-Model'
+	#category : #'Maryline-TestsDataGenerator-Model'
 }
 
 { #category : #'accessing structure variables' }

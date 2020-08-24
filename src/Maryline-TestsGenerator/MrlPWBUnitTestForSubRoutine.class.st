@@ -8,3 +8,8 @@ Class {
 MrlPWBUnitTestForSubRoutine class >> accept: aFamixPWBInvocation [
 	^ false
 ]
+
+{ #category : #visiting }
+MrlPWBUnitTestForSubRoutine class >> acceptFunction: aFamixPWBFunction [
+	^ false
+]

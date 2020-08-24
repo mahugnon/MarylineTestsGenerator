@@ -1,7 +1,7 @@
 Class {
 	#name : #MrlBehaviorDescriptorSystem,
 	#superclass : #MrlDescriptorAbstractSystem,
-	#category : #'Maryline-TestsGenerator-Model'
+	#category : #'Maryline-TestsDataGenerator-Model'
 }
 
 { #category : #accessing }

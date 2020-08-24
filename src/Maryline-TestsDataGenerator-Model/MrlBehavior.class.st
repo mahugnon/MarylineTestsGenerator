@@ -9,16 +9,17 @@ Class {
 		'mrlParameters',
 		'mrlReturnValues'
 	],
-	#category : #'Maryline-TestsGenerator-Model'
+	#category : #'Maryline-TestsDataGenerator-Model'
 }
 
 { #category : #accessing }
 MrlBehavior class >> loadAllWithMrlParameterAndMrlReturnValues [
-	^ self loadAll
-		do: [ :behavior | 
-			behavior
-				loadMrlParameters;
-				loadMrlReturnValues ]
+	^ self loadAll do: #loadMrlParametersAndReturnValues
+]
+
+{ #category : #accessing }
+MrlBehavior class >> loadWithMrlParameterAndMrlReturnValuesWhere: aBlock [
+	^ (self loadWhere: aBlock) do: #loadMrlParametersAndReturnValues
 ]
 
 { #category : #'as yet unclassified' }
@@ -83,6 +84,13 @@ MrlBehavior >> loadMrlParameters [
 		addAllMrlParameters:
 			(MrlParameter
 				loadWhere: [ :mrlParameter | mrlParameter behavior_id = self behavior_id ])
+]
+
+{ #category : #'as yet unclassified' }
+MrlBehavior >> loadMrlParametersAndReturnValues [
+	self
+		loadMrlParameters;
+		loadMrlReturnValues
 ]
 
 { #category : #'as yet unclassified' }

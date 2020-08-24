@@ -12,19 +12,14 @@ MrlPWBUnitTestForFunctionWithBasicTypeArguments class >> accept: aFamixPWBInvoca
 
 { #category : #visiting }
 MrlPWBUnitTestForFunctionWithBasicTypeArguments class >> acceptFunction: aFamixPWBFunction [
-	^ aFamixPWBFunction parameters allSatisfy: [ :param | param isBasic ]
+	^ aFamixPWBFunction parameters isNotEmpty
+		and: [ aFamixPWBFunction parameters allSatisfy: #isBasic ]
 ]
 
-{ #category : #accessing }
-MrlPWBUnitTestForFunctionWithBasicTypeArguments >> loadArgumentsValues [
-	| arguments |
-	arguments := QueryInvocationArguments runOn: invocation.
-	^ invocation candidates anyOne parameters
-		do: [ :arg | 
-			arg
-				sampleValues:
-					(MrlParameter
-						loadWhere: [ :each | 
-							each pwb_ligne_number = arguments anyOne invocationLineNumber asString
-								AND: [ each parameter_name = arg argumentString ] ]) ]
+{ #category : #'as yet unclassified' }
+MrlPWBUnitTestForFunctionWithBasicTypeArguments >> loadTestData [
+	^ MrlBehavior
+		loadWithMrlParameterAndMrlReturnValuesWhere: [ :function | 
+			function behavior_name = functionUnderTest name
+				AND: [ function pwb_object = functionUnderTest parentType name ] ]
 ]

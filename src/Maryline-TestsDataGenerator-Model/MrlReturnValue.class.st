@@ -7,7 +7,7 @@ Class {
 		'line_number',
 		'timestamp'
 	],
-	#category : #'Maryline-TestsGenerator-Model'
+	#category : #'Maryline-TestsDataGenerator-Model'
 }
 
 { #category : #'as yet unclassified' }

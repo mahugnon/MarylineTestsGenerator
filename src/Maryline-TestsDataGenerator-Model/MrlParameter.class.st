@@ -12,7 +12,7 @@ Class {
 		'behavior_id',
 		'parameter_selectSql'
 	],
-	#category : #'Maryline-TestsGenerator-Model'
+	#category : #'Maryline-TestsDataGenerator-Model'
 }
 
 { #category : #accessing }

@@ -10,7 +10,7 @@ Class {
 		'invocation',
 		'receiver'
 	],
-	#category : #'Maryline-TestsGenerator-Core'
+	#category : #'Maryline-TestsGenerator-MrlTestUnitStrategy'
 }
 
 { #category : #visiting }
@@ -29,7 +29,7 @@ MrlPWBUnitTest class >> unitTestForFunction: aFamixPWBFunction [
 		ifNil: [ aFamixPWBFunction setParameters ].
 	^ (self subclasses
 		detect: [ :sub | sub acceptFunction: aFamixPWBFunction ]) new
-		invocation: aFamixPWBFunction
+		functionUnderTest: aFamixPWBFunction
 ]
 
 { #category : #'as yet unclassified' }
@@ -77,6 +77,16 @@ MrlPWBUnitTest >> end [
 				<< 'return;';
 				crlf;
 				<< 'end event' ]
+]
+
+{ #category : #accessing }
+MrlPWBUnitTest >> functionUnderTest [
+	^ functionUnderTest
+]
+
+{ #category : #accessing }
+MrlPWBUnitTest >> functionUnderTest: anObject [
+	functionUnderTest := anObject
 ]
 
 { #category : #initialization }

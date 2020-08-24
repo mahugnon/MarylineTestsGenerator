@@ -5,7 +5,7 @@ Class {
 		'expected',
 		'actual'
 	],
-	#category : #'Maryline-TestsGenerator-Model'
+	#category : #'Maryline-TestsDataGenerator-Model'
 }
 
 { #category : #accessing }

@@ -1,7 +1,7 @@
 Class {
 	#name : #MrlAbstractModel,
 	#superclass : #Object,
-	#category : #'Maryline-TestsGenerator-Model'
+	#category : #'Maryline-TestsDataGenerator-Model'
 }
 
 { #category : #'as yet unclassified' }
