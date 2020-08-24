@@ -25,6 +25,91 @@ MrlParameter class >> session [
 ]
 
 { #category : #accessing }
+MrlParameter >> behavior_id [
+	^ behavior_id
+]
+
+{ #category : #accessing }
+MrlParameter >> behavior_id: anObject [
+	behavior_id := anObject
+]
+
+{ #category : #accessing }
+MrlParameter >> line_number [
+	^ line_number
+]
+
+{ #category : #accessing }
+MrlParameter >> line_number: anObject [
+	line_number := anObject
+]
+
+{ #category : #accessing }
+MrlParameter >> parameter_after_value [
+	^ parameter_after_value
+]
+
+{ #category : #accessing }
+MrlParameter >> parameter_after_value: anObject [
+	parameter_after_value := anObject
+]
+
+{ #category : #accessing }
+MrlParameter >> parameter_before_value [
+	^ parameter_before_value
+]
+
+{ #category : #accessing }
+MrlParameter >> parameter_before_value: anObject [
+	parameter_before_value := anObject
+]
+
+{ #category : #accessing }
+MrlParameter >> parameter_id [
+	^ parameter_id
+]
+
+{ #category : #accessing }
+MrlParameter >> parameter_id: anObject [
+	parameter_id := anObject
+]
+
+{ #category : #accessing }
 MrlParameter >> parameter_name [
 	^ parameter_name
+]
+
+{ #category : #accessing }
+MrlParameter >> parameter_name: anObject [
+	parameter_name := anObject
+]
+
+{ #category : #accessing }
+MrlParameter >> parameter_selectSql [
+	^ parameter_selectSql
+]
+
+{ #category : #accessing }
+MrlParameter >> parameter_selectSql: anObject [
+	parameter_selectSql := anObject
+]
+
+{ #category : #accessing }
+MrlParameter >> parameter_syntax [
+	^ parameter_syntax
+]
+
+{ #category : #accessing }
+MrlParameter >> parameter_syntax: anObject [
+	parameter_syntax := anObject
+]
+
+{ #category : #accessing }
+MrlParameter >> timestamp [
+	^ timestamp
+]
+
+{ #category : #accessing }
+MrlParameter >> timestamp: anObject [
+	timestamp := anObject
 ]
