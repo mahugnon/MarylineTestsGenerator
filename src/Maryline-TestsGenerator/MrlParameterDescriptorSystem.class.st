@@ -1,14 +1,8 @@
 Class {
 	#name : #MrlParameterDescriptorSystem,
-	#superclass : #DescriptorSystem,
+	#superclass : #MrlDescriptorAbstractSystem,
 	#category : #'Maryline-TestsGenerator-Model'
 }
-
-{ #category : #'accessing structure variables' }
-MrlParameterDescriptorSystem class >> driver [
-	<script>
-	PharoDatabaseAccessor DefaultDriver: P3DatabaseDriver
-]
 
 { #category : #accessing }
 MrlParameterDescriptorSystem >> allTableNames [
@@ -32,7 +26,7 @@ MrlParameterDescriptorSystem >> classModelForParameter: aClassModel [
 { #category : #'as yet unclassified' }
 MrlParameterDescriptorSystem >> descriptorForMrlParameter: aDescriptor [
 	| table |
-	table := self tableNamed: 'Parameter'.
+	table := self tableNamed: 'public."Parameter"'.
 	
 	aDescriptor table: table.
 	

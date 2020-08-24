@@ -1,6 +1,6 @@
 Class {
 	#name : #MrlReturnValueDescriptorSystem,
-	#superclass : #DescriptorSystem,
+	#superclass : #MrlDescriptorAbstractSystem,
 	#category : #'Maryline-TestsGenerator-Model'
 }
 
@@ -16,11 +16,6 @@ MrlReturnValueDescriptorSystem >> classModelForMaryline_return_value: aClassMode
 	aClassModel newAttributeNamed: #behavior_id.
 	aClassModel newAttributeNamed: #line_number.
 	aClassModel newAttributeNamed: #timestamp
-]
-
-{ #category : #private }
-MrlReturnValueDescriptorSystem >> cleanTableName: aString [
-^ (aString  copyReplaceAll: 'PUBLIC.' with:'' ) copyReplaceAll: '"' with: ''
 ]
 
 { #category : #'as yet unclassified' }
@@ -41,17 +36,6 @@ MrlReturnValueDescriptorSystem >> descriptorForMrlReturnValue: aDescriptor [
 (aDescriptor newMapping: DirectMapping)
 		from: #timestamp  
 		to: (table fieldNamed: 'timestamp').	
-]
-
-{ #category : #private }
-MrlReturnValueDescriptorSystem >> initializeTable: newTable [
-	| initializerName |
-	initializerName := ('tableFor' , ( self cleanTableName: newTable name   asUppercase) , ':') asSymbol.
-	(self respondsTo: initializerName)
-		ifTrue: [self perform: initializerName with: newTable]
-		ifFalse: [self noTableInitializerFound: newTable].
-	newTable postInitializeIn: self.
-	self deferentialSetSchema: newTable.
 ]
 
 { #category : #'as yet unclassified' }
