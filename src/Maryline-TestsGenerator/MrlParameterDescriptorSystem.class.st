@@ -7,11 +7,11 @@ Class {
 { #category : #accessing }
 MrlParameterDescriptorSystem >> allTableNames [
 	"Return a list of all the table names that this system uses."
-	^#('Parameter')
+	^#('Maryline_parameter')
 ]
 
 { #category : #'as yet unclassified' }
-MrlParameterDescriptorSystem >> classModelForParameter: aClassModel [
+MrlParameterDescriptorSystem >> classModelForMaryline_parameter: aClassModel [
 	aClassModel newAttributeNamed: #behavior_id.
 	aClassModel newAttributeNamed: #parameter_id.
 	aClassModel newAttributeNamed: #parameter_name.
@@ -26,7 +26,7 @@ MrlParameterDescriptorSystem >> classModelForParameter: aClassModel [
 { #category : #'as yet unclassified' }
 MrlParameterDescriptorSystem >> descriptorForMrlParameter: aDescriptor [
 	| table |
-	table := self tableNamed: 'public."Parameter"'.
+	table := self tableNamed: 'public."Maryline_parameter"'.
 	
 	aDescriptor table: table.
 	
@@ -68,7 +68,7 @@ MrlParameterDescriptorSystem >> descriptorForMrlParameter: aDescriptor [
 ]
 
 { #category : #'as yet unclassified' }
-MrlParameterDescriptorSystem >> tableForPARAMETER: aTable [
+MrlParameterDescriptorSystem >> tableForMARYLINE_PARAMETER: aTable [
 	| fk_parameter |
 	(aTable createFieldNamed: 'parameter_id' type: platform int4)
 		bePrimaryKey.
@@ -96,5 +96,5 @@ MrlParameterDescriptorSystem >> tableForPARAMETER: aTable [
 	aTable createFieldNamed: 'timestamp' type: (platform varChar: 100).
 	aTable
 		addForeignKeyFrom: fk_parameter
-		to: ((self tableNamed: 'PARAMETER') fieldNamed: 'behavior_id')
+		to: ((self tableNamed: 'MARYLINE_PARAMETER') fieldNamed: 'behavior_id')
 ]
