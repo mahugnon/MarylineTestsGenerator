@@ -68,22 +68,6 @@ MrlPWBFunctionWithBasicTypesParametersUnitAssertion >> printPWBDeclarationScript
 	^ String
 		streamContents: [ :stream | 
 			stream
-				<< behaviorParent;
-				space;
-				<< localVar;
-				crlf;
-				<< localVar;
-				space;
-				<< '=';
-				space;
-				<< 'create';
-				space;
-				<< behaviorParent;
-				crlf;
-				<< originalBehavior returnType name;
-				space;
-				<< 'l_result';
-				crlf;
 				<< 'l_result = ';
 				<< localVar;
 				nextPut: $.;

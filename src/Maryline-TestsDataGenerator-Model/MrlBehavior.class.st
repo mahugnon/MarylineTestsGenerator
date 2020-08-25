@@ -155,6 +155,11 @@ MrlBehavior >> pwb_object: anObject [
 ]
 
 { #category : #accessing }
+MrlBehavior >> returnType [
+	^ behaviorUnderTest returnType name
+]
+
+{ #category : #accessing }
 MrlBehavior >> sender [
 	^ sender
 ]

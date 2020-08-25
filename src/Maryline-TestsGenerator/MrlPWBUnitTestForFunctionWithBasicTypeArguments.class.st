@@ -36,6 +36,33 @@ MrlPWBUnitTestForFunctionWithBasicTypeArguments >> loadTestData [
 
 { #category : #printing }
 MrlPWBUnitTestForFunctionWithBasicTypeArguments >> printPWBDeclarationScript [
+	| localVar |
+	localVar := 'l_' , testsData pwb_object.
 	self createAssertionsFromData.
-	^ super printPWBDeclarationScript
+	^ String
+		streamContents: [ :stream | 
+			stream
+				<< self begin;
+				crlf;
+				<< testsData pwb_object;
+				space;
+				<< localVar;
+				crlf;
+				<< localVar;
+				space;
+				<< '=';
+				space;
+				<< 'create';
+				space;
+				<< testsData pwb_object;
+				crlf;
+				<< testsData returnType;
+				space;
+				<< 'l_result';
+				crlf.
+			assertions
+				do: [ :assert | stream << assert printPWBDeclarationScript ].
+			stream
+				<< self end;
+				crlf ]
 ]
