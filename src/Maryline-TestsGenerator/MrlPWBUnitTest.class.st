@@ -25,8 +25,7 @@ MrlPWBUnitTest class >> acceptFunction: aFamixPWBFunction [
 
 { #category : #'as yet unclassified' }
 MrlPWBUnitTest class >> unitTestForFunction: aFamixPWBFunction [
-	aFamixPWBFunction parameters
-		ifNil: [ aFamixPWBFunction setParameters ].
+	aFamixPWBFunction setParameters.
 	^ (self subclasses
 		detect: [ :sub | sub acceptFunction: aFamixPWBFunction ]) new
 		functionUnderTest: aFamixPWBFunction
@@ -91,8 +90,8 @@ MrlPWBUnitTest >> functionUnderTest: anObject [
 
 { #category : #initialization }
 MrlPWBUnitTest >> initialize [
-	variables := OrderedCollection new.
-	assertions := OrderedCollection new
+	variables := Set new.
+	assertions := Set new
 ]
 
 { #category : #accessing }

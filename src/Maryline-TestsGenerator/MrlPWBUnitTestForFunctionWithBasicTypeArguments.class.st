@@ -1,6 +1,9 @@
 Class {
 	#name : #MrlPWBUnitTestForFunctionWithBasicTypeArguments,
 	#superclass : #MrlPWBUnitTest,
+	#instVars : [
+		'testsData'
+	],
 	#category : #'Maryline-TestsGenerator-MrlTestUnitStrategy'
 }
 
@@ -17,9 +20,22 @@ MrlPWBUnitTestForFunctionWithBasicTypeArguments class >> acceptFunction: aFamixP
 ]
 
 { #category : #'as yet unclassified' }
+MrlPWBUnitTestForFunctionWithBasicTypeArguments >> createAssertionsFromData [
+	self loadTestData.
+	assertions addAll: testsData createAssertionsFromData
+]
+
+{ #category : #'as yet unclassified' }
 MrlPWBUnitTestForFunctionWithBasicTypeArguments >> loadTestData [
-	^ MrlBehavior
+	testsData := (MrlBehavior
 		loadWithMrlParameterAndMrlReturnValuesWhere: [ :function | 
 			function behavior_name = functionUnderTest name
-				AND: [ function pwb_object = functionUnderTest parentType name ] ]
+				AND: [ function pwb_object = functionUnderTest parentType name ] ])
+		anyOne behaviorUnderTest: functionUnderTest
+]
+
+{ #category : #printing }
+MrlPWBUnitTestForFunctionWithBasicTypeArguments >> printPWBDeclarationScript [
+	self createAssertionsFromData.
+	^ super printPWBDeclarationScript
 ]

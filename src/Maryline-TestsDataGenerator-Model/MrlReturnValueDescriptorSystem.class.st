@@ -12,7 +12,7 @@ MrlReturnValueDescriptorSystem >> allTableNames [
 
 { #category : #'as yet unclassified' }
 MrlReturnValueDescriptorSystem >> classModelForMaryline_return_value: aClassModel [
-	aClassModel newAttributeNamed: #value.
+	aClassModel newAttributeNamed: #mrlValue.
 	aClassModel newAttributeNamed: #behavior_id.
 	aClassModel newAttributeNamed: #line_number.
 	aClassModel newAttributeNamed: #timestamp
@@ -24,7 +24,7 @@ MrlReturnValueDescriptorSystem >> descriptorForMrlReturnValue: aDescriptor [
 	table := self tableNamed: 'public."Maryline_return_value"'.
 	aDescriptor table: table.
 	(aDescriptor newMapping: DirectMapping)
-		from: #value
+		from: #mrlValue
 		to: (table fieldNamed: 'value').
 	(aDescriptor newMapping: DirectMapping)
 		from: #behavior_id

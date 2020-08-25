@@ -10,7 +10,8 @@ Class {
 		'line_number',
 		'timestamp',
 		'behavior_id',
-		'parameter_selectSql'
+		'parameter_selectSql',
+		'originalParameter'
 	],
 	#category : #'Maryline-TestsDataGenerator-Model'
 }
@@ -34,6 +35,11 @@ MrlParameter >> behavior_id: anObject [
 	behavior_id := anObject
 ]
 
+{ #category : #testing }
+MrlParameter >> isBasic [
+	^ originalParameter isBasic
+]
+
 { #category : #accessing }
 MrlParameter >> line_number [
 	^ line_number
@@ -42,6 +48,21 @@ MrlParameter >> line_number [
 { #category : #accessing }
 MrlParameter >> line_number: anObject [
 	line_number := anObject
+]
+
+{ #category : #accessing }
+MrlParameter >> originalParameter [
+	^ originalParameter
+]
+
+{ #category : #accessing }
+MrlParameter >> originalParameter: anObject [
+	originalParameter := anObject
+]
+
+{ #category : #accessing }
+MrlParameter >> parameterType [
+	^ originalParameter parameterType
 ]
 
 { #category : #accessing }
@@ -102,6 +123,11 @@ MrlParameter >> parameter_syntax [
 { #category : #accessing }
 MrlParameter >> parameter_syntax: anObject [
 	parameter_syntax := anObject
+]
+
+{ #category : #accessing }
+MrlParameter >> startPosition [
+	^ originalParameter startPos
 ]
 
 { #category : #accessing }

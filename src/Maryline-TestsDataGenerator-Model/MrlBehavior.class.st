@@ -2,6 +2,7 @@ Class {
 	#name : #MrlBehavior,
 	#superclass : #MrlAbstractModel,
 	#instVars : [
+		'behaviorUnderTest',
 		'behavior_name',
 		'pwb_object',
 		'sender',
@@ -52,6 +53,17 @@ MrlBehavior >> addMrlReturnValue: aMrlReturnValue [
 ]
 
 { #category : #accessing }
+MrlBehavior >> behaviorUnderTest [
+	^ behaviorUnderTest
+]
+
+{ #category : #accessing }
+MrlBehavior >> behaviorUnderTest: anObject [
+	behaviorUnderTest := anObject.
+	self setOriginalParameters
+]
+
+{ #category : #accessing }
 MrlBehavior >> behavior_id [
 	^ behavior_id
 ]
@@ -69,6 +81,27 @@ MrlBehavior >> behavior_name [
 { #category : #accessing }
 MrlBehavior >> behavior_name: anObject [
 	behavior_name := anObject
+]
+
+{ #category : #'as yet unclassified' }
+MrlBehavior >> createAssertionsFromData [
+	| assertons |
+	assertons := OrderedCollection new.
+	self mrlParameters
+		keysAndValuesDo: [ :key :value | 
+			(value allSatisfy: #isBasic)
+				ifTrue: [ assertons
+						add:
+							(MrlPWBFunctionWithBasicTypesParametersUnitAssertion new
+								mrlParameters: value;
+								originalBehavior: self behaviorUnderTest;
+								behaviorName: self behavior_name;
+								behaviorParent: self pwb_object;
+								behaviorReturnValue:
+									(self mrlReturnValues
+										detect: [ :returnValue | returnValue timestamp = key ]);
+								yourself) ] ].
+	^ assertons
 ]
 
 { #category : #initialization }
@@ -103,7 +136,7 @@ MrlBehavior >> loadMrlReturnValues [
 
 { #category : #accessing }
 MrlBehavior >> mrlParameters [
-	^ mrlParameters
+	^ (mrlParameters groupedBy: #timestamp) asOrderedDictionary
 ]
 
 { #category : #accessing }
@@ -129,4 +162,14 @@ MrlBehavior >> sender [
 { #category : #accessing }
 MrlBehavior >> sender: anObject [
 	sender := anObject
+]
+
+{ #category : #'as yet unclassified' }
+MrlBehavior >> setOriginalParameters [
+	mrlParameters
+		do: [ :param | 
+			param
+				originalParameter:
+					(behaviorUnderTest parameters
+						detect: [ :parameter | parameter name = param parameter_name ]) ]
 ]
