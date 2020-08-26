@@ -28,16 +28,22 @@ QueryMrlLogStringsForInvocationInAnchor >> identity [
 
 { #category : #printing }
 QueryMrlLogStringsForInvocationInAnchor >> printInitalScriptOn: aString for: aFamixPWBInvocation [
-	| result |
+	| result cleaninvocationText cleanSourceText |
+	cleaninvocationText := aFamixPWBInvocation sourceText
+		copyReplaceAll: '&' , String crlf
+		with: ''.
+	cleanSourceText := aString
+		copyReplaceAll: aFamixPWBInvocation sourceText
+		with: cleaninvocationText.
 	(QueryInsertMrlCodeLines new
-		runOn: aString
-		with: aFamixPWBInvocation sourceText)
+		runOn: cleanSourceText
+		with: cleaninvocationText)
 		do: [ :aLine | 
 			| fullInvocationText |
 			fullInvocationText := (MrlInvocationVisitor new lineText: aLine)
 				visit
-				detect: [ :text | text includesSubstring: aFamixPWBInvocation sourceText ].
-			result := aString
+				detect: [ :text | text includesSubstring: cleaninvocationText ].
+			result := cleanSourceText
 				copyReplaceAll: aLine
 				with:
 					(String

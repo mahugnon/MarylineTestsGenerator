@@ -14,7 +14,7 @@ QueryInvocationArguments >> runOn: aFamixPWBInvocation [
 	| arguments sourceText candidateParameters |
 	candidateParameters := aFamixPWBInvocation candidates anyOne
 		setParameters parameters sortAscending: #startPos.
-	sourceText := aFamixPWBInvocation sourceText
+	sourceText := (PWBPreprocessor parse: aFamixPWBInvocation sourceText)
 		copyReplaceAll: '.'
 		with: ''.
 	arguments := (PWBCommonParser new functionInvocation

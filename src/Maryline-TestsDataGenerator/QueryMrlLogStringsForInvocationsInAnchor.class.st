@@ -22,8 +22,11 @@ QueryMrlLogStringsForInvocationsInAnchor >> runOn: aCollection [
 QueryMrlLogStringsForInvocationsInAnchor >> runOn: aCollection with: aString [
 	| sourceText |
 	sourceText := aString copy.
-	QueryMrlLogStringsForInvocationInAnchor resetIdentity .
-	aCollection
+	QueryMrlLogStringsForInvocationInAnchor resetIdentity.
+	(aCollection
+		reject: [ :inv | 
+			inv candidates
+				anySatisfy: [ :candidate | candidate isKindOf: FamixPWBEvent ] ])
 		do: [ :invocation | 
 			sourceText := QueryMrlLogStringsForInvocationInAnchor new
 				runOn: invocation

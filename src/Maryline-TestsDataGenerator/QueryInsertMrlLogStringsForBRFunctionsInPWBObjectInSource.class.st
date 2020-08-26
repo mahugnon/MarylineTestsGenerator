@@ -10,7 +10,9 @@ QueryInsertMrlLogStringsForBRFunctionsInPWBObjectInSource >> runOn: aPWBObject [
 	mrlBehaviorStringDic := QueryInsertMrlLogStringsForFunctionsInSource
 		runOn:
 			(aPWBObject brPath
-				sortAscending: [ :aBehavior | aBehavior sourceAnchor startPos ]).
+				ifNil: [ QueryBRFunctionsFromKnownPoint runOn: {aPWBObject} ]).
+	aPWBObject brPath
+		sortAscending: [ :aBehavior | aBehavior sourceAnchor startPos ].
 	file := aPWBObject sourceAnchor rootFolder asFileReference
 		resolve: aPWBObject sourceAnchor fileName.
 	tempFileContents := aPWBObject sourceText.
