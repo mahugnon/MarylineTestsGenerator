@@ -21,7 +21,6 @@ MrlPWBUnitTestForFunctionWithBasicTypeArguments class >> acceptFunction: aFamixP
 
 { #category : #'as yet unclassified' }
 MrlPWBUnitTestForFunctionWithBasicTypeArguments >> createAssertionsFromData [
-	self loadTestData.
 	assertions addAll: testsData createAssertionsFromData
 ]
 
@@ -37,6 +36,7 @@ MrlPWBUnitTestForFunctionWithBasicTypeArguments >> loadTestData [
 { #category : #printing }
 MrlPWBUnitTestForFunctionWithBasicTypeArguments >> printPWBDeclarationScript [
 	| localVar |
+	self loadTestData.
 	localVar := 'l_' , testsData pwb_object.
 	self createAssertionsFromData.
 	^ String
