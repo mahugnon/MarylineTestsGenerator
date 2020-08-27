@@ -7,12 +7,13 @@ Class {
 { #category : #baselines }
 BaselineOfMaryline >> baseline: spec [
 	<baseline>
+	self baselineOfP3: spec.
 	spec
 		for: #common
 		do: [ self baselineOfPowerBuilderParser: spec.
 			spec
 				package: 'Maryline'
-				with: [ spec requires: #('PowerBuilderParser') ] ]
+				with: [ spec requires: #('PowerBuilderParser' 'P3') ] ]
 ]
 
 { #category : #baselines }
