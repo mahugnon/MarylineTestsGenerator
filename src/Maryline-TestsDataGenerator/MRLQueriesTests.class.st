@@ -12,7 +12,7 @@ MRLQueriesTests >> testInsertMrlLogStringsForFunctionsInSource [
 			testFunction2}.
 	self
 		assert:
-			(QueryInsertMrlLogStringsForBRFunctionsInPWBObjectInSource new
+			(QueryInsertMrlLogStringsForFunctionsInPWBObjectInSource new
 				runOn: testPWBOject1) sourceText
 		equals:'private function integer aFunction ();
   long lLong
