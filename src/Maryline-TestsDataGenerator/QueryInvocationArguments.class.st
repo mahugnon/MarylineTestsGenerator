@@ -5,23 +5,45 @@ Class {
 }
 
 { #category : #running }
+QueryInvocationArguments >> argumentsFromInvocationSourceText: sourceText [
+	| arguments |
+	arguments := (PWBCommonParser new functionInvocation
+		parse: sourceText) functionArguments functionArguments.
+	arguments := arguments isEmptyOrNil
+		ifFalse: [ self removeNumbers: arguments ].
+	^ arguments
+]
+
+{ #category : #running }
+QueryInvocationArguments >> ensureCandidatesUnicity: aFamixPWBInvocation [
+	^ ((aFamixPWBInvocation candidates groupedBy: #parentType) values
+		collect: #anyOne) anyOne
+]
+
+{ #category : #running }
+QueryInvocationArguments >> invocationCleanSourceText: aFamixPWBInvocation [
+	| sourceText |
+	sourceText := (PWBPreprocessor parse: aFamixPWBInvocation sourceText)
+		copyReplaceAll: '.'
+		with: ''.
+	^ sourceText
+]
+
+{ #category : #running }
 QueryInvocationArguments >> removeNumbers: arguments [
 	^ arguments reject: [ :arg | arg isNumber ]
 ]
 
 { #category : #running }
 QueryInvocationArguments >> runOn: aFamixPWBInvocation [
-	| arguments sourceText candidateParameters |
-	candidateParameters := aFamixPWBInvocation candidates anyOne
-		setParameters parameters sortAscending: #startPos.
-	sourceText := (PWBPreprocessor parse: aFamixPWBInvocation sourceText)
-		copyReplaceAll: '.'
-		with: ''.
-	arguments := (PWBCommonParser new functionInvocation
-		parse: sourceText) functionArguments functionArguments.
-	arguments := arguments isEmptyOrNil
-		ifFalse: [ self removeNumbers: arguments ].
-	^ arguments isEmptyOrNil
+	| arguments sourceText candidateParameters candidate |
+	candidate := self ensureCandidatesUnicity: aFamixPWBInvocation.
+	candidateParameters := candidate setParameters parameters
+		sortAscending: #startPos.
+	sourceText := self invocationCleanSourceText: aFamixPWBInvocation.
+	arguments := self argumentsFromInvocationSourceText: sourceText.
+	^ (arguments isEmptyOrNil
+		or: [ arguments size ~= candidateParameters size ])
 		ifTrue: [ MRLQueryResults new ]
 		ifFalse: [ arguments := arguments sortAscending: #startPosition.
 			MRLQueryResults
@@ -36,7 +58,7 @@ QueryInvocationArguments >> runOn: aFamixPWBInvocation [
 								sender: aFamixPWBInvocation sender;
 								invocationLineNumber: aFamixPWBInvocation sourceAnchor startLine;
 								invocationText: aFamixPWBInvocation sourceText;
-								receiver: aFamixPWBInvocation candidates anyOne name;
+								receiver: candidate name;
 								argumentValue: (sourceText copyFrom: arg startPosition to: arg stopPosition);
 								argumentName: (candidateParameters at: (arguments indexOf: arg)) name ]) ]
 ]

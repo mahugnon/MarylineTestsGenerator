@@ -42,7 +42,8 @@ QueryMrlLogStringsForInvocationInAnchor >> printInitalScriptOn: aString for: aFa
 			| fullInvocationText |
 			fullInvocationText := (MrlInvocationVisitor new lineText: aLine)
 				visit
-				detect: [ :text | text includesSubstring: cleaninvocationText ].
+				detect:
+					[ :text | text asLowercase includesSubstring: cleaninvocationText asLowercase ].
 			result := cleanSourceText
 				copyReplaceAll: aLine
 				with:
