@@ -26,6 +26,16 @@ MRLInvocationArgument >> argumentName: anObject [
 ]
 
 { #category : #accessing }
+MRLInvocationArgument >> argumentString [
+	^ argumentString
+]
+
+{ #category : #accessing }
+MRLInvocationArgument >> argumentString: anObject [
+	argumentString := anObject
+]
+
+{ #category : #accessing }
 MRLInvocationArgument >> argumentValue [
 	^ argumentValue
 ]
