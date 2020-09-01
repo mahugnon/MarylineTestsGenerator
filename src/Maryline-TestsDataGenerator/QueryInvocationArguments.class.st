@@ -23,9 +23,9 @@ QueryInvocationArguments >> ensureCandidatesUnicity: aFamixPWBInvocation [
 { #category : #running }
 QueryInvocationArguments >> invocationCleanSourceText: aFamixPWBInvocation [
 	| sourceText |
-	sourceText := (PWBPreprocessor parse: aFamixPWBInvocation sourceText)
+	sourceText := ((PWBPreprocessor parse: aFamixPWBInvocation sourceText)
 		copyReplaceAll: '.'
-		with: ''.
+		with: '') copyReplaceAll: String tab with: ''.
 	^ sourceText
 ]
 

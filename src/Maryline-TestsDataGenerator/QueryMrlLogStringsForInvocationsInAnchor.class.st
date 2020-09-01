@@ -28,8 +28,10 @@ QueryMrlLogStringsForInvocationsInAnchor >> runOn: aCollection with: aString [
 			inv candidates
 				anySatisfy: [ :candidate | candidate isKindOf: FamixPWBEvent ] ])
 		do: [ :invocation | 
-			sourceText := QueryMrlLogStringsForInvocationInAnchor new
+			| sourceTextWithLog |
+			sourceTextWithLog := QueryMrlLogStringsForInvocationInAnchor new
 				runOn: invocation
-				with: sourceText ].
+				with: sourceText.
+			sourceTextWithLog ifNotEmpty: [ sourceText := sourceTextWithLog ] ].
 	^ sourceText
 ]
