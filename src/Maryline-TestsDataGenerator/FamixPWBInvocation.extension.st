@@ -20,6 +20,7 @@ FamixPWBInvocation >> insertMrlSetTimeStamp: aString [
 { #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBInvocation >> printInitalScriptOn: aString [
 	| result |
+	self halt.
 	(QueryInsertMrlCodeLines new runOn: aString with: self sourceText)
 		do: [ :aLine | 
 			| fullInvocationText |

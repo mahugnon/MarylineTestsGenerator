@@ -21,6 +21,18 @@ identity =nil
 
 ]
 
+{ #category : #printing }
+QueryMrlLogStringsForInvocationInAnchor >> cleanText: aFamixPWBInvocation [
+	^ self
+		reduceSpace:
+			(self
+				removeTab:
+					(self
+						removeCarriageReturn:
+							(self
+								removeEspelette: (PWBPreprocessor parse: aFamixPWBInvocation sourceText))))
+]
+
 { #category : #'instance creation' }
 QueryMrlLogStringsForInvocationInAnchor >> identity [
 	^ self class identity asString
@@ -28,16 +40,16 @@ QueryMrlLogStringsForInvocationInAnchor >> identity [
 
 { #category : #printing }
 QueryMrlLogStringsForInvocationInAnchor >> printInitalScriptOn: aString for: aFamixPWBInvocation [
-	| result cleaninvocationText cleanSourceText |
-	cleaninvocationText := aFamixPWBInvocation sourceText
-		copyReplaceAll: '&' , String crlf
-		with: ''.
+	| result cleaninvocationText cleanSourceText lines |
+	cleaninvocationText := self cleanText: aFamixPWBInvocation.
 	cleanSourceText := aString
 		copyReplaceAll: aFamixPWBInvocation sourceText
 		with: cleaninvocationText.
-	(QueryInsertMrlCodeLines new
+	lines := QueryInsertMrlCodeLines new
 		runOn: cleanSourceText
-		with: cleaninvocationText)
+		with: cleaninvocationText.
+	lines ifEmpty: [ ^ aString ].
+	lines
 		do: [ :aLine | 
 			| fullInvocationText |
 			fullInvocationText := (MrlInvocationVisitor new lineText: aLine)
@@ -56,6 +68,26 @@ QueryMrlLogStringsForInvocationInAnchor >> printInitalScriptOn: aString for: aFa
 										fulInvocationText: fullInvocationText);
 								<< aLine ]) ].
 	^ result
+]
+
+{ #category : #'as yet unclassified' }
+QueryMrlLogStringsForInvocationInAnchor >> reduceSpace: aString [
+	^ aString replaceAllRegex: '\s+' with: ' '
+]
+
+{ #category : #printing }
+QueryMrlLogStringsForInvocationInAnchor >> removeCarriageReturn: aString [
+	^ aString copyReplaceAll: String crlf with: ''
+]
+
+{ #category : #printing }
+QueryMrlLogStringsForInvocationInAnchor >> removeEspelette: aString [
+	^ aString copyReplaceAll: '&' with: ''
+]
+
+{ #category : #printing }
+QueryMrlLogStringsForInvocationInAnchor >> removeTab: aString [
+	^ aString copyReplaceAll: String tab with: ''
 ]
 
 { #category : #printing }
@@ -105,10 +137,18 @@ QueryMrlLogStringsForInvocationInAnchor >> returnValueString: aFamixPWBInvocatio
 
 { #category : #running }
 QueryMrlLogStringsForInvocationInAnchor >> runOn: aFamixPWBInvocation with: aString [
+	(aFamixPWBInvocation candidates
+		anySatisfy: [ :each | self toSkypeForNow includes: each name ])
+		ifTrue: [ ^ aString ].
 	^ self
 		printInitalScriptOn:
 			(QueryMrlLogStringsForArgumentsWithAnchorText new
 				runOn: (QueryInvocationArguments runOn: aFamixPWBInvocation)
 				with: aString)
 		for: aFamixPWBInvocation
+]
+
+{ #category : #'as yet unclassified' }
+QueryMrlLogStringsForInvocationInAnchor >> toSkypeForNow [
+^{'of_copystream'. 'f_decimal'}
 ]

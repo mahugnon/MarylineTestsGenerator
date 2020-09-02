@@ -15,8 +15,9 @@ QueryBRFunctionsFromKnownPoint >> extractVariables: aCollectionOfPWBObjects [
 
 { #category : #'as yet unclassified' }
 QueryBRFunctionsFromKnownPoint >> runOn: aCollectionOfPWBmajorObjects [
-	^ self
-		selectIncomingInvocationMethodsUntilConvergence: (self extractVariables: aCollectionOfPWBmajorObjects)
+	^ (self
+		selectIncomingInvocationMethodsUntilConvergence: (self extractVariables: aCollectionOfPWBmajorObjects))
+		groupedBy: #parentType
 ]
 
 { #category : #'as yet unclassified' }
