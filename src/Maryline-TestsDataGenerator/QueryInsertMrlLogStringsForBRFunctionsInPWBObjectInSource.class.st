@@ -1,7 +1,7 @@
 Class {
 	#name : #QueryInsertMrlLogStringsForBRFunctionsInPWBObjectInSource,
 	#superclass : #MRLAbstractQuery,
-	#category : #'Maryline-Queries'
+	#category : #'Maryline-TestsDataGenerator-Queries'
 }
 
 { #category : #running }

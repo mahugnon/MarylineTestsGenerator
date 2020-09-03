@@ -23,14 +23,13 @@ QueryBRFunctionsFromKnownPoint >> runOn: aCollectionOfPWBmajorObjects [
 { #category : #'as yet unclassified' }
 QueryBRFunctionsFromKnownPoint >> selectIncomingInvocationMethodsUntilConvergence: aCollection [
 	| methods stop |
-	methods := (aCollection flatCollectAsSet: [ :e | e accessingMethods ])
-		reject: [ :e | e isKindOf: FamixPWBmajorObject ].
+	methods := ((aCollection
+		flatCollectAsSet: [ :e | e accessingMethods ])
+		reject: [ :e | e isKindOf: FamixPWBmajorObject ]) asSet.
 	stop := 0.
 	[ stop = methods size ]
 		whileFalse: [ stop := methods size.
 			methods := methods
 				addAll: (methods flatCollectAsSet: [ :m | m invokedMethods ]) ].
-	^ ((methods reject: [ :behavioral | behavioral parentType isNil ])
-		do: [ :m | m parentType addBrPathMethod: m ])
-		sortDescending: [ :e | e numberOfLinesOfCode + e cyclomaticComplexity ]
+	^ methods reject: [ :behavioral | behavioral parentType isNil ]
 ]

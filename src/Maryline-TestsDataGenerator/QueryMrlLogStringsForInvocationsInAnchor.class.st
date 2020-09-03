@@ -26,7 +26,9 @@ QueryMrlLogStringsForInvocationsInAnchor >> runOn: aCollection with: aString [
 	(aCollection
 		reject: [ :inv | 
 			inv candidates
-				anySatisfy: [ :candidate | candidate isKindOf: FamixPWBEvent ] ])
+				anySatisfy: [ :candidate | 
+					(candidate isKindOf: FamixPWBEvent)
+						or: [ self toSkypeForNow: candidate ] ] ])
 		do: [ :invocation | 
 			| sourceTextWithLog |
 			sourceTextWithLog := ''.
@@ -35,4 +37,9 @@ QueryMrlLogStringsForInvocationsInAnchor >> runOn: aCollection with: aString [
 				with: sourceText.
 			sourceTextWithLog ifNotEmpty: [ sourceText := sourceTextWithLog ] ].
 	^ sourceText
+]
+
+{ #category : #running }
+QueryMrlLogStringsForInvocationsInAnchor >> toSkypeForNow: aFamixPWBBehaviour [
+	^ {'of_store_externsheet'} includes: aFamixPWBBehaviour name
 ]

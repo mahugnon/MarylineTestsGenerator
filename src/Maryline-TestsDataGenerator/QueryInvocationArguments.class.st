@@ -8,7 +8,7 @@ Class {
 QueryInvocationArguments >> argumentsFromInvocationSourceText: sourceText [
 	| arguments |
 	arguments := (PWBCommonParser new functionInvocation
-		parse: sourceText) functionArguments functionArguments.
+		parse: sourceText trim) functionArguments functionArguments.
 	arguments := arguments isEmptyOrNil
 		ifFalse: [ self removeNumbers: arguments ].
 	^ arguments
