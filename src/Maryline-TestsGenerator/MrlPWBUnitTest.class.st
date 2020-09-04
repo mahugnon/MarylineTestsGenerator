@@ -8,7 +8,8 @@ Class {
 		'variables',
 		'owner',
 		'invocation',
-		'receiver'
+		'receiver',
+		'testsData'
 	],
 	#category : #'Maryline-TestsGenerator-MrlTestUnitStrategy'
 }
@@ -68,6 +69,11 @@ MrlPWBUnitTest >> begin [
 				crlf ]
 ]
 
+{ #category : #'as yet unclassified' }
+MrlPWBUnitTest >> createAssertionsFromData [
+	assertions addAll: testsData createAssertionsFromData
+]
+
 { #category : #accessing }
 MrlPWBUnitTest >> end [
 	^ String
@@ -104,6 +110,15 @@ MrlPWBUnitTest >> invocation: anObject [
 	invocation := anObject.
 	self setUp
 
+]
+
+{ #category : #'as yet unclassified' }
+MrlPWBUnitTest >> loadTestData [
+	testsData := (MrlBehavior
+		loadWithMrlParameterAndMrlReturnValuesWhere: [ :function | 
+			function behavior_name = functionUnderTest name
+				AND: [ function pwb_object = functionUnderTest parentType name ] ])
+		anyOne behaviorUnderTest: functionUnderTest
 ]
 
 { #category : #accessing }

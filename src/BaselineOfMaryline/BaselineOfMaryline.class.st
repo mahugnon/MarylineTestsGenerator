@@ -7,13 +7,23 @@ Class {
 { #category : #baselines }
 BaselineOfMaryline >> baseline: spec [
 	<baseline>
-	self baselineOfP3: spec.
+	self
+		baselineOfP3: spec;
+		baselineOfGlorp: spec.
 	spec
 		for: #common
 		do: [ self baselineOfPowerBuilderParser: spec.
 			spec
 				package: 'Maryline'
-				with: [ spec requires: #('PowerBuilderParser' 'P3') ] ]
+				with: [ spec requires: #('PowerBuilderParser' 'Glorp' 'P3') ] ]
+]
+
+{ #category : #baselines }
+BaselineOfMaryline >> baselineOfGlorp: spec [
+	spec
+		baseline: 'Glorp'
+		with: [ spec
+				repository: 'github://mahugnon/glorp:master' ]
 ]
 
 { #category : #baselines }
@@ -21,7 +31,7 @@ BaselineOfMaryline >> baselineOfP3: spec [
 	spec
 		baseline: 'P3'
 		with: [ spec
-				repository: 'github://svenvc/P3:v1.2' ]
+				repository: 'github://mahugnon/P3:master' ]
 ]
 
 { #category : #baselines }

@@ -100,6 +100,17 @@ MrlBehavior >> createAssertionsFromData [
 								behaviorReturnValue:
 									(self mrlReturnValues
 										detect: [ :returnValue | returnValue timestamp = key ]);
+								yourself) ]
+				ifFalse: [ assertons
+						add:
+							(MrlPWBFunctionWithComplexParametersUnitAssertion new
+								mrlParameters: value;
+								originalBehavior: self behaviorUnderTest;
+								behaviorName: self behavior_name;
+								behaviorParent: self pwb_object;
+								behaviorReturnValue:
+									(self mrlReturnValues
+										detect: [ :returnValue | returnValue timestamp = key ]);
 								yourself) ] ].
 	^ assertons
 ]
