@@ -41,5 +41,6 @@ QueryMrlLogStringsForInvocationsInAnchor >> runOn: aCollection with: aString [
 
 { #category : #running }
 QueryMrlLogStringsForInvocationsInAnchor >> toSkypeForNow: aFamixPWBBehaviour [
-	^ {'of_store_externsheet'} includes: aFamixPWBBehaviour name
+	^ {'of_store_externsheet' . 'of_copystream' . 'f_decimal' . 'f_videsinull'.'messagebox'. 'of_create_cell' .'of_pack'}
+		includes: aFamixPWBBehaviour name
 ]

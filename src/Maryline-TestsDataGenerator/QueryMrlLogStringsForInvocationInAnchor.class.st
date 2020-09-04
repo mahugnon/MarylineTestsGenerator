@@ -150,5 +150,5 @@ QueryMrlLogStringsForInvocationInAnchor >> runOn: aFamixPWBInvocation with: aStr
 
 { #category : #'as yet unclassified' }
 QueryMrlLogStringsForInvocationInAnchor >> toSkypeForNow [
-^{'of_copystream'. 'f_decimal'}
+^{'of_copystream'. 'f_decimal'. 'f_videsinull'}
 ]
