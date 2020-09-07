@@ -7,11 +7,27 @@ Class {
 	#category : #'Maryline-TestsDataGenerator-Model'
 }
 
+{ #category : #accessing }
+MarylineDWFieldTypeExtractor class >> parameter: aMrlParameter [
+	^ self new parameter: aMrlParameter
+]
+
 { #category : #'as yet unclassified' }
-MarylineDWFieldTypeExtractor >> extract: aStream [
-	self
-		setBeforeValues: aStream;
-		setAfterValues: aStream
+MarylineDWFieldTypeExtractor >> extractOn: aStream [
+	self setUpDw: aStream.
+	self setBeforeValues: aStream.
+	parameter parameter_after_value
+		ifNotNil: [ self setAfterValues: aStream ]
+]
+
+{ #category : #accessing }
+MarylineDWFieldTypeExtractor >> parameter [
+	^ parameter
+]
+
+{ #category : #accessing }
+MarylineDWFieldTypeExtractor >> parameter: anObject [
+	parameter := anObject
 ]
 
 { #category : #initialization }

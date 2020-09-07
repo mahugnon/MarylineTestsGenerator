@@ -5,7 +5,6 @@ Class {
 		'functionUnderTest',
 		'name',
 		'assertions',
-		'variables',
 		'owner',
 		'invocation',
 		'receiver',
@@ -53,13 +52,6 @@ MrlPWBUnitTest >> addAssertion: aMrlPWBUnitTestAssertion [
 		ifNone: [ assertions add: aMrlPWBUnitTestAssertion ]
 ]
 
-{ #category : #adding }
-MrlPWBUnitTest >> addVariable: aMrlPWBUnitTestVariable [
-	self variables
-		detect: [ :var | var = aMrlPWBUnitTestVariable ]
-		ifNone: [ variables add: aMrlPWBUnitTestVariable ]
-]
-
 { #category : #accessing }
 MrlPWBUnitTest >> assertions [
 	^ assertions
@@ -75,6 +67,17 @@ MrlPWBUnitTest >> begin [
 				<< self name;
 				<< '();';
 				crlf ]
+]
+
+{ #category : #accessing }
+MrlPWBUnitTest >> beginOn: stream [
+	^ stream
+		<< 'event';
+		space;
+		<< self name;
+		<< '();';
+		crlf;
+		crlf
 ]
 
 { #category : #'as yet unclassified' }
@@ -93,6 +96,16 @@ MrlPWBUnitTest >> end [
 ]
 
 { #category : #accessing }
+MrlPWBUnitTest >> endOn: stream [
+	^ stream
+		<< 'return;';
+		crlf;
+		<< 'end event';
+		crlf;
+		crlf
+]
+
+{ #category : #accessing }
 MrlPWBUnitTest >> functionUnderTest [
 	^ functionUnderTest
 ]
@@ -104,7 +117,6 @@ MrlPWBUnitTest >> functionUnderTest: anObject [
 
 { #category : #initialization }
 MrlPWBUnitTest >> initialize [
-	variables := Set new.
 	assertions := Set new
 ]
 
@@ -158,20 +170,40 @@ MrlPWBUnitTest >> printPWBDeclarationScript [
 			stream
 				<< self begin;
 				crlf.
-			variables do: [ :var | stream << var printPWBDeclarationScript ].
 			assertions
-				do: [ :assert | stream << assert printPWBDeclarationScript ].
+				do: [ :assert | assert printPWBDeclarationScriptOn: stream ].
 			stream
 				<< self end;
 				crlf ]
 ]
 
-{ #category : #adding }
-MrlPWBUnitTest >> removeVariable: aMrlPWBUnitTestVariable [
-	self variables
-		detect: [ :var | var = aMrlPWBUnitTestVariable ]
-		ifFound: [ variables remove: aMrlPWBUnitTestVariable ]
-		ifNone: [  ]
+{ #category : #printing }
+MrlPWBUnitTest >> printPWBObjectCreationOn: aStream [
+	| localVar |
+	self loadTestData.
+	localVar := 'l_' , testsData pwb_object.
+	^ aStream
+		<< testsData pwb_object;
+		space;
+		<< localVar;
+		crlf;
+		<< localVar;
+		space;
+		<< '=';
+		space;
+		<< 'create';
+		space;
+		<< testsData pwb_object;
+		crlf
+]
+
+{ #category : #printing }
+MrlPWBUnitTest >> printReturnValueDeclarationOn: stream [
+	^ stream
+		<< testsData returnType;
+		space;
+		<< 'l_result';
+		crlf
 ]
 
 { #category : #initialization }
@@ -189,9 +221,4 @@ MrlPWBUnitTest >> setUp [
 					'l_' , functionUnderTest parentType name , '.'
 						, functionUnderTest name , '()';
 				expected: functionUnderTest returnType generateRandomValue)
-]
-
-{ #category : #accessing }
-MrlPWBUnitTest >> variables [
-	^ variables
 ]

@@ -18,34 +18,13 @@ MrlPWBUnitTestForFunctionWithBasicTypeArguments class >> acceptFunction: aFamixP
 
 { #category : #printing }
 MrlPWBUnitTestForFunctionWithBasicTypeArguments >> printPWBDeclarationScript [
-	| localVar |
-	self loadTestData.
-	localVar := 'l_' , testsData pwb_object.
 	self createAssertionsFromData.
 	^ String
 		streamContents: [ :stream | 
-			stream
-				<< self begin;
-				crlf;
-				<< testsData pwb_object;
-				space;
-				<< localVar;
-				crlf;
-				<< localVar;
-				space;
-				<< '=';
-				space;
-				<< 'create';
-				space;
-				<< testsData pwb_object;
-				crlf;
-				<< testsData returnType;
-				space;
-				<< 'l_result';
-				crlf.
+			self beginOn: stream.
+			self printPWBObjectCreationOn: stream.
+			self printReturnValueDeclarationOn: stream.
 			assertions
 				do: [ :assert | stream << assert printPWBDeclarationScript ].
-			stream
-				<< self end;
-				crlf ]
+			self endOn: stream ]
 ]

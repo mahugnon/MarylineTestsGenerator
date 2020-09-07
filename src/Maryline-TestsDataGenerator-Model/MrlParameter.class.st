@@ -36,8 +36,19 @@ MrlParameter >> behavior_id: anObject [
 ]
 
 { #category : #testing }
+MrlParameter >> ifIsDataWindow: aBlock [
+	^ self isDatawindow
+		ifTrue: aBlock
+]
+
+{ #category : #testing }
 MrlParameter >> isBasic [
 	^ originalParameter isBasic
+]
+
+{ #category : #testing }
+MrlParameter >> isDatawindow [
+	^ parameter_name asLowercase includeSubstring: 'dw_'
 ]
 
 { #category : #accessing }
