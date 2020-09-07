@@ -1,11 +1,20 @@
 Class {
-	#name : #MrlPWBFunctionWithComplexParametersUnitAssertion,
+	#name : #MrlPWBFunctionWithDataWindowParametersUnitAssertion,
 	#superclass : #MrlPWBAbstractParametersUnitAssertion,
 	#category : #'Maryline-TestsDataGenerator-Model'
 }
 
+{ #category : #'instance creation' }
+MrlPWBFunctionWithDataWindowParametersUnitAssertion >> newMarylineTestWindowOn: aStream [
+	aStream
+		<< 'w_maryline_test_window lw_maryline_test_window';
+		crlf;
+		<< 'open(lw_maryline_test_window)';
+		crlf
+]
+
 { #category : #printing }
-MrlPWBFunctionWithComplexParametersUnitAssertion >> printPWBDeclarationScript [
+MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printPWBDeclarationScript [
 	| localVar param |
 	localVar := 'l_' , behaviorParent.
 	^ String

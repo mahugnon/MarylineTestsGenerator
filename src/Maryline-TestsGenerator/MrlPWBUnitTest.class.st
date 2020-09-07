@@ -38,6 +38,14 @@ MrlPWBUnitTest class >> unitTestForInvocation: aFamixPWBInvocation [
 		new invocation: aFamixPWBInvocation
 ]
 
+{ #category : #'as yet unclassified' }
+MrlPWBUnitTest class >> unitTestsForFunction: aFamixPWBFunction [
+	aFamixPWBFunction setParameters.
+	^ (self subclasses
+		select: [ :sub | sub acceptFunction: aFamixPWBFunction ])
+		do: [ :sub | sub new functionUnderTest: aFamixPWBFunction ]
+]
+
 { #category : #adding }
 MrlPWBUnitTest >> addAssertion: aMrlPWBUnitTestAssertion [
 	self assertions

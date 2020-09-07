@@ -19,6 +19,11 @@ MrlBehavior class >> loadAllWithMrlParameterAndMrlReturnValues [
 ]
 
 { #category : #accessing }
+MrlBehavior class >> loadAllWithMrlParameters [
+	^ self loadAll do: #loadMrlParameters
+]
+
+{ #category : #accessing }
 MrlBehavior class >> loadWithMrlParameterAndMrlReturnValuesWhere: aBlock [
 	^ (self loadWhere: aBlock) do: #loadMrlParametersAndReturnValues
 ]
@@ -103,7 +108,7 @@ MrlBehavior >> createAssertionsFromData [
 								yourself) ]
 				ifFalse: [ assertons
 						add:
-							(MrlPWBFunctionWithComplexParametersUnitAssertion new
+							(MrlPWBFunctionWithDataWindowParametersUnitAssertion new
 								mrlParameters: value;
 								originalBehavior: self behaviorUnderTest;
 								behaviorName: self behavior_name;
@@ -124,7 +129,7 @@ MrlBehavior >> initialize [
 
 { #category : #'as yet unclassified' }
 MrlBehavior >> loadMrlParameters [
-	self
+		self
 		addAllMrlParameters:
 			(MrlParameter
 				loadWhere: [ :mrlParameter | mrlParameter behavior_id = self behavior_id ])

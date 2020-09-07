@@ -6,6 +6,6 @@ Class {
 
 { #category : #visiting }
 MrlPWBUnitTestForFunctionWithDatawindowArguments class >> acceptFunction: aFamixPWBFunction [
-	aFamixPWBFunction parameters isNotEmpty
+	^ aFamixPWBFunction parameters isNotEmpty
 		and: [ aFamixPWBFunction parameters anySatisfy: #isPWBDataWindow ]
 ]
