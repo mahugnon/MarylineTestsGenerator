@@ -23,7 +23,7 @@ BaselineOfMaryline >> baselineOfGlorp: spec [
 	spec
 		baseline: 'Glorp'
 		with: [ spec
-				repository: 'github://mahugnon/glorp:master' ]
+				repository: 'github://mahugnon/glorp:32-Glorp-doesnt-support-ssl-connexion-for-P3' ]
 ]
 
 { #category : #baselines }
@@ -31,7 +31,7 @@ BaselineOfMaryline >> baselineOfP3: spec [
 	spec
 		baseline: 'P3'
 		with: [ spec
-				repository: 'github://mahugnon/P3:master' ]
+				repository: 'github://mahugnon/P3:29-P3DatabaseDriver-should-have-connectSSL' ]
 ]
 
 { #category : #baselines }
