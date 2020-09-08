@@ -16,7 +16,7 @@ MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printFunctionInvocationSc
 		nextPut: $(.
 	1 to: self mrlParameters size - 1 do: [ :iter | 
 		param := self mrlParameters at: iter.
-		param isDatawindow
+		param isPWBDataWindow
 			ifTrue: [ stream
 					<< 'lw_maryline_test_window.dw_input';
 					space;
@@ -29,7 +29,7 @@ MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printFunctionInvocationSc
 					space;
 					nextPut: $, ] ].
 	param := self mrlParameters last.
-	param
+	param isPWBDataWindow
 		ifTrue: [ stream << 'lw_maryline_test_window.dw_input' ]
 		ifFalse: [ stream
 				<<
@@ -112,6 +112,6 @@ MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printPWBDeclarationScript
 { #category : #printing }
 MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printWindowDwSetUpOn: stream [
 	^ (MarylineDWFieldTypeExtractor
-		parameter: (self mrlParameters detect: [ :param | param isDatawindow ]))
+		parameter: (self mrlParameters detect: [ :param | param isPWBDatawindow ]))
 		extractOn: stream
 ]

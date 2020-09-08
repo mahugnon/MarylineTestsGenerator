@@ -129,10 +129,8 @@ MrlBehavior >> initialize [
 
 { #category : #'as yet unclassified' }
 MrlBehavior >> loadMrlParameters [
-		self
-		addAllMrlParameters:
-			(MrlParameter
-				loadWhere: [ :mrlParameter | mrlParameter behavior_id = self behavior_id ])
+	mrlParameters := MrlParameter
+		loadWhere: [ :mrlParameter | mrlParameter behavior_id = self behavior_id ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -152,11 +150,13 @@ MrlBehavior >> loadMrlReturnValues [
 
 { #category : #accessing }
 MrlBehavior >> mrlParameters [
+	mrlParameters ifEmpty: [ self loadMrlParameters ].
 	^ (mrlParameters groupedBy: #timestamp) asOrderedDictionary
 ]
 
 { #category : #accessing }
 MrlBehavior >> mrlReturnValues [
+	mrlReturnValues ifEmpty: [ self loadMrlReturnValues ].
 	^ mrlReturnValues
 ]
 

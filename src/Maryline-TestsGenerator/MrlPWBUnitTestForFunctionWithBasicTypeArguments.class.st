@@ -28,3 +28,15 @@ MrlPWBUnitTestForFunctionWithBasicTypeArguments >> printPWBDeclarationScript [
 				do: [ :assert | stream << assert printPWBDeclarationScript ].
 			self endOn: stream ]
 ]
+
+{ #category : #printing }
+MrlPWBUnitTestForFunctionWithBasicTypeArguments >> printPWBDeclarationScriptOn: stream [
+	self createAssertionsFromData.
+	self beginOn: stream.
+	self printPWBObjectCreationOn: stream.
+	self printReturnValueDeclarationOn: stream.
+	assertions
+		do: [ :assert | stream << assert printPWBDeclarationScript ].
+	self endOn: stream.
+	^ stream
+]

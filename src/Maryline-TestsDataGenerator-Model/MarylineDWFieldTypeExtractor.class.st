@@ -55,8 +55,8 @@ MarylineDWFieldTypeExtractor >> setAfterValues: aStream [
 { #category : #initialization }
 MarylineDWFieldTypeExtractor >> setBeforeValues: aStream [
 	| colones |
-	colones := CSVParser
-		parseWithHeader: parameter parameter_before_value.
+	colones := (CSVParser
+		parseWithHeader: parameter parameter_before_value) anyOne.
 	colones
 		keysAndValuesDo: [ :key :value | 
 			value

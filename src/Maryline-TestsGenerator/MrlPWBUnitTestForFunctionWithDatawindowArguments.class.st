@@ -21,6 +21,7 @@ MrlPWBUnitTestForFunctionWithDatawindowArguments >> newMarylineTestWindowOn: aSt
 
 { #category : #printing }
 MrlPWBUnitTestForFunctionWithDatawindowArguments >> printPWBDeclarationScript [
+	self loadTestData.
 	self createAssertionsFromData.
 	^ String
 		streamContents: [ :stream | 
@@ -29,6 +30,20 @@ MrlPWBUnitTestForFunctionWithDatawindowArguments >> printPWBDeclarationScript [
 			self newMarylineTestWindowOn: stream.
 			self printReturnValueDeclarationOn: stream.
 			assertions
-				do: [ :assert | stream << assert printPWBDeclarationScript ].
+				do: [ :assert | assert printPWBDeclarationScriptOn: stream ].
 			self endOn: stream ]
+]
+
+{ #category : #printing }
+MrlPWBUnitTestForFunctionWithDatawindowArguments >> printPWBDeclarationScriptOn: stream [
+	self loadTestData.
+	self createAssertionsFromData.
+	self beginOn: stream.
+	self printPWBObjectCreationOn: stream.
+	self newMarylineTestWindowOn: stream.
+	self printReturnValueDeclarationOn: stream.
+	assertions
+		do: [ :assert | assert printPWBDeclarationScriptOn: stream ].
+	self endOn: stream.
+	^ stream
 ]

@@ -135,9 +135,8 @@ MrlTestCase >> printPWBDeclarationScript [
 				crlf.
 			testUnits
 				do: [ :units | 
-					stream
-						<< units printPWBDeclarationScript;
-						crlf ].
+					units printPWBDeclarationScriptOn: stream.
+					stream crlf ].
 			stream
 				<< self onCreate;
 				crlf;

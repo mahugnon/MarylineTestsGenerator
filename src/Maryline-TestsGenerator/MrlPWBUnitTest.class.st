@@ -82,6 +82,7 @@ MrlPWBUnitTest >> beginOn: stream [
 
 { #category : #'as yet unclassified' }
 MrlPWBUnitTest >> createAssertionsFromData [
+	
 	assertions addAll: testsData createAssertionsFromData
 ]
 
@@ -178,6 +179,19 @@ MrlPWBUnitTest >> printPWBDeclarationScript [
 ]
 
 { #category : #printing }
+MrlPWBUnitTest >> printPWBDeclarationScriptOn: stream [
+	stream
+		<< self begin;
+		crlf.
+	assertions
+		do: [ :assert | assert printPWBDeclarationScriptOn: stream ].
+	stream
+		<< self end;
+		crlf.
+	^ stream
+]
+
+{ #category : #printing }
 MrlPWBUnitTest >> printPWBObjectCreationOn: aStream [
 	| localVar |
 	self loadTestData.
@@ -204,21 +218,4 @@ MrlPWBUnitTest >> printReturnValueDeclarationOn: stream [
 		space;
 		<< 'l_result';
 		crlf
-]
-
-{ #category : #initialization }
-MrlPWBUnitTest >> setUp [
-	functionUnderTest := invocation candidates anyOne.
-	self
-		addVariable:
-			(MrlPWBUnitTestComplexType new
-				name: functionUnderTest parentType name;
-				beforeValue: functionUnderTest parentType name).
-	self
-		addAssertion:
-			(MrlPWBAssertion new
-				actual:
-					'l_' , functionUnderTest parentType name , '.'
-						, functionUnderTest name , '()';
-				expected: functionUnderTest returnType generateRandomValue)
 ]
