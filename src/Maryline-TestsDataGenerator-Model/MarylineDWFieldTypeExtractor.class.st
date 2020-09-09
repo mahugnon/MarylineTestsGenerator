@@ -37,18 +37,25 @@ MarylineDWFieldTypeExtractor >> setAfterValues: aStream [
 	colones
 		keysAndValuesDo: [ :key :value | 
 			value
-				ifNotNil: [ (aStream
+				ifNotNil: [ aStream
 						<<
-						'lw_maryline_test_window.dw_output.setItem(lw_maryline_test_window.dw_output.rowcount(),;')
+							'lw_maryline_test_window.dw_output.setItem(lw_maryline_test_window.dw_output.rowcount(),';
 						<< '"';
 						<< key asString;
 						<< '",';
+						<< 'f_mrl_parse(';
+						space;
+						nextPut: $";
+						<< value;
+						nextPut: $";
+						nextPut: $,;
+						<< 'string(';
 						<< 'lw_maryline_test_window.dw_output.object.';
 						<< key asString;
-						<< '.colType(';
-						<< value;
-						<< ')';
-						<< ')';
+						<< '.colType';
+						nextPut: $);
+						nextPut: $);
+						nextPut: $);
 						crlf ] ]
 ]
 
@@ -60,18 +67,25 @@ MarylineDWFieldTypeExtractor >> setBeforeValues: aStream [
 	colones
 		keysAndValuesDo: [ :key :value | 
 			value
-				ifNotNil: [ (aStream
+				ifNotNil: [ aStream
 						<<
-						'lw_maryline_test_window.dw_input.setItem(lw_maryline_test_window.dw_input.rowcount(),;')
+							'lw_maryline_test_window.dw_input.setItem(lw_maryline_test_window.dw_input.rowcount(),';
 						<< '"';
 						<< key asString;
 						<< '",';
+						<< 'f_mrl_parse(';
+						space;
+						nextPut: $";
+						<< value;
+						nextPut: $";
+						nextPut: $,;
+						<< 'string(';
 						<< 'lw_maryline_test_window.dw_input.object.';
 						<< key asString;
-						<< '.colType(';
-						<< value;
-						<< ')';
-						<< ')';
+						<< '.colType';
+						nextPut: $);
+						nextPut: $);
+						nextPut: $);
 						crlf ] ]
 ]
 
@@ -80,7 +94,7 @@ MarylineDWFieldTypeExtractor >> setUpDw: aStream [
 	aStream
 		<< 'lw_maryline_test_window.dw_input.dataobject = ';
 		<< '"';
-		<< (parameter parameter_name copyFrom: 2);
+		<< (parameter parameter_name copyReplaceAll: 'a' with: '');
 		<< '"';
 		crlf;
 		<< 'lw_maryline_test_window.dw_input.setTrans(SQLCA)';
@@ -89,7 +103,7 @@ MarylineDWFieldTypeExtractor >> setUpDw: aStream [
 		crlf;
 		<< 'lw_maryline_test_window.dw_output.dataobject = ';
 		<< '"';
-		<< (parameter parameter_name copyFrom: 2);
+		<< (parameter parameter_name copyReplaceAll: 'a' with: '');
 		<< '"';
 		crlf;
 		<< 'lw_maryline_test_window.dw_output.setTrans(SQLCA)';

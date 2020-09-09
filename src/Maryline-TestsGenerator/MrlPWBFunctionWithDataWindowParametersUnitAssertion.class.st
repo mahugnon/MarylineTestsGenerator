@@ -35,7 +35,8 @@ MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printFunctionInvocationSc
 				<<
 					(BasicTypeValueResolver
 						resolveValue: param parameter_before_value
-						withType: param parameterType name) space;
+						withType: param parameterType name);
+				space;
 				nextPut: $) ]
 ]
 
@@ -112,6 +113,6 @@ MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printPWBDeclarationScript
 { #category : #printing }
 MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printWindowDwSetUpOn: stream [
 	^ (MarylineDWFieldTypeExtractor
-		parameter: (self mrlParameters detect: [ :param | param isPWBDatawindow ]))
+		parameter: (self mrlParameters detect: [ :param | param isPWBDataWindow ]))
 		extractOn: stream
 ]

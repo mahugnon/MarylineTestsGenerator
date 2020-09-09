@@ -37,7 +37,7 @@ MrlParameter >> behavior_id: anObject [
 
 { #category : #testing }
 MrlParameter >> ifIsDataWindow: aBlock [
-	^ self isPWBDatawindow
+	^ self isPWBDataWindow
 		ifTrue: aBlock
 ]
 
@@ -47,7 +47,7 @@ MrlParameter >> isBasic [
 ]
 
 { #category : #testing }
-MrlParameter >> isPWBDatawindow [
+MrlParameter >> isPWBDataWindow [
 	^ self originalParameter isPWBDataWindow
 ]
 
