@@ -13,6 +13,11 @@ Class {
 	#category : #'Maryline-TestsDataGenerator-Model'
 }
 
+{ #category : #'as yet unclassified' }
+MrlBehavior class >> loadAll [
+	^ super loadAll reject: [ :each | each behavior_name isEmpty ]
+]
+
 { #category : #accessing }
 MrlBehavior class >> loadAllWithMrlParameterAndMrlReturnValues [
 	^ self loadAll do: #loadMrlParametersAndReturnValues

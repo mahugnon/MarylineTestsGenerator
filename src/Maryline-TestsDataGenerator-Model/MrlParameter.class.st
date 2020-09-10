@@ -11,7 +11,8 @@ Class {
 		'timestamp',
 		'behavior_id',
 		'parameter_selectSql',
-		'originalParameter'
+		'originalParameter',
+		'parameter_dataobject'
 	],
 	#category : #'Maryline-TestsDataGenerator-Model'
 }
@@ -63,12 +64,14 @@ MrlParameter >> line_number: anObject [
 
 { #category : #accessing }
 MrlParameter >> loadMrlParameter_values [
-	parameter_after_value := MrlParameter_after_value
+	parameter_after_value := (MrlParameter_after_value
 		loadWhere:
-			[ :mrlParameter_value | mrlParameter_value parameter_id = self parameter_id ].
-	parameter_before_value := MrlParameter_before_value
+			[ :mrlParameter_value | mrlParameter_value parameter_id = self parameter_id ])
+		anyOne.
+	parameter_before_value := (MrlParameter_before_value
 		loadWhere:
-			[ :mrlParameter_value | mrlParameter_value parameter_id = self parameter_id ]
+			[ :mrlParameter_value | mrlParameter_value parameter_id = self parameter_id ])
+		anyOne
 ]
 
 { #category : #accessing }

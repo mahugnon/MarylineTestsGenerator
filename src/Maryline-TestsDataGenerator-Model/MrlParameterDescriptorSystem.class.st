@@ -20,51 +20,42 @@ MrlParameterDescriptorSystem >> classModelForMaryline_parameter: aClassModel [
 	"aClassModel newAttributeNamed: #parameter_selectSql."
 	aClassModel newAttributeNamed: #parameter_after_value.
 	aClassModel newAttributeNamed: #line_number.
-	aClassModel newAttributeNamed: #timestamp
+	aClassModel newAttributeNamed: #timestamp.
+	aClassModel newAttributeNamed: #parameter_dataobject.
 ]
 
 { #category : #'as yet unclassified' }
 MrlParameterDescriptorSystem >> descriptorForMrlParameter: aDescriptor [
 	| table |
 	table := self tableNamed: 'public."Maryline_parameter"'.
-	
 	aDescriptor table: table.
-	
 	(aDescriptor newMapping: DirectMapping)
 		from: #parameter_name
 		to: (table fieldNamed: 'parameter_name').
-		
 	(aDescriptor newMapping: DirectMapping)
 		from: #parameter_before_value
 		to: (table fieldNamed: 'parameter_before_value').
-		
 	(aDescriptor newMapping: DirectMapping)
 		from: #parameter_after_value
 		to: (table fieldNamed: 'parameter_after_value').
-		
 	(aDescriptor newMapping: DirectMapping)
 		from: #parameter_syntax
 		to: (table fieldNamed: 'parameter_syntax').
-		
-	"(aDescriptor newMapping: DirectMapping)
-		from: #parameter_selectSql
-		to: (table fieldNamed: 'parameter_selectSql').
-	"	
 	(aDescriptor newMapping: DirectMapping)
 		from: #line_number
 		to: (table fieldNamed: 'line_number').
-		
 	(aDescriptor newMapping: DirectMapping)
 		from: #behavior_id
 		to: (table fieldNamed: 'behavior_id').
-		
 	(aDescriptor newMapping: DirectMapping)
 		from: #parameter_id
 		to: (table fieldNamed: 'parameter_id').
-		
 	(aDescriptor newMapping: DirectMapping)
 		from: #timestamp
-		to: (table fieldNamed: 'timestamp')
+		to: (table fieldNamed: 'timestamp').
+	(aDescriptor newMapping: DirectMapping)
+		from: #parameter_dataobject
+		to: (table fieldNamed: 'parameter_dataobject')
 ]
 
 { #category : #'as yet unclassified' }
@@ -84,11 +75,9 @@ MrlParameterDescriptorSystem >> tableForMARYLINE_PARAMETER: aTable [
 	aTable
 		createFieldNamed: 'parameter_syntax'
 		type: (platform varChar: 100).
-		
-		"	aTable
-		createFieldNamed: 'parameter_selectSql'
+	aTable
+		createFieldNamed: 'parameter_dataobject'
 		type: (platform varChar: 100).
-		"
 	aTable
 		createFieldNamed: 'parameter_before_value'
 		type: (platform varChar: 100).
