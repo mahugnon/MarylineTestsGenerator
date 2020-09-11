@@ -135,11 +135,12 @@ MrlPWBUnitTest >> invocation: anObject [
 
 { #category : #'as yet unclassified' }
 MrlPWBUnitTest >> loadTestData [
-	testsData := (MrlBehavior
-		loadWithMrlParameterAndMrlReturnValuesWhere: [ :function | 
-			function behavior_name = functionUnderTest name
-				AND: [ function pwb_object = functionUnderTest parentType name ] ])
-		anyOne behaviorUnderTest: functionUnderTest
+	testsData
+		ifNil: [ testsData := (MrlBehavior
+				loadWithMrlParameterAndMrlReturnValuesWhere: [ :function | 
+					function behavior_name = functionUnderTest name
+						AND: [ function pwb_object = functionUnderTest parentType name ] ])
+				anyOne behaviorUnderTest: functionUnderTest ]
 ]
 
 { #category : #accessing }

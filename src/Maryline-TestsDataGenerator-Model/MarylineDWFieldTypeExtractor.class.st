@@ -33,7 +33,8 @@ MarylineDWFieldTypeExtractor >> parameter: anObject [
 { #category : #initialization }
 MarylineDWFieldTypeExtractor >> setAfterValues: aStream [
 	| colones |
-	colones := CSVParser parseWithHeader: parameter parameter_after_value.
+	colones := (CSVParser
+		parseWithHeader: parameter parameter_after_value) anyOne.
 	colones
 		keysAndValuesDo: [ :key :value | 
 			value
@@ -49,11 +50,9 @@ MarylineDWFieldTypeExtractor >> setAfterValues: aStream [
 						<< value;
 						nextPut: $";
 						nextPut: $,;
-						<< 'string(';
 						<< 'lw_maryline_test_window.dw_output.object.';
 						<< key asString;
 						<< '.colType';
-						nextPut: $);
 						nextPut: $);
 						nextPut: $);
 						crlf ] ]
@@ -79,11 +78,9 @@ MarylineDWFieldTypeExtractor >> setBeforeValues: aStream [
 						<< value;
 						nextPut: $";
 						nextPut: $,;
-						<< 'string(';
 						<< 'lw_maryline_test_window.dw_input.object.';
 						<< key asString;
 						<< '.colType';
-						nextPut: $);
 						nextPut: $);
 						nextPut: $);
 						crlf ] ]
@@ -94,7 +91,7 @@ MarylineDWFieldTypeExtractor >> setUpDw: aStream [
 	aStream
 		<< 'lw_maryline_test_window.dw_input.dataobject = ';
 		<< '"';
-		<< (parameter parameter_name copyReplaceAll: 'a' with: '');
+		<< parameter parameter_dataobject;
 		<< '"';
 		crlf;
 		<< 'lw_maryline_test_window.dw_input.setTrans(SQLCA)';
@@ -103,10 +100,11 @@ MarylineDWFieldTypeExtractor >> setUpDw: aStream [
 		crlf;
 		<< 'lw_maryline_test_window.dw_output.dataobject = ';
 		<< '"';
-		<< (parameter parameter_name copyReplaceAll: 'a' with: '');
+		<< parameter parameter_dataobject;
 		<< '"';
 		crlf;
 		<< 'lw_maryline_test_window.dw_output.setTrans(SQLCA)';
 		crlf;
-		<< 'lw_maryline_test_window.dw_output.insertRow(0)'
+		<< 'lw_maryline_test_window.dw_output.insertRow(0)';
+		crlf
 ]
