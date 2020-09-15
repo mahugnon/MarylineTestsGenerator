@@ -32,12 +32,6 @@ MrlPWBUnitTest class >> unitTestForFunction: aFamixPWBFunction [
 ]
 
 { #category : #'as yet unclassified' }
-MrlPWBUnitTest class >> unitTestForInvocation: aFamixPWBInvocation [
-	^ (self subclasses detect: [ :sub | sub accept: aFamixPWBInvocation ])
-		new invocation: aFamixPWBInvocation
-]
-
-{ #category : #'as yet unclassified' }
 MrlPWBUnitTest class >> unitTestsForFunction: aFamixPWBFunction [
 	aFamixPWBFunction setParameters.
 	^ (self subclasses
@@ -82,8 +76,7 @@ MrlPWBUnitTest >> beginOn: stream [
 
 { #category : #'as yet unclassified' }
 MrlPWBUnitTest >> createAssertionsFromData [
-	
-	assertions addAll: testsData createAssertionsFromData
+	assertions addAll: self testsData createAssertionsFromData
 ]
 
 { #category : #accessing }
@@ -135,12 +128,11 @@ MrlPWBUnitTest >> invocation: anObject [
 
 { #category : #'as yet unclassified' }
 MrlPWBUnitTest >> loadTestData [
-	testsData
-		ifNil: [ testsData := (MrlBehavior
-				loadWithMrlParameterAndMrlReturnValuesWhere: [ :function | 
-					function behavior_name = functionUnderTest name
-						AND: [ function pwb_object = functionUnderTest parentType name ] ])
-				anyOne behaviorUnderTest: functionUnderTest ]
+	testsData := (MrlBehavior
+		loadWithMrlParameterAndMrlReturnValuesWhere: [ :function | 
+			function behavior_name = functionUnderTest name
+				AND: [ function pwb_object = functionUnderTest parentType name ] ])
+		anyOne behaviorUnderTest: functionUnderTest
 ]
 
 { #category : #accessing }
@@ -196,9 +188,9 @@ MrlPWBUnitTest >> printPWBDeclarationScriptOn: stream [
 MrlPWBUnitTest >> printPWBObjectCreationOn: aStream [
 	| localVar |
 	self loadTestData.
-	localVar := 'l_' , testsData pwb_object.
+	localVar := 'l_' , self testsData pwb_object.
 	^ aStream
-		<< testsData pwb_object;
+		<< self testsData pwb_object;
 		space;
 		<< localVar;
 		crlf;
@@ -208,7 +200,7 @@ MrlPWBUnitTest >> printPWBObjectCreationOn: aStream [
 		space;
 		<< 'create';
 		space;
-		<< testsData pwb_object;
+		<< self testsData pwb_object;
 		crlf
 ]
 
@@ -219,4 +211,10 @@ MrlPWBUnitTest >> printReturnValueDeclarationOn: stream [
 		space;
 		<< 'l_result';
 		crlf
+]
+
+{ #category : #accessing }
+MrlPWBUnitTest >> testsData [
+	testsData ifNil: [ self loadTestData ].
+	^ testsData
 ]

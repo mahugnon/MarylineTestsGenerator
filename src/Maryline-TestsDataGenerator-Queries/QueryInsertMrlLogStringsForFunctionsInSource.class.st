@@ -8,6 +8,6 @@ Class {
 QueryInsertMrlLogStringsForFunctionsInSource >> runOn: aCollection [
 	^ (((aCollection groupedBy: #mooseName) values collect: #anyOne)
 		collect:
-			[ :function | function -> (QueryMrlLogStringsForFunctionInAnchor runOn: function) ])
+			[ :function | function -> (QueryMrlLogStringsForFunctionInSource runOn: function) ])
 		asOrderedDictionary
 ]

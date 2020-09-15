@@ -125,6 +125,14 @@ MrlBehavior >> createAssertionsFromData [
 	^ assertons
 ]
 
+{ #category : #'as yet unclassified' }
+MrlBehavior >> generateTestCaseFromData [
+	MrlTestCase
+		testCaseForFunction:
+			((MooseModel root first allWithType: FamixPWBFunction)
+				detect: [ :uf | uf name = self behavior_name ])
+]
+
 { #category : #initialization }
 MrlBehavior >> initialize [
 	super initialize.

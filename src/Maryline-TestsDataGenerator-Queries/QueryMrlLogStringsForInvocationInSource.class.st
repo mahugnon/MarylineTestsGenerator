@@ -1,5 +1,5 @@
 Class {
-	#name : #QueryMrlLogStringsForInvocationInAnchor,
+	#name : #QueryMrlLogStringsForInvocationInSource,
 	#superclass : #MRLAbstractQuery,
 	#classVars : [
 		'identity'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-QueryMrlLogStringsForInvocationInAnchor class >> identity [
+QueryMrlLogStringsForInvocationInSource class >> identity [
 identity ifNil: [ identity := 0 ].
 identity := identity +1.
 ^identity
@@ -16,13 +16,13 @@ identity := identity +1.
 ]
 
 { #category : #'instance creation' }
-QueryMrlLogStringsForInvocationInAnchor class >> resetIdentity [
+QueryMrlLogStringsForInvocationInSource class >> resetIdentity [
 identity =nil
 
 ]
 
 { #category : #printing }
-QueryMrlLogStringsForInvocationInAnchor >> cleanText: aFamixPWBInvocation [
+QueryMrlLogStringsForInvocationInSource >> cleanText: aFamixPWBInvocation [
 	^ self
 		reduceSpace:
 			(self
@@ -34,12 +34,19 @@ QueryMrlLogStringsForInvocationInAnchor >> cleanText: aFamixPWBInvocation [
 ]
 
 { #category : #'instance creation' }
-QueryMrlLogStringsForInvocationInAnchor >> identity [
+QueryMrlLogStringsForInvocationInSource >> identity [
 	^ self class identity asString
 ]
 
+{ #category : #'as yet unclassified' }
+QueryMrlLogStringsForInvocationInSource >> invocationCandidateAcces: aFamixPWBInvocation [
+	^ (aFamixPWBInvocation candidates anyOne accesses
+		select: #isInstanceVariableAccess)
+		collect: [ :var | var asMrlArgument ]
+]
+
 { #category : #printing }
-QueryMrlLogStringsForInvocationInAnchor >> printInitalScriptOn: aString for: aFamixPWBInvocation [
+QueryMrlLogStringsForInvocationInSource >> printInitalScriptOn: aString for: aFamixPWBInvocation [
 	| result cleaninvocationText cleanSourceText lines |
 	cleaninvocationText := self cleanText: aFamixPWBInvocation.
 	cleanSourceText := aString
@@ -71,27 +78,27 @@ QueryMrlLogStringsForInvocationInAnchor >> printInitalScriptOn: aString for: aFa
 ]
 
 { #category : #'as yet unclassified' }
-QueryMrlLogStringsForInvocationInAnchor >> reduceSpace: aString [
+QueryMrlLogStringsForInvocationInSource >> reduceSpace: aString [
 	^ aString replaceAllRegex: '\s+' with: ' '
 ]
 
 { #category : #printing }
-QueryMrlLogStringsForInvocationInAnchor >> removeCarriageReturn: aString [
+QueryMrlLogStringsForInvocationInSource >> removeCarriageReturn: aString [
 	^ aString copyReplaceAll: String crlf with: ''
 ]
 
 { #category : #printing }
-QueryMrlLogStringsForInvocationInAnchor >> removeEspelette: aString [
+QueryMrlLogStringsForInvocationInSource >> removeEspelette: aString [
 	^ aString copyReplaceAll: '&' with: ''
 ]
 
 { #category : #printing }
-QueryMrlLogStringsForInvocationInAnchor >> removeTab: aString [
+QueryMrlLogStringsForInvocationInSource >> removeTab: aString [
 	^ aString copyReplaceAll: String tab with: ''
 ]
 
 { #category : #printing }
-QueryMrlLogStringsForInvocationInAnchor >> returnValueString: aFamixPWBInvocation fulInvocationText: aString [
+QueryMrlLogStringsForInvocationInSource >> returnValueString: aFamixPWBInvocation fulInvocationText: aString [
 	| returnType behavior returnVar invocationLine |
 	behavior := aFamixPWBInvocation candidates anyOne.
 	returnType := behavior returnType.
@@ -136,19 +143,23 @@ QueryMrlLogStringsForInvocationInAnchor >> returnValueString: aFamixPWBInvocatio
 ]
 
 { #category : #running }
-QueryMrlLogStringsForInvocationInAnchor >> runOn: aFamixPWBInvocation with: aString [
+QueryMrlLogStringsForInvocationInSource >> runOn: aFamixPWBInvocation with: aString [
+	| arguments |
 	(aFamixPWBInvocation candidates
 		anySatisfy: [ :each | self toSkypeForNow includes: each name ])
 		ifTrue: [ ^ aString ].
+	arguments := QueryInvocationArguments runOn: aFamixPWBInvocation.
+	arguments
+		addAll: (self invocationCandidateAcces: aFamixPWBInvocation).
 	^ self
 		printInitalScriptOn:
-			(QueryMrlLogStringsForArgumentsWithAnchorText new
-				runOn: (QueryInvocationArguments runOn: aFamixPWBInvocation)
+			(QueryMrlLogStringsForArgumentsInSource new
+				runOn: arguments
 				with: aString)
 		for: aFamixPWBInvocation
 ]
 
 { #category : #'as yet unclassified' }
-QueryMrlLogStringsForInvocationInAnchor >> toSkypeForNow [
+QueryMrlLogStringsForInvocationInSource >> toSkypeForNow [
 ^{'of_copystream'. 'f_decimal'. 'f_videsinull'}
 ]

@@ -1,17 +1,17 @@
 Class {
-	#name : #QueryMrlLogStringsForFunctionInAnchor,
+	#name : #QueryMrlLogStringsForFunctionInSource,
 	#superclass : #MRLAbstractQuery,
 	#category : #'Maryline-TestsDataGenerator-Queries'
 }
 
 { #category : #initialization }
-QueryMrlLogStringsForFunctionInAnchor >> initialize [
+QueryMrlLogStringsForFunctionInSource >> initialize [
 	super initialize.
 	alterFile := false
 ]
 
 { #category : #running }
-QueryMrlLogStringsForFunctionInAnchor >> runOn: aFamixPWBBehaviour [
+QueryMrlLogStringsForFunctionInSource >> runOn: aFamixPWBBehaviour [
 	| sourceText invocations file |
 	file := aFamixPWBBehaviour sourceAnchor rootFolder asFileReference
 		resolve: aFamixPWBBehaviour sourceAnchor fileName.
@@ -22,7 +22,7 @@ QueryMrlLogStringsForFunctionInAnchor >> runOn: aFamixPWBBehaviour [
 				anySatisfy: [ :candidate | candidate parentType isNotNil ] ])
 		sortAscending: [ :each | each sourceAnchor startPos ])
 		groupedBy: #sourceText) values collect: [ :e | e first ].
-	sourceText := QueryMrlLogStringsForInvocationsInAnchor new
+	sourceText := QueryMrlLogStringsForInvocationsInSource new
 		runOn: invocations
 		with: sourceText.
 	alterFile

@@ -76,7 +76,7 @@ MRLQueriesTests >> testQueryInvocationArguments [
 MRLQueriesTests >> testSaveMrlLogStringsForArgumentsInAnchor [
 	self
 		assert:
-			(QueryMrlLogStringsForInvocationInAnchor new
+			(QueryMrlLogStringsForInvocationInSource new
 				runOn: testInvocation1
 				with: testFunction1 sourceText)
 		equals:'private function integer aFunction ();
@@ -117,7 +117,7 @@ MRLQueriesTests >> testSaveMrlLogStringsForFunctionAlterFileInAnchor [
 	| file |
 	file := testFunction1 sourceAnchor rootFolder asFileReference
 		resolve: testFunction1 sourceAnchor fileName.
-	QueryMrlLogStringsForFunctionInAnchor new
+	QueryMrlLogStringsForFunctionInSource new
 		alterFile: true;
 		runOn: testFunction1.
 	self
@@ -173,7 +173,7 @@ return 1'.
 { #category : #tests }
 MRLQueriesTests >> testSaveMrlLogStringsForInvocationsInAnchor [
 	self
-		assert: (QueryMrlLogStringsForFunctionInAnchor runOn: testFunction1)
+		assert: (QueryMrlLogStringsForFunctionInSource runOn: testFunction1)
 		equals:
 		'private function integer aFunction ();
   long lLong

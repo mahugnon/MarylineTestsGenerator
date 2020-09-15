@@ -1,11 +1,11 @@
 Class {
-	#name : #QueryMrlLogStringsForArgumentsWithAnchorText,
+	#name : #QueryMrlLogStringsForArgumentsInSource,
 	#superclass : #MRLAbstractQuery,
 	#category : #'Maryline-TestsDataGenerator-Queries'
 }
 
 { #category : #running }
-QueryMrlLogStringsForArgumentsWithAnchorText >> runOn: aCollection with: aString [
+QueryMrlLogStringsForArgumentsInSource >> runOn: aCollection with: aString [
 	| sourceText |
 	sourceText := aString copy.
 	aCollection

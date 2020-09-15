@@ -1,28 +1,28 @@
 Class {
-	#name : #QueryMrlLogStringsForInvocationsInAnchor,
+	#name : #QueryMrlLogStringsForInvocationsInSource,
 	#superclass : #MRLAbstractQuery,
 	#category : #'Maryline-TestsDataGenerator-Queries'
 }
 
 { #category : #running }
-QueryMrlLogStringsForInvocationsInAnchor >> runOn: aCollection [
+QueryMrlLogStringsForInvocationsInSource >> runOn: aCollection [
 	| sourceText |
 	sourceText := (aCollection anyOne sender sourceAnchor rootFolder
 		asFileReference
 		resolve: aCollection anyOne sender sourceAnchor fileName) contents.
 	aCollection
 		do: [ :invocation | 
-			sourceText := QueryMrlLogStringsForArgumentsWithAnchorText new
+			sourceText := QueryMrlLogStringsForArgumentsInSource new
 				runOn: (QueryInvocationArguments runOn: invocation)
 				with: sourceText ].
 	^ sourceText
 ]
 
 { #category : #running }
-QueryMrlLogStringsForInvocationsInAnchor >> runOn: aCollection with: aString [
+QueryMrlLogStringsForInvocationsInSource >> runOn: aCollection with: aString [
 	| sourceText |
 	sourceText := aString copy.
-	QueryMrlLogStringsForInvocationInAnchor resetIdentity.
+	QueryMrlLogStringsForInvocationInSource resetIdentity.
 	(aCollection
 		reject: [ :inv | 
 			inv candidates
@@ -32,7 +32,7 @@ QueryMrlLogStringsForInvocationsInAnchor >> runOn: aCollection with: aString [
 		do: [ :invocation | 
 			| sourceTextWithLog |
 			sourceTextWithLog := ''.
-			sourceTextWithLog := QueryMrlLogStringsForInvocationInAnchor new
+			sourceTextWithLog := QueryMrlLogStringsForInvocationInSource new
 				runOn: invocation
 				with: sourceText.
 			sourceTextWithLog ifNotEmpty: [ sourceText := sourceTextWithLog ] ].
@@ -40,7 +40,7 @@ QueryMrlLogStringsForInvocationsInAnchor >> runOn: aCollection with: aString [
 ]
 
 { #category : #running }
-QueryMrlLogStringsForInvocationsInAnchor >> toSkypeForNow: aFamixPWBBehaviour [
+QueryMrlLogStringsForInvocationsInSource >> toSkypeForNow: aFamixPWBBehaviour [
 	^ {'of_store_externsheet' . 'of_copystream' . 'f_decimal' . 'f_videsinull'.'messagebox'. 'of_create_cell' .'of_pack'}
 		includes: aFamixPWBBehaviour name
 ]

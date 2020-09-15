@@ -4,6 +4,13 @@ Class {
 	#category : #'Maryline-TestsDataGenerator-Queries'
 }
 
+{ #category : #testing }
+QueryInsertMrlLogStringsForBRFunctionsInPWBObjectInSource class >> isDeprecated [
+	"We do not need this class anymore"
+
+	^ true
+]
+
 { #category : #running }
 QueryInsertMrlLogStringsForBRFunctionsInPWBObjectInSource >> runOn: aPWBObject [
 	| mrlBehaviorStringDic file tempFileContents |
