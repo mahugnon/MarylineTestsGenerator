@@ -85,5 +85,5 @@ MrlParameterDescriptorSystem >> tableForMARYLINE_PARAMETER: aTable [
 	aTable createFieldNamed: 'timestamp' type: (platform varChar: 100).
 	aTable
 		addForeignKeyFrom: fk_parameter
-		to: ((self tableNamed: 'MARYLINE_PARAMETER') fieldNamed: 'behavior_id')
+		to: ((self tableNamed: 'MARYLINE_BEHAVIOR') fieldNamed: 'behavior_id')
 ]

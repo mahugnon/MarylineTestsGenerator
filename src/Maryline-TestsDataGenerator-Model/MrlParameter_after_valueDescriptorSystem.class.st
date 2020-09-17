@@ -41,6 +41,6 @@ MrlParameter_after_valueDescriptorSystem >> tableForMARYLINE_PARAMETER_AFTER_VAL
 	aTable
 		addForeignKeyFrom: fk_parameter
 		to:
-			((self tableNamed: 'MARYLINE_PARAMETER_AFTER_VALUE')
+			((self tableNamed: 'MARYLINE_PARAMETER')
 				fieldNamed: 'parameter_id')
 ]
