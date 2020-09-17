@@ -1,25 +1,8 @@
 Class {
 	#name : #QueryMrlLogStringsForInvocationInSource,
 	#superclass : #MRLAbstractQuery,
-	#classVars : [
-		'identity'
-	],
 	#category : #'Maryline-TestsDataGenerator-Queries'
 }
-
-{ #category : #'instance creation' }
-QueryMrlLogStringsForInvocationInSource class >> identity [
-identity ifNil: [ identity := 0 ].
-identity := identity +1.
-^identity
-
-]
-
-{ #category : #'instance creation' }
-QueryMrlLogStringsForInvocationInSource class >> resetIdentity [
-identity =nil
-
-]
 
 { #category : #printing }
 QueryMrlLogStringsForInvocationInSource >> cleanText: aFamixPWBInvocation [
@@ -31,11 +14,6 @@ QueryMrlLogStringsForInvocationInSource >> cleanText: aFamixPWBInvocation [
 						removeCarriageReturn:
 							(self
 								removeEspelette: (PWBPreprocessor parse: aFamixPWBInvocation sourceText))))
-]
-
-{ #category : #'instance creation' }
-QueryMrlLogStringsForInvocationInSource >> identity [
-	^ self class identity asString
 ]
 
 { #category : #'as yet unclassified' }
@@ -70,9 +48,12 @@ QueryMrlLogStringsForInvocationInSource >> printInitalScriptOn: aString for: aFa
 						streamContents: [ :aStream | 
 							aStream
 								<<
-									(self
-										returnValueString: aFamixPWBInvocation
-										fulInvocationText: fullInvocationText);
+									(QueryMrlReturnValueLogStringsForInvocationInSource new
+										runOn: aFamixPWBInvocation
+										with:
+											(QueryMrlAccessesLogStringsForInvocationInSource new
+												runOn: aFamixPWBInvocation
+												with: fullInvocationText));
 								<< aLine ]) ].
 	^ result
 ]
@@ -95,51 +76,6 @@ QueryMrlLogStringsForInvocationInSource >> removeEspelette: aString [
 { #category : #printing }
 QueryMrlLogStringsForInvocationInSource >> removeTab: aString [
 	^ aString copyReplaceAll: String tab with: ''
-]
-
-{ #category : #printing }
-QueryMrlLogStringsForInvocationInSource >> returnValueString: aFamixPWBInvocation fulInvocationText: aString [
-	| returnType behavior returnVar invocationLine |
-	behavior := aFamixPWBInvocation candidates anyOne.
-	returnType := behavior returnType.
-	invocationLine := aFamixPWBInvocation sourceAnchor startLine asString.
-	returnType ifNil: [ ^ '' ].
-	returnType isString
-		ifFalse: [ returnType := returnType name ].
-	returnVar := 'lvar' , invocationLine , self identity , '_'
-		, behavior name , '_return'.
-	^ String
-		streamContents: [ :stream | 
-			stream
-				<< returnType;
-				space;
-				<< returnVar;
-				crlf;
-				<< returnVar;
-				space;
-				<< '=';
-				space;
-				<< aString;
-				crlf;
-				<< 'f_mrl_logger().return_value(';
-				space;
-				<< returnVar;
-				nextPut: $,;
-				space;
-				<< invocationLine;
-				space;
-				nextPut: $,;
-				<< '"';
-				<< behavior name;
-				<< '"';
-				space;
-				nextPut: $,;
-				<< '"';
-				<< behavior parentType name;
-				<< '"';
-				space;
-				nextPut: $);
-				crlf ]
 ]
 
 { #category : #running }

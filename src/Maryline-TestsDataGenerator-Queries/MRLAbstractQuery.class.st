@@ -12,6 +12,11 @@ MRLAbstractQuery class >> runOn: anObject [
 	^ self new runOn: anObject
 ]
 
+{ #category : #running }
+MRLAbstractQuery class >> runOn: anObject1 with: anObject2 [
+	^ self new runOn: anObject1 with: anObject2
+]
+
 { #category : #accessing }
 MRLAbstractQuery >> alterFile [
 	^ alterFile

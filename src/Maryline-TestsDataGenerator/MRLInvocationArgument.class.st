@@ -26,16 +26,6 @@ MRLInvocationArgument >> argumentName: anObject [
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> argumentString [
-	^ argumentString
-]
-
-{ #category : #accessing }
-MRLInvocationArgument >> argumentString: anObject [
-	argumentString := anObject
-]
-
-{ #category : #accessing }
 MRLInvocationArgument >> argumentValue [
 	^ argumentValue
 ]
@@ -152,7 +142,7 @@ MRLInvocationArgument >> mrlLogString: aString [
 	^ String
 		streamContents: [ :aStream | 
 			aStream
-				<< 'f_mrl_logger().log(';
+				<< 'f_mrl_logger().invocation_parameter_logger().log(';
 				<< argumentValue;
 				<< ',';
 				<< '"';
