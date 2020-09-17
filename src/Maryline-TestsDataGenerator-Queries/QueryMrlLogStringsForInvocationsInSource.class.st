@@ -22,7 +22,7 @@ QueryMrlLogStringsForInvocationsInSource >> runOn: aCollection [
 QueryMrlLogStringsForInvocationsInSource >> runOn: aCollection with: aString [
 	| sourceText |
 	sourceText := aString copy.
-	QueryMrlLogStringsForInvocationInSource resetIdentity.
+	QueryMrlReturnValueLogStringsForInvocationInSource resetIdentity.
 	(aCollection
 		reject: [ :inv | 
 			inv candidates

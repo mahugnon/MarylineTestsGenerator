@@ -28,12 +28,13 @@ QueryMrlAccessesLogStringsForInvocationInSource >> printMrlAccessLogFor: aFamixP
 		space;
 		nextPut: $,;
 		space;
-		<< behavior parent name;
+		<< behavior parentType name;
 		space;
 		nextPut: $,;
 		space;
 		<< invocationLine;
-		nextPut: $)
+		nextPut: $);
+		crlf
 ]
 
 { #category : #running }
@@ -51,11 +52,11 @@ QueryMrlAccessesLogStringsForInvocationInSource >> runOn: aFamixPWBInvocation wi
 	| accesses |
 	behavior := aFamixPWBInvocation candidates anyOne.
 	invocationLine := aFamixPWBInvocation sourceAnchor startLine asString.
-	accesses := (behavior accesses collectAsSet: #variables)
+	accesses := (behavior accesses collectAsSet: #variable)
 		select: #isInstanceVariable.
 	accesses
 		ifEmpty: [ ^ aString ]
-		ifNotEmpty: [ String
+		ifNotEmpty: [ ^ String
 				streamContents: [ :stream | 
 					accesses
 						do: [ :each | self printMrlBeforeAccessLogFor: each On: stream ].

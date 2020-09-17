@@ -48,10 +48,10 @@ QueryMrlLogStringsForInvocationInSource >> printInitalScriptOn: aString for: aFa
 						streamContents: [ :aStream | 
 							aStream
 								<<
-									(QueryMrlReturnValueLogStringsForInvocationInSource new
+									(QueryMrlAccessesLogStringsForInvocationInSource new
 										runOn: aFamixPWBInvocation
 										with:
-											(QueryMrlAccessesLogStringsForInvocationInSource new
+											(QueryMrlReturnValueLogStringsForInvocationInSource new
 												runOn: aFamixPWBInvocation
 												with: fullInvocationText));
 								<< aLine ]) ].
@@ -85,8 +85,8 @@ QueryMrlLogStringsForInvocationInSource >> runOn: aFamixPWBInvocation with: aStr
 		anySatisfy: [ :each | self toSkypeForNow includes: each name ])
 		ifTrue: [ ^ aString ].
 	arguments := QueryInvocationArguments runOn: aFamixPWBInvocation.
-	arguments
-		addAll: (self invocationCandidateAcces: aFamixPWBInvocation).
+	"arguments
+		addAll: (self invocationCandidateAcces: aFamixPWBInvocation)."
 	^ self
 		printInitalScriptOn:
 			(QueryMrlLogStringsForArgumentsInSource new
