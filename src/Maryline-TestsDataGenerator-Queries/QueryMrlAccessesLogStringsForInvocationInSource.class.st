@@ -20,6 +20,11 @@ QueryMrlAccessesLogStringsForInvocationInSource >> printMrlAccessLogFor: aFamixP
 		nextPut: $,;
 		space;
 		nextPut: $";
+		<< aFamixPWBVariable name;
+		nextPut: $";
+		nextPut: $,;
+		space;
+		nextPut: $";
 		<< aFamixPWBVariable parentType name;
 		nextPut: $";
 		space;
