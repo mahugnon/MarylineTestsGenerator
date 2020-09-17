@@ -19,20 +19,33 @@ QueryMrlAccessesLogStringsForInvocationInSource >> printMrlAccessLogFor: aFamixP
 		space;
 		nextPut: $,;
 		space;
+		nextPut: $";
 		<< aFamixPWBVariable parentType name;
+		nextPut: $";
+		space;
+		nextPut: $,;
+		space;
+		nextPut: $";
 		<< aContextName;
+		nextPut: $";
 		space;
 		nextPut: $,;
 		space;
+		nextPut: $";
 		<< behavior name;
+		nextPut: $";
 		space;
 		nextPut: $,;
 		space;
+		nextPut: $";
 		<< behavior parentType name;
+		nextPut: $";
 		space;
 		nextPut: $,;
 		space;
+		nextPut: $";
 		<< invocationLine;
+		nextPut: $";
 		nextPut: $);
 		crlf
 ]
@@ -53,7 +66,10 @@ QueryMrlAccessesLogStringsForInvocationInSource >> runOn: aFamixPWBInvocation wi
 	behavior := aFamixPWBInvocation candidates anyOne.
 	invocationLine := aFamixPWBInvocation sourceAnchor startLine asString.
 	accesses := (behavior accesses collectAsSet: #variable)
-		select: #isInstanceVariable.
+		select: [ :each | 
+			each isInstanceVariable
+				and: [ {'true' . 'false'}
+						allSatisfy: [ :bool | bool ~= each name asLowercase ] ] ].
 	accesses
 		ifEmpty: [ ^ aString ]
 		ifNotEmpty: [ ^ String
