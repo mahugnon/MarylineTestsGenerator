@@ -31,5 +31,7 @@ QueryBRFunctionsFromKnownPoint >> selectIncomingInvocationMethodsUntilConvergenc
 		whileFalse: [ stop := methods size.
 			methods := methods
 				addAll: (methods flatCollectAsSet: [ :m | m invokedMethods ]) ].
-	^ methods reject: [ :behavioral | behavioral parentType isNil ]
+	^ methods
+		reject:
+			[ :behavioral | behavioral parentType isNil or: [ behavioral isSubRoutine ] ]
 ]

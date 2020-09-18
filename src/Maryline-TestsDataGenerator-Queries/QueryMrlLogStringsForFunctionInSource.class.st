@@ -19,7 +19,8 @@ QueryMrlLogStringsForFunctionInSource >> runOn: aFamixPWBBehaviour [
 	invocations := (((aFamixPWBBehaviour outgoingInvocations
 		select: [ :inv | 
 			inv candidates
-				anySatisfy: [ :candidate | candidate parentType isNotNil ] ])
+				anySatisfy:
+					[ :candidate | candidate parentType isNotNil and: [ candidate isSubRoutine not ] ] ])
 		sortAscending: [ :each | each sourceAnchor startPos ])
 		groupedBy: #sourceText) values collect: [ :e | e first ].
 	sourceText := QueryMrlLogStringsForInvocationsInSource new
