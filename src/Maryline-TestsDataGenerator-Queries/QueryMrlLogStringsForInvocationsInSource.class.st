@@ -26,9 +26,8 @@ QueryMrlLogStringsForInvocationsInSource >> runOn: aCollection with: aString [
 	(aCollection
 		reject: [ :inv | 
 			inv candidates
-				anySatisfy: [ :candidate | 
-					(candidate isKindOf: FamixPWBEvent)
-						or: [ self toSkypeForNow: candidate ] ] ])
+				anySatisfy:
+					[ :candidate | candidate isEvent or: [ self toSkypeForNow: candidate ] ] ])
 		do: [ :invocation | 
 			| sourceTextWithLog |
 			sourceTextWithLog := ''.

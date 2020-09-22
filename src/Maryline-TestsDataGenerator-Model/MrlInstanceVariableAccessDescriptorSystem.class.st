@@ -24,6 +24,8 @@ MrlInstanceVariableAccessDescriptorSystem >> descriptorForMrlInstanceVariableAcc
 	table := self
 		tableNamed: 'public."Maryline_instance_variable_access"'.
 	aDescriptor table: table.
+	(aDescriptor newMapping: OneToOneMapping)
+		attributeName: #instance_variable_access_id.
 	(aDescriptor newMapping: DirectMapping)
 		from: #instance_variable_access_id
 		to: (table fieldNamed: 'instance_variable_access_id').
@@ -59,6 +61,6 @@ MrlInstanceVariableAccessDescriptorSystem >> tableForMARYLINE_INSTANCE_VARIABLE_
 	aTable
 		addForeignKeyFrom: fk2
 		to:
-			((self tableNamed: 'MARYLINE_INSTANCE_VARIABLE')
+			((self tableNamed: 'MARYLINE_INSTANCE_VARIABLE_ACCESS')
 				fieldNamed: 'instance_variable_id')
 ]

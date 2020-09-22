@@ -38,9 +38,9 @@ MrlVariableAccessBeforeValueDescriptorSystem >> tableForMARYLINE_ACCESS_BEFORE_V
 	aTable
 		createFieldNamed: 'mrlvalue'
 		type: (platform varChar: 100).
-	aTable
+	"aTable
 		addForeignKeyFrom: fk
 		to:
 			((self tableNamed: 'MARYLINE_INSTANCE_VARIABLE_ACCESS')
-				fieldNamed: 'instance_variable_access_id')
+				fieldNamed: 'instance_variable_access_id')"
 ]

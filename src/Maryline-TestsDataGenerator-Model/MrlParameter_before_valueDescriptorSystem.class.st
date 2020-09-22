@@ -38,9 +38,9 @@ MrlParameter_before_valueDescriptorSystem >> tableForMARYLINE_PARAMETER_BEFORE_V
 	aTable
 		createFieldNamed: 'parameter_value'
 		type: (platform varChar: 100).
-	aTable
+	"aTable
 		addForeignKeyFrom: fk_parameter
 		to:
-			((self tableNamed: 'MARYLINE_PARAMETER_BEFORE_VALUE')
-				fieldNamed: 'parameter_id')
+			((self tableNamed: 'MARYLINE_INSTANCE_VARIABLE_ACCESS')
+				fieldNamed: 'parameter_id')"
 ]

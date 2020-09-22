@@ -30,9 +30,11 @@ QueryMrlLogStringsForInvocationInSource >> printInitalScriptOn: aString for: aFa
 	cleanSourceText := aString
 		copyReplaceAll: aFamixPWBInvocation sourceText
 		with: cleaninvocationText.
-	lines := QueryInsertMrlCodeLines new
-		runOn: cleanSourceText
-		with: cleaninvocationText.
+	lines := self
+		removeCommentLine:
+			(QueryInsertMrlCodeLines new
+				runOn: cleanSourceText
+				with: cleaninvocationText).
 	lines ifEmpty: [ ^ aString ].
 	lines
 		do: [ :aLine | 
@@ -66,6 +68,11 @@ QueryMrlLogStringsForInvocationInSource >> reduceSpace: aString [
 { #category : #printing }
 QueryMrlLogStringsForInvocationInSource >> removeCarriageReturn: aString [
 	^ aString copyReplaceAll: String crlf with: ''
+]
+
+{ #category : #removing }
+QueryMrlLogStringsForInvocationInSource >> removeCommentLine: aCollection [
+	^ aCollection reject: [ :line | line matchesRegex: '//.*' ]
 ]
 
 { #category : #printing }

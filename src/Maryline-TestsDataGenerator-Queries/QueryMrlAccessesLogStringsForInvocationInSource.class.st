@@ -81,7 +81,7 @@ QueryMrlAccessesLogStringsForInvocationInSource >> runOn: aFamixPWBInvocation wi
 				streamContents: [ :stream | 
 					accesses
 						do: [ :each | self printMrlBeforeAccessLogFor: each On: stream ].
-					stream << aString.
-					accesses
-						do: [ :each | self printMrlAfterAccessLogFor: each On: stream ] ] ]
+					stream << aString
+					"accesses
+						do: [ :each | self printMrlAfterAccessLogFor: each On: stream ]" ] ]
 ]
