@@ -24,6 +24,7 @@ MrlPWBUnitTestForFunctionWithDatawindowArguments >> printPWBDeclarationScriptOn:
 	self loadTestData.
 	self createAssertionsFromData.
 	self beginOn: stream.
+	"self printAccessSetUpOn: stream."
 	self printPWBObjectCreationOn: stream.
 	self newMarylineTestWindowOn: stream.
 	self printReturnValueDeclarationOn: stream.

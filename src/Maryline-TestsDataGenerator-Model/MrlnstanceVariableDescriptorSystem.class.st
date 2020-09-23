@@ -25,22 +25,17 @@ MrlnstanceVariableDescriptorSystem >> descriptorForMrlnstanceVariable: aDescript
 	table := self tableNamed: 'public."Maryline_instance_variable"'.
 	aDescriptor table: table.
 	(aDescriptor newMapping: DirectMapping)
-		from: #mrlValue
-		to: (table fieldNamed: 'mrlvalue').
-	(aDescriptor newMapping: DirectMapping)
 		from: #instance_variable_dataobject
 		to: (table fieldNamed: 'instance_variable_dataobject').
 	(aDescriptor newMapping: DirectMapping)
-		from: #instance_variable_id 
+		from: #instance_variable_id
 		to: (table fieldNamed: 'instance_variable_id').
-		
-(aDescriptor newMapping: DirectMapping)
-		from: #instance_variable_name  
-		to: (table fieldNamed: 'instance_variable_name').	
-(aDescriptor newMapping: DirectMapping)
-		from: #instance_variable_pwb_object  
-		to: (table fieldNamed: 'instance_variable_pwb_object').			
-	
+	(aDescriptor newMapping: DirectMapping)
+		from: #instance_variable_name
+		to: (table fieldNamed: 'instance_variable_name').
+	(aDescriptor newMapping: DirectMapping)
+		from: #instance_variable_pwb_object
+		to: (table fieldNamed: 'instance_variable_pwb_object')
 ]
 
 { #category : #'as yet unclassified' }

@@ -8,7 +8,9 @@ Class {
 		'sender',
 		'behavior_id',
 		'mrlParameters',
-		'mrlReturnValues'
+		'mrlReturnValues',
+		'timestamps',
+		'mrlInstanceVariablesAccesses'
 	],
 	#category : #'Maryline-TestsDataGenerator-Model'
 }
@@ -137,7 +139,16 @@ MrlBehavior >> generateTestCaseFromData [
 MrlBehavior >> initialize [
 	super initialize.
 	mrlParameters := OrderedCollection new.
-	mrlReturnValues := OrderedCollection new
+	mrlReturnValues := OrderedCollection new.
+	mrlInstanceVariablesAccesses := OrderedCollection new
+]
+
+{ #category : #'as yet unclassified' }
+MrlBehavior >> loadMrlInstanceVariablesAccesses [
+	mrlInstanceVariablesAccesses := MrlInstanceVariableAccess
+		loadWhere: [ :mrlInstanceVariablesAccess | 
+			mrlInstanceVariablesAccess instance_variable_access_accessor
+				= self behavior_id ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -161,10 +172,18 @@ MrlBehavior >> loadMrlReturnValues [
 				loadWhere: [ :mrlReturnValue | mrlReturnValue behavior_id = self behavior_id ])
 ]
 
+{ #category : #'as yet unclassified' }
+MrlBehavior >> mrlInstanceVariablesAccesses [
+	mrlInstanceVariablesAccesses
+		ifEmpty: [ self loadMrlInstanceVariablesAccesses ].
+	^ (mrlInstanceVariablesAccesses groupedBy: #instance_variable_access_timestamp)
+		asOrderedDictionary
+]
+
 { #category : #accessing }
 MrlBehavior >> mrlParameters [
 	mrlParameters ifEmpty: [ self loadMrlParameters ].
-	^ (mrlParameters groupedBy: #timestamp) asOrderedDictionary
+	^ (mrlParameters groupedBy: #instance_variable_access_timestamp) asOrderedDictionary
 ]
 
 { #category : #accessing }
@@ -206,4 +225,10 @@ MrlBehavior >> setOriginalParameters [
 				originalParameter:
 					(behaviorUnderTest parameters
 						detect: [ :parameter | parameter name = param parameter_name ]) ]
+]
+
+{ #category : #accessing }
+MrlBehavior >> timestamps [
+	timestamps ifNil: [ timestamps := self mrlParameters keys ].
+	^ timestamps
 ]

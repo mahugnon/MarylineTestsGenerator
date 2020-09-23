@@ -63,7 +63,7 @@ MrlParameter >> line_number: anObject [
 ]
 
 { #category : #accessing }
-MrlParameter >> loadMrlParameter_after_values [
+MrlParameter >> loadMrlParameter_after_value [
 	parameter_after_value := (MrlParameter_after_value
 		loadWhere:
 			[ :mrlParameter_value | mrlParameter_value parameter_id = self parameter_id ])
@@ -71,7 +71,7 @@ MrlParameter >> loadMrlParameter_after_values [
 ]
 
 { #category : #accessing }
-MrlParameter >> loadMrlParameter_before_values [
+MrlParameter >> loadMrlParameter_before_value [
 	parameter_before_value := (MrlParameter_before_value
 		loadWhere:
 			[ :mrlParameter_value | mrlParameter_value parameter_id = self parameter_id ])
@@ -100,13 +100,13 @@ MrlParameter >> parameterTypeName [
 
 { #category : #accessing }
 MrlParameter >> parameter_after_value [
-	parameter_after_value ifNil: [ self loadMrlParameter_after_values ].
+	parameter_after_value ifNil: [ self loadMrlParameter_after_value ].
 	^ parameter_after_value parameter_value
 ]
 
 { #category : #accessing }
 MrlParameter >> parameter_before_value [
-	parameter_before_value ifNil: [ self loadMrlParameter_before_values ].
+	parameter_before_value ifNil: [ self loadMrlParameter_before_value ].
 	^ parameter_before_value parameter_value
 ]
 

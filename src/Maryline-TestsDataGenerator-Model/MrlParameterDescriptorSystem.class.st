@@ -15,13 +15,11 @@ MrlParameterDescriptorSystem >> classModelForMaryline_parameter: aClassModel [
 	aClassModel newAttributeNamed: #behavior_id.
 	aClassModel newAttributeNamed: #parameter_id.
 	aClassModel newAttributeNamed: #parameter_name.
-	aClassModel newAttributeNamed: #parameter_before_value.
 	aClassModel newAttributeNamed: #parameter_syntax.
 	"aClassModel newAttributeNamed: #parameter_selectSql."
-	aClassModel newAttributeNamed: #parameter_after_value.
 	aClassModel newAttributeNamed: #line_number.
 	aClassModel newAttributeNamed: #timestamp.
-	aClassModel newAttributeNamed: #parameter_dataobject.
+	aClassModel newAttributeNamed: #parameter_dataobject
 ]
 
 { #category : #'as yet unclassified' }
@@ -32,12 +30,7 @@ MrlParameterDescriptorSystem >> descriptorForMrlParameter: aDescriptor [
 	(aDescriptor newMapping: DirectMapping)
 		from: #parameter_name
 		to: (table fieldNamed: 'parameter_name').
-	(aDescriptor newMapping: DirectMapping)
-		from: #parameter_before_value
-		to: (table fieldNamed: 'parameter_before_value').
-	(aDescriptor newMapping: DirectMapping)
-		from: #parameter_after_value
-		to: (table fieldNamed: 'parameter_after_value').
+
 	(aDescriptor newMapping: DirectMapping)
 		from: #parameter_syntax
 		to: (table fieldNamed: 'parameter_syntax').
@@ -70,9 +63,6 @@ MrlParameterDescriptorSystem >> tableForMARYLINE_PARAMETER: aTable [
 		createFieldNamed: 'parameter_name'
 		type: (platform varChar: 100).
 	aTable
-		createFieldNamed: 'parameter_after_value'
-		type: (platform varChar: 100).
-	aTable
 		createFieldNamed: 'parameter_syntax'
 		type: (platform varChar: 100).
 	aTable
@@ -82,8 +72,8 @@ MrlParameterDescriptorSystem >> tableForMARYLINE_PARAMETER: aTable [
 		createFieldNamed: 'parameter_before_value'
 		type: (platform varChar: 100).
 	aTable createFieldNamed: 'line_number' type: (platform varChar: 100).
-	aTable createFieldNamed: 'timestamp' type: (platform varChar: 100).
-	aTable
+	aTable createFieldNamed: 'timestamp' type: (platform varChar: 100)
+	"aTable
 		addForeignKeyFrom: fk_parameter
-		to: ((self tableNamed: 'MARYLINE_BEHAVIOR') fieldNamed: 'behavior_id')
+		to: ((self tableNamed: 'MARYLINE_BEHAVIOR') fieldNamed: 'behavior_id')"
 ]
