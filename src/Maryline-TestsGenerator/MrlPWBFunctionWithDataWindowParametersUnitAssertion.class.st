@@ -45,7 +45,7 @@ MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printPWBDeclarationScript
 		<< 'this.assert(';
 		space;
 		<<
-			(BasicTypeValueResolver
+			(MrlTypeValueResolver
 				resolveValue: behaviorReturnValue mrlValue
 				withType: originalBehavior returnType name);
 		space;
@@ -68,7 +68,7 @@ MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printParameterInitializat
 						nextPut: $=;
 						space;
 						<<
-							(BasicTypeValueResolver
+							(MrlTypeValueResolver
 								resolveValue: param parameter_before_value
 								withType: param parameterType name);
 						space;

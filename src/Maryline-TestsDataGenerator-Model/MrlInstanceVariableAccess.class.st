@@ -40,7 +40,7 @@ MrlInstanceVariableAccess >> beforeValue [
 				loadWhere:
 					[ :access_value | access_value access_id = self instance_variable_access_id ])
 				anyOne ].
-	^ beforeValue mrlValue
+	^ beforeValue mrlvalue
 ]
 
 { #category : #accessing }
@@ -83,6 +83,11 @@ MrlInstanceVariableAccess >> instance_variable_access_timestamp: anObject [
 	instance_variable_access_timestamp := anObject
 ]
 
+{ #category : #testing }
+MrlInstanceVariableAccess >> isBasic [
+	^ variable isBasic
+]
+
 { #category : #'as yet unclassified' }
 MrlInstanceVariableAccess >> loadVariable [
 	variable
@@ -96,4 +101,9 @@ MrlInstanceVariableAccess >> loadVariable [
 MrlInstanceVariableAccess >> variable [
 	self loadVariable.
 	^ variable instance_variable_name
+]
+
+{ #category : #'as yet unclassified' }
+MrlInstanceVariableAccess >> variableTypeName [
+	^ variable typeName
 ]

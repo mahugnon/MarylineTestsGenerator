@@ -1,15 +1,15 @@
 Class {
-	#name : #BooleanValueResolver,
+	#name : #DateValueResolver,
 	#superclass : #MrlTypeValueResolver,
 	#category : #'Maryline-TestsGenerator-MrlTestUnitStrategy'
 }
 
 { #category : #'as yet unclassified' }
-BooleanValueResolver class >> accept: aTypeName [
-	^ aTypeName asLowercase = 'boolean'
+DateValueResolver class >> accept: aTypeName [
+	^ aTypeName asLowercase = 'date'
 ]
 
 { #category : #resolving }
-BooleanValueResolver >> resolve: aString [
-	^ aString
+DateValueResolver >> resolve: aString [
+	^ 'date("' , aString , '")'
 ]

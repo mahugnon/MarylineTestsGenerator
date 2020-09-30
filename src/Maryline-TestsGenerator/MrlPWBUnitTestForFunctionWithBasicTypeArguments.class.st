@@ -36,7 +36,9 @@ MrlPWBUnitTestForFunctionWithBasicTypeArguments >> printPWBDeclarationScriptOn: 
 	self printPWBObjectCreationOn: stream.
 	self printReturnValueDeclarationOn: stream.
 	assertions
-		do: [ :assert | stream << assert printPWBDeclarationScript ].
+		do: [ :assert | 
+			self printInstanceVariableAccessAt: assert timestamp on: stream.
+			assert printPWBDeclarationScriptOn: stream ].
 	self endOn: stream.
 	^ stream
 ]

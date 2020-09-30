@@ -22,7 +22,8 @@ Class {
 		'testPWBOject1',
 		'sourceAnchorTestInvocation6',
 		'testInvocation6',
-		'sourceAnchorFunction3'
+		'sourceAnchorFunction3',
+		'sourceAnchorReturn1'
 	],
 	#category : #'Maryline-TestsDataGenerator-Tests'
 }
@@ -87,7 +88,8 @@ MRLAbstractTests >> setUp [
 	self setUpPWBTestObjects.
 	self setUpFunction.
 	self setUpInvocations.
-	self setUpReturnType
+	self setUpReturnType.
+	self setUpReturn
 ]
 
 { #category : #running }
@@ -150,8 +152,22 @@ MRLAbstractTests >> setUpPWBTestObjects [
 ]
 
 { #category : #initialization }
+MRLAbstractTests >> setUpReturn [
+	FamixPWBFunctionReturn new
+		returnValue: 1;
+		sourceAnchor: sourceAnchorReturn1;
+		behavioral: testFunction3;
+		mooseModel: model
+]
+
+{ #category : #initialization }
 MRLAbstractTests >> setUpReturnType [
 	testFunction2
+		returnType:
+			(FamixPWBBasicType new
+				name: 'Integer';
+				mooseModel: model).
+	testFunction3
 		returnType:
 			(FamixPWBBasicType new
 				name: 'Integer';
@@ -204,6 +220,11 @@ MRLAbstractTests >> setUpSourceAnchors [
 		fileName: 'fileLibA.sru';
 		startPos: 1;
 		endPos: 475;
+		mooseModel: model.
+	sourceAnchorReturn1 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 551;
+		endPos: 558;
 		mooseModel: model
 ]
 

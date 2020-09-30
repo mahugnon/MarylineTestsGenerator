@@ -19,6 +19,11 @@ MrlVariableAccessValue >> access_id: anObject [
 ]
 
 { #category : #accessing }
+MrlVariableAccessValue >> mrlValue [
+	self shouldBeImplemented.
+]
+
+{ #category : #accessing }
 MrlVariableAccessValue >> mrlvalue [
 	^ mrlvalue
 ]

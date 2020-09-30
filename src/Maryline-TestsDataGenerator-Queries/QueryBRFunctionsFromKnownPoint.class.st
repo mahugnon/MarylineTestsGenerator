@@ -29,7 +29,7 @@ QueryBRFunctionsFromKnownPoint >> selectIncomingInvocationMethodsUntilConvergenc
 	stop := 0.
 	[ stop = methods size ]
 		whileFalse: [ stop := methods size.
-			methods := methods
+			methods
 				addAll: (methods flatCollectAsSet: [ :m | m invokedMethods ]) ].
 	^ methods
 		reject:

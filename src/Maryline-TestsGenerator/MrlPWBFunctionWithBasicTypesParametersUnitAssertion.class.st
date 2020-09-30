@@ -9,7 +9,7 @@ MrlPWBFunctionWithBasicTypesParametersUnitAssertion >> assertNilOn: stream [
 	stream
 		<< 'this.assert(';
 		space;
-		<< 'IsNil(';
+		<< 'IsNull(';
 		space;
 		<< 'l_result';
 		space;
@@ -32,7 +32,7 @@ MrlPWBFunctionWithBasicTypesParametersUnitAssertion >> printFunctionInvocationSc
 		param := self mrlParameters at: iter.
 		stream
 			<<
-				(BasicTypeValueResolver
+				(MrlTypeValueResolver
 					resolveValue: param parameter_before_value
 					withType: param parameterType name);
 			space;
@@ -40,7 +40,7 @@ MrlPWBFunctionWithBasicTypesParametersUnitAssertion >> printFunctionInvocationSc
 	param := self mrlParameters last.
 	stream
 		<<
-			(BasicTypeValueResolver
+			(MrlTypeValueResolver
 				resolveValue: param parameter_before_value
 				withType: param parameterType name);
 		space;
@@ -57,18 +57,20 @@ MrlPWBFunctionWithBasicTypesParametersUnitAssertion >> printPWBDeclarationScript
 
 { #category : #printing }
 MrlPWBFunctionWithBasicTypesParametersUnitAssertion >> printReturnAssertionOn: stream [
-	behaviorReturnValue mrlValue ifNil: [ self assertNilOn: stream ].
-	stream
-		<< 'this.assert(';
-		space;
-		<<
-			(BasicTypeValueResolver
-				resolveValue: behaviorReturnValue mrlValue
-				withType: originalBehavior returnType name);
-		space;
-		<< '=';
-		space;
-		<< 'l_result';
-		nextPut: $);
-		crlf
+	behaviorReturnValue mrlValue
+		ifNil: [ self assertNilOn: stream ]
+		ifNotNil: [ stream
+				<< 'this.assert(';
+				space;
+				<<
+					(MrlTypeValueResolver
+						resolveValue: behaviorReturnValue mrlValue
+						withType: originalBehavior returnType name);
+				space;
+				<< '=';
+				space;
+				<< 'l_result';
+				nextPut: $);
+				crlf ].
+	^ stream
 ]

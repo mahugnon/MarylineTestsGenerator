@@ -157,6 +157,34 @@ MrlPWBUnitTest >> owner: anObject [
 	owner addType: self
 ]
 
+{ #category : #api }
+MrlPWBUnitTest >> printInstanceVariableAccessAt: aString on: aStream [
+	| accesses |
+	accesses := self testsData getInstanceVariableAccess: aString.
+	accesses
+		do: [ :access | 
+			| varname |
+			varname := 'l_' , self testsData pwb_object , '.' , access variable.
+			access isBasic
+				ifTrue: [ aStream
+						<< varname;
+						space;
+						nextPut: $=;
+						space;
+						<<
+							(MrlTypeValueResolver
+								resolveValue: access beforeValue
+								withType: access variableTypeName);
+						crlf ]
+				ifFalse: [ aStream
+						<<
+							(DatawindowValueResolver new
+								dw_fullName: varname;
+								resolve: access beforeValue) ] ].
+	aStream crlf.
+	^ aStream
+]
+
 { #category : #printing }
 MrlPWBUnitTest >> printPWBDeclarationScript [
 	^ String
@@ -187,7 +215,7 @@ MrlPWBUnitTest >> printPWBDeclarationScriptOn: stream [
 { #category : #printing }
 MrlPWBUnitTest >> printPWBObjectCreationOn: aStream [
 	| localVar |
-	self loadTestData.
+	"self loadTestData."
 	localVar := 'l_' , self testsData pwb_object.
 	^ aStream
 		<< self testsData pwb_object;

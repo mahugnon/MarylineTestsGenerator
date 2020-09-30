@@ -21,7 +21,8 @@ MrlPWBUnitTestForFunctionWithDatawindowArguments >> newMarylineTestWindowOn: aSt
 
 { #category : #printing }
 MrlPWBUnitTestForFunctionWithDatawindowArguments >> printPWBDeclarationScriptOn: stream [
-	self loadTestData.
+	"self loadTestData."
+
 	self createAssertionsFromData.
 	self beginOn: stream.
 	"self printAccessSetUpOn: stream."
@@ -29,8 +30,10 @@ MrlPWBUnitTestForFunctionWithDatawindowArguments >> printPWBDeclarationScriptOn:
 	self newMarylineTestWindowOn: stream.
 	self printReturnValueDeclarationOn: stream.
 	self printParameterDeclarationOn: stream.
-	assertions
-		do: [ :assert | assert printPWBDeclarationScriptOn: stream ].
+	self assertions
+		do: [ :assert | 
+			self printInstanceVariableAccessAt: assert timestamp on: stream.
+			assert printPWBDeclarationScriptOn: stream ].
 	self endOn: stream.
 	^ stream
 ]

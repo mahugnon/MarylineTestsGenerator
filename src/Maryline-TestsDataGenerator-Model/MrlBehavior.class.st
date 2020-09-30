@@ -104,27 +104,31 @@ MrlBehavior >> createAssertionsFromData [
 			(value allSatisfy: #isBasic)
 				ifTrue: [ assertons
 						add:
-							(MrlPWBFunctionWithBasicTypesParametersUnitAssertion new
-								mrlParameters: value;
-								originalBehavior: self behaviorUnderTest;
-								behaviorName: self behavior_name;
-								behaviorParent: self pwb_object;
-								behaviorReturnValue:
-									(self mrlReturnValues
-										detect: [ :returnValue | returnValue timestamp = key ]);
-								yourself) ]
+							(self
+								ensureCreateAssertion: MrlPWBFunctionWithBasicTypesParametersUnitAssertion
+								with: key
+								and: value) ]
 				ifFalse: [ assertons
 						add:
-							(MrlPWBFunctionWithDataWindowParametersUnitAssertion new
-								mrlParameters: value;
-								originalBehavior: self behaviorUnderTest;
-								behaviorName: self behavior_name;
-								behaviorParent: self pwb_object;
-								behaviorReturnValue:
-									(self mrlReturnValues
-										detect: [ :returnValue | returnValue timestamp = key ]);
-								yourself) ] ].
+							(self
+								ensureCreateAssertion: MrlPWBFunctionWithDataWindowParametersUnitAssertion
+								with: key
+								and: value) ] ].
 	^ assertons
+]
+
+{ #category : #'as yet unclassified' }
+MrlBehavior >> ensureCreateAssertion: assertionClass with: timeStamp and: aCollection [
+	^ assertionClass new
+		mrlParameters: aCollection;
+		originalBehavior: self behaviorUnderTest;
+		behaviorName: self behavior_name;
+		behaviorParent: self pwb_object;
+		timestamp: timeStamp;
+		behaviorReturnValue:
+			(self mrlReturnValues
+				detect: [ :returnValue | returnValue timestamp = timeStamp ]);
+		yourself
 ]
 
 { #category : #'as yet unclassified' }
@@ -133,6 +137,11 @@ MrlBehavior >> generateTestCaseFromData [
 		testCaseForFunction:
 			((MooseModel root first allWithType: FamixPWBFunction)
 				detect: [ :uf | uf name = self behavior_name ])
+]
+
+{ #category : #'as yet unclassified' }
+MrlBehavior >> getInstanceVariableAccess: aTimestampString [
+	^ self mrlInstanceVariablesAccesses at: aTimestampString
 ]
 
 { #category : #initialization }
@@ -183,7 +192,7 @@ MrlBehavior >> mrlInstanceVariablesAccesses [
 { #category : #accessing }
 MrlBehavior >> mrlParameters [
 	mrlParameters ifEmpty: [ self loadMrlParameters ].
-	^ (mrlParameters groupedBy: #instance_variable_access_timestamp) asOrderedDictionary
+	^ (mrlParameters groupedBy: #timestamp) asOrderedDictionary
 ]
 
 { #category : #accessing }

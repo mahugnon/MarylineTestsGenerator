@@ -6,7 +6,8 @@ Class {
 		'instance_variable_id',
 		'instance_variable_name',
 		'instance_variable_pwb_object',
-		'accesses'
+		'accesses',
+		'famixPWBAttribute'
 	],
 	#category : #'Maryline-TestsDataGenerator-Model'
 }
@@ -73,9 +74,40 @@ MrlnstanceVariable >> instance_variable_pwb_object: anObject [
 	instance_variable_pwb_object := anObject
 ]
 
+{ #category : #initialization }
+MrlnstanceVariable >> isBasic [
+	^ self type isBasic
+]
+
+{ #category : #initialization }
+MrlnstanceVariable >> linkToFamixAttributeInModel: aMooseModel [
+	famixPWBAttribute := (aMooseModel
+		allWithType: FamixPWBInstanceVariable)
+		detect: [ :var | 
+			var name = instance_variable_name
+				and: [ var parentType name = instance_variable_pwb_object ] ]
+]
+
+{ #category : #initialization }
+MrlnstanceVariable >> linkToFamixPWBAttribute [
+	^ self linkToFamixAttributeInModel: MooseModel root first
+]
+
 { #category : #accessing }
 MrlnstanceVariable >> loadAccesses [
 	^ accesses := MrlInstanceVariableAccess
 		loadWhere:
 			[ :access | access instance_variable_access_accessed = self instance_variable_id ]
+]
+
+{ #category : #initialization }
+MrlnstanceVariable >> type [
+	famixPWBAttribute ifNil: [ self linkToFamixPWBAttribute ].
+	^ famixPWBAttribute attributeType
+]
+
+{ #category : #initialization }
+MrlnstanceVariable >> typeName [
+	famixPWBAttribute ifNil: [ self linkToFamixPWBAttribute ].
+	^ famixPWBAttribute typeName
 ]

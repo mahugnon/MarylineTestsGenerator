@@ -1,6 +1,6 @@
 Class {
 	#name : #NumberValueResolver,
-	#superclass : #BasicTypeValueResolver,
+	#superclass : #MrlTypeValueResolver,
 	#category : #'Maryline-TestsGenerator-MrlTestUnitStrategy'
 }
 

@@ -171,8 +171,8 @@ MRLInvocationArgument >> mrlLogStringsFor: aLine [
 				<< self mrlBeforeLogString;
 				crlf;
 				<< aLine;
-				crlf;
-				<< self mrlAfterLogString ]
+				crlf";
+				<< self mrlAfterLogString" ]
 ]
 
 { #category : #accessing }

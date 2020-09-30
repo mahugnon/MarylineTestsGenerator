@@ -6,7 +6,8 @@ Class {
 		'behaviorName',
 		'behaviorParent',
 		'behaviorReturnValue',
-		'originalBehavior'
+		'originalBehavior',
+		'timestamp'
 	],
 	#category : #'Maryline-TestsGenerator-assertions'
 }
@@ -77,7 +78,7 @@ MrlPWBAbstractParametersUnitAssertion >> printPWBDeclarationScript [
 				param := self mrlParameters at: iter.
 				stream
 					<<
-						(BasicTypeValueResolver
+						(MrlTypeValueResolver
 							resolveValue: param parameter_before_value
 							withType: param parameterType name);
 					space;
@@ -85,7 +86,7 @@ MrlPWBAbstractParametersUnitAssertion >> printPWBDeclarationScript [
 			param := self mrlParameters last.
 			stream
 				<<
-					(BasicTypeValueResolver
+					(MrlTypeValueResolver
 						resolveValue: param parameter_before_value
 						withType: param parameterType name);
 				space;
@@ -94,7 +95,7 @@ MrlPWBAbstractParametersUnitAssertion >> printPWBDeclarationScript [
 				<< 'this.assert(';
 				space;
 				<<
-					(BasicTypeValueResolver
+					(MrlTypeValueResolver
 						resolveValue: behaviorReturnValue mrlValue
 						withType: originalBehavior returnType name);
 				space;
@@ -103,4 +104,14 @@ MrlPWBAbstractParametersUnitAssertion >> printPWBDeclarationScript [
 				<< 'l_result';
 				nextPut: $);
 				crlf ]
+]
+
+{ #category : #accessing }
+MrlPWBAbstractParametersUnitAssertion >> timestamp [
+	^ timestamp
+]
+
+{ #category : #accessing }
+MrlPWBAbstractParametersUnitAssertion >> timestamp: aString [
+	timestamp := aString
 ]
