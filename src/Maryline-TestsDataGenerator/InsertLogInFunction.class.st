@@ -21,8 +21,26 @@ end function'
 { #category : #tests }
 InsertLogInFunction >> testInsertReturnLog [
 	self
-		assert: (testFunction3 insertReturnLogIn: testFunction3 sourceText)
-		equals: 'private function integer aFunctionWithParam (int ai_arg1, Long al_arg2);
+		assert:
+			(testFunction3
+				insertReturnLogIn: testFunction3 sourceAnchor completeText)
+		equals:
+			'private function integer aFunction ();
+  long lLong
+f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
+	var.isNull()
+ uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
+f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
+
+  return LLONG
+end function
+
+private function integer f_del_ligne_suite(datawindow adw_param, long al_param, boolean ab_param)
+uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
+end function
+
+private function integer aFunctionWithParam (int ai_arg1, Long al_arg2);
+
 f_mrl_logger().return_value_logger().log(1,"aFunctionWithParam","testPWBOject1")
 return 1
 '
