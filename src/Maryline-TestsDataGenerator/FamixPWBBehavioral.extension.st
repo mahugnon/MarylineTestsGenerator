@@ -13,29 +13,73 @@ FamixPWBBehavioral >> addedCharacter: anInteger [
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
+FamixPWBBehavioral >> insertParametersAfterWithReturnLogIn: aString [
+	| result |
+	result := aString.
+	self returns
+		ifEmpty: [ result := aString ]
+		ifNotEmpty: [ self returns
+				do:
+					[ :return | result := return insertLogIn: result withParameters: self parameters ] ].
+	^ result
+]
+
+{ #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBBehavioral >> insertParametersBeforeLog [
-	| signature logs |
-	signature := self sourceText lines first.
+	| signatureText logs |
+	signatureText := self sourceText lines first.
 	self setParameters.
 	logs := String
 		streamContents:
 			[ :stream | self parameters do: [ :param | param logOn: stream context: 'before' ] ].
 	^ String
 		streamContents: [ :stream | 
-			(signature includesSubstring: '/*')
+			(signatureText includesSubstring: '/*')
 				ifTrue: [ stream
-						<< (signature copyReplaceAll: '/*' with: '');
+						<< (signatureText copyReplaceAll: '/*' with: '');
 						crlf;
 						<< logs;
 						crlf;
 						<< '/*';
 						crlf ]
 				ifFalse: [ stream
-						<< signature;
+						<< signatureText;
 						crlf;
 						<< logs;
 						crlf ].
-			stream << (self sourceText copyReplaceAll: signature with: '') ]
+			stream << (self sourceText copyReplaceAll: signatureText with: '') ]
+]
+
+{ #category : #'*Maryline-TestsDataGenerator' }
+FamixPWBBehavioral >> insertParametersBeforeLogIn: aString [
+	| signatureText logs |
+	signatureText := self sourceText lines first.
+	self setParameters.
+	logs := String
+		streamContents:
+			[ :stream | self parameters do: [ :param | param logOn: stream context: 'before' ] ].
+	^ String
+		streamContents: [ :stream | 
+			(signatureText includesSubstring: '/*')
+				ifTrue: [ stream
+						<< (signatureText copyReplaceAll: '/*' with: '');
+						crlf;
+						<< logs;
+						crlf;
+						<< '/*';
+						crlf ]
+				ifFalse: [ stream
+						<< signatureText;
+						crlf;
+						<< logs;
+						crlf ].
+			stream << (aString copyReplaceAll: signatureText with: '') ]
+]
+
+{ #category : #'*Maryline-TestsDataGenerator' }
+FamixPWBBehavioral >> insertParametersWithReturnLogIn: aString [
+	self insertParametersBeforeLogIn: aString.
+	self insertParametersAfterWithReturnLogIn: aString
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
