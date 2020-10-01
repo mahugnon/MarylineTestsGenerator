@@ -13,14 +13,27 @@ FamixPWBBehavioral >> addedCharacter: anInteger [
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
+FamixPWBBehavioral >> insertParameterAfterLogBeforeLastLigneIn: aString [
+	| lastLine newSourceCode |
+	lastLine := self sourceText lines last.
+	newSourceCode := self sourceText
+		copyReplaceAll: lastLine
+		with: (self parameterLogs: 'after') , String crlf , lastLine.
+	^ aString copyReplaceAll: self sourceText with: newSourceCode
+]
+
+{ #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBBehavioral >> insertParametersAfterWithReturnLogIn: aString [
 	| result |
 	result := aString.
 	self returns
-		ifEmpty: [ result := aString ]
+		ifEmpty:
+			[ result := self insertParameterAfterLogBeforeLastLigneIn: aString ]
 		ifNotEmpty: [ self returns
-				do:
-					[ :return | result := return insertLogIn: result withParameters: self parameters ] ].
+				do: [ :return | 
+					result := return
+						insertLogIn: result
+						withParameters: (self parameterLogs: 'after') ] ].
 	^ result
 ]
 
@@ -29,9 +42,7 @@ FamixPWBBehavioral >> insertParametersBeforeLog [
 	| signatureText logs |
 	signatureText := self sourceText lines first.
 	self setParameters.
-	logs := String
-		streamContents:
-			[ :stream | self parameters do: [ :param | param logOn: stream context: 'before' ] ].
+	logs := self parameterLogs: 'before'.
 	^ String
 		streamContents: [ :stream | 
 			(signatureText includesSubstring: '/*')
@@ -55,16 +66,13 @@ FamixPWBBehavioral >> insertParametersBeforeLogIn: aString [
 	| signatureText logs |
 	signatureText := self sourceText lines first.
 	self setParameters.
-	logs := String
-		streamContents:
-			[ :stream | self parameters do: [ :param | param logOn: stream context: 'before' ] ].
 	^ String
 		streamContents: [ :stream | 
 			(signatureText includesSubstring: '/*')
 				ifTrue: [ stream
 						<< (signatureText copyReplaceAll: '/*' with: '');
 						crlf;
-						<< logs;
+						<< (self parameterLogs: 'before');
 						crlf;
 						<< '/*';
 						crlf ]
@@ -91,6 +99,14 @@ FamixPWBBehavioral >> insertReturnLogIn: aString [
 		ifNotEmpty:
 			[ self returns do: [ :return | result := return insertLogIn: result ] ].
 	^ result
+]
+
+{ #category : #'*Maryline-TestsDataGenerator' }
+FamixPWBBehavioral >> parameterLogs: aContextString [
+	^ String
+		streamContents: [ :stream | 
+			self parameters
+				do: [ :param | param logOn: stream context: aContextString ] ]
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }

@@ -6,7 +6,7 @@ Class {
 
 { #category : #running }
 QueryInsertMrlLogForFunctionsInvokingParents >> runOn: aMooseModel [
-	aMooseModel brPath.
+	aMooseModel businessRulePath.
 	^ QueryInsertMrlLogStringsForFunctionsInPWBObjectsInSource
-		runOn: aMooseModel brPath keys
+		runOn: aMooseModel businessRulePath keys
 ]

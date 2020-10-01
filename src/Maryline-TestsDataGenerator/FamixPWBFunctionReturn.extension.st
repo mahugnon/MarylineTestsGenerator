@@ -38,18 +38,14 @@ FamixPWBFunctionReturn >> insertLogIn: aString [
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
-FamixPWBFunctionReturn >> insertLogIn: aString withParameters: aFamixPWBParameters [
-	| log fileContents textBefore textAfter start addedCharacter parametersLog |
-	parametersLog := String
-		streamContents: [ :stream | 
-			aFamixPWBParameters
-				do: [ :param | param logOn: stream context: 'after' ] ].
+FamixPWBFunctionReturn >> insertLogIn: aString withParameters: aPWBParameterLogsString [
+	| log fileContents textBefore textAfter start addedCharacter |
 	start := 1.
 
 	"self halt."
 	fileContents := self sourceAnchor completeText.
 	addedCharacter := aString size - fileContents size.
-	log := String crlf , parametersLog , String crlf
+	log := String crlf , aPWBParameterLogsString , String crlf
 		, 'f_mrl_logger().return_value_logger().log('
 		, self returnValue asString , ',"' , behavioral name , '","'
 		, behavioral parentType name , '")' , String crlf , self sourceText
