@@ -13,6 +13,43 @@ FamixPWBBehavioral >> addedCharacter: anInteger [
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
+FamixPWBBehavioral >> insertParametersBeforeLog [
+	| signature logs |
+	signature := self sourceText lines first.
+	self setParameters.
+	logs := String
+		streamContents:
+			[ :stream | self parameters do: [ :param | param logOn: stream context: 'before' ] ].
+	^ String
+		streamContents: [ :stream | 
+			(signature includesSubstring: '/*')
+				ifTrue: [ stream
+						<< (signature copyReplaceAll: '/*' with: '');
+						crlf;
+						<< logs;
+						crlf;
+						<< '/*';
+						crlf ]
+				ifFalse: [ stream
+						<< signature;
+						crlf;
+						<< logs;
+						crlf ].
+			stream << (self sourceText copyReplaceAll: signature with: '') ]
+]
+
+{ #category : #'*Maryline-TestsDataGenerator' }
+FamixPWBBehavioral >> insertReturnLogIn: aString [
+	| result |
+	result := aString.
+	self returns
+		ifEmpty: [ result := aString ]
+		ifNotEmpty:
+			[ self returns do: [ :return | result := return insertLogIn: result ] ].
+	^ result
+]
+
+{ #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBBehavioral >> saveMrlLogStringsForInvocationsInAnchor [
 	((((self outgoingInvocations
 		select: [ :inv | 
