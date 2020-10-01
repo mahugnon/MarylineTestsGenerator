@@ -63,10 +63,10 @@ FamixPWBBehavioral >> insertParametersBeforeLog [
 
 { #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBBehavioral >> insertParametersBeforeLogIn: aString [
-	| signatureText logs |
-	signatureText := self sourceText lines first.
+	| signatureText newSourceCode |
+	signatureText := self signature sourceText.
 	self setParameters.
-	^ String
+	newSourceCode := String
 		streamContents: [ :stream | 
 			(signatureText includesSubstring: '/*')
 				ifTrue: [ stream
@@ -79,15 +79,20 @@ FamixPWBBehavioral >> insertParametersBeforeLogIn: aString [
 				ifFalse: [ stream
 						<< signatureText;
 						crlf;
-						<< logs;
+						<< (self parameterLogs: 'before');
 						crlf ].
-			stream << (aString copyReplaceAll: signatureText with: '') ]
+			stream << (self sourceText copyReplaceAll: signatureText with: '') ].
+	^ aString copyReplaceAll: self sourceText with: newSourceCode
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBBehavioral >> insertParametersWithReturnLogIn: aString [
-	self insertParametersBeforeLogIn: aString.
-	self insertParametersAfterWithReturnLogIn: aString
+	| textWithLogs |
+	textWithLogs := aString.
+	textWithLogs := self insertParametersBeforeLogIn: textWithLogs.
+	textWithLogs := self
+		insertParametersAfterWithReturnLogIn: textWithLogs.
+	^ textWithLogs
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
