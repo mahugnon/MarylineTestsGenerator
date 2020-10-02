@@ -145,10 +145,16 @@ MRLAbstractTests >> setUpInvocations [
 
 { #category : #running }
 MRLAbstractTests >> setUpPWBTestObjects [
+	| sourceAnchorObject1 |
+	sourceAnchorObject1 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 1;
+		endPos: 449;
+		mooseModel: model.
 	testPWBOject1 := FamixPWBUserObject new
 		mooseModel: model;
 		name: 'testPWBOject1';
-		sourceAnchor: sourceAnchorTestObject1.
+		sourceAnchor: sourceAnchorObject1
 ]
 
 { #category : #initialization }

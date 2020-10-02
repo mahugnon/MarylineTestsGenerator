@@ -49,7 +49,7 @@ InsertLogInFunction >> setUp [
 
 { #category : #running }
 InsertLogInFunction >> setUpFunction [
-sourceAnchorFunction1 := FamixPWBIndexedFileAnchor new
+	sourceAnchorFunction1 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 1;
 		endPos: 317;
@@ -59,8 +59,7 @@ sourceAnchorFunction1 := FamixPWBIndexedFileAnchor new
 		sourceAnchor: sourceAnchorFunction1;
 		parentType: testPWBOject1;
 		mooseModel: model.
-		
-		sourceAnchorFunction2 := FamixPWBIndexedFileAnchor new
+	sourceAnchorFunction2 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 320;
 		endPos: 449;
@@ -69,18 +68,26 @@ sourceAnchorFunction1 := FamixPWBIndexedFileAnchor new
 		name: 'aFunctionWithParam';
 		sourceAnchor: sourceAnchorFunction2;
 		parentType: testPWBOject1;
-		mooseModel: model
+		mooseModel: model.
+	model
+		businessRulePath:
+			(OrderedDictionary
+				newFrom:
+					{(testPWBOject1
+						->
+							{testFunction1.
+							testFunction2})})
 ]
 
 { #category : #running }
 InsertLogInFunction >> setUpFunctionParameters [
-	| parametersourceAnchor1 testParameter1 parametersourceAnchor2 testParameter2 |
+	| parametersourceAnchor1 parametersourceAnchor2 |
 	parametersourceAnchor1 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 364;
 		endPos: 374;
 		mooseModel: model.
-	testParameter1 := FamixPWBParameter new
+	FamixPWBParameter new
 		sourceAnchor: parametersourceAnchor1;
 		name: 'ai_arg1';
 		mooseModel: model;
@@ -90,7 +97,7 @@ InsertLogInFunction >> setUpFunctionParameters [
 		startPos: 377;
 		endPos: 388;
 		mooseModel: model.
-	testParameter2 := FamixPWBParameter new
+	FamixPWBParameter new
 		sourceAnchor: parametersourceAnchor2;
 		mooseModel: model;
 		name: 'al_arg2';
@@ -149,6 +156,11 @@ InsertLogInFunction >> setUpReturnType [
 
 { #category : #running }
 InsertLogInFunction >> setUpSignature [
+	sourceAnchorSignature1 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 1;
+		endPos: 100;
+		mooseModel: model.
 	sourceAnchorSignature2 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 320;
@@ -159,11 +171,6 @@ InsertLogInFunction >> setUpSignature [
 		sourceAnchor: sourceAnchorSignature1;
 		mooseModel: model;
 		behavioral: testFunction1.
-	sourceAnchorSignature1 := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 1;
-		endPos: 100;
-		mooseModel: model.
 	FamixPWBBehaviorSignature new
 		name: 'signature2';
 		sourceAnchor: sourceAnchorSignature2;
@@ -171,11 +178,58 @@ InsertLogInFunction >> setUpSignature [
 		behavioral: testFunction2
 ]
 
-{ #category : #running }
-InsertLogInFunction >> setUpSourceAnchors [
+{ #category : #tests }
+InsertLogInFunction >> testInsertLogsInFileA [
+	testPWBOject1 insertMarylineLogs.
+	self
+		assert: testPWBOject1 sourceAnchor fileReference contents
+		equals: 'public function integer uf_calcul_autre_oc (ref uo_datawindow adw_dlq, long al_lig, boolean ab_maj);
+f_mrl_logger().invocation_parameter_logger().log("adw_dlq",adw_dlq,"testPWBOject1","uf_calcul_autre_oc","before")
+f_mrl_logger().invocation_parameter_logger().log("al_lig",al_lig,"testPWBOject1","uf_calcul_autre_oc","before")
+f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject1","uf_calcul_autre_oc","before")
+
+/*
+	Objet UO_RESSOURCE_GAR
+	uf_calcul_autre_OC()
+	- Argument(s) -
+	* 22/05/97 *	$cim$*/
+integer li_ret
+  long lLong
+	var.isNull()
+f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
+  
+f_mrl_logger().invocation_parameter_logger().log("adw_dlq",adw_dlq,"testPWBOject1","uf_calcul_autre_oc","after")
+f_mrl_logger().invocation_parameter_logger().log("al_lig",al_lig,"testPWBOject1","uf_calcul_autre_oc","after")
+f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject1","uf_calcul_autre_oc","after")
+
+f_mrl_logger().return_value_logger().log(1,"uf_calcul_autre_oc","testPWBOject1")
+return LLONG
+
+end function
+
+private function string aFunctionWithParam (int ai_arg1, Long al_arg2);
+f_mrl_logger().invocation_parameter_logger().log("ai_arg1",ai_arg1,"testPWBOject1","aFunctionWithParam","before")
+f_mrl_logger().invocation_parameter_logger().log("al_arg2",al_arg2,"testPWBOject1","aFunctionWithParam","before")
 
 
+if a then 
+f_mrl_logger().invocation_parameter_logger().log("ai_arg1",ai_arg1,"testPWBOject1","aFunctionWithParam","after")
+f_mrl_logger().invocation_parameter_logger().log("al_arg2",al_arg2,"testPWBOject1","aFunctionWithParam","after")
 
+f_mrl_logger().return_value_logger().log(1,"aFunctionWithParam","testPWBOject1")
+return "-1"
+
+else
+
+f_mrl_logger().invocation_parameter_logger().log("ai_arg1",ai_arg1,"testPWBOject1","aFunctionWithParam","after")
+f_mrl_logger().invocation_parameter_logger().log("al_arg2",al_arg2,"testPWBOject1","aFunctionWithParam","after")
+
+f_mrl_logger().return_value_logger().log(1,"aFunctionWithParam","testPWBOject1")
+return "1"
+
+end if
+end function
+'
 ]
 
 { #category : #tests }
