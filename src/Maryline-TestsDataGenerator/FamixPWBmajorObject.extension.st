@@ -3,7 +3,7 @@ Extension { #name : #FamixPWBmajorObject }
 { #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBmajorObject >> insertMarylineLogs [
 	| sourceTextWithLogs |
-	sourceTextWithLogs := self sourceText.
+	sourceTextWithLogs := self sourceAnchor completeText.
 	self businessRulePath
 		do: [ :aMethod | 
 			sourceTextWithLogs := aMethod

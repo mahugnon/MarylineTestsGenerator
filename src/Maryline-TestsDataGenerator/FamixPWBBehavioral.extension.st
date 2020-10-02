@@ -60,17 +60,6 @@ FamixPWBBehavioral >> insertParametersWithReturnLogIn: aString [
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
-FamixPWBBehavioral >> insertReturnLogIn: aString [
-	| result |
-	result := aString.
-	self returns
-		ifEmpty: [ result := aString ]
-		ifNotEmpty:
-			[ self returns do: [ :return | result := return insertLogIn: result ] ].
-	^ result
-]
-
-{ #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBBehavioral >> parameterLogs: aContextString [
 	^ String
 		streamContents: [ :stream | 
