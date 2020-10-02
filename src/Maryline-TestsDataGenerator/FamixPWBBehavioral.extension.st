@@ -38,61 +38,25 @@ FamixPWBBehavioral >> insertParametersAfterWithReturnLogIn: aString [
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
-FamixPWBBehavioral >> insertParametersBeforeLog [
-	| signatureText logs |
-	signatureText := self sourceText lines first.
-	self setParameters.
-	logs := self parameterLogs: 'before'.
-	^ String
-		streamContents: [ :stream | 
-			(signatureText includesSubstring: '/*')
-				ifTrue: [ stream
-						<< (signatureText copyReplaceAll: '/*' with: '');
-						crlf;
-						<< logs;
-						crlf;
-						<< '/*';
-						crlf ]
-				ifFalse: [ stream
-						<< signatureText;
-						crlf;
-						<< logs;
-						crlf ].
-			stream << (self sourceText copyReplaceAll: signatureText with: '') ]
-]
-
-{ #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBBehavioral >> insertParametersBeforeLogIn: aString [
 	| signatureText newSourceCode |
 	signatureText := self signature sourceText.
 	self setParameters.
 	newSourceCode := String
 		streamContents: [ :stream | 
-			(signatureText includesSubstring: '/*')
-				ifTrue: [ stream
-						<< (signatureText copyReplaceAll: '/*' with: '');
-						crlf;
-						<< (self parameterLogs: 'before');
-						crlf;
-						<< '/*';
-						crlf ]
-				ifFalse: [ stream
-						<< signatureText;
-						crlf;
-						<< (self parameterLogs: 'before');
-						crlf ].
+			stream
+				<< signatureText;
+				crlf;
+				<< (self parameterLogs: 'before');
+				crlf.
 			stream << (self sourceText copyReplaceAll: signatureText with: '') ].
 	^ aString copyReplaceAll: self sourceText with: newSourceCode
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBBehavioral >> insertParametersWithReturnLogIn: aString [
-	| textWithLogs |
-	textWithLogs := aString.
-	textWithLogs := self insertParametersBeforeLogIn: textWithLogs.
-	textWithLogs := self
-		insertParametersAfterWithReturnLogIn: textWithLogs.
-	^ textWithLogs
+	^ self
+		insertParametersAfterWithReturnLogIn: (self insertParametersBeforeLogIn: aString)
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }

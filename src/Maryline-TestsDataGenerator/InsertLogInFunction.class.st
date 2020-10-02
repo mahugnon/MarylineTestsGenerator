@@ -1,47 +1,250 @@
 Class {
 	#name : #InsertLogInFunction,
 	#superclass : #MRLAbstractTests,
+	#instVars : [
+		'sourceAnchorReturn2',
+		'sourceAnchorReturn3',
+		'sourceAnchorSignature1',
+		'sourceAnchorSignature2'
+	],
 	#category : #'Maryline-TestsDataGenerator-Tests'
 }
 
-{ #category : #tests }
-InsertLogInFunction >> testInsertParametersBeforeLog [
-	self
-		assert: testFunction2 insertParametersBeforeLog
-		equals:
-			'private function integer f_del_ligne_suite(datawindow adw_param, long al_param, boolean ab_param)
-f_mrl_logger().invocation_parameter_logger().log("adw_param",adw_param,"testPWBOject1","f_del_ligne_suite","before")
-f_mrl_logger().invocation_parameter_logger().log("al_param",al_param,"testPWBOject1","f_del_ligne_suite","before")
-f_mrl_logger().invocation_parameter_logger().log("ab_param",ab_param,"testPWBOject1","f_del_ligne_suite","before")
-
-uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
-end function'
-]
-
-{ #category : #tests }
-InsertLogInFunction >> testInsertReturnLog [
-	self
-		assert:
-			(testFunction3
-				insertReturnLogIn: testFunction3 sourceAnchor completeText)
-		equals:
-			'private function integer aFunction ();
+{ #category : #'as yet unclassified' }
+InsertLogInFunction >> exampleFunctionSource [
+	^ 'public function integer uf_calcul_autre_oc (ref uo_datawindow adw_dlq, long al_lig, boolean ab_maj);/*
+	Objet UO_RESSOURCE_GAR
+	uf_calcul_autre_OC()
+	- Argument(s) -
+	* 22/05/97 *	$cim$*/
+integer li_ret
   long lLong
-f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
 	var.isNull()
- uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
 f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
-
   return LLONG
 end function
 
-private function integer f_del_ligne_suite(datawindow adw_param, long al_param, boolean ab_param)
-uf_exist_col_dw(''noe_lig'',adw_dlq) and uf_exist_col_dw(''noe_cev'',adw_dlq)
+private function string aFunctionWithParam (int ai_arg1, Long al_arg2);
+if a then return "-1"
+else
+return "1"
+end if
+end function
+'
+]
+
+{ #category : #running }
+InsertLogInFunction >> setUp [
+	self createDirectory: self pwbLibString.
+	self createFile.
+	model := FamixPWBModel new.
+	model rootFolder: self pwbLibString.
+	self setUpPWBTestObjects.
+	self setUpFunction.
+	self setUpFunctionParameters.
+	self setUpSignature.
+	self setUpReturnType.
+	self setUpReturn
+]
+
+{ #category : #running }
+InsertLogInFunction >> setUpFunction [
+sourceAnchorFunction1 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 1;
+		endPos: 317;
+		mooseModel: model.
+	testFunction1 := FamixPWBFunction new
+		name: 'uf_calcul_autre_oc';
+		sourceAnchor: sourceAnchorFunction1;
+		parentType: testPWBOject1;
+		mooseModel: model.
+		
+		sourceAnchorFunction2 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 320;
+		endPos: 449;
+		mooseModel: model.
+	testFunction2 := FamixPWBFunction new
+		name: 'aFunctionWithParam';
+		sourceAnchor: sourceAnchorFunction2;
+		parentType: testPWBOject1;
+		mooseModel: model
+]
+
+{ #category : #running }
+InsertLogInFunction >> setUpFunctionParameters [
+	| parametersourceAnchor1 testParameter1 parametersourceAnchor2 testParameter2 |
+	parametersourceAnchor1 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 364;
+		endPos: 374;
+		mooseModel: model.
+	testParameter1 := FamixPWBParameter new
+		sourceAnchor: parametersourceAnchor1;
+		name: 'ai_arg1';
+		mooseModel: model;
+		behavioral: testFunction2.
+	parametersourceAnchor2 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 377;
+		endPos: 388;
+		mooseModel: model.
+	testParameter2 := FamixPWBParameter new
+		sourceAnchor: parametersourceAnchor2;
+		mooseModel: model;
+		name: 'al_arg2';
+		behavioral: testFunction2
+]
+
+{ #category : #initialization }
+InsertLogInFunction >> setUpReturn [
+	sourceAnchorReturn1 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 293;
+		endPos: 304;
+		mooseModel: model.
+	FamixPWBFunctionReturn new
+		returnValue: 1;
+		sourceAnchor: sourceAnchorReturn1;
+		behavioral: testFunction1;
+		mooseModel: model.
+		
+		sourceAnchorReturn2 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 402;
+		endPos: 412;
+		mooseModel: model.
+	FamixPWBFunctionReturn new
+		returnValue: 1;
+		sourceAnchor: sourceAnchorReturn2;
+		behavioral: testFunction2;
+		mooseModel: model.
+		
+		sourceAnchorReturn3 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 419;
+		endPos: 428;
+		mooseModel: model.
+	FamixPWBFunctionReturn new
+		returnValue: 1;
+		sourceAnchor: sourceAnchorReturn3;
+		behavioral: testFunction2;
+		mooseModel: model
+]
+
+{ #category : #initialization }
+InsertLogInFunction >> setUpReturnType [
+	testFunction1
+		returnType:
+			(FamixPWBBasicType new
+				name: 'Integer';
+				mooseModel: model).
+	testFunction2
+		returnType:
+			(FamixPWBBasicType new
+				name: 'String';
+				mooseModel: model)
+]
+
+{ #category : #running }
+InsertLogInFunction >> setUpSignature [
+	sourceAnchorSignature2 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 320;
+		endPos: 390;
+		mooseModel: model.
+	FamixPWBBehaviorSignature new
+		name: 'signature1';
+		sourceAnchor: sourceAnchorSignature1;
+		mooseModel: model;
+		behavioral: testFunction1.
+	sourceAnchorSignature1 := FamixPWBIndexedFileAnchor new
+		fileName: 'fileLibA.sru';
+		startPos: 1;
+		endPos: 100;
+		mooseModel: model.
+	FamixPWBBehaviorSignature new
+		name: 'signature2';
+		sourceAnchor: sourceAnchorSignature2;
+		mooseModel: model;
+		behavioral: testFunction2
+]
+
+{ #category : #running }
+InsertLogInFunction >> setUpSourceAnchors [
+
+
+
+]
+
+{ #category : #tests }
+InsertLogInFunction >> testInsertParametersAfterWithReturnLogInFileA [
+	self
+		assert:
+			(testFunction2
+				insertParametersAfterWithReturnLogIn: testFunction2 sourceAnchor completeText)
+		equals: 'public function integer uf_calcul_autre_oc (ref uo_datawindow adw_dlq, long al_lig, boolean ab_maj);/*
+	Objet UO_RESSOURCE_GAR
+	uf_calcul_autre_OC()
+	- Argument(s) -
+	* 22/05/97 *	$cim$*/
+integer li_ret
+  long lLong
+	var.isNull()
+f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
+  return LLONG
 end function
 
-private function integer aFunctionWithParam (int ai_arg1, Long al_arg2);
+private function string aFunctionWithParam (int ai_arg1, Long al_arg2);
+if a then 
+f_mrl_logger().invocation_parameter_logger().log("ai_arg1",ai_arg1,"testPWBOject1","aFunctionWithParam","after")
+f_mrl_logger().invocation_parameter_logger().log("al_arg2",al_arg2,"testPWBOject1","aFunctionWithParam","after")
 
 f_mrl_logger().return_value_logger().log(1,"aFunctionWithParam","testPWBOject1")
-return 1
+return "-1"
+
+else
+
+f_mrl_logger().invocation_parameter_logger().log("ai_arg1",ai_arg1,"testPWBOject1","aFunctionWithParam","after")
+f_mrl_logger().invocation_parameter_logger().log("al_arg2",al_arg2,"testPWBOject1","aFunctionWithParam","after")
+
+f_mrl_logger().return_value_logger().log(1,"aFunctionWithParam","testPWBOject1")
+return "1"
+
+end if
+end function
+'
+]
+
+{ #category : #tests }
+InsertLogInFunction >> testInsertParametersBeforeLogInFileA [
+	self
+		assert:
+			(testFunction1
+				insertParametersBeforeLogIn: testFunction1 sourceAnchor completeText)
+		equals: 'public function integer uf_calcul_autre_oc (ref uo_datawindow adw_dlq, long al_lig, boolean ab_maj);
+f_mrl_logger().invocation_parameter_logger().log("adw_dlq",adw_dlq,"testPWBOject1","uf_calcul_autre_oc","before")
+f_mrl_logger().invocation_parameter_logger().log("al_lig",al_lig,"testPWBOject1","uf_calcul_autre_oc","before")
+f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject1","uf_calcul_autre_oc","before")
+
+/*
+	Objet UO_RESSOURCE_GAR
+	uf_calcul_autre_OC()
+	- Argument(s) -
+	* 22/05/97 *	$cim$*/
+integer li_ret
+  long lLong
+	var.isNull()
+f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
+  return LLONG
+end function
+
+private function string aFunctionWithParam (int ai_arg1, Long al_arg2);
+if a then return "-1"
+else
+return "1"
+end if
+end function
 '
 ]

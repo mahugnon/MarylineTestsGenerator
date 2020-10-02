@@ -25,13 +25,13 @@ QueryBRFunctionsFromKnownPoint >> selectIncomingInvocationMethodsUntilConvergenc
 	| methods stop |
 	methods := ((aCollection
 		flatCollectAsSet: [ :e | e accessingMethods ])
-		reject: [ :e | e isKindOf: FamixPWBmajorObject ]) asSet.
+		reject: [ :e | e isPWBClass ]) asSet.
 	stop := 0.
 	[ stop = methods size ]
 		whileFalse: [ stop := methods size.
 			methods
 				addAll: (methods flatCollectAsSet: [ :m | m invokedMethods ]) ].
 	^ methods
-		reject:
-			[ :behavioral | behavioral parentType isNil or: [ behavioral isSubRoutine ] ]
+		select:
+			[ :behavioral | behavioral parentType isNotNil and: [ behavioral isFunction ] ]
 ]
