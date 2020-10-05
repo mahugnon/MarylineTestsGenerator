@@ -11,11 +11,7 @@ FamixPWBFunctionReturn >> insertLogIn: aString withParameters: aPWBParameterLogs
 		, self returnValue asString , ',"' , behavioral name , '","'
 		, behavioral parentType name , '")' , String crlf , self sourceText
 		, String crlf.
-	self sourceText
-		=
-			(aString
-				copyFrom: self sourceAnchor startPos + addedCharacter
-				to: self sourceAnchor endPos + addedCharacter)
+	(self isNotAlteredBefore: aString)
 		ifTrue: [ textBefore := aString
 				copyFrom: start
 				to: self sourceAnchor startPos - 1.
@@ -34,4 +30,13 @@ FamixPWBFunctionReturn >> insertLogIn: aString withParameters: aPWBParameterLogs
 				<< textBefore;
 				<< log;
 				<< textAfter ]
+]
+
+{ #category : #'*Maryline-TestsDataGenerator' }
+FamixPWBFunctionReturn >> isNotAlteredBefore: aString [
+	^ self sourceText
+		=
+			(aString
+				copyFrom: self sourceAnchor startPos
+				to: self sourceAnchor endPos)
 ]

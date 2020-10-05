@@ -13,27 +13,71 @@ FamixPWBBehavioral >> addedCharacter: anInteger [
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
-FamixPWBBehavioral >> insertParameterAfterLogBeforeLastLigneIn: aString [
+FamixPWBBehavioral >> insertAfterLogsOfVariables: aCollection beforeLastLigneIn: aString [
 	| lastLine newSourceCode |
 	lastLine := self sourceText lines last.
 	newSourceCode := self sourceText
 		copyReplaceAll: lastLine
-		with: (self parameterLogs: 'after') , String crlf , lastLine.
+		with:
+			(self logOfVariables: aCollection with: 'after') , String crlf
+				, lastLine.
 	^ aString copyReplaceAll: self sourceText with: newSourceCode
+]
+
+{ #category : #'*Maryline-TestsDataGenerator' }
+FamixPWBBehavioral >> insertAfterLogsOfVariables: aCollection withReturnLogIn: aString [
+	| result |
+	result := aString.
+	self returns
+		ifEmpty: [ result := self
+				insertAfterLogsOfVariables: aCollection
+				beforeLastLigneIn: aString ]
+		ifNotEmpty: [ self returns
+				do: [ :return | 
+					result := return
+						insertLogIn: result
+						withParameters: (self logOfVariables: aCollection with: 'after') ] ].
+	^ result
+]
+
+{ #category : #'*Maryline-TestsDataGenerator' }
+FamixPWBBehavioral >> insertBeforeLogsOfVariables: aCollection in: aString [
+	| signatureText newSourceCode |
+	signatureText := self signature sourceText.
+	newSourceCode := String
+		streamContents: [ :stream | 
+			stream
+				<< signatureText;
+				crlf;
+				<< (self logOfVariables: aCollection with: 'before');
+				crlf.
+			stream << (self sourceText copyReplaceAll: signatureText with: '') ].
+	^ aString copyReplaceAll: self sourceText with: newSourceCode
+]
+
+{ #category : #'*Maryline-TestsDataGenerator' }
+FamixPWBBehavioral >> insertParametersAccessAndReturnLogIn: aString [
+	^ self
+		insertParametersAfterWithReturnLogIn:
+			(self
+				insertBeforeLogsOfVariables: self accessedAttributes
+				in: (self insertBeforeLogsOfVariables: self parameters in: aString))
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBBehavioral >> insertParametersAfterWithReturnLogIn: aString [
 	| result |
+	self flag: #toRemove.
 	result := aString.
 	self returns
-		ifEmpty:
-			[ result := self insertParameterAfterLogBeforeLastLigneIn: aString ]
+		ifEmpty: [ result := self
+				insertAfterLogsOfVariables: self parameters
+				beforeLastLigneIn: aString ]
 		ifNotEmpty: [ self returns
 				do: [ :return | 
 					result := return
 						insertLogIn: result
-						withParameters: (self parameterLogs: 'after') ] ].
+						withParameters: (self logOfVariables: self parameters with: 'after') ] ].
 	^ result
 ]
 
@@ -47,24 +91,18 @@ FamixPWBBehavioral >> insertParametersBeforeLogIn: aString [
 			stream
 				<< signatureText;
 				crlf;
-				<< (self parameterLogs: 'before');
+				<< (self logOfVariables: self parameters with: 'before');
 				crlf.
 			stream << (self sourceText copyReplaceAll: signatureText with: '') ].
 	^ aString copyReplaceAll: self sourceText with: newSourceCode
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
-FamixPWBBehavioral >> insertParametersWithReturnLogIn: aString [
-	^ self
-		insertParametersAfterWithReturnLogIn: (self insertParametersBeforeLogIn: aString)
-]
-
-{ #category : #'*Maryline-TestsDataGenerator' }
-FamixPWBBehavioral >> parameterLogs: aContextString [
+FamixPWBBehavioral >> logOfVariables: aCollection with: aContextString [
 	^ String
 		streamContents: [ :stream | 
-			self parameters
-				do: [ :param | param logOn: stream context: aContextString ] ]
+			aCollection
+				do: [ :aVariable | aVariable logOn: stream context: aContextString ] ]
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }

@@ -276,8 +276,10 @@ InsertLogInFunction >> testInsertParametersBeforeLogInFileA [
 	self
 		assert:
 			(testFunction1
-				insertParametersBeforeLogIn: testFunction1 sourceAnchor completeText)
-		equals: 'public function integer uf_calcul_autre_oc (ref uo_datawindow adw_dlq, long al_lig, boolean ab_maj);
+				insertBeforeLogsOfVariables: testFunction1 parameters
+				in: testFunction1 sourceAnchor completeText)
+		equals:
+			'public function integer uf_calcul_autre_oc (ref uo_datawindow adw_dlq, long al_lig, boolean ab_maj);
 f_mrl_logger().invocation_parameter_logger().log("adw_dlq",adw_dlq,"testPWBOject1","uf_calcul_autre_oc","before")
 f_mrl_logger().invocation_parameter_logger().log("al_lig",al_lig,"testPWBOject1","uf_calcul_autre_oc","before")
 f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject1","uf_calcul_autre_oc","before")

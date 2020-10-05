@@ -7,7 +7,7 @@ FamixPWBmajorObject >> insertMarylineLogs [
 	self businessRulePath
 		do: [ :aMethod | 
 			sourceTextWithLogs := aMethod
-				insertParametersWithReturnLogIn: sourceTextWithLogs ].
+				insertParametersAccessAndReturnLogIn: sourceTextWithLogs ].
 	self sourceAnchor fileReference
 		writeStreamDo: [ :stream | stream << sourceTextWithLogs ]
 ]
