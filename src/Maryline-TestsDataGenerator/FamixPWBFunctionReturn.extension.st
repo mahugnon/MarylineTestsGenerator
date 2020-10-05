@@ -6,7 +6,7 @@ FamixPWBFunctionReturn >> insertLogIn: aString withParameters: aPWBParameterLogs
 	start := 1.
 	fileContents := self sourceAnchor completeText.
 	addedCharacter := aString size - fileContents size.
-	log := String crlf , aPWBParameterLogsString , String crlf
+	log := String crlf , aPWBParameterLogsString
 		, 'f_mrl_logger().return_value_logger().log('
 		, self returnValue asString , ',"' , behavioral name , '","'
 		, behavioral parentType name , '")' , String crlf , self sourceText

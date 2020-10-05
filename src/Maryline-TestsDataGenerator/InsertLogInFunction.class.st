@@ -237,7 +237,7 @@ InsertLogInFunction >> testInsertParametersAfterWithReturnLogInFileA [
 	self
 		assert:
 			(testFunction2
-				insertParametersAfterWithReturnLogIn: testFunction2 sourceAnchor completeText)
+				insertAfterLogOfParametersAccessesWithReturnLogIn: testFunction2 sourceAnchor completeText)
 		equals: 'public function integer uf_calcul_autre_oc (ref uo_datawindow adw_dlq, long al_lig, boolean ab_maj);/*
 	Objet UO_RESSOURCE_GAR
 	uf_calcul_autre_OC()

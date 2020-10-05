@@ -13,14 +13,35 @@ FamixPWBBehavioral >> addedCharacter: anInteger [
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
+FamixPWBBehavioral >> insertAfterLogOfParametersAccessesWithReturnLogIn: aString [
+	| result parametersWithAccesLog |
+	parametersWithAccesLog := (self
+		logOfVariables: self parameters
+		with: 'after')
+		, (self logOfVariables: self accessedAttributes with: 'after').
+	result := aString.
+	self returns
+		ifEmpty: [ result := self
+				insertAfterLogsOfVariables: self parameters
+				beforeLastLigneIn: aString ]
+		ifNotEmpty: [ self returns
+				do: [ :return | 
+					result := return
+						insertLogIn: result
+						withParameters: parametersWithAccesLog ] ].
+	^ result
+]
+
+{ #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBBehavioral >> insertAfterLogsOfVariables: aCollection beforeLastLigneIn: aString [
 	| lastLine newSourceCode |
+	self flag: #NotWorking.
 	lastLine := self sourceText lines last.
 	newSourceCode := self sourceText
 		copyReplaceAll: lastLine
 		with:
-			(self logOfVariables: aCollection with: 'after' )
-				, String crlf , lastLine.
+			(self logOfVariables: aCollection with: 'after') , String crlf
+				, lastLine.
 	^ aString copyReplaceAll: self sourceText with: newSourceCode
 ]
 
@@ -58,27 +79,10 @@ FamixPWBBehavioral >> insertBeforeLogsOfVariables: aCollection in: aString [
 { #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBBehavioral >> insertParametersAccessAndReturnLogIn: aString [
 	^ self
-		insertParametersAfterWithReturnLogIn:
+		insertAfterLogOfParametersAccessesWithReturnLogIn:
 			(self
 				insertBeforeLogsOfVariables: self accessedAttributes
 				in: (self insertBeforeLogsOfVariables: self parameters in: aString))
-]
-
-{ #category : #'*Maryline-TestsDataGenerator' }
-FamixPWBBehavioral >> insertParametersAfterWithReturnLogIn: aString [
-	| result |
-	self flag: #toRemove.
-	result := aString.
-	self returns
-		ifEmpty: [ result := self
-				insertAfterLogsOfVariables: self parameters
-				beforeLastLigneIn: aString ]
-		ifNotEmpty: [ self returns
-				do: [ :return | 
-					result := return
-						insertLogIn: result
-						withParameters: (self logOfVariables: self parameters with: 'after' ) ] ].
-	^ result
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
