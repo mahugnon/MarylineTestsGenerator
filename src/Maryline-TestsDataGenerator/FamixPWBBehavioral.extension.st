@@ -19,8 +19,8 @@ FamixPWBBehavioral >> insertAfterLogsOfVariables: aCollection beforeLastLigneIn:
 	newSourceCode := self sourceText
 		copyReplaceAll: lastLine
 		with:
-			(self logOfVariables: aCollection with: 'after') , String crlf
-				, lastLine.
+			(self logOfVariables: aCollection with: 'after' )
+				, String crlf , lastLine.
 	^ aString copyReplaceAll: self sourceText with: newSourceCode
 ]
 
@@ -36,7 +36,7 @@ FamixPWBBehavioral >> insertAfterLogsOfVariables: aCollection withReturnLogIn: a
 				do: [ :return | 
 					result := return
 						insertLogIn: result
-						withParameters: (self logOfVariables: aCollection with: 'after') ] ].
+						withParameters: (self logOfVariables: aCollection with: 'after' ) ] ].
 	^ result
 ]
 
@@ -49,10 +49,10 @@ FamixPWBBehavioral >> insertBeforeLogsOfVariables: aCollection in: aString [
 			stream
 				<< signatureText;
 				crlf;
-				<< (self logOfVariables: aCollection with: 'before');
+				<< (self logOfVariables: aCollection with: 'before' );
 				crlf.
 			stream << (self sourceText copyReplaceAll: signatureText with: '') ].
-	^ aString copyReplaceAll: self sourceText with: newSourceCode
+	^ aString copyReplaceAll: self signature sourceText with: newSourceCode
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
@@ -77,7 +77,7 @@ FamixPWBBehavioral >> insertParametersAfterWithReturnLogIn: aString [
 				do: [ :return | 
 					result := return
 						insertLogIn: result
-						withParameters: (self logOfVariables: self parameters with: 'after') ] ].
+						withParameters: (self logOfVariables: self parameters with: 'after' ) ] ].
 	^ result
 ]
 
@@ -91,7 +91,7 @@ FamixPWBBehavioral >> insertParametersBeforeLogIn: aString [
 			stream
 				<< signatureText;
 				crlf;
-				<< (self logOfVariables: self parameters with: 'before');
+				<< (self logOfVariables: self parameters with: 'before' );
 				crlf.
 			stream << (self sourceText copyReplaceAll: signatureText with: '') ].
 	^ aString copyReplaceAll: self sourceText with: newSourceCode
@@ -102,7 +102,8 @@ FamixPWBBehavioral >> logOfVariables: aCollection with: aContextString [
 	^ String
 		streamContents: [ :stream | 
 			aCollection
-				do: [ :aVariable | aVariable logOn: stream context: aContextString ] ]
+				do:
+					[ :aVariable | aVariable logOn: stream context: aContextString behavior: self ] ]
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
