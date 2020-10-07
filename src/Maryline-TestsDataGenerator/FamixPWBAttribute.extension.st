@@ -3,7 +3,7 @@ Extension { #name : #FamixPWBAttribute }
 { #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBAttribute >> logOn: stream context: aString behavior: aFamixPWBBehavior [
 	stream
-		<< 'f_mrl_logger().access_logger().log(';
+		<< 'f_mrl_logger().invocation_access_logger().log(';
 		<< self name;
 		<< ',"';
 		<< self name;

@@ -70,12 +70,10 @@ FamixPWBBehavioral >> insertBeforeLogsOfVariables: aCollection in: aString [
 			stream
 				<< signatureText;
 				crlf;
-				<< (self logOfVariables: aCollection with: 'before');
-				crlf
-			"stream << (self sourceText copyReplaceAll: signatureText with: '')" ].
-	^ aString
-		copyReplaceAll: self signature sourceText
-		with: newSourceCode
+				<< (self logOfVariables: aCollection with: 'before' );
+				crlf.
+			stream << (self sourceText copyReplaceAll: signatureText with: '') ].
+	^ aString copyReplaceAll: self signature sourceText with: newSourceCode
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
