@@ -1,83 +1,68 @@
 Class {
-	#name : #InsertLogInFunction,
-	#superclass : #MRLAbstractTests,
+	#name : #InsertLogBeforeFunction,
+	#superclass : #TestCase,
 	#instVars : [
-		'function1Parameter1',
-		'function1Parameter2',
-		'function1Parameter3',
-		'signatureFunction1'
+		'model',
+		'testPWBOject',
+		'testFunction',
+		'signatureFunction',
+		'functionParameter2',
+		'functionParameter1'
 	],
 	#category : #'Maryline-TestsDataGenerator-Tests'
 }
 
-{ #category : #'as yet unclassified' }
-InsertLogInFunction >> exampleFunctionSource [
-	^ 'public function integer testFunction (boolean ab_maj); /* some comment */
-  return LLONG
-end function
-
-//private function string aFunctionWithParam (int ai_arg1, Long al_arg2);
-private function string aFunctionWithParam (int ai_arg1, Long al_arg2);
-if a then return "-1"
-else
-return "1"
-end if
-end function
-'
-]
-
 { #category : #running }
-InsertLogInFunction >> setUp [
+InsertLogBeforeFunction >> setUp [
 	model := FamixPWBModel new.
 	
-	self setUpPWBTestObjects.
+	self setUpPWBTestObject.
 	self setUpFunction.
-	self setUpParameters 
+	self setUpParameters.
 ]
 
 { #category : #running }
-InsertLogInFunction >> setUpFunction [
+InsertLogBeforeFunction >> setUpFunction [
 
-	testFunction1 := FamixPWBFunction new
+	testFunction := FamixPWBFunction new
 		name: 'testFunction';
-		parentType: testPWBOject1 ;
+		parentType: testPWBOject ;
 		mooseModel: model ;
 		yourself.
 
-	signatureFunction1 := FamixPWBBehaviorSignature new
+	signatureFunction := FamixPWBBehaviorSignature new
 		mooseModel: model ;
-		behavioral: testFunction1 ;
+		behavioral: testFunction ;
 		yourself
 
 ]
 
 { #category : #running }
-InsertLogInFunction >> setUpParameters [
+InsertLogBeforeFunction >> setUpPWBTestObject [
 
-	function1Parameter1 := FamixPWBParameter new
-		name: 'adw_dlq';
+	testPWBOject := FamixPWBUserObject new
 		mooseModel: model;
-		behavioral: testFunction1.
-
-	function1Parameter2 := FamixPWBParameter new
-		name: 'al_lig';
-		mooseModel: model;
-		behavioral: testFunction1.
-
-	function1Parameter3 := FamixPWBParameter new
-		name: 'ab_maj';
-		mooseModel: model;
-		behavioral: testFunction1.
-
+		name: 'testPWBOject1';
+		yourself
 ]
 
 { #category : #running }
-InsertLogInFunction >> tearDown [ 
-	"voiding parent's tearDown"
+InsertLogBeforeFunction >> setUpParameters [
+
+	functionParameter2 := FamixPWBParameter new
+		name: 'al_lig';
+		mooseModel: model;
+		behavioral: testFunction.
+
+	functionParameter1 := FamixPWBParameter new
+		name: 'ab_maj';
+		mooseModel: model;
+		behavioral: testFunction.
+
 ]
 
 { #category : #tests }
-InsertLogInFunction >> testInsert2ParameterBefore [
+InsertLogBeforeFunction >> testInsert2ParameterBefore [
 	| codeWithoutLog codeWithLogs sourceAnchor |
 
 	codeWithoutLog := 'public function integer testFunction (long al_lig, boolean ab_maj);
@@ -86,14 +71,14 @@ end function'.
 
 	sourceAnchor := FAMIXSourceTextAnchor
 		source: codeWithoutLog.
-	testFunction1 sourceAnchor: sourceAnchor.
+	testFunction sourceAnchor: sourceAnchor.
 	
 	sourceAnchor := FAMIXSourceTextAnchor
 		source: 'public function integer testFunction (long al_lig, boolean ab_maj);'.
-	signatureFunction1 sourceAnchor: sourceAnchor.
+	signatureFunction sourceAnchor: sourceAnchor.
 	
-	codeWithLogs := testFunction1
-		insertBeforeLogsOfVariables: { function1Parameter2 . function1Parameter3 }
+	codeWithLogs := testFunction
+		insertBeforeLogsOfVariables: { functionParameter2 . functionParameter1 }
 		in: codeWithoutLog.
 
 	self
@@ -109,21 +94,21 @@ end function'
 ]
 
 { #category : #tests }
-InsertLogInFunction >> testInsertParameterBefore [
+InsertLogBeforeFunction >> testInsertParameterBefore [
 	| codeWithLogs sourceAnchor |
 
 	sourceAnchor := FAMIXSourceTextAnchor
 		source: 'public function integer testFunction (boolean ab_maj); /* some comment */
   return LLONG
 end function'.
-	testFunction1 sourceAnchor: sourceAnchor.
+	testFunction sourceAnchor: sourceAnchor.
 	
 	sourceAnchor := FAMIXSourceTextAnchor
 		source: 'public function integer testFunction (boolean ab_maj);'.
-	signatureFunction1 sourceAnchor: sourceAnchor.
+	signatureFunction sourceAnchor: sourceAnchor.
 	
-	codeWithLogs := testFunction1
-		insertBeforeLogsOfVariables: { function1Parameter3 }
+	codeWithLogs := testFunction
+		insertBeforeLogsOfVariables: { functionParameter1 }
 		in: 'public function integer testFunction (boolean ab_maj); /* some comment */
   return LLONG
 end function
@@ -142,7 +127,7 @@ end function
 ]
 
 { #category : #tests }
-InsertLogInFunction >> testSignatureInComment [
+InsertLogBeforeFunction >> testSignatureInComment [
 	| codeWithoutLog codeWithLogs sourceAnchor |
 
 	codeWithoutLog := '/*	public function integer testFunction (boolean ab_maj);*/
@@ -152,14 +137,14 @@ end function'.
 
 	sourceAnchor := FAMIXSourceTextAnchor
 		source: (codeWithoutLog copyFrom: 62 to: 143).
-	testFunction1 sourceAnchor: sourceAnchor.
+	testFunction sourceAnchor: sourceAnchor.
 	
 	sourceAnchor := FAMIXSourceTextAnchor
 		source: 'public function integer testFunction (boolean ab_maj);'.
-	signatureFunction1 sourceAnchor: sourceAnchor.
+	signatureFunction sourceAnchor: sourceAnchor.
 	
-	codeWithLogs := testFunction1
-		insertBeforeLogsOfVariables: { function1Parameter3 }
+	codeWithLogs := testFunction
+		insertBeforeLogsOfVariables: { functionParameter1 }
 		in: codeWithoutLog.
 
 	self
