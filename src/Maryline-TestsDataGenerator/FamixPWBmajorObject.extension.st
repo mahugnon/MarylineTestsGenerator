@@ -4,11 +4,11 @@ Extension { #name : #FamixPWBmajorObject }
 FamixPWBmajorObject >> insertMarylineLogs [
 	| sourceTextWithLogs |
 	sourceTextWithLogs := self sourceAnchor completeText.
-	(self businessRulePath
+	(self getBusinessRuleFunctions
 		sortAscending: [ :each | each sourceAnchor startPos ])
 		do: [ :aMethod | 
 			sourceTextWithLogs := aMethod
-				insertParametersAccessAndReturnLogIn: sourceTextWithLogs ].
+				insertMarylineLogIn: sourceTextWithLogs ].
 	self sourceAnchor fileReference
 		writeStreamDo: [ :stream | stream << sourceTextWithLogs ]
 ]

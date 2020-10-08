@@ -14,7 +14,7 @@ QueryInsertMrlLogStringsForFunctionsInPWBObjectInSource >> runOn: aPWBObject [
 	| mrlBehaviorStringDic |
 	mrlBehaviorStringDic := QueryInsertMrlLogStringsForFunctionsInSource
 		runOn:
-			(aPWBObject businessRulePath
+			(aPWBObject getBusinessRuleFunctions
 				sortAscending: [ :aBehavior | aBehavior sourceAnchor startPos ]).
 	alterFile
 		ifTrue: [ self saveMrlLogFor: aPWBObject with: mrlBehaviorStringDic.

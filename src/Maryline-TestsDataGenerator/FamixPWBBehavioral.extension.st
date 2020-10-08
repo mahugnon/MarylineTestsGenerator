@@ -77,9 +77,9 @@ FamixPWBBehavioral >> insertBeforeLogsOfVariables: aCollection in: aString [
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
-FamixPWBBehavioral >> insertParametersAccessAndReturnLogIn: aString [
-	^ self
-		insertAfterLogOfParametersAccessesWithReturnLogIn:
+FamixPWBBehavioral >> insertMarylineLogIn: aString [
+	^ "self
+		insertAfterLogOfParametersAccessesWithReturnLogIn:"
 			(self
 				insertBeforeLogsOfVariables: self accessedAttributes
 				in: (self insertBeforeLogsOfVariables: self parameters in: aString))
