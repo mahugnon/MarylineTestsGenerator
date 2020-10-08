@@ -53,37 +53,18 @@ InsertLogInFunction >> setUpFunction [
 
 { #category : #running }
 InsertLogInFunction >> setUpParameters [
-	| sourceAnchor |
 
-	sourceAnchor := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 49;
-		endPos: 69;
-		mooseModel: model.
 	function1Parameter1 := FamixPWBParameter new
-		sourceAnchor: sourceAnchor ;
 		name: 'adw_dlq';
 		mooseModel: model;
 		behavioral: testFunction1.
 
-	sourceAnchor := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 72;
-		endPos: 82;
-		mooseModel: model.
 	function1Parameter2 := FamixPWBParameter new
-		sourceAnchor: sourceAnchor ;
 		name: 'al_lig';
 		mooseModel: model;
 		behavioral: testFunction1.
-		
-	sourceAnchor := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 85;
-		endPos: 98;
-		mooseModel: model.
+
 	function1Parameter3 := FamixPWBParameter new
-		sourceAnchor: sourceAnchor ;
 		name: 'ab_maj';
 		mooseModel: model;
 		behavioral: testFunction1.
@@ -96,7 +77,39 @@ InsertLogInFunction >> tearDown [
 ]
 
 { #category : #tests }
-InsertLogInFunction >> testInsertParametersBeforeLogInFileA [
+InsertLogInFunction >> testInsert2ParameterBefore [
+	| codeWithoutLog codeWithLogs sourceAnchor |
+
+	codeWithoutLog := 'public function integer testFunction (long al_lig, boolean ab_maj);
+  return LLONG
+end function'.
+
+	sourceAnchor := FAMIXSourceTextAnchor
+		source: codeWithoutLog.
+	testFunction1 sourceAnchor: sourceAnchor.
+	
+	sourceAnchor := FAMIXSourceTextAnchor
+		source: 'public function integer testFunction (long al_lig, boolean ab_maj);'.
+	signatureFunction1 sourceAnchor: sourceAnchor.
+	
+	codeWithLogs := testFunction1
+		insertBeforeLogsOfVariables: { function1Parameter2 . function1Parameter3 }
+		in: codeWithoutLog.
+
+	self
+		assert: codeWithLogs
+		equals:
+		'public function integer testFunction (long al_lig, boolean ab_maj);
+f_mrl_logger().invocation_parameter_logger().log("al_lig",al_lig,"testPWBOject1","testFunction","before")
+f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject1","testFunction","before")
+
+
+  return LLONG
+end function'
+]
+
+{ #category : #tests }
+InsertLogInFunction >> testInsertParameterBefore [
 	| codeWithLogs sourceAnchor |
 
 	sourceAnchor := FAMIXSourceTextAnchor
@@ -126,4 +139,37 @@ f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject1"
   return LLONG
 end function
 '
+]
+
+{ #category : #tests }
+InsertLogInFunction >> testSignatureInComment [
+	| codeWithoutLog codeWithLogs sourceAnchor |
+
+	codeWithoutLog := '/*	public function integer testFunction (boolean ab_maj);*/
+	public function integer testFunction (boolean ab_maj);
+  return LLONG
+end function'.
+
+	sourceAnchor := FAMIXSourceTextAnchor
+		source: (codeWithoutLog copyFrom: 62 to: 143).
+	testFunction1 sourceAnchor: sourceAnchor.
+	
+	sourceAnchor := FAMIXSourceTextAnchor
+		source: 'public function integer testFunction (boolean ab_maj);'.
+	signatureFunction1 sourceAnchor: sourceAnchor.
+	
+	codeWithLogs := testFunction1
+		insertBeforeLogsOfVariables: { function1Parameter3 }
+		in: codeWithoutLog.
+
+	self
+		assert: codeWithLogs
+		equals:
+		'/*	public function integer testFunction (boolean ab_maj);*/
+	public function integer testFunction (boolean ab_maj);
+f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject1","testFunction","before")
+
+
+  return LLONG
+end function'
 ]
