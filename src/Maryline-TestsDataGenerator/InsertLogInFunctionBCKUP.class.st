@@ -1,5 +1,5 @@
 Class {
-	#name : #InsertLogInFunction,
+	#name : #InsertLogInFunctionBCKUP,
 	#superclass : #MRLAbstractTests,
 	#instVars : [
 		'sourceAnchorReturn2',
@@ -14,13 +14,19 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-InsertLogInFunction >> exampleFunctionSource [
+InsertLogInFunctionBCKUP >> exampleFunctionSource [
 	^ 'public function integer uf_calcul_autre_oc (ref uo_datawindow adw_dlq, long al_lig, boolean ab_maj);/*
-	Objet UO_RESSOURCE_GAR*/
+	Objet UO_RESSOURCE_GAR
+	uf_calcul_autre_OC()
+	- Argument(s) -
+	* 22/05/97 *	$cim$*/
+integer li_ret
+  long lLong
+	var.isNull()
+f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
   return LLONG
 end function
 
-//private function string aFunctionWithParam (int ai_arg1, Long al_arg2);
 private function string aFunctionWithParam (int ai_arg1, Long al_arg2);
 if a then return "-1"
 else
@@ -31,7 +37,7 @@ end function
 ]
 
 { #category : #running }
-InsertLogInFunction >> setUp [
+InsertLogInFunctionBCKUP >> setUp [
 	| mockFolder |
 	mockFolder := Mock new.
 	mockFolder stub asFileReference willReturn: mockFolder.
@@ -54,7 +60,7 @@ InsertLogInFunction >> setUp [
 ]
 
 { #category : #running }
-InsertLogInFunction >> setUpFunction [
+InsertLogInFunctionBCKUP >> setUpFunction [
 	sourceAnchorFunction1 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 1;
@@ -88,7 +94,7 @@ InsertLogInFunction >> setUpFunction [
 ]
 
 { #category : #running }
-InsertLogInFunction >> setUpFunctionParameters [
+InsertLogInFunctionBCKUP >> setUpFunctionParameters [
 	| parametersourceAnchor1 parametersourceAnchor2 |
 	parametersourceAnchor1 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
@@ -146,7 +152,7 @@ InsertLogInFunction >> setUpFunctionParameters [
 ]
 
 { #category : #initialization }
-InsertLogInFunction >> setUpReturn [
+InsertLogInFunctionBCKUP >> setUpReturn [
 	sourceAnchorReturn1 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 293;
@@ -182,7 +188,7 @@ InsertLogInFunction >> setUpReturn [
 ]
 
 { #category : #initialization }
-InsertLogInFunction >> setUpReturnType [
+InsertLogInFunctionBCKUP >> setUpReturnType [
 	testFunction1
 		returnType:
 			(FamixPWBBasicType new
@@ -196,7 +202,7 @@ InsertLogInFunction >> setUpReturnType [
 ]
 
 { #category : #running }
-InsertLogInFunction >> setUpSignature [
+InsertLogInFunctionBCKUP >> setUpSignature [
 	"sourceAnchorSignature1 := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 1;
@@ -224,7 +230,100 @@ InsertLogInFunction >> setUpSignature [
 ]
 
 { #category : #tests }
-InsertLogInFunction >> testInsertParametersBeforeLogInFileA [
+InsertLogInFunctionBCKUP >> testInsertLogsInFileA [
+	testPWBOject1 insertMarylineLogs.
+	self
+		assert: testPWBOject1 sourceAnchor fileReference contents
+		equals: 'public function integer uf_calcul_autre_oc (ref uo_datawindow adw_dlq, long al_lig, boolean ab_maj);
+f_mrl_logger().invocation_parameter_logger().log("adw_dlq",adw_dlq,"testPWBOject1","uf_calcul_autre_oc","before")
+f_mrl_logger().invocation_parameter_logger().log("al_lig",al_lig,"testPWBOject1","uf_calcul_autre_oc","before")
+f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject1","uf_calcul_autre_oc","before")
+
+/*
+	Objet UO_RESSOURCE_GAR
+	uf_calcul_autre_OC()
+	- Argument(s) -
+	* 22/05/97 *	$cim$*/
+integer li_ret
+  long lLong
+	var.isNull()
+f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
+  
+f_mrl_logger().invocation_parameter_logger().log("adw_dlq",adw_dlq,"testPWBOject1","uf_calcul_autre_oc","after")
+f_mrl_logger().invocation_parameter_logger().log("al_lig",al_lig,"testPWBOject1","uf_calcul_autre_oc","after")
+f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject1","uf_calcul_autre_oc","after")
+
+f_mrl_logger().return_value_logger().log(1,"uf_calcul_autre_oc","testPWBOject1")
+return LLONG
+
+end function
+
+private function string aFunctionWithParam (int ai_arg1, Long al_arg2);
+f_mrl_logger().invocation_parameter_logger().log("ai_arg1",ai_arg1,"testPWBOject1","aFunctionWithParam","before")
+f_mrl_logger().invocation_parameter_logger().log("al_arg2",al_arg2,"testPWBOject1","aFunctionWithParam","before")
+
+
+if a then 
+f_mrl_logger().invocation_parameter_logger().log("ai_arg1",ai_arg1,"testPWBOject1","aFunctionWithParam","after")
+f_mrl_logger().invocation_parameter_logger().log("al_arg2",al_arg2,"testPWBOject1","aFunctionWithParam","after")
+
+f_mrl_logger().return_value_logger().log(1,"aFunctionWithParam","testPWBOject1")
+return "-1"
+
+else
+
+f_mrl_logger().invocation_parameter_logger().log("ai_arg1",ai_arg1,"testPWBOject1","aFunctionWithParam","after")
+f_mrl_logger().invocation_parameter_logger().log("al_arg2",al_arg2,"testPWBOject1","aFunctionWithParam","after")
+
+f_mrl_logger().return_value_logger().log(1,"aFunctionWithParam","testPWBOject1")
+return "1"
+
+end if
+end function
+'
+]
+
+{ #category : #tests }
+InsertLogInFunctionBCKUP >> testInsertParametersAfterWithReturnLogInFileA [
+	self
+		assert:
+			(testFunction2
+				insertAfterLogOfParametersAccessesWithReturnLogIn: testFunction2 sourceAnchor completeText)
+		equals: 'public function integer uf_calcul_autre_oc (ref uo_datawindow adw_dlq, long al_lig, boolean ab_maj);/*
+	Objet UO_RESSOURCE_GAR
+	uf_calcul_autre_OC()
+	- Argument(s) -
+	* 22/05/97 *	$cim$*/
+integer li_ret
+  long lLong
+	var.isNull()
+f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
+  return LLONG
+end function
+
+private function string aFunctionWithParam (int ai_arg1, Long al_arg2);
+if a then 
+f_mrl_logger().invocation_parameter_logger().log("ai_arg1",ai_arg1,"testPWBOject1","aFunctionWithParam","after")
+f_mrl_logger().invocation_parameter_logger().log("al_arg2",al_arg2,"testPWBOject1","aFunctionWithParam","after")
+
+f_mrl_logger().return_value_logger().log(1,"aFunctionWithParam","testPWBOject1")
+return "-1"
+
+else
+
+f_mrl_logger().invocation_parameter_logger().log("ai_arg1",ai_arg1,"testPWBOject1","aFunctionWithParam","after")
+f_mrl_logger().invocation_parameter_logger().log("al_arg2",al_arg2,"testPWBOject1","aFunctionWithParam","after")
+
+f_mrl_logger().return_value_logger().log(1,"aFunctionWithParam","testPWBOject1")
+return "1"
+
+end if
+end function
+'
+]
+
+{ #category : #tests }
+InsertLogInFunctionBCKUP >> testInsertParametersBeforeLogInFileA [
 	| codeWithLogs |
 
 	codeWithLogs := testFunction1
@@ -240,11 +339,17 @@ f_mrl_logger().invocation_parameter_logger().log("al_lig",al_lig,"testPWBOject1"
 f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject1","uf_calcul_autre_oc","before")
 
 /*
-	Objet UO_RESSOURCE_GAR*/
+	Objet UO_RESSOURCE_GAR
+	uf_calcul_autre_OC()
+	- Argument(s) -
+	* 22/05/97 *	$cim$*/
+integer li_ret
+  long lLong
+	var.isNull()
+f_del_ligne_suite(adw_dlq, al_lig, is_col_dec <> "dlq_rel")
   return LLONG
 end function
 
-//private function string aFunctionWithParam (int ai_arg1, Long al_arg2);
 private function string aFunctionWithParam (int ai_arg1, Long al_arg2);
 if a then return "-1"
 else
