@@ -2,21 +2,17 @@ Class {
 	#name : #InsertLogInFunction,
 	#superclass : #MRLAbstractTests,
 	#instVars : [
-		'sourceAnchorReturn2',
-		'sourceAnchorReturn3',
-		'sourceAnchorSignature1',
-		'sourceAnchorSignature2',
 		'function1Parameter1',
 		'function1Parameter2',
-		'function1Parameter3'
+		'function1Parameter3',
+		'signatureFunction1'
 	],
 	#category : #'Maryline-TestsDataGenerator-Tests'
 }
 
 { #category : #'as yet unclassified' }
 InsertLogInFunction >> exampleFunctionSource [
-	^ 'public function integer uf_calcul_autre_oc (ref uo_datawindow adw_dlq, long al_lig, boolean ab_maj);/*
-	Objet UO_RESSOURCE_GAR*/
+	^ 'public function integer testFunction (boolean ab_maj); /* some comment */
   return LLONG
 end function
 
@@ -32,224 +28,102 @@ end function
 
 { #category : #running }
 InsertLogInFunction >> setUp [
-	| mockFolder |
-	mockFolder := Mock new.
-	mockFolder stub asFileReference willReturn: mockFolder.
-	(mockFolder stub resolve: Any) willReturn: mockFolder.
-	(mockFolder stub binaryReadStreamDo: Any) willReturn: (self exampleFunctionSource).
-	mockFolder stub sourcesAreReadable willReturn: true.
-	(mockFolder stub ifExists: Any	ifAbsent: Any) willReturn: true.
-
-	self createDirectory: self pwbLibString.
-	self createFile.
 	model := FamixPWBModel new.
-	"model rootFolder: self pwbLibString."
-	model rootFolder: mockFolder.
+	
 	self setUpPWBTestObjects.
 	self setUpFunction.
-	self setUpFunctionParameters.
-	self setUpSignature.
-	self setUpReturnType.
-	self setUpReturn
+	self setUpParameters 
 ]
 
 { #category : #running }
 InsertLogInFunction >> setUpFunction [
-	sourceAnchorFunction1 := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 1;
-		endPos: 317;
-		mooseModel: model.
-	
-	testFunction1 := FamixPWBFunction new
-		name: 'uf_calcul_autre_oc';
-		sourceAnchor: sourceAnchorFunction1;
-		parentType: testPWBOject1;
-		mooseModel: model.
 
-	sourceAnchorFunction2 := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 320;
-		endPos: 449;
-		mooseModel: model.
-	testFunction2 := FamixPWBFunction new
-		name: 'aFunctionWithParam';
-		sourceAnchor: sourceAnchorFunction2;
-		parentType: testPWBOject1;
-		mooseModel: model.
-	model
-		businessRulePath:
-			(OrderedDictionary
-				newFrom:
-					{(testPWBOject1
-						->
-							{testFunction1.
-							testFunction2})})
+	testFunction1 := FamixPWBFunction new
+		name: 'testFunction';
+		parentType: testPWBOject1 ;
+		mooseModel: model ;
+		yourself.
+
+	signatureFunction1 := FamixPWBBehaviorSignature new
+		mooseModel: model ;
+		behavioral: testFunction1 ;
+		yourself
+
 ]
 
 { #category : #running }
-InsertLogInFunction >> setUpFunctionParameters [
-	| parametersourceAnchor1 parametersourceAnchor2 |
-	parametersourceAnchor1 := FamixPWBIndexedFileAnchor new
+InsertLogInFunction >> setUpParameters [
+	| sourceAnchor |
+
+	sourceAnchor := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 49;
 		endPos: 69;
 		mooseModel: model.
 	function1Parameter1 := FamixPWBParameter new
-		sourceAnchor: parametersourceAnchor1;
+		sourceAnchor: sourceAnchor ;
 		name: 'adw_dlq';
 		mooseModel: model;
 		behavioral: testFunction1.
 
-	parametersourceAnchor1 := FamixPWBIndexedFileAnchor new
+	sourceAnchor := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 72;
 		endPos: 82;
 		mooseModel: model.
 	function1Parameter2 := FamixPWBParameter new
-		sourceAnchor: parametersourceAnchor1;
+		sourceAnchor: sourceAnchor ;
 		name: 'al_lig';
 		mooseModel: model;
 		behavioral: testFunction1.
 		
-	parametersourceAnchor1 := FamixPWBIndexedFileAnchor new
+	sourceAnchor := FamixPWBIndexedFileAnchor new
 		fileName: 'fileLibA.sru';
 		startPos: 85;
 		endPos: 98;
 		mooseModel: model.
 	function1Parameter3 := FamixPWBParameter new
-		sourceAnchor: parametersourceAnchor1;
+		sourceAnchor: sourceAnchor ;
 		name: 'ab_maj';
 		mooseModel: model;
 		behavioral: testFunction1.
 
-	parametersourceAnchor1 := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 364;
-		endPos: 374;
-		mooseModel: model.
-	FamixPWBParameter new
-		sourceAnchor: parametersourceAnchor1;
-		name: 'ai_arg1';
-		mooseModel: model;
-		behavioral: testFunction2.
-	parametersourceAnchor2 := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 377;
-		endPos: 388;
-		mooseModel: model.
-	FamixPWBParameter new
-		sourceAnchor: parametersourceAnchor2;
-		mooseModel: model;
-		name: 'al_arg2';
-		behavioral: testFunction2
-]
-
-{ #category : #initialization }
-InsertLogInFunction >> setUpReturn [
-	sourceAnchorReturn1 := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 293;
-		endPos: 304;
-		mooseModel: model.
-	FamixPWBFunctionReturn new
-		returnValue: 1;
-		sourceAnchor: sourceAnchorReturn1;
-		behavioral: testFunction1;
-		mooseModel: model.
-		
-		sourceAnchorReturn2 := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 402;
-		endPos: 412;
-		mooseModel: model.
-	FamixPWBFunctionReturn new
-		returnValue: 1;
-		sourceAnchor: sourceAnchorReturn2;
-		behavioral: testFunction2;
-		mooseModel: model.
-		
-		sourceAnchorReturn3 := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 419;
-		endPos: 428;
-		mooseModel: model.
-	FamixPWBFunctionReturn new
-		returnValue: 1;
-		sourceAnchor: sourceAnchorReturn3;
-		behavioral: testFunction2;
-		mooseModel: model
-]
-
-{ #category : #initialization }
-InsertLogInFunction >> setUpReturnType [
-	testFunction1
-		returnType:
-			(FamixPWBBasicType new
-				name: 'Integer';
-				mooseModel: model).
-	testFunction2
-		returnType:
-			(FamixPWBBasicType new
-				name: 'String';
-				mooseModel: model)
 ]
 
 { #category : #running }
-InsertLogInFunction >> setUpSignature [
-	"sourceAnchorSignature1 := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 1;
-		endPos: 100;
-		mooseModel: model."
-	sourceAnchorSignature1 := FAMIXSourceTextAnchor source: 'public function integer uf_calcul_autre_oc (ref uo_datawindow adw_dlq, long al_lig, boolean ab_maj);'.
-	
-	FamixPWBBehaviorSignature new
-		name: 'signature1';
-		sourceAnchor: sourceAnchorSignature1;
-		mooseModel: model;
-		behavioral: testFunction1.
-		
-	sourceAnchorSignature2 := FamixPWBIndexedFileAnchor new
-		fileName: 'fileLibA.sru';
-		startPos: 320;
-		endPos: 390;
-		mooseModel: model.
-		
-	FamixPWBBehaviorSignature new
-		name: 'signature2';
-		sourceAnchor: sourceAnchorSignature2;
-		mooseModel: model;
-		behavioral: testFunction2
+InsertLogInFunction >> tearDown [ 
+	"voiding parent's tearDown"
 ]
 
 { #category : #tests }
 InsertLogInFunction >> testInsertParametersBeforeLogInFileA [
-	| codeWithLogs |
+	| codeWithLogs sourceAnchor |
 
+	sourceAnchor := FAMIXSourceTextAnchor
+		source: 'public function integer testFunction (boolean ab_maj); /* some comment */
+  return LLONG
+end function'.
+	testFunction1 sourceAnchor: sourceAnchor.
+	
+	sourceAnchor := FAMIXSourceTextAnchor
+		source: 'public function integer testFunction (boolean ab_maj);'.
+	signatureFunction1 sourceAnchor: sourceAnchor.
+	
 	codeWithLogs := testFunction1
-		insertBeforeLogsOfVariables: { function1Parameter1 . function1Parameter2 . function1Parameter3 }
-		in: self exampleFunctionSource.
+		insertBeforeLogsOfVariables: { function1Parameter3 }
+		in: 'public function integer testFunction (boolean ab_maj); /* some comment */
+  return LLONG
+end function
+'.
 
 	self
 		assert: codeWithLogs
 		equals:
-		'public function integer uf_calcul_autre_oc (ref uo_datawindow adw_dlq, long al_lig, boolean ab_maj);
-f_mrl_logger().invocation_parameter_logger().log("adw_dlq",adw_dlq,"testPWBOject1","uf_calcul_autre_oc","before")
-f_mrl_logger().invocation_parameter_logger().log("al_lig",al_lig,"testPWBOject1","uf_calcul_autre_oc","before")
-f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject1","uf_calcul_autre_oc","before")
+		'public function integer testFunction (boolean ab_maj);
+f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject1","testFunction","before")
 
-/*
-	Objet UO_RESSOURCE_GAR*/
+ /* some comment */
   return LLONG
-end function
-
-//private function string aFunctionWithParam (int ai_arg1, Long al_arg2);
-private function string aFunctionWithParam (int ai_arg1, Long al_arg2);
-if a then return "-1"
-else
-return "1"
-end if
 end function
 '
 ]
