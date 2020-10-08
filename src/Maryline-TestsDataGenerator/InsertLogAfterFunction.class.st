@@ -100,8 +100,10 @@ end function'.
 		startPos: 44 ;
 		endPos: 55.
 	returnStatement doesBelongToSingleLineIfStatement: false.
+	returnStatement returnValue: 'LLONG'.
 
 	(model rootFolder stub binaryReadStreamDo: Any) willReturn: codeWithoutLog.
+1halt.
 	codeWithLogs := testFunction
 		insertAfterLogsOfVariables: #() 
 		withReturnLogIn: codeWithoutLog.
