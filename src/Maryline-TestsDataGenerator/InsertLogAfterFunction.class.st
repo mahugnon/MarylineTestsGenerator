@@ -135,32 +135,28 @@ end function'
 { #category : #tests }
 InsertLogAfterFunction >> testLogAtEndNoVariable [
 	| codeWithoutLog codeWithLogs sourceAnchor returnStatement |
-
 	codeWithoutLog := 'public function integer testFunction ();
   return LLONG
 end function'.
-
-	sourceAnchor := FAMIXSourceTextAnchor
-		source: codeWithoutLog.
+	logger fileOriginalSource: codeWithoutLog.
+	sourceAnchor := FAMIXSourceTextAnchor source: codeWithoutLog.
 	testFunction sourceAnchor: sourceAnchor.
-	
 	returnStatement := testFunction returns first.
 	returnStatement sourceAnchor
-		startPos: 44 ;
+		startPos: 44;
 		endPos: 55.
 	returnStatement doesBelongToSingleLineIfStatement: false.
 	returnStatement returnValue: 'LLONG'.
-
-	(model rootFolder stub binaryReadStreamDo: Any) willReturn: codeWithoutLog.
-
-	codeWithLogs := logger 
-		insertLogsAfter:testFunction forVariables: #() 
+	(model rootFolder stub binaryReadStreamDo: Any)
+		willReturn: codeWithoutLog.
+	codeWithLogs := logger
+		insertLogsAfter: testFunction
+		forVariables: #()
 		in: codeWithoutLog.
-		
 	self
 		assert: codeWithLogs
 		equals:
-		'public function integer testFunction ();
+			'public function integer testFunction ();
   
 f_mrl_logger().return_value_logger().log(1,"testFunction","testPWBOject1")
   return LLONG

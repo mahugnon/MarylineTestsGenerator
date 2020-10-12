@@ -20,19 +20,17 @@ MRLLogInsertor >> fileOriginalSource: anObject [
 
 { #category : #'as yet unclassified' }
 MRLLogInsertor >> insertLogLogsReturn: aFamixPWBReturn withVariablesAfterLogs: aPWBParameterLogsString in: modifiedCode [
-	| log functionOriginalCode textBefore textAfter addedCharacter |
-	functionOriginalCode := self
-		originalSourceText: aFamixPWBReturn sourceAnchor.
-	addedCharacter := modifiedCode size - functionOriginalCode size.
+	| log textBefore textAfter addedCharacter |
 	log := aFamixPWBReturn prepareLogWith: aPWBParameterLogsString.
-	(self code: modifiedCode isNotModifiedBefore: aFamixPWBReturn)
+	(self isCode: modifiedCode notModifiedBefore: aFamixPWBReturn)
 		ifTrue: [ textBefore := modifiedCode
 				copyFrom: 1
 				to: aFamixPWBReturn sourceAnchor startPos - 1.
 			textAfter := modifiedCode
 				copyFrom: aFamixPWBReturn sourceAnchor endPos + 1
 				to: modifiedCode size ]
-		ifFalse: [ textBefore := modifiedCode
+		ifFalse: [ addedCharacter := modifiedCode size - fileOriginalSource size.
+			textBefore := modifiedCode
 				copyFrom: 1
 				to: aFamixPWBReturn sourceAnchor startPos + addedCharacter - 1.
 			textAfter := modifiedCode
@@ -63,9 +61,10 @@ MRLLogInsertor >> insertLogsAfter: function forVariables: aCollectionOfVariables
 				beforeLastLigneIn: modifiedCode ]
 		ifNotEmpty: [ function returns
 				do: [ :return | 
-					result := return
+				  	result := 	self insertLogLogsReturn: return withVariablesAfterLogs:  (self insertLogOfVariables: aCollectionOfVariables tagged: 'after') in:result.
+				"	result := return
 						insertLogIn: result
-						withParameters: (self insertLogOfVariables: aCollectionOfVariables tagged: 'after') ] ].
+						withParameters: (self insertLogOfVariables: aCollectionOfVariables tagged: 'after')" ] ].
 	^ result
 ]
 
@@ -87,13 +86,15 @@ MRLLogInsertor >> insertLogsBefore: function forVariables: aCollectionOfVariable
 
 { #category : #'as yet unclassified' }
 MRLLogInsertor >> insertLogsForPWBFunction: function inCode: modifiedCode [
-	" Becareful that #insertLogsBefore:forVariables:in: should be called first and #insertLogsAfter:forVariables:in: second" 
+	" Becareful that #insertLogsBefore:forVariables:in: should be called first and #insertLogsAfter:forVariables:in: second"
+
 	^ self
-			insertLogsAfter: function
-			forVariables: (function parameters , function accessedAttributes)
-			in: (self
+		insertLogsAfter: function
+		forVariables: function parameters , function instanceVariableAccesses
+		in:
+			(self
 				insertLogsBefore: function
-				forVariables: (function parameters , function accessedAttributes)
+				forVariables: function parameters , function instanceVariableAccesses
 				in: modifiedCode)
 ]
 
@@ -102,9 +103,14 @@ MRLLogInsertor >> insertLogsForPWBObject: aPWBObject [
 	| modifiedCode |
 	fileOriginalSource := aPWBObject sourceAnchor completeText.
 	modifiedCode := fileOriginalSource.
-	aPWBObject getBusinessRuleFunctions do: [:fct |
-		modifiedCode := self insertLogsForPWBFunction: fct inCode: modifiedCode ].
-	^modifiedCode
+	aPWBObject getBusinessRuleFunctions
+		do: [ :fct | 
+			modifiedCode := self
+				insertLogsForPWBFunction: fct
+				inCode: modifiedCode ].
+	aPWBObject sourceAnchor fileReference
+		writeStreamDo: [ :stream | stream << modifiedCode ].
+	^ modifiedCode
 ]
 
 { #category : #'as yet unclassified' }
