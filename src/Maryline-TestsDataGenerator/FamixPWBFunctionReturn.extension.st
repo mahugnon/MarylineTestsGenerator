@@ -2,20 +2,18 @@ Extension { #name : #FamixPWBFunctionReturn }
 
 { #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBFunctionReturn >> insertLogIn: aString withParameters: aPWBParameterLogsString [
-	| log fileContents textBefore textAfter start addedCharacter |
-	start := 1.
+	| log fileContents textBefore textAfter addedCharacter |
 	fileContents := self sourceAnchor completeText.
 	addedCharacter := aString size - fileContents size.
 	log := self prepareLogWith: aPWBParameterLogsString.
 	(self isNotAlteredBefore: aString)
-		ifTrue: [ textBefore := aString
-				copyFrom: start
-				to: self sourceAnchor startPos - 1.
+		ifTrue:
+			[ textBefore := aString copyFrom: 1 to: self sourceAnchor startPos - 1.
 			textAfter := aString
 				copyFrom: self sourceAnchor endPos + 1
 				to: aString size ]
 		ifFalse: [ textBefore := aString
-				copyFrom: start
+				copyFrom: 1
 				to: self sourceAnchor startPos + addedCharacter - 1.
 			textAfter := aString
 				copyFrom: self sourceAnchor endPos + addedCharacter + 1

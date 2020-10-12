@@ -19,6 +19,34 @@ MRLLogInsertor >> fileOriginalSource: anObject [
 ]
 
 { #category : #'as yet unclassified' }
+MRLLogInsertor >> insertLogLogsReturn: aFamixPWBReturn withVariablesAfterLogs: aPWBParameterLogsString in: modifiedCode [
+	| log functionOriginalCode textBefore textAfter addedCharacter |
+	functionOriginalCode := self
+		originalSourceText: aFamixPWBReturn sourceAnchor.
+	addedCharacter := modifiedCode size - functionOriginalCode size.
+	log := aFamixPWBReturn prepareLogWith: aPWBParameterLogsString.
+	(self code: modifiedCode isNotModifiedBefore: aFamixPWBReturn)
+		ifTrue: [ textBefore := modifiedCode
+				copyFrom: 1
+				to: aFamixPWBReturn sourceAnchor startPos - 1.
+			textAfter := modifiedCode
+				copyFrom: aFamixPWBReturn sourceAnchor endPos + 1
+				to: modifiedCode size ]
+		ifFalse: [ textBefore := modifiedCode
+				copyFrom: 1
+				to: aFamixPWBReturn sourceAnchor startPos + addedCharacter - 1.
+			textAfter := modifiedCode
+				copyFrom: aFamixPWBReturn sourceAnchor endPos + addedCharacter + 1
+				to: modifiedCode size ].
+	^ String
+		streamContents: [ :stream | 
+			stream
+				<< textBefore;
+				<< log;
+				<< textAfter ]
+]
+
+{ #category : #'as yet unclassified' }
 MRLLogInsertor >> insertLogOfVariables: aCollectionOfParametersOrAccesses tagged: tag [
 	^ String streamContents: [ :stream | 
 			aCollectionOfParametersOrAccesses do: [ :aVarOrAccess |
@@ -27,8 +55,18 @@ MRLLogInsertor >> insertLogOfVariables: aCollectionOfParametersOrAccesses tagged
 
 { #category : #'as yet unclassified' }
 MRLLogInsertor >> insertLogsAfter: function forVariables: aCollectionOfVariables in: modifiedCode [
-	self flag: #TODO.
-	^ modifiedCode
+	| result |
+	result := modifiedCode.
+	function returns
+		ifEmpty: [ result := self
+				insertAfterLogsOfVariables: aCollectionOfVariables
+				beforeLastLigneIn: modifiedCode ]
+		ifNotEmpty: [ function returns
+				do: [ :return | 
+					result := return
+						insertLogIn: result
+						withParameters: (self insertLogOfVariables: aCollectionOfVariables tagged: 'after') ] ].
+	^ result
 ]
 
 { #category : #'as yet unclassified' }
@@ -73,6 +111,15 @@ MRLLogInsertor >> insertLogsForPWBObject: aPWBObject [
 MRLLogInsertor >> insertLogsForPWBObjects: aCollection [
 	aCollection do: [ :obj | self insertLogsForPWBObject: obj ]
 	
+]
+
+{ #category : #'as yet unclassified' }
+MRLLogInsertor >> isCode: aString notModifiedBefore: aFamixPWBReturn [
+	^ aFamixPWBReturn sourceText
+		=
+			(aString
+				copyFrom: aFamixPWBReturn sourceAnchor startPos
+				to: aFamixPWBReturn sourceAnchor endPos)
 ]
 
 { #category : #accessing }
