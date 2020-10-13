@@ -38,8 +38,7 @@ QueryInvocationArguments >> removeNumbers: arguments [
 QueryInvocationArguments >> runOn: aFamixPWBInvocation [
 	| arguments sourceText candidateParameters candidate |
 	candidate := self ensureCandidatesUnicity: aFamixPWBInvocation.
-	candidateParameters := candidate setParameters parameters
-		sortAscending: #startPos.
+	candidateParameters := candidate parameters sortAscending: #startPos.
 	sourceText := self invocationCleanSourceText: aFamixPWBInvocation.
 	arguments := self argumentsFromInvocationSourceText: sourceText.
 	^ (arguments isEmptyOrNil

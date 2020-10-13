@@ -18,7 +18,7 @@ QueryMrlFunctionWithBasicTypeParameters >> modelFunctionsWithoutStub: aMooseMode
 { #category : #running }
 QueryMrlFunctionWithBasicTypeParameters >> runOn: aMooseModel [
 	^ ((self modelFunctionsWithoutStub: aMooseModel)
-		do: [ :uf | uf setParameters ])
+	"	do: [ :uf | uf setParameters ]")
 		select: [ :uf | 
 			uf parameters isNotEmpty
 				and: [ uf parameters allSatisfy: [ :param | param isBasic ] ] ]

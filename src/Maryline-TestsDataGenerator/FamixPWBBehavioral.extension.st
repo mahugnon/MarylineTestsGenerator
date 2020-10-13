@@ -89,7 +89,7 @@ FamixPWBBehavioral >> insertMarylineLogIn: aString [
 FamixPWBBehavioral >> insertParametersBeforeLogIn: aString [
 	| signatureText newSourceCode |
 	signatureText := self signature sourceText.
-	self setParameters.
+	"self setParameters."
 	newSourceCode := String
 		streamContents: [ :stream | 
 			stream
