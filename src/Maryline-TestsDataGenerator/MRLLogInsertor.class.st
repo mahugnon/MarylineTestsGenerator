@@ -19,7 +19,7 @@ MRLLogInsertor >> fileOriginalSource: anObject [
 ]
 
 { #category : #'as yet unclassified' }
-MRLLogInsertor >> insertLogLogsReturn: aFamixPWBReturn withVariablesAfterLogs: aPWBParameterLogsString in: modifiedCode [
+MRLLogInsertor >> insertLogOfReturn: aFamixPWBReturn withVariablesAfterLogs: aPWBParameterLogsString in: modifiedCode [
 	| log textBefore textAfter addedCharacter |
 	log := aFamixPWBReturn prepareLogWith: aPWBParameterLogsString.
 	(self isCode: modifiedCode notModifiedBefore: aFamixPWBReturn)
@@ -61,7 +61,7 @@ MRLLogInsertor >> insertLogsAfter: function forVariables: aCollectionOfVariables
 				beforeLastLigneIn: modifiedCode ]
 		ifNotEmpty: [ function returns
 				do: [ :return | 
-				  	result := 	self insertLogLogsReturn: return withVariablesAfterLogs:  (self insertLogOfVariables: aCollectionOfVariables tagged: 'after') in:result.
+				  	result := 	self insertLogOfReturn: return withVariablesAfterLogs:  (self insertLogOfVariables: aCollectionOfVariables tagged: 'after') in:result.
 				"	result := return
 						insertLogIn: result
 						withParameters: (self insertLogOfVariables: aCollectionOfVariables tagged: 'after')" ] ].
@@ -103,7 +103,8 @@ MRLLogInsertor >> insertLogsForPWBObject: aPWBObject [
 	| modifiedCode |
 	fileOriginalSource := aPWBObject sourceAnchor completeText.
 	modifiedCode := fileOriginalSource.
-	aPWBObject getBusinessRuleFunctions
+	((self skipTooBig: aPWBObject getBusinessRuleFunctions)
+		sortAscending: [ :each | each sourceAnchor startPos ])
 		do: [ :fct | 
 			modifiedCode := self
 				insertLogsForPWBFunction: fct
@@ -141,4 +142,11 @@ MRLLogInsertor >> model: anObject [
 { #category : #'as yet unclassified' }
 MRLLogInsertor >> originalSourceText: anAnchor [
 	^fileOriginalSource copyFrom: anAnchor startPos to: anAnchor endPos
+]
+
+{ #category : #'as yet unclassified' }
+MRLLogInsertor >> skipTooBig: aCollection [
+	"Powerbuilder compile uo_heritier without errors. Claimed that size is execceded. When I removed some functions, il failed to compile without errors"
+
+	^ aCollection reject: [ :each | each numberOfLinesOfCode > 1000 ]
 ]
