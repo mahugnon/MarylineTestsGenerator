@@ -19,6 +19,12 @@ MRLLogInsertor >> fileOriginalSource: anObject [
 ]
 
 { #category : #'as yet unclassified' }
+MRLLogInsertor >> filterAccesses: aCollection [
+	^ ((aCollection reject: [ :acc | acc variable name startWidth: 'iw' ])
+		groupedBy: [ :each | each variable name ]) values collect: #anyOne
+]
+
+{ #category : #'as yet unclassified' }
 MRLLogInsertor >> insertLogOfReturn: aFamixPWBReturn withVariablesAfterLogs: aPWBParameterLogsString in: modifiedCode [
 	| log textBefore textAfter addedCharacter |
 	log := aFamixPWBReturn prepareLogWith: aPWBParameterLogsString.
@@ -90,11 +96,15 @@ MRLLogInsertor >> insertLogsForPWBFunction: function inCode: modifiedCode [
 
 	^ self
 		insertLogsAfter: function
-		forVariables: function parameters , function instanceVariableAccesses
+		forVariables:
+			function parameters
+				, (self filterAccesses: function instanceVariableAccesses)
 		in:
 			(self
 				insertLogsBefore: function
-				forVariables: function parameters , function instanceVariableAccesses
+				forVariables:
+					function parameters
+						, (self filterAccess: function instanceVariableAccesses)
 				in: modifiedCode)
 ]
 
@@ -148,5 +158,5 @@ MRLLogInsertor >> originalSourceText: anAnchor [
 MRLLogInsertor >> skipTooBig: aCollection [
 	"Powerbuilder compile uo_heritier without errors. Claimed that size is execceded. When I removed some functions, il failed to compile without errors"
 
-	^ aCollection reject: [ :each | each numberOfLinesOfCode > 1000 ]
+	^ aCollection "reject: [ :each | each numberOfLinesOfCode > 1000 ]"
 ]
