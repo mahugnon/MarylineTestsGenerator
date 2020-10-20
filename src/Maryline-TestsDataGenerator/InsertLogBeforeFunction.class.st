@@ -2,7 +2,7 @@ Class {
 	#name : #InsertLogBeforeFunction,
 	#superclass : #TestCase,
 	#instVars : [
-		'model',
+		'logger',
 		'testPWBOject',
 		'testFunction',
 		'signatureFunction',
@@ -14,7 +14,8 @@ Class {
 
 { #category : #running }
 InsertLogBeforeFunction >> setUp [
-	model := FamixPWBModel new.
+	logger := MRLLogInsertor new.
+	logger model: FamixPWBModel new.
 	
 	self setUpPWBTestObject.
 	self setUpFunction.
@@ -27,11 +28,11 @@ InsertLogBeforeFunction >> setUpFunction [
 	testFunction := FamixPWBFunction new
 		name: 'testFunction';
 		parentType: testPWBOject ;
-		mooseModel: model ;
+		mooseModel: logger model ;
 		yourself.
 
 	signatureFunction := FamixPWBBehaviorSignature new
-		mooseModel: model ;
+		mooseModel: logger model ;
 		behavioral: testFunction ;
 		yourself
 
@@ -41,8 +42,8 @@ InsertLogBeforeFunction >> setUpFunction [
 InsertLogBeforeFunction >> setUpPWBTestObject [
 
 	testPWBOject := FamixPWBUserObject new
-		mooseModel: model;
-		name: 'testPWBOject1';
+		mooseModel: logger model;
+		name: 'testPWBOject';
 		yourself
 ]
 
@@ -51,12 +52,12 @@ InsertLogBeforeFunction >> setUpParameters [
 
 	functionParameter2 := FamixPWBParameter new
 		name: 'al_lig';
-		mooseModel: model;
+		mooseModel: logger model;
 		behavioral: testFunction.
 
 	functionParameter1 := FamixPWBParameter new
 		name: 'ab_maj';
-		mooseModel: model;
+		mooseModel: logger model;
 		behavioral: testFunction.
 
 ]
@@ -72,7 +73,7 @@ end function'.
 	sourceAnchor := FAMIXSourceTextAnchor
 		source: codeWithoutLog.
 	testFunction sourceAnchor: sourceAnchor.
-	
+
 	sourceAnchor := FAMIXSourceTextAnchor
 		source: 'public function integer testFunction (long al_lig, boolean ab_maj);'.
 	signatureFunction sourceAnchor: sourceAnchor.
@@ -85,8 +86,8 @@ end function'.
 		assert: codeWithLogs
 		equals:
 		'public function integer testFunction (long al_lig, boolean ab_maj);
-f_mrl_logger().invocation_parameter_logger().log("al_lig",al_lig,"testPWBOject1","testFunction","before")
-f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject1","testFunction","before")
+f_mrl_logger().invocation_parameter_logger().log("al_lig",al_lig,"testPWBOject","testFunction","before")
+f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject","testFunction","before")
 
 
   return LLONG
@@ -95,35 +96,36 @@ end function'
 
 { #category : #tests }
 InsertLogBeforeFunction >> testInsertParameterBefore [
-	| codeWithLogs sourceAnchor |
+	| originalCode codeWithLogs sourceAnchor |
 
-	sourceAnchor := FAMIXSourceTextAnchor
-		source: 'public function integer testFunction (boolean ab_maj); /* some comment */
+	originalCode := 'public function integer testFunction (boolean ab_maj); /* some comment */
   return LLONG
 end function'.
+	sourceAnchor := FamixPWBIndexedFileAnchor new
+		startPos: 1 ;
+		endPos:  101 ;
+		yourself.
 	testFunction sourceAnchor: sourceAnchor.
 	
-	sourceAnchor := FAMIXSourceTextAnchor
-		source: 'public function integer testFunction (boolean ab_maj);'.
+	sourceAnchor := FamixPWBIndexedFileAnchor new
+		startPos: 1 ;
+		endPos: 54 ;
+		yourself.
 	signatureFunction sourceAnchor: sourceAnchor.
 	
-	codeWithLogs := testFunction
-		insertBeforeLogsOfVariables: { functionParameter1 }
-		in: 'public function integer testFunction (boolean ab_maj); /* some comment */
-  return LLONG
-end function
-'.
+	logger fileOriginalSource: originalCode .
+	codeWithLogs := logger insertLogsBefore: testFunction forVariables: { functionParameter1 } 
+		in: originalCode.
 
 	self
 		assert: codeWithLogs
 		equals:
 		'public function integer testFunction (boolean ab_maj);
-f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject1","testFunction","before")
+f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject","testFunction","before")
 
  /* some comment */
   return LLONG
-end function
-'
+end function'
 ]
 
 { #category : #tests }
@@ -152,7 +154,7 @@ end function'.
 		equals:
 		'/*	public function integer testFunction (boolean ab_maj);*/
 	public function integer testFunction (boolean ab_maj);
-f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject1","testFunction","before")
+f_mrl_logger().invocation_parameter_logger().log("ab_maj",ab_maj,"testPWBOject","testFunction","before")
 
 
   return LLONG

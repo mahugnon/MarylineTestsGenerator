@@ -8,10 +8,6 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MRLDatawindowInstanceGenrationTests >> exampleData [
-]
-
-{ #category : #'as yet unclassified' }
 MRLDatawindowInstanceGenrationTests >> exampleSQLSelect [
 	^ ((IceBergProjectLocator
 		locationOfProjectRepo: 'MarylineTestsGenerator')
@@ -33,6 +29,7 @@ MRLDatawindowInstanceGenrationTests >> setUp [
 
 { #category : #tests }
 MRLDatawindowInstanceGenrationTests >> tearDown [ 
+
 ]
 
 { #category : #tests }
