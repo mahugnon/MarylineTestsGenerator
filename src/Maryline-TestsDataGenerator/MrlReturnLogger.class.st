@@ -11,11 +11,20 @@ MrlReturnLogger >> endOn: stream [
 		tab
 ]
 
+{ #category : #testing }
+MrlReturnLogger >> isReturnLogger [
+	^ true
+]
+
 { #category : #'as yet unclassified' }
 MrlReturnLogger >> logOn: stream [
 	self startOn: stream.
-	stream << focus returnValue asString , ',"' , focus behavioral name
-		, '","' , focus behavioral parentType name.
+	stream
+		<< focus returnValue asString;
+		<< ',"';
+		<< focus behavioral name;
+		<< '","';
+		<< focus behavioral parentType name.
 	self endOn: stream.
 	^ stream
 ]

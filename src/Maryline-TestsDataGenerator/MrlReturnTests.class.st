@@ -13,8 +13,8 @@ MrlReturnTests >> setUp [
 ]
 
 { #category : #running }
-MrlReturnTests >> testBeforeLogIsCorrect [
-	| testFunction testParameter log |
+MrlReturnTests >> testLogIsCorrect [
+	| testFunction testReturn log |
 	testFunction := FamixPWBFunction new
 		name: 'testFunction';
 		parentType:
@@ -22,15 +22,24 @@ MrlReturnTests >> testBeforeLogIsCorrect [
 				name: 'testObject';
 				mooseModel: famixModel;
 				yourSelf).
-	testParameter := FamixPWBParameter new
+	testReturn := FamixPWBFunctionReturn new
 		behavioral: testFunction;
-		name: 'testParameter'.
+		returnValue: '1'.
 	log := String
 		streamContents: [ :stream | 
-			MrlParameterLogger new
-				tag: 'before';
-				focus: testParameter;
+			MrlReturnLogger new
+				focus: testReturn;
 				logOn: stream ].
-	self assert: log equals: 'f_mrl_logger().invocation_parameter_logger().log("testParameter",testParameter,"testObject","testFunction","before")
-'
+	self
+		assert: log
+		equals:
+			'f_mrl_logger().return_value_logger().log(1,"testFunction","testObject");	'
+]
+
+{ #category : #running }
+MrlReturnTests >> testLogStartIsCorrect [
+	| log |
+	log := String
+		streamContents: [ :stream | MrlReturnLogger  new startOn: stream ].
+	self assert: log equals: 'f_mrl_logger().return_value_logger().log('
 ]

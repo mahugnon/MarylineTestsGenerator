@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+MrlParameterLogger class >> canlog: anObject [
+	^ anObject isKindOf: FamixPWBParameter
+]
+
+{ #category : #testing }
+MrlParameterLogger >> isParameterLogger [
+	^ true
+]
+
+{ #category : #'as yet unclassified' }
 MrlParameterLogger >> logOn: stream [
 	self startOn: stream.
 	stream

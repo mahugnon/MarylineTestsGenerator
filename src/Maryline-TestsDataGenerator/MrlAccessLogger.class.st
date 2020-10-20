@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+MrlAccessLogger class >> canlog: anObject [
+	^ anObject isKindOf: FamixPWBAccess
+]
+
+{ #category : #testing }
+MrlAccessLogger >> isAccessLogger [
+	^ true
+]
+
+{ #category : #'as yet unclassified' }
 MrlAccessLogger >> logOn: stream [
 	self startOn: stream.
 	stream
