@@ -3,7 +3,8 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'famixModel',
-		'testFunction'
+		'testFunction',
+		'testObject'
 	],
 	#category : #'Maryline-TestsDataGenerator-Tests'
 }
@@ -18,16 +19,16 @@ MrlFunctionLoggerCreatorTests >> setUp [
 	"Hooks that subclasses may override to define the fixture of test."
 
 	famixModel := FamixPWBModel new.
+	testObject := FamixPWBUserObject new
+		name: 'testObject';
+		mooseModel: famixModel;
+		yourSelf.
 	self createTestFunctions
 ]
 
 { #category : #tests }
 MrlFunctionLoggerCreatorTests >> testCreateParameterAccessLoggers [
-	| logCreator testAttribute testObject |
-	testObject := FamixPWBUserObject new
-		name: 'testObject';
-		mooseModel: famixModel;
-		yourSelf.
+	| logCreator testAttribute |
 	testAttribute := FamixPWBAttribute new
 		name: 'testAttribute';
 		mooseModel: famixModel;
@@ -181,23 +182,35 @@ MrlFunctionLoggerCreatorTests >> testCreateReturnLoggers [
 
 { #category : #tests }
 MrlFunctionLoggerCreatorTests >> testCreateRightLoggers [
-	| testFunction logCreator testReturn testParameter |
-	testFunction := FamixPWBFunction new mooseModel: famixModel.
-	testReturn := FamixPWBFunctionReturn new
+	| logCreator testAttribute |
+	FamixPWBBehaviorSignature new
+		behavioral: testFunction;
+		mooseModel: famixModel;
+		sourceAnchor: (FamixPWBIndexedFileAnchor new endPos: 2).
+	FamixPWBFunctionReturn new
 		mooseModel: famixModel;
 		behavioral: testFunction;
-		returnValue: 'false'.
-	testParameter := FamixPWBParameter new
+		returnValue: 'false';
+		sourceAnchor: (FamixPWBIndexedFileAnchor new startPos: 18).
+	FamixPWBParameter new
 		mooseModel: famixModel;
 		name: 'testParameter';
 		behavioral: testFunction.
+	testAttribute := FamixPWBAttribute new
+		name: 'testAttribute';
+		mooseModel: famixModel;
+		parentType: testObject;
+		yourself.
+	FamixPWBAccess new
+		source: testFunction;
+		target: testAttribute;
+		mooseModel: famixModel.
 	logCreator := MrlFunctionLoggerCreator new
 		focus: testFunction;
 		createLoggers;
 		yourself.
-	self assert: logCreator loggers isNotEmpty.
-	self assert: logCreator returnLoggers anyOne focus equals: testReturn.
-	self
-		assert: logCreator parameterLoggers anyOne focus
-		equals: testParameter
+	self assert: logCreator loggers size equals: 5.
+	self assert: logCreator parameterLoggers size equals: 2.
+	self assert: logCreator returnLoggers size equals: 1.
+	self assert: logCreator accessLoggers size equals: 2
 ]
