@@ -9,6 +9,14 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+MrlFunctionLoggerCreator class >> loggersFor: aFamixPWBBehavior [
+	^ self new
+		focus: aFamixPWBBehavior;
+		createLoggers;
+		loggers
+]
+
+{ #category : #'as yet unclassified' }
 MrlFunctionLoggerCreator >> accessLoggers [
 	^ loggers select: #isAccessLogger
 ]
@@ -48,7 +56,7 @@ MrlFunctionLoggerCreator >> createVariableLoggers: aTag [
 MrlFunctionLoggerCreator >> createVariableLoggers: aVariable withTag: aTag [
 	^ aTag = 'before'
 		ifTrue: [ {((MrlAbstractLogger loggerFor: aVariable)
-				position: focus signature sourceAnchor endPos;
+				position: focus signature sourceAnchor endPos + 1;
 				focus: aVariable;
 				tag: aTag)} ]
 		ifFalse: [ focus returns
