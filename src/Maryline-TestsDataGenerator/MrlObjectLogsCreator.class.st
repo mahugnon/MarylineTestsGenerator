@@ -60,6 +60,6 @@ MrlObjectLogsCreator >> prepareLogs [
 
 { #category : #actions }
 MrlObjectLogsCreator >> save [
-	focus fileReference
+	focus sourceAnchor fileReference
 		writeStreamDo: [ :stream | stream << completeSourceWithLogs ]
 ]
