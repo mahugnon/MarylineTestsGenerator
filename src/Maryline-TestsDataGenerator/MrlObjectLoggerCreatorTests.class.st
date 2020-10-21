@@ -148,7 +148,7 @@ end function'
 { #category : #tests }
 MrlObjectLoggerCreatorTests >> testCreateObjectLoggers [
 	| logger |
-	logger := MrlObjectLogsCreator loggerFor: testObject.
+	logger := MrlObjectLogsCreator loggerWithAccessFor: testObject.
 	self assert: logger loggers values flatten size equals: 12
 ]
 
@@ -162,7 +162,7 @@ MrlObjectLoggerCreatorTests >> testCreateObjectsLogger [
 { #category : #tests }
 MrlObjectLoggerCreatorTests >> testPrintObjectLogs [
 	| logger |
-	logger := MrlObjectLogsCreator loggerFor: testObject.
+	logger := MrlObjectLogsCreator loggerWithAccessFor: testObject.
 	self
 		assert: logger completeSourceWithLogs
 		equals: self sourceexampleWithLogs

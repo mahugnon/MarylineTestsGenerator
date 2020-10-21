@@ -4,15 +4,26 @@ Class {
 	#instVars : [
 		'focus',
 		'loggers',
-		'completeSourceWithLogs'
+		'completeSourceWithLogs',
+		'logAccess'
 	],
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
 
 { #category : #'as yet unclassified' }
-MrlObjectLogsCreator class >> loggerFor: aFamixPWBmajorObject [
+MrlObjectLogsCreator class >> loggerWithAccessFor: aFamixPWBmajorObject [
 	^ self new
 		focus: aFamixPWBmajorObject;
+		createLoggers;
+		prepareLogs;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+MrlObjectLogsCreator class >> loggerWithOutAccessFor: aFamixPWBmajorObject [
+	^ self new
+		focus: aFamixPWBmajorObject;
+		logAccess: false;
 		createLoggers;
 		prepareLogs;
 		yourself
@@ -26,13 +37,26 @@ MrlObjectLogsCreator >> completeSourceWithLogs [
 { #category : #api }
 MrlObjectLogsCreator >> createLoggers [
 	loggers := (focus getBusinessRuleFunctions
-		flatCollect: [ :each | MrlFunctionLoggerCreator loggersFor: each ])
-		groupedBy: #position
+		flatCollect: [ :each | 
+			(MrlFunctionLoggerCreator loggersFor: each)
+				logAccess: logAccess;
+				createLoggers ]) groupedBy: #position
 ]
 
 { #category : #accessing }
 MrlObjectLogsCreator >> focus: aFamixPWBmajorObject [
 	focus := aFamixPWBmajorObject
+]
+
+{ #category : #initialization }
+MrlObjectLogsCreator >> initialize [
+super initialize .
+logAccess :=true
+]
+
+{ #category : #initialization }
+MrlObjectLogsCreator >> logAccess: aBoolean [
+	logAccess := aBoolean
 ]
 
 { #category : #accessors }

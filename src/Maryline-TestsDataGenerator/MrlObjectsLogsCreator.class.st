@@ -26,7 +26,7 @@ MrlObjectsLogsCreator class >> loggerForModel: aFamixPWBModel [
 { #category : #api }
 MrlObjectsLogsCreator >> createLoggers [
 	loggers := focus
-		collect: [ :each | MrlObjectLogsCreator loggerFor: each ]
+		collect: [ :each | MrlObjectLogsCreator loggerWithAccessFor: each ]
 ]
 
 { #category : #accessing }

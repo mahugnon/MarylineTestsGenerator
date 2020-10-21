@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'focus',
-		'loggers'
+		'loggers',
+		'logAccess'
 	],
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
@@ -12,16 +13,15 @@ Class {
 MrlFunctionLoggerCreator class >> loggersFor: aFamixPWBBehavior [
 	^ self new
 		focus: aFamixPWBBehavior;
-		createLoggers;
 		loggers
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 MrlFunctionLoggerCreator >> accessLoggers [
 	^ loggers select: #isAccessLogger
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #api }
 MrlFunctionLoggerCreator >> createLoggers [
 self createVariableLoggers:'before'.
 self createVariableLoggers:'after'.
@@ -44,15 +44,15 @@ MrlFunctionLoggerCreator >> createReturnLoggers [
 			(focus returns collect: [ :return | self createReturnLogger: return ])
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #api }
 MrlFunctionLoggerCreator >> createVariableLoggers: aTag [
 	loggers
 		addAll:
-			(focus parameters , focus instanceVariableAccesses
+			(self variables
 				flatCollect: [ :var | self createVariableLoggers: var withTag: aTag ])
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #api }
 MrlFunctionLoggerCreator >> createVariableLoggers: aVariable withTag: aTag [
 	^ aTag = 'before'
 		ifTrue: [ {((MrlAbstractLogger loggerFor: aVariable)
@@ -71,23 +71,35 @@ MrlFunctionLoggerCreator >> focus: aFamixPWBBehavior [
 	focus := aFamixPWBBehavior
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 MrlFunctionLoggerCreator >> initialize [
 	super initialize.
-	loggers := OrderedCollection new
+	logAccess := true
 ]
 
-{ #category : #accessors }
+{ #category : #accessing }
+MrlFunctionLoggerCreator >> logAccess: anObject [
+	logAccess := anObject
+]
+
+{ #category : #accessing }
 MrlFunctionLoggerCreator >> loggers [
 	^ loggers
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 MrlFunctionLoggerCreator >> parameterLoggers [
 	^ loggers select: #isParameterLogger
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 MrlFunctionLoggerCreator >> returnLoggers [
 	^ loggers select: #isReturnLogger
+]
+
+{ #category : #accessing }
+MrlFunctionLoggerCreator >> variables [
+	^ logAccess
+		ifTrue: [ focus parameters , focus instanceVariableAccesses ]
+		ifFalse: [ focus parameters ]
 ]
