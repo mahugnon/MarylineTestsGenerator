@@ -37,10 +37,9 @@ MrlObjectLogsCreator >> completeSourceWithLogs [
 { #category : #api }
 MrlObjectLogsCreator >> createLoggers [
 	loggers := (focus getBusinessRuleFunctions
-		flatCollect: [ :each | 
-			(MrlFunctionLoggerCreator loggersFor: each)
-				logAccess: logAccess;
-				createLoggers ]) groupedBy: #position
+		flatCollect:
+			[ :each | MrlFunctionLoggerCreator loggersFor: each accessOption: logAccess ])
+		groupedBy: #position
 ]
 
 { #category : #accessing }

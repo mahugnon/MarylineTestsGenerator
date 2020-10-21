@@ -13,6 +13,31 @@ Class {
 MrlFunctionLoggerCreator class >> loggersFor: aFamixPWBBehavior [
 	^ self new
 		focus: aFamixPWBBehavior;
+		createLoggers;
+		loggers
+]
+
+{ #category : #api }
+MrlFunctionLoggerCreator class >> loggersFor: aFamixPWBFunction accessOption: aBolean [
+	^ aBolean
+		ifTrue: [ self loggersWithAccessFor: aFamixPWBFunction ]
+		ifFalse: [ self loggersWithoutAccessFor: aFamixPWBFunction ]
+]
+
+{ #category : #'as yet unclassified' }
+MrlFunctionLoggerCreator class >> loggersWithAccessFor: aFamixPWBBehavior [
+	^ self new
+		focus: aFamixPWBBehavior;
+		createLoggers;
+		loggers
+]
+
+{ #category : #'as yet unclassified' }
+MrlFunctionLoggerCreator class >> loggersWithoutAccessFor: aFamixPWBBehavior [
+	^ self new
+		focus: aFamixPWBBehavior;
+		logAccess: false;
+		createLoggers;
 		loggers
 ]
 
@@ -74,6 +99,7 @@ MrlFunctionLoggerCreator >> focus: aFamixPWBBehavior [
 { #category : #initialization }
 MrlFunctionLoggerCreator >> initialize [
 	super initialize.
+	loggers := OrderedCollection new.
 	logAccess := true
 ]
 
