@@ -4,10 +4,24 @@ Class {
 	#instVars : [
 		'focus',
 		'loggers',
-		'sourceWithLogs'
+		'completeSourceWithLogs'
 	],
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
+
+{ #category : #'as yet unclassified' }
+MrlObjectLogsCreator class >> loggerFor: aFamixPWBmajorObject [
+	^ self new
+		focus: aFamixPWBmajorObject;
+		createLoggers;
+		prepareLogs;
+		yourself
+]
+
+{ #category : #accessing }
+MrlObjectLogsCreator >> completeSourceWithLogs [
+	^ completeSourceWithLogs
+]
 
 { #category : #api }
 MrlObjectLogsCreator >> createLoggers [
@@ -30,7 +44,7 @@ MrlObjectLogsCreator >> loggers [
 MrlObjectLogsCreator >> prepareLogs [
 	| originalSource |
 	originalSource := focus sourceAnchor completeText.
-	sourceWithLogs := String
+	completeSourceWithLogs := String
 		streamContents: [ :stream | 
 			| start |
 			start := 1.
@@ -43,7 +57,8 @@ MrlObjectLogsCreator >> prepareLogs [
 					start := key ] ]
 ]
 
-{ #category : #accessing }
-MrlObjectLogsCreator >> sourceWithLogs [
-	^ sourceWithLogs
+{ #category : #actions }
+MrlObjectLogsCreator >> save [
+	focus fileReference
+		writeStreamDo: [ :stream | stream << completeSourceWithLogs ]
 ]

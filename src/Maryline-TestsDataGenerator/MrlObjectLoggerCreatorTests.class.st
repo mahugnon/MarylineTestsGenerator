@@ -147,20 +147,22 @@ this.ilong = 0
 { #category : #tests }
 MrlObjectLoggerCreatorTests >> testCreateObjectLoggers [
 	| logger |
-	logger := MrlObjectLogsCreator new
-		focus: testObject;
-		createLoggers;
-		yourself.
+	logger := MrlObjectLogsCreator loggerFor: testObject.
 	self assert: logger loggers values flatten size equals: 12
+]
+
+{ #category : #tests }
+MrlObjectLoggerCreatorTests >> testCreateObjectsLogger [
+	| logger |
+	logger := MrlObjectsLogsCreator loggerFor: {testObject}.
+	self assert: logger loggers size equals: 1
 ]
 
 { #category : #tests }
 MrlObjectLoggerCreatorTests >> testPrintObjectLogs [
 	| logger |
-	logger := MrlObjectLogsCreator new
-		focus: testObject;
-		createLoggers;
-		prepareLogs;
-		yourself.
-	self assert: logger sourceWithLogs equals: self sourceexampleWithLogs
+	logger := MrlObjectLogsCreator loggerFor: testObject.
+	self
+		assert: logger completeSourceWithLogs
+		equals: self sourceexampleWithLogs
 ]
