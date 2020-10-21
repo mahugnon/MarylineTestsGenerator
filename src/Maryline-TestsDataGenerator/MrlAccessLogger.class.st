@@ -9,6 +9,11 @@ MrlAccessLogger class >> canlog: anObject [
 	^ anObject isKindOf: FamixPWBAccess
 ]
 
+{ #category : #'as yet unclassified' }
+MrlAccessLogger class >> canlog: anObject withTag: aTag [
+	^ anObject isKindOf: FamixPWBAccess
+]
+
 { #category : #testing }
 MrlAccessLogger >> isAccessLogger [
 	^ true

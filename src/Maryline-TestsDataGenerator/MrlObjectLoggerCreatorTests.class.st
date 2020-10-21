@@ -140,8 +140,9 @@ end function
 
 private function integer testFunction2 (long testParameter1, string testParameter2);	f_mrl_logger().invocation_parameter_logger().log("testParameter1",testParameter1,"testObject1","testfunction2","before");	f_mrl_logger().invocation_parameter_logger().log("testParameter2",testParameter2,"testObject1","testfunction2","before");	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","before","testfunction2","testObject1");	 
 this.ilong = 0
- if aLong >0 then 	f_mrl_logger().invocation_parameter_logger().log("testParameter1",testParameter1,"testObject1","testfunction2","after");	f_mrl_logger().invocation_parameter_logger().log("testParameter2",testParameter2,"testObject1","testfunction2","after");	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","after","testfunction2","testObject1");	f_mrl_logger().return_value_logger().log(1,"testfunction2","testObject1");	return 1
-	f_mrl_logger().invocation_parameter_logger().log("testParameter1",testParameter1,"testObject1","testfunction2","after");	f_mrl_logger().invocation_parameter_logger().log("testParameter2",testParameter2,"testObject1","testfunction2","after");	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","after","testfunction2","testObject1");	f_mrl_logger().return_value_logger().log(0,"testfunction2","testObject1");	'
+ if aLong >0 then 	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","after","testfunction2","testObject1");	f_mrl_logger().return_value_logger().log(1,"testfunction2","testObject1");	return 1
+	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","after","testfunction2","testObject1");	f_mrl_logger().return_value_logger().log(0,"testfunction2","testObject1");	retun 0
+end function'
 ]
 
 { #category : #tests }

@@ -54,7 +54,8 @@ MrlObjectLogsCreator >> prepareLogs [
 						<< (originalSource copyFrom: start to: key - 1);
 						tab.
 					(loggers at: key) do: [ :value | value logOn: stream ].
-					start := key ] ]
+					start := key ].
+			stream << (originalSource copyFrom: start to: originalSource size) ]
 ]
 
 { #category : #actions }

@@ -10,6 +10,29 @@ Class {
 }
 
 { #category : #tests }
+MrlFunctionLoggerCreatorTests >> createAccess [
+	| testAttribute |
+	testAttribute := FamixPWBAttribute new
+		name: 'testAttribute';
+		mooseModel: famixModel;
+		parentType: testObject;
+		yourself.
+	FamixPWBAccess new
+		source: testFunction;
+		target: testAttribute;
+		mooseModel: famixModel
+]
+
+{ #category : #tests }
+MrlFunctionLoggerCreatorTests >> createParameter [
+	^ FamixPWBParameter new
+		mooseModel: famixModel;
+		name: 'testParameter';
+		parameterType: (FamixPWBCustomType new name: 'datawindow');
+		behavioral: testFunction
+]
+
+{ #category : #tests }
 MrlFunctionLoggerCreatorTests >> createTestFunctions [
 	testFunction := FamixPWBFunction new mooseModel: famixModel
 ]
@@ -28,16 +51,8 @@ MrlFunctionLoggerCreatorTests >> setUp [
 
 { #category : #tests }
 MrlFunctionLoggerCreatorTests >> testCreateParameterAccessLoggers [
-	| logCreator testAttribute |
-	testAttribute := FamixPWBAttribute new
-		name: 'testAttribute';
-		mooseModel: famixModel;
-		parentType: testObject;
-		yourself.
-	FamixPWBAccess new
-		source: testFunction;
-		target: testAttribute;
-		mooseModel: famixModel.
+	| logCreator |
+	self createAccess.
 	FamixPWBFunctionReturn new
 		mooseModel: famixModel;
 		behavioral: testFunction;
@@ -57,10 +72,7 @@ MrlFunctionLoggerCreatorTests >> testCreateParameterAccessLoggers [
 { #category : #tests }
 MrlFunctionLoggerCreatorTests >> testCreateParameterAfterLoggers [
 	| logCreator createdLogger |
-	FamixPWBParameter new
-		mooseModel: famixModel;
-		name: 'testParameter';
-		behavioral: testFunction.
+	self createParameter.
 	FamixPWBFunctionReturn new
 		mooseModel: famixModel;
 		behavioral: testFunction;
@@ -82,10 +94,7 @@ MrlFunctionLoggerCreatorTests >> testCreateParameterAfterLoggers [
 { #category : #tests }
 MrlFunctionLoggerCreatorTests >> testCreateParameterAfterLoggers1 [
 	| logCreator |
-	FamixPWBParameter new
-		mooseModel: famixModel;
-		name: 'testParameter';
-		behavioral: testFunction.
+self createParameter.
 	FamixPWBFunctionReturn new
 		mooseModel: famixModel;
 		behavioral: testFunction;
@@ -113,6 +122,29 @@ MrlFunctionLoggerCreatorTests >> testCreateParameterAfterLoggers1 [
 ]
 
 { #category : #tests }
+MrlFunctionLoggerCreatorTests >> testCreateParameterAfterLoggers2 [
+	| logCreator createdLogger parameter |
+	parameter := self createParameter.
+	parameter parameterType: FamixPWBBasicType new.
+	FamixPWBFunctionReturn new
+		mooseModel: famixModel;
+		behavioral: testFunction;
+		sourceAnchor:
+			(FamixPWBIndexedFileAnchor new
+				startPos: 10;
+				mooseModel: famixModel;
+				yourself).
+	logCreator := MrlFunctionLoggerCreator new
+		focus: testFunction;
+		createVariableLoggers: 'after';
+		yourself.
+	createdLogger := logCreator loggers anyOne.
+	self assert: logCreator loggers isNotEmpty.
+	self assert: createdLogger position equals: 10.
+	self assert: createdLogger class equals: MrlEmptyParameterLogger
+]
+
+{ #category : #tests }
 MrlFunctionLoggerCreatorTests >> testCreateParameterBeforeLoggers [
 	| logCreator createdLogger |
 	FamixPWBParameter new
@@ -132,7 +164,7 @@ MrlFunctionLoggerCreatorTests >> testCreateParameterBeforeLoggers [
 		yourself.
 	createdLogger := logCreator parameterLoggers anyOne.
 	self assert: logCreator loggers isNotEmpty.
-	self assert: createdLogger position equals: 18.
+	self assert: createdLogger position equals: 19.
 	self assert: createdLogger tag equals: 'before'
 ]
 
@@ -182,7 +214,7 @@ MrlFunctionLoggerCreatorTests >> testCreateReturnLoggers [
 
 { #category : #tests }
 MrlFunctionLoggerCreatorTests >> testCreateRightLoggers [
-	| logCreator testAttribute |
+	| logCreator |
 	FamixPWBBehaviorSignature new
 		behavioral: testFunction;
 		mooseModel: famixModel;
@@ -192,19 +224,8 @@ MrlFunctionLoggerCreatorTests >> testCreateRightLoggers [
 		behavioral: testFunction;
 		returnValue: 'false';
 		sourceAnchor: (FamixPWBIndexedFileAnchor new startPos: 18).
-	FamixPWBParameter new
-		mooseModel: famixModel;
-		name: 'testParameter';
-		behavioral: testFunction.
-	testAttribute := FamixPWBAttribute new
-		name: 'testAttribute';
-		mooseModel: famixModel;
-		parentType: testObject;
-		yourself.
-	FamixPWBAccess new
-		source: testFunction;
-		target: testAttribute;
-		mooseModel: famixModel.
+	self createParameter.
+	self createAccess.
 	logCreator := MrlFunctionLoggerCreator new
 		focus: testFunction;
 		createLoggers;

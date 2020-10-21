@@ -16,6 +16,13 @@ MrlObjectsLogsCreator class >> loggerFor: aCollection [
 		yourself
 ]
 
+{ #category : #'as yet unclassified' }
+MrlObjectsLogsCreator class >> loggerForModel: aFamixPWBModel [
+	| objects |
+	objects := aFamixPWBModel getBusinessRuleFunctions keys.
+	^ self loggerFor: objects
+]
+
 { #category : #api }
 MrlObjectsLogsCreator >> createLoggers [
 	loggers := focus

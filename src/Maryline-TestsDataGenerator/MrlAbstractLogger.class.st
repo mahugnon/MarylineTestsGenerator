@@ -15,12 +15,28 @@ MrlAbstractLogger class >> canlog: anObject [
 ]
 
 { #category : #'as yet unclassified' }
+MrlAbstractLogger class >> canlog: anObject withTag: aTag [
+	^ false
+]
+
+{ #category : #'as yet unclassified' }
 MrlAbstractLogger class >> loggerFor: anObject [
 	^ (self subclasses
 		detect: [ :sub | sub canlog: anObject ]
 		ifNone: [ self signal: 'Logger not found for: ' , anObject class name ])
 		new
 		focus: anObject;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+MrlAbstractLogger class >> loggerFor: anObject withTag: aTag [
+	^ (self subclasses
+		detect: [ :sub | sub canlog: anObject withTag: aTag ]
+		ifNone: [ self signal: 'Logger not found for: ' , anObject class name ])
+		new
+		focus: anObject;
+		tag: aTag;
 		yourself
 ]
 

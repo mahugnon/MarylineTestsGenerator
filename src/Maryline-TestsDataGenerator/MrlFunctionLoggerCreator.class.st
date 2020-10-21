@@ -61,10 +61,9 @@ MrlFunctionLoggerCreator >> createVariableLoggers: aVariable withTag: aTag [
 				tag: aTag)} ]
 		ifFalse: [ focus returns
 				collect: [ :return | 
-					(MrlAbstractLogger loggerFor: aVariable)
+					(MrlAbstractLogger loggerFor: aVariable withTag: aTag)
 						position: return sourceAnchor startPos;
-						focus: aVariable;
-						tag: aTag ] ]
+						focus: aVariable ] ]
 ]
 
 { #category : #accessing }

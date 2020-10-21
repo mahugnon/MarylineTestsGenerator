@@ -9,6 +9,12 @@ MrlParameterLogger class >> canlog: anObject [
 	^ anObject isKindOf: FamixPWBParameter
 ]
 
+{ #category : #'as yet unclassified' }
+MrlParameterLogger class >> canlog: anObject withTag: aTag [
+	^ (anObject isKindOf: FamixPWBParameter)
+		and: [ (MrlEmptyParameterLogger canlog: anObject withTag: aTag) not ]
+]
+
 { #category : #testing }
 MrlParameterLogger >> isParameterLogger [
 	^ true
