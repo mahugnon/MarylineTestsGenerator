@@ -39,6 +39,40 @@ MrlParameterLoggerTests >> testAterLogIsCorrect [
 			'f_mrl_logger().invocation_parameter_logger().log("testParameter",testParameter,"testObject","testFunction","after");	'
 ]
 
+{ #category : #tests }
+MrlParameterLoggerTests >> testBasicTypeParameterAfterLoggerISEmptyLogger [
+	| logger |
+	testParameter parameterType: FamixPWBBasicType new.
+	logger := MrlAbstractLogger loggerFor: testParameter tag: 'after'.
+	self assert: logger class equals: MrlEmptyParameterLogger
+]
+
+{ #category : #tests }
+MrlParameterLoggerTests >> testBasicTypeParameterAfterLoggerISEmptyLogger1 [
+	| logger |
+	testParameter parameterType: FamixPWBBasicType new.
+	testParameter parameterOption: 'readOnly'.
+	logger := MrlAbstractLogger loggerFor: testParameter tag: 'after'.
+	self assert: logger class equals: MrlEmptyParameterLogger
+]
+
+{ #category : #tests }
+MrlParameterLoggerTests >> testBasicTypeParameterBeforeLoggerISMrlParameterLogger [
+	| logger |
+	testParameter parameterType: FamixPWBBasicType new.
+	logger := MrlAbstractLogger loggerFor: testParameter tag: 'before'.
+	self assert: logger class equals: MrlParameterLogger 
+]
+
+{ #category : #tests }
+MrlParameterLoggerTests >> testBasicTypeRefParameterAfterLoggerIsMrlParameterLogger2 [
+	| logger |
+	testParameter parameterType: FamixPWBBasicType new.
+	testParameter parameterOption: 'ref'.
+	logger := MrlAbstractLogger loggerFor: testParameter tag: 'after'.
+	self assert: logger class equals: MrlParameterLogger
+]
+
 { #category : #running }
 MrlParameterLoggerTests >> testBeforeLogIsCorrect [
 	| log |
@@ -55,8 +89,11 @@ MrlParameterLoggerTests >> testBeforeLogIsCorrect [
 ]
 
 { #category : #tests }
-MrlParameterLoggerTests >> testConstantParameterLoggerISEmptyLogger [
-
+MrlParameterLoggerTests >> testCustomTypeParameterLoggerIsMrlParameterLogger [
+	| logger |
+	testParameter parameterType: FamixPWBCustomType new.
+	logger := MrlAbstractLogger loggerFor: testParameter tag: 'after'.
+	self assert: logger class equals: MrlParameterLogger
 ]
 
 { #category : #tests }
