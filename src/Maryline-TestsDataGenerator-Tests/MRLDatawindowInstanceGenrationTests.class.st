@@ -1,39 +1,25 @@
 Class {
-	#name : #MRLDatawindowInstanceGenrationTests,
-	#superclass : #MRLAbstractTests,
+	#name : #MrlDatawindowInstanceGenrationTests,
+	#superclass : #TestCase,
 	#instVars : [
 		'mRLDatawindowInstanceGenrator'
 	],
 	#category : #'Maryline-TestsDataGenerator-Tests'
 }
 
-{ #category : #'as yet unclassified' }
-MRLDatawindowInstanceGenrationTests >> exampleSQLSelect [
-	^ ((IceBergProjectLocator
-		locationOfProjectRepo: 'MarylineTestsGenerator')
-		/ 'Resources/sqlSelect.txt') contents
-]
-
-{ #category : #'as yet unclassified' }
-MRLDatawindowInstanceGenrationTests >> exampleSyntax [
-	^ ((IceBergProjectLocator
-		locationOfProjectRepo: 'MarylineTestsGenerator')
-		/ 'Resources/syntax.txt') contents
-]
-
 { #category : #running }
-MRLDatawindowInstanceGenrationTests >> setUp [
+MrlDatawindowInstanceGenrationTests >> setUp [
 	mRLDatawindowInstanceGenrator := MRLDatawindowInstanceGenrator new
 		name: 'dw_dlq'
 ]
 
 { #category : #tests }
-MRLDatawindowInstanceGenrationTests >> tearDown [ 
+MrlDatawindowInstanceGenrationTests >> tearDown [ 
 
 ]
 
 { #category : #tests }
-MRLDatawindowInstanceGenrationTests >> testCleanSyntax [
+MrlDatawindowInstanceGenrationTests >> testCleanSyntax [
 	mRLDatawindowInstanceGenrator
 		originalSyntax:
 			'release 17;
@@ -69,7 +55,7 @@ detail(height=72 color="536870912" )'
 ]
 
 { #category : #tests }
-MRLDatawindowInstanceGenrationTests >> testCreateDatawindowdlq [
+MrlDatawindowInstanceGenrationTests >> testCreateDatawindowdlq [
 	self
 		assert: mRLDatawindowInstanceGenrator initializeDatawindowScript
 		equals:
