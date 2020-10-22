@@ -8,3 +8,5 @@ Metacello new
    load
 ```
 [![Build Status](https://travis-ci.com/mahugnon/MarylineTestsGenerator.svg?branch=master)](https://travis-ci.com/mahugnon/MarylineTestsGenerator)
+
+[![Build Status](https://ci.inria.fr/pharo-contribution/job/MarylineTestsGenerator/109/badge/icon)](https://ci.inria.fr/pharo-contribution/job/MarylineTestsGenerator/109/)
