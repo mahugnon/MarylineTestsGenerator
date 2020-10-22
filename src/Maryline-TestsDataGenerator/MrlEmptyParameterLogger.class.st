@@ -7,7 +7,7 @@ Class {
 { #category : #'as yet unclassified' }
 MrlEmptyParameterLogger class >> canlog: anObject withTag: aTag [
 	^ (anObject isKindOf: FamixPWBParameter)
-		and: [ anObject parameterType isBasic and: [ aTag = 'after' ] ]
+		and: [ anObject isWritable not and: [ aTag = 'after' ] ]
 ]
 
 { #category : #'as yet unclassified' }

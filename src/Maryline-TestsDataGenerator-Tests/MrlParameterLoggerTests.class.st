@@ -55,6 +55,11 @@ MrlParameterLoggerTests >> testBeforeLogIsCorrect [
 ]
 
 { #category : #tests }
+MrlParameterLoggerTests >> testConstantParameterLoggerISEmptyLogger [
+
+]
+
+{ #category : #tests }
 MrlParameterLoggerTests >> testLogEndIsCorrect [
 	| log |
 	log := String

@@ -79,16 +79,15 @@ MrlFunctionLoggerCreator >> createVariableLoggers: aTag [
 
 { #category : #api }
 MrlFunctionLoggerCreator >> createVariableLoggers: aVariable withTag: aTag [
+	| logger |
 	^ aTag = 'before'
-		ifTrue: [ {((MrlAbstractLogger loggerFor: aVariable)
-				position: focus signature sourceAnchor endPos + 1;
-				focus: aVariable;
-				tag: aTag)} ]
+		ifTrue: [ logger := (MrlAbstractLogger loggerFor: aVariable tag: aTag)
+				position: focus signature sourceAnchor endPos + 1.
+			{logger} ]
 		ifFalse: [ focus returns
 				collect: [ :return | 
-					(MrlAbstractLogger loggerFor: aVariable withTag: aTag)
-						position: return sourceAnchor startPos;
-						focus: aVariable ] ]
+					(MrlAbstractLogger loggerFor: aVariable tag: aTag)
+						position: return sourceAnchor startPos ] ]
 ]
 
 { #category : #accessing }

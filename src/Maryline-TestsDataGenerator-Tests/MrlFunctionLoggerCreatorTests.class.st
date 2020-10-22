@@ -149,6 +149,7 @@ MrlFunctionLoggerCreatorTests >> testCreateParameterBeforeLoggers [
 	| logCreator createdLogger |
 	FamixPWBParameter new
 		mooseModel: famixModel;
+		parameterType: FamixPWBBasicType new;
 		name: 'testParameter';
 		behavioral: testFunction.
 	FamixPWBBehaviorSignature new

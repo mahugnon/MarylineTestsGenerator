@@ -20,7 +20,7 @@ MrlObjectLogsCreator class >> loggerWithAccessFor: aFamixPWBmajorObject [
 ]
 
 { #category : #'as yet unclassified' }
-MrlObjectLogsCreator class >> loggerWithOutAccessFor: aFamixPWBmajorObject [
+MrlObjectLogsCreator class >> loggerWithoutAccessFor: aFamixPWBmajorObject [
 	^ self new
 		focus: aFamixPWBmajorObject;
 		logAccess: false;
