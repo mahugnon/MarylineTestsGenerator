@@ -14,8 +14,14 @@ BaselineOfMaryline >> baseline: spec [
 		for: #common
 		do: [ self baselineOfPowerBuilderParser: spec.
 			spec
-				package: 'Maryline'
-				with: [ spec requires: #('PowerBuilderParser' 'Glorp' 'P3') ] ]
+				package: 'Maryline-TestsDataGenerator'
+					with: [ spec requires: #('PowerBuilderParser') ];
+				package: 'Maryline-TestsDataGenerator-Model'
+					with: [ spec requires: #('Glorp' 'P3') ];
+				package: 'Maryline-TestsGenerator'
+					with: [ spec requires: #('Glorp' 'P3') ];
+				package: 'Maryline-TestsDataGenerator-Tests'
+					with: [ spec requires: #('Maryline-TestsDataGenerator') ] ]
 ]
 
 { #category : #baselines }
