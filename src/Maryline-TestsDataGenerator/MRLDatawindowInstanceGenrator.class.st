@@ -50,7 +50,7 @@ MRLDatawindowInstanceGenrator >> initializeDatawindowScript [
 				<< '=';
 				space;
 				<< 'create datawindow';
-				crlf  ]
+				crlf ]
 ]
 
 { #category : #accessing }
