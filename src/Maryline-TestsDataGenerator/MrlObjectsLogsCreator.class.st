@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'focus',
-		'loggers'
+		'loggers',
+		'name'
 	],
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
@@ -58,6 +59,21 @@ MrlObjectsLogsCreator >> focus: aCollection [
 { #category : #accessing }
 MrlObjectsLogsCreator >> loggers [
 	^ loggers
+]
+
+{ #category : #accessing }
+MrlObjectsLogsCreator >> name [
+	name ifNil: [ name := focus name ].
+	^ name
+]
+
+{ #category : #printing }
+MrlObjectsLogsCreator >> printOn: aStrem [
+	^ aStrem
+		<< 'Group (';
+		<< loggers size asString;space;
+		<< 'functionlogCreators';
+		<< ')'
 ]
 
 { #category : #actions }

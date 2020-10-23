@@ -5,7 +5,8 @@ Class {
 		'focus',
 		'loggers',
 		'completeSourceWithLogs',
-		'logAccess'
+		'logAccess',
+		'name'
 	],
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
@@ -63,6 +64,12 @@ MrlObjectLogsCreator >> loggers [
 	^ loggers
 ]
 
+{ #category : #accessing }
+MrlObjectLogsCreator >> name [
+	name ifNil: [ name := focus name ].
+	^ name
+]
+
 { #category : #api }
 MrlObjectLogsCreator >> prepareLogs [
 	| originalSource |
@@ -79,6 +86,16 @@ MrlObjectLogsCreator >> prepareLogs [
 					(loggers at: key) do: [ :value | value logOn: stream ].
 					start := key ].
 			stream << (originalSource copyFrom: start to: originalSource size) ]
+]
+
+{ #category : #printing }
+MrlObjectLogsCreator >> printOn: aStrem [
+	^ aStrem
+		<< self name;
+		<< '(';
+		<< loggers size asString;space;
+		<< 'functionlogCreators';
+		<< ')'
 ]
 
 { #category : #actions }

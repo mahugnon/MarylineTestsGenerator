@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'focus',
 		'loggers',
-		'logAccess'
+		'logAccess',
+		'name'
 	],
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
@@ -113,8 +114,24 @@ MrlFunctionLoggerCreator >> loggers [
 ]
 
 { #category : #accessing }
+MrlFunctionLoggerCreator >> name [
+	name ifNil: [ name := focus name ].
+	^ name
+]
+
+{ #category : #accessing }
 MrlFunctionLoggerCreator >> parameterLoggers [
 	^ loggers select: #isParameterLogger
+]
+
+{ #category : #printing }
+MrlFunctionLoggerCreator >> printOn: aStrem [
+	^ aStrem
+		<< self name;
+		<< '(';
+		<< loggers size asString;space;
+		<< 'loggers';
+		<< ')'
 ]
 
 { #category : #accessing }
