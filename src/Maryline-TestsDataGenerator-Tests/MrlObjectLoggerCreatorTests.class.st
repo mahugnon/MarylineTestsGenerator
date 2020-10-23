@@ -155,7 +155,7 @@ MrlObjectLoggerCreatorTests >> testCreateObjectLoggers [
 { #category : #tests }
 MrlObjectLoggerCreatorTests >> testCreateObjectsLogger [
 	| logger |
-	logger := MrlObjectsLogsCreator loggerFor: {testObject}.
+	logger := MrlObjectsLogsCreator loggerWithAccessFor: {testObject}.
 	self assert: logger loggers size equals: 1
 ]
 

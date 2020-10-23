@@ -9,22 +9,43 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MrlObjectsLogsCreator class >> loggerFor: aCollection [
+MrlObjectsLogsCreator class >> loggerWithAccessFor: aCollection [
 	^ self new
 		focus: aCollection;
-		createLoggers;
+		createwithAccessLoggers;
 		yourself
 ]
 
 { #category : #'as yet unclassified' }
-MrlObjectsLogsCreator class >> loggerForModel: aFamixPWBModel [
+MrlObjectsLogsCreator class >> loggerWithAccessForModel: aFamixPWBModel [
 	| objects |
 	objects := aFamixPWBModel getBusinessRuleFunctions keys.
-	^ self loggerFor: objects
+	^ self loggerWithAccessFor: objects
+]
+
+{ #category : #'as yet unclassified' }
+MrlObjectsLogsCreator class >> loggerWithoutAccessFor: aCollection [
+	^ self new
+		focus: aCollection;
+		createWithoutAccessLoggers;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+MrlObjectsLogsCreator class >> loggerWithoutAccessForModel: aFamixPWBModel [
+	| objects |
+	objects := aFamixPWBModel getBusinessRuleFunctions keys.
+	^ self loggerWithoutAccessFor: objects
 ]
 
 { #category : #api }
-MrlObjectsLogsCreator >> createLoggers [
+MrlObjectsLogsCreator >> createWithoutAccessLoggers [
+	loggers := focus
+		collect: [ :each | MrlObjectLogsCreator loggerWithoutAccessFor: each ]
+]
+
+{ #category : #api }
+MrlObjectsLogsCreator >> createwithAccessLoggers [
 	loggers := focus
 		collect: [ :each | MrlObjectLogsCreator loggerWithAccessFor: each ]
 ]
