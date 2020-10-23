@@ -70,9 +70,10 @@ MrlObjectsLogsCreator >> name [
 { #category : #printing }
 MrlObjectsLogsCreator >> printOn: aStrem [
 	^ aStrem
-		<< 'Group (';
-		<< loggers size asString;space;
-		<< 'functionlogCreators';
+		<< 'Group';
+		space;
+		<< '(';
+		<< loggers size asString;
 		<< ')'
 ]
 

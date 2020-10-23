@@ -92,9 +92,9 @@ MrlObjectLogsCreator >> prepareLogs [
 MrlObjectLogsCreator >> printOn: aStrem [
 	^ aStrem
 		<< self name;
+		space;
 		<< '(';
-		<< loggers size asString;space;
-		<< 'functionlogCreators';
+		<< loggers size asString;
 		<< ')'
 ]
 

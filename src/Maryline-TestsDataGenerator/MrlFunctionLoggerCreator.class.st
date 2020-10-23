@@ -128,9 +128,9 @@ MrlFunctionLoggerCreator >> parameterLoggers [
 MrlFunctionLoggerCreator >> printOn: aStrem [
 	^ aStrem
 		<< self name;
+		space;
 		<< '(';
-		<< loggers size asString;space;
-		<< 'loggers';
+		<< loggers size asString;
 		<< ')'
 ]
 
