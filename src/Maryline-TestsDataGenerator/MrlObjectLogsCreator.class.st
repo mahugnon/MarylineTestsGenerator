@@ -44,6 +44,11 @@ MrlObjectLogsCreator >> createLoggers [
 ]
 
 { #category : #accessing }
+MrlObjectLogsCreator >> focus [
+	^ focus
+]
+
+{ #category : #accessing }
 MrlObjectLogsCreator >> focus: aFamixPWBmajorObject [
 	focus := aFamixPWBmajorObject
 ]
