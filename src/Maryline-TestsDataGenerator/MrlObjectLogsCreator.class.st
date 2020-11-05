@@ -107,10 +107,11 @@ MrlObjectLogsCreator >> printOn: aStrem [
 MrlObjectLogsCreator >> save [
 	| focusFile utf8bomHeader |
 	utf8bomHeader := #[16rEF 16rBB 16rBF].
+	focusFile := focus sourceAnchor fileReference.
 	focusFile
 		ensureDelete;
 		binaryWriteStreamDo: [ :s | s nextPutAll: utf8bomHeader ].
-	focusFile := focus sourceAnchor fileReference
+	focusFile := focusFile
 		writeStreamDo: [ :stream | 
 			stream setToEnd.
 			stream << completeSourceWithLogs ]
