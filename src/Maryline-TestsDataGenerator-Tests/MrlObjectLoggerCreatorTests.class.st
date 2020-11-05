@@ -138,7 +138,7 @@ MrlObjectLoggerCreatorTests >> sourceexampleWithLogs [
   	f_mrl_logger().return_value_logger().log(LLONG,"testfunction1","testObject1");	return LLONG
 end function
 
-private function integer testFunction2 (long testParameter1, string testParameter2);	f_mrl_logger().invocation_parameter_logger().log("testParameter1",testParameter1,"testObject1","testfunction2","before");	f_mrl_logger().invocation_parameter_logger().log("testParameter2",testParameter2,"testObject1","testfunction2","before");	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","before","testfunction2","testObject1");	 
+private function integer testFunction2 (long testParameter1, string testParameter2);	f_mrl_logger().invocation_parameter_logger().log("testParameter2",testParameter2,"testObject1","testfunction2","before");	f_mrl_logger().invocation_parameter_logger().log("testParameter1",testParameter1,"testObject1","testfunction2","before");	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","before","testfunction2","testObject1");	 
 this.ilong = 0
  if aLong >0 then 	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","after","testfunction2","testObject1");	f_mrl_logger().return_value_logger().log(1,"testfunction2","testObject1");	return 1
 	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","after","testfunction2","testObject1");	f_mrl_logger().return_value_logger().log(0,"testfunction2","testObject1");	retun 0
@@ -149,7 +149,8 @@ end function'
 MrlObjectLoggerCreatorTests >> testCreateObjectLoggers [
 	| logger |
 	logger := MrlObjectLogsCreator loggerWithAccessFor: testObject.
-	self assert: logger loggers values flatten size equals: 12
+
+	self assert: logger loggers   size equals: 12
 ]
 
 { #category : #tests }
@@ -166,4 +167,26 @@ MrlObjectLoggerCreatorTests >> testPrintObjectLogs [
 	self
 		assert: logger completeSourceWithLogs
 		equals: self sourceexampleWithLogs
+]
+
+{ #category : #'as yet unclassified' }
+MrlObjectLoggerCreatorTests >> testsAddNumberOfLoggersConstraint [
+	| logger |
+	logger := MrlObjectLogsCreator loggerWithAccessFor: testObject.
+	logger
+		addConstraint: (MrlLogsCreatorNumberOfLogsConstraint new constraint: 8).
+	self assert: logger loggers   size equals: 8
+]
+
+{ #category : #'as yet unclassified' }
+MrlObjectLoggerCreatorTests >> testsAddSkipLargFunctionConstraint [
+	| logger |
+	logger := MrlObjectLogsCreator loggerWithAccessFor: testObject.
+	logger
+		addConstraint:
+			(MrlLogsCreatorSkipBigFunctionConstraint new
+				constraint: {'testfunction1'}).
+	self
+		assert:
+		logger loggers size equals: 11
 ]

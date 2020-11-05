@@ -30,6 +30,11 @@ MrlReturnLogger >> logOn: stream [
 ]
 
 { #category : #'as yet unclassified' }
+MrlReturnLogger >> sortingKey [ 
+^30
+]
+
+{ #category : #'as yet unclassified' }
 MrlReturnLogger >> startOn: stream [
 	stream << 'f_mrl_logger().return_value_logger().log('
 ]

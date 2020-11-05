@@ -6,7 +6,8 @@ Class {
 		'loggers',
 		'completeSourceWithLogs',
 		'logAccess',
-		'name'
+		'name',
+		'constraint'
 	],
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
@@ -30,17 +31,32 @@ MrlObjectLogsCreator class >> loggerWithoutAccessFor: aFamixPWBmajorObject [
 		yourself
 ]
 
+{ #category : #adding }
+MrlObjectLogsCreator >> addConstraint: aConstraint [
+	constraint := aConstraint.
+	aConstraint logsCreator: self
+]
+
 { #category : #accessing }
 MrlObjectLogsCreator >> completeSourceWithLogs [
 	^ completeSourceWithLogs
 ]
 
+{ #category : #accessing }
+MrlObjectLogsCreator >> constraint [
+	^ constraint
+]
+
+{ #category : #accessing }
+MrlObjectLogsCreator >> constraint: anObject [
+	constraint := anObject
+]
+
 { #category : #api }
 MrlObjectLogsCreator >> createLoggers [
-	loggers := (focus getBusinessRuleFunctions
+	loggers := focus getBusinessRuleFunctions
 		flatCollect:
-			[ :each | MrlFunctionLoggerCreator loggersFor: each accessOption: logAccess ])
-		groupedBy: #position
+			[ :each | MrlFunctionLoggerCreator loggersFor: each accessOption: logAccess ]
 ]
 
 { #category : #accessing }
@@ -59,6 +75,15 @@ super initialize .
 logAccess :=true
 ]
 
+{ #category : #api }
+MrlObjectLogsCreator >> logA: a lessThanLogB: b [ 
+a position < b position 
+ifTrue: [ ^true ].
+a sortingKey < b sortingKey
+ifTrue: [ ^true ].
+^false
+]
+
 { #category : #initialization }
 MrlObjectLogsCreator >> logAccess: aBoolean [
 	logAccess := aBoolean
@@ -67,6 +92,11 @@ MrlObjectLogsCreator >> logAccess: aBoolean [
 { #category : #accessors }
 MrlObjectLogsCreator >> loggers [
 	^ loggers
+]
+
+{ #category : #accessing }
+MrlObjectLogsCreator >> loggers: aCollection [ 
+	loggers := aCollection
 ]
 
 { #category : #accessing }
@@ -83,13 +113,14 @@ MrlObjectLogsCreator >> prepareLogs [
 		streamContents: [ :stream | 
 			| start |
 			start := 1.
-			(loggers keys sort: [ :a :b | a < b ])
-				do: [ :key | 
-					stream
-						<< (originalSource copyFrom: start to: key - 1);
-						tab.
-					(loggers at: key) do: [ :value | value logOn: stream ].
-					start := key ].
+			(loggers sort: [ :a :b |self logA: a lessThanLogB: b ])
+				do: [ :log | 
+					start < log position
+						ifTrue: [ stream
+								<< (originalSource copyFrom: start to: log position - 1);
+								tab ].
+					log logOn: stream.
+					start := log position ].
 			stream << (originalSource copyFrom: start to: originalSource size) ]
 ]
 

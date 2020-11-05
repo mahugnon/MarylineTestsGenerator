@@ -39,6 +39,11 @@ MrlParameterLogger >> logOn: stream [
 ]
 
 { #category : #'as yet unclassified' }
+MrlParameterLogger >> sortingKey [ 
+^10
+]
+
+{ #category : #'as yet unclassified' }
 MrlParameterLogger >> startOn: stream [
 	stream << 'f_mrl_logger().invocation_parameter_logger().log("'
 ]

@@ -114,6 +114,11 @@ MrlFunctionLoggerCreator >> loggers [
 ]
 
 { #category : #accessing }
+MrlFunctionLoggerCreator >> loggers: anObject [
+	loggers := anObject
+]
+
+{ #category : #accessing }
 MrlFunctionLoggerCreator >> name [
 	name ifNil: [ name := focus name ].
 	^ name

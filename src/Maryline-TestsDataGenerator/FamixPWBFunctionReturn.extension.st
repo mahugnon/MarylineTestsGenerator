@@ -36,6 +36,11 @@ FamixPWBFunctionReturn >> isNotAlteredBefore: aString [
 ]
 
 { #category : #'*Maryline-TestsDataGenerator' }
+FamixPWBFunctionReturn >> isRelatedTo: aString [
+	^ self behavioral name = aString
+]
+
+{ #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBFunctionReturn >> prepareLogWith: aPWBParameterLogsString [
 	| log |
 	log := aPWBParameterLogsString

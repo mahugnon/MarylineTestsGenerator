@@ -40,6 +40,11 @@ MrlAccessLogger >> logOn: stream [
 ]
 
 { #category : #'as yet unclassified' }
+MrlAccessLogger >> sortingKey [
+^20
+]
+
+{ #category : #'as yet unclassified' }
 MrlAccessLogger >> startOn: stream [
 	stream << 'f_mrl_logger().access_logger().log('
 ]

@@ -1,6 +1,11 @@
 Extension { #name : #FamixPWBParameter }
 
 { #category : #'*Maryline-TestsDataGenerator' }
+FamixPWBParameter >> isRelatedTo: aString [ 
+^self behavioral  name = aString 
+]
+
+{ #category : #'*Maryline-TestsDataGenerator' }
 FamixPWBParameter >> logOn: stream context: aString [
 	stream
 		<< 'f_mrl_logger().invocation_parameter_logger().log("';

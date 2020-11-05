@@ -14,3 +14,8 @@ MrlEmptyParameterLogger class >> canlog: anObject withTag: aTag [
 MrlEmptyParameterLogger >> logOn: stream [
 	^ stream
 ]
+
+{ #category : #'as yet unclassified' }
+MrlEmptyParameterLogger >> sortingKey [
+^50
+]
