@@ -54,9 +54,10 @@ MrlObjectLogsCreator >> constraint: anObject [
 
 { #category : #api }
 MrlObjectLogsCreator >> createLoggers [
-	loggers := focus getBusinessRuleFunctions
+	loggers := (focus getBusinessRuleFunctions
 		flatCollect:
-			[ :each | MrlFunctionLoggerCreator loggersFor: each accessOption: logAccess ]
+			[ :each | MrlFunctionLoggerCreator loggersFor: each accessOption: logAccess ])
+		groupedBy: #position
 ]
 
 { #category : #accessing }
@@ -113,14 +114,13 @@ MrlObjectLogsCreator >> prepareLogs [
 		streamContents: [ :stream | 
 			| start |
 			start := 1.
-			(loggers sort: [ :a :b |self logA: a lessThanLogB: b ])
-				do: [ :log | 
-					start < log position
-						ifTrue: [ stream
-								<< (originalSource copyFrom: start to: log position - 1);
-								tab ].
-					log logOn: stream.
-					start := log position ].
+			(loggers keys sort: [ :a :b | a < b ])
+				do: [ :key | 
+					stream
+						<< (originalSource copyFrom: start to: key - 1);
+						tab.
+					(loggers at: key) do: [ :value | value logOn: stream ].
+					start := key ].
 			stream << (originalSource copyFrom: start to: originalSource size) ]
 ]
 

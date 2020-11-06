@@ -52,6 +52,11 @@ MrlAbstractLogger >> isAccessLogger [
 ]
 
 { #category : #testing }
+MrlAbstractLogger >> isEmptyLogger [
+	^ false
+]
+
+{ #category : #testing }
 MrlAbstractLogger >> isParameterLogger [
 	^ false
 ]
@@ -59,6 +64,11 @@ MrlAbstractLogger >> isParameterLogger [
 { #category : #testing }
 MrlAbstractLogger >> isReturnLogger [
 	^ false
+]
+
+{ #category : #'as yet unclassified' }
+MrlAbstractLogger >> logOn: aStream [ 
+self subclassResponsibility 
 ]
 
 { #category : #accessors }

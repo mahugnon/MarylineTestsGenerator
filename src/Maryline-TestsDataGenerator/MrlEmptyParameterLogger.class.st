@@ -10,6 +10,11 @@ MrlEmptyParameterLogger class >> canlog: anObject withTag: aTag [
 		and: [ anObject isWritable not and: [ aTag = 'after' ] ]
 ]
 
+{ #category : #testing }
+MrlEmptyParameterLogger >> isEmptyLogger [
+	^ true
+]
+
 { #category : #'as yet unclassified' }
 MrlEmptyParameterLogger >> logOn: stream [
 	^ stream
