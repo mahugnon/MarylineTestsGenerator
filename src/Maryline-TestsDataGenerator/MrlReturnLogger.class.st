@@ -4,6 +4,11 @@ Class {
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
 
+{ #category : #accessing }
+MrlReturnLogger >> belongsTo [
+	^ focus behavioral
+]
+
 { #category : #'as yet unclassified' }
 MrlReturnLogger >> endOn: stream [
 	stream

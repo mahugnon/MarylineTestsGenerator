@@ -4,13 +4,13 @@ Class {
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
 
-{ #category : #accessing }
+{ #category : #api }
 MrlLogsCreatorSkipBigFunctionConstraint >> apply [
 	| loggers |
 	loggers := (logsCreator loggers values flatten
 		select: [ :log | 
 			(constraint
-				allSatisfy: [ :const | (log focus isRelatedTo: const) not ])
+				allSatisfy: [ :functionName | log belongsTo name ~= functionName ])
 				and: [ log isEmptyLogger not ] ]) groupedBy: #position.
 	logsCreator loggers: loggers
 ]

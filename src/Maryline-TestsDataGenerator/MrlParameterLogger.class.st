@@ -15,6 +15,11 @@ MrlParameterLogger class >> canlog: anObject withTag: aTag [
 		and: [ (MrlEmptyParameterLogger canlog: anObject withTag: aTag) not ]
 ]
 
+{ #category : #accessing }
+MrlParameterLogger >> belongsTo [
+	^ focus behavioral
+]
+
 { #category : #testing }
 MrlParameterLogger >> isParameterLogger [
 	^ true

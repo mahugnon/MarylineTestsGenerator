@@ -29,6 +29,11 @@ MrlAbstractLogger class >> loggerFor: anObject tag: aTag [
 		yourself
 ]
 
+{ #category : #accessing }
+MrlAbstractLogger >> belongsTo [
+self subclassResponsibility 
+]
+
 { #category : #'as yet unclassified' }
 MrlAbstractLogger >> endOn: stream [
 	stream
@@ -42,8 +47,9 @@ MrlAbstractLogger >> focus [
 ]
 
 { #category : #accessing }
-MrlAbstractLogger >> focus: aFamixPWBParameter [ 
-	focus := aFamixPWBParameter
+MrlAbstractLogger >> focus: aFamixPWBParameter [
+	focus := aFamixPWBParameter.
+
 ]
 
 { #category : #testing }

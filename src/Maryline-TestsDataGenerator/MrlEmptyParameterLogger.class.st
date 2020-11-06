@@ -7,7 +7,12 @@ Class {
 { #category : #'as yet unclassified' }
 MrlEmptyParameterLogger class >> canlog: anObject withTag: aTag [
 	^ (anObject isKindOf: FamixPWBParameter)
-		and: [ anObject isWritable not and: [ aTag = 'after' ] ]
+		and: [ anObject isReadOnly and: [ aTag = 'after' ] ]
+]
+
+{ #category : #accessing }
+MrlEmptyParameterLogger >> belongsTo [
+	^ focus behavioral
 ]
 
 { #category : #testing }

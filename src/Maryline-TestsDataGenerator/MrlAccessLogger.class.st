@@ -14,6 +14,11 @@ MrlAccessLogger class >> canlog: anObject withTag: aTag [
 	^ anObject isKindOf: FamixPWBAccess
 ]
 
+{ #category : #accessing }
+MrlAccessLogger >> belongsTo [
+	^ focus accessor
+]
+
 { #category : #testing }
 MrlAccessLogger >> isAccessLogger [
 	^ true

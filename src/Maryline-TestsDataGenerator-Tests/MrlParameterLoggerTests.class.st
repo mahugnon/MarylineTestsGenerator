@@ -42,7 +42,7 @@ MrlParameterLoggerTests >> testAterLogIsCorrect [
 { #category : #tests }
 MrlParameterLoggerTests >> testBasicTypeParameterAfterLoggerISEmptyLogger [
 	| logger |
-	testParameter parameterType: FamixPWBBasicType new.
+	testParameter parameterType: FamixPWBBasicType new;parameterOption: 'ref'.
 	logger := MrlAbstractLogger loggerFor: testParameter tag: 'after'.
 	self assert: logger class equals: MrlEmptyParameterLogger
 ]
@@ -68,9 +68,9 @@ MrlParameterLoggerTests >> testBasicTypeParameterBeforeLoggerISMrlParameterLogge
 MrlParameterLoggerTests >> testBasicTypeRefParameterAfterLoggerIsMrlParameterLogger2 [
 	| logger |
 	testParameter parameterType: FamixPWBBasicType new.
-	testParameter parameterOption: 'ref'.
+
 	logger := MrlAbstractLogger loggerFor: testParameter tag: 'after'.
-	self assert: logger class equals: MrlParameterLogger
+	self assert: logger class equals: MrlEmptyParameterLogger
 ]
 
 { #category : #running }

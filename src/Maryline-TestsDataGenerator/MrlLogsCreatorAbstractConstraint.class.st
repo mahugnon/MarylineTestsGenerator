@@ -9,7 +9,7 @@ Class {
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
 
-{ #category : #accessing }
+{ #category : #api }
 MrlLogsCreatorAbstractConstraint >> apply [
 self subclassResponsibility 
 ]

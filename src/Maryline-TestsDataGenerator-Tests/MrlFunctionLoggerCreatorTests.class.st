@@ -125,7 +125,8 @@ self createParameter.
 MrlFunctionLoggerCreatorTests >> testCreateParameterAfterLoggers2 [
 	| logCreator createdLogger parameter |
 	parameter := self createParameter.
-	parameter parameterType: FamixPWBBasicType new.
+	parameter parameterType: FamixPWBBasicType new;
+	parameterOption: 'ref'.
 	FamixPWBFunctionReturn new
 		mooseModel: famixModel;
 		behavioral: testFunction;

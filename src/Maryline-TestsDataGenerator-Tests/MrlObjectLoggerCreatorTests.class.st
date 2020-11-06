@@ -173,8 +173,21 @@ MrlObjectLoggerCreatorTests >> testsAddNumberOfLoggersConstraint [
 	| logger |
 	logger := MrlObjectLogsCreator loggerWithAccessFor: testObject.
 	logger
-		addConstraint: (MrlLogsCreatorMaxNumberOfLogsConstraint new constraint: 8).
-	self assert: logger loggers values  flatten size equals: 8
+		addConstraint: (MrlLogsCreatorMaxNumberOfLogsConstraint new constraint: 5).
+	self assert: logger loggers values  flatten size equals: 1
+]
+
+{ #category : #'as yet unclassified' }
+MrlObjectLoggerCreatorTests >> testsAddNumberOfLoggersConstraint2 [
+	| logger |
+	logger := MrlObjectLogsCreator loggerWithAccessFor: testObject.
+	logger
+		addConstraint:
+			(MrlLogsCreatorMaxNumberOfLogsConstraint new
+				name: 'testObject';
+				constraint: 15;
+				yourself).
+	self assert: logger loggers values flatten size equals: 12
 ]
 
 { #category : #'as yet unclassified' }
