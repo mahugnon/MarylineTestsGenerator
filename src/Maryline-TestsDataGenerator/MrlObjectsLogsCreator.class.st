@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'focus',
 		'loggers',
-		'name'
+		'name',
+		'constraints'
 	],
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
@@ -39,6 +40,13 @@ MrlObjectsLogsCreator class >> loggerWithoutAccessForModel: aFamixPWBModel [
 	^ self loggerWithoutAccessFor: objects
 ]
 
+{ #category : #adding }
+MrlObjectsLogsCreator >> addConstraint: aConstraint [
+	loggers
+		detect: [ :logger | logger name = aConstraint name ]
+		ifFound: [ :founded | founded addConstraint: aConstraint ]
+]
+
 { #category : #api }
 MrlObjectsLogsCreator >> createWithoutAccessLoggers [
 	loggers := focus
@@ -59,12 +67,6 @@ MrlObjectsLogsCreator >> focus: aCollection [
 { #category : #accessing }
 MrlObjectsLogsCreator >> loggers [
 	^ loggers
-]
-
-{ #category : #accessing }
-MrlObjectsLogsCreator >> name [
-	name ifNil: [ name := focus name ].
-	^ name
 ]
 
 { #category : #printing }

@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'constraint',
-		'logsCreator'
+		'logsCreator',
+		'name'
 	],
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
@@ -27,4 +28,14 @@ constraint := aConstraint
 MrlLogsCreatorAbstractConstraint >> logsCreator: aMrlObjectLogsCreator [ 
 	logsCreator := aMrlObjectLogsCreator.
 	self apply 
+]
+
+{ #category : #accessing }
+MrlLogsCreatorAbstractConstraint >> name [
+	^ name
+]
+
+{ #category : #accessing }
+MrlLogsCreatorAbstractConstraint >> name: aString [
+	name := aString
 ]

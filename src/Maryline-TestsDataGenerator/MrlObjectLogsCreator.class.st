@@ -7,7 +7,7 @@ Class {
 		'completeSourceWithLogs',
 		'logAccess',
 		'name',
-		'constraint'
+		'constraints'
 	],
 	#category : #'Maryline-TestsDataGenerator-Models'
 }
@@ -33,7 +33,7 @@ MrlObjectLogsCreator class >> loggerWithoutAccessFor: aFamixPWBmajorObject [
 
 { #category : #adding }
 MrlObjectLogsCreator >> addConstraint: aConstraint [
-	constraint := aConstraint.
+	constraints add: aConstraint.
 	aConstraint logsCreator: self
 ]
 
@@ -44,12 +44,7 @@ MrlObjectLogsCreator >> completeSourceWithLogs [
 
 { #category : #accessing }
 MrlObjectLogsCreator >> constraint [
-	^ constraint
-]
-
-{ #category : #accessing }
-MrlObjectLogsCreator >> constraint: anObject [
-	constraint := anObject
+	^ constraints
 ]
 
 { #category : #api }
@@ -72,8 +67,9 @@ MrlObjectLogsCreator >> focus: aFamixPWBmajorObject [
 
 { #category : #initialization }
 MrlObjectLogsCreator >> initialize [
-super initialize .
-logAccess :=true
+	super initialize.
+	logAccess := true.
+	constraints := OrderedCollection new
 ]
 
 { #category : #api }
