@@ -44,6 +44,19 @@ MrlBehavior class >> session [
 	^ session
 ]
 
+{ #category : #tests }
+MrlBehavior class >> testCases: aFamixPWBModel [
+	self loadAll
+		do: [ :each | 
+			| behavior |
+			behavior := aFamixPWBModel allModelMethods
+				detect: [ :m | 
+					m parentType isNotNil
+						and: [ m parentType name = each pwb_object
+								and: [ each behavior_name = m name ] ] ].
+			MrlTestCase testCaseForFunction: behavior ]
+]
+
 { #category : #adding }
 MrlBehavior >> addAllMrlParameters: aCollection [
 	mrlParameters addAll: aCollection

@@ -125,8 +125,10 @@ MrlTestCase >> onDestroy [
 
 { #category : #printing }
 MrlTestCase >> printPWBDeclarationScript [
-	^ ('/Users/honore/Documents/IzyVersions/' , self name , '.sru')
-		asFileReference
+	^ ((IceBergProjectLocator
+		locationOfProjectRepo: 'MarylineTestsGenerator')
+		/ (self name , '.sru')) asFileReference
+		ensureCreateFile;
 		writeStreamDo: [ :stream | 
 			stream
 				<< self testFileHeader;
