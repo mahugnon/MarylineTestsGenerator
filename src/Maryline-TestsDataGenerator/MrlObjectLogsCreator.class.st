@@ -133,6 +133,7 @@ MrlObjectLogsCreator >> printOn: aStrem [
 { #category : #actions }
 MrlObjectLogsCreator >> save [
 	| focusFile utf8bomHeader |
+	self prepareLogs.
 	utf8bomHeader := #[16rEF 16rBB 16rBF].
 	focusFile := focus sourceAnchor fileReference.
 	focusFile
