@@ -15,7 +15,6 @@ BaselineOfMaryline >> baseline: spec [
 		for: #common
 		do: [ self baselineOfPowerBuilderParser: spec.
 			spec
-				package: 'Maryline-TestsGenerator-Utils';
 				package: 'Iceberg-ProjectLocator';
 				package: 'Maryline-TestsDataGenerator'
 					with: [ spec requires: #('PowerBuilderParser') ];
