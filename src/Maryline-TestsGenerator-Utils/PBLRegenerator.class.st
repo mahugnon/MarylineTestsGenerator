@@ -28,7 +28,7 @@ PBLRegenerator >> ensureCreateOrcascriptFile [
 	^ file
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #api }
 PBLRegenerator >> ensurePBGFilesAreWellSet [
 	(self powerbuilderProjetDirectory files
 		select: [ :file | file extension = 'pbg' ])
@@ -73,12 +73,12 @@ PBLRegenerator >> pathToTarget: anObject [
 	pathToTarget := anObject asFileReference
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #api }
 PBLRegenerator >> powerbuilderProjetDirectory [
 	^ pathToTarget parent
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #api }
 PBLRegenerator >> runOcascript [
 	| command |
 	"Orcascript will put error log in the log file"
@@ -89,7 +89,7 @@ PBLRegenerator >> runOcascript [
 	^ self logFilePath contents
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #api }
 PBLRegenerator >> runner [
 	^ runner
 ]
