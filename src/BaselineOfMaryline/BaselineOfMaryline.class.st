@@ -9,11 +9,14 @@ BaselineOfMaryline >> baseline: spec [
 	<baseline>
 	self
 		baselineOfP3: spec;
-		baselineOfGlorp: spec.
+		baselineOfGlorp: spec;
+		baselineOfPWBUtilities: spec.
 	spec
 		for: #common
 		do: [ self baselineOfPowerBuilderParser: spec.
 			spec
+				package: 'Maryline-TestsGenerator-Utils';
+				package: 'Iceberg-ProjectLocator';
 				package: 'Maryline-TestsDataGenerator'
 					with: [ spec requires: #('PowerBuilderParser') ];
 				package: 'Maryline-TestsDataGenerator-Model'
@@ -38,6 +41,14 @@ BaselineOfMaryline >> baselineOfP3: spec [
 		baseline: 'P3'
 		with: [ spec
 				repository: 'github://mahugnon/P3:29-P3DatabaseDriver-should-have-connectSSL' ]
+]
+
+{ #category : #baselines }
+BaselineOfMaryline >> baselineOfPWBUtilities: spec [
+	spec
+		baseline: 'PWBUtilities'
+		with: [ spec
+				repository: 'github://mahugnon/PWBUtilities:master' ]
 ]
 
 { #category : #baselines }
