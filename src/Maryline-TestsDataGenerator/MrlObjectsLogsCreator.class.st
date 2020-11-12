@@ -40,6 +40,34 @@ MrlObjectsLogsCreator class >> loggerWithoutAccessForModel: aFamixPWBModel [
 	^ self loggerWithoutAccessFor: objects
 ]
 
+{ #category : #'as yet unclassified' }
+MrlObjectsLogsCreator class >> updateData: aBuilder [
+	<worldMenu>
+	(aBuilder item: #LoadingLastestTickets)
+		order: 10;
+		help: 'Insert logs in model root folder';
+		label: 'Generate mrl logs';
+		action: [ | model |
+			model := MooseModel root first.
+			(self loggerWithoutAccessForModel: model)
+				addConstraint:
+					(MrlLogsCreatorSkipBigFunctionConstraint new
+						name: 'uo_traitement_liq_cal';
+						constraint: {'uf_calcul_plafond' . 'uf_calcul_exp_limite_suite'};
+						yourself);
+				addConstraint:
+					(MrlLogsCreatorMaxNumberOfLogsConstraint new
+						name: 'uo_traitement_liq_cal';
+						constraint: 207;
+						yourself);
+				addConstraint:
+					(MrlLogsCreatorSkipBigFunctionConstraint new
+						name: 'uo_traitement_ech_maj';
+						constraint: {'uf_rech_prem_ech'};
+						yourself);
+				save ]
+]
+
 { #category : #adding }
 MrlObjectsLogsCreator >> addConstraint: aConstraint [
 	loggers
