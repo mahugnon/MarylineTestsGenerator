@@ -10,7 +10,8 @@ BaselineOfMaryline >> baseline: spec [
 	self
 		baselineOfP3: spec;
 		baselineOfGlorp: spec;
-		baselineOfPWBUtilities: spec.
+		baselineOfPWBUtilities: spec;
+		baselineOfPWBLoggers: spec .
 	spec
 		for: #common
 		do: [ self baselineOfPowerBuilderParser: spec.
@@ -40,6 +41,14 @@ BaselineOfMaryline >> baselineOfP3: spec [
 		baseline: 'P3'
 		with: [ spec
 				repository: 'github://mahugnon/P3:29-P3DatabaseDriver-should-have-connectSSL' ]
+]
+
+{ #category : #baselines }
+BaselineOfMaryline >> baselineOfPWBLoggers: spec [
+	spec
+		baseline: 'PWBLoggers'
+		with: [ spec
+				repository: 'github://mahugnon/PWBLogger:master' ]
 ]
 
 { #category : #baselines }
