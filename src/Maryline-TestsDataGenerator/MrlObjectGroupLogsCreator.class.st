@@ -1,5 +1,5 @@
 Class {
-	#name : #MrlObjectsLogsCreator,
+	#name : #MrlObjectGroupLogsCreator,
 	#superclass : #Object,
 	#instVars : [
 		'focus',
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MrlObjectsLogsCreator class >> loggerWithAccessFor: aCollection [
+MrlObjectGroupLogsCreator class >> loggerWithAccessFor: aCollection [
 	^ self new
 		focus: aCollection;
 		createwithAccessLoggers;
@@ -19,14 +19,14 @@ MrlObjectsLogsCreator class >> loggerWithAccessFor: aCollection [
 ]
 
 { #category : #'as yet unclassified' }
-MrlObjectsLogsCreator class >> loggerWithAccessForModel: aFamixPWBModel [
+MrlObjectGroupLogsCreator class >> loggerWithAccessForModel: aFamixPWBModel [
 	| objects |
 	objects := aFamixPWBModel getBusinessRuleFunctions keys.
 	^ self loggerWithAccessFor: objects
 ]
 
 { #category : #'as yet unclassified' }
-MrlObjectsLogsCreator class >> loggerWithoutAccessFor: aCollection [
+MrlObjectGroupLogsCreator class >> loggerWithoutAccessFor: aCollection [
 	^ self new
 		focus: aCollection;
 		createWithoutAccessLoggers;
@@ -34,14 +34,15 @@ MrlObjectsLogsCreator class >> loggerWithoutAccessFor: aCollection [
 ]
 
 { #category : #'as yet unclassified' }
-MrlObjectsLogsCreator class >> loggerWithoutAccessForModel: aFamixPWBModel [
+MrlObjectGroupLogsCreator class >> loggerWithoutAccessForModel: aFamixPWBModel [
 	| objects |
-	objects := aFamixPWBModel getBusinessRuleFunctions keys.
+	objects := aFamixPWBModel getBusinessRuleFunctionsFromToscaSenarios
+		keys.
 	^ self loggerWithoutAccessFor: objects
 ]
 
 { #category : #'as yet unclassified' }
-MrlObjectsLogsCreator class >> updateData: aBuilder [
+MrlObjectGroupLogsCreator class >> updateData: aBuilder [
 	<worldMenu>
 	(aBuilder item: #LoadingLastestTickets)
 		order: 10;
@@ -69,36 +70,36 @@ MrlObjectsLogsCreator class >> updateData: aBuilder [
 ]
 
 { #category : #adding }
-MrlObjectsLogsCreator >> addConstraint: aConstraint [
+MrlObjectGroupLogsCreator >> addConstraint: aConstraint [
 	loggers
 		detect: [ :logger | logger name = aConstraint name ]
 		ifFound: [ :founded | founded addConstraint: aConstraint ]
 ]
 
 { #category : #api }
-MrlObjectsLogsCreator >> createWithoutAccessLoggers [
+MrlObjectGroupLogsCreator >> createWithoutAccessLoggers [
 	loggers := focus
 		collect: [ :each | MrlObjectLogsCreator loggerWithoutAccessFor: each ]
 ]
 
 { #category : #api }
-MrlObjectsLogsCreator >> createwithAccessLoggers [
+MrlObjectGroupLogsCreator >> createwithAccessLoggers [
 	loggers := focus
 		collect: [ :each | MrlObjectLogsCreator loggerWithAccessFor: each ]
 ]
 
 { #category : #accessing }
-MrlObjectsLogsCreator >> focus: aCollection [ 
+MrlObjectGroupLogsCreator >> focus: aCollection [ 
 	focus := aCollection
 ]
 
 { #category : #accessing }
-MrlObjectsLogsCreator >> loggers [
+MrlObjectGroupLogsCreator >> loggers [
 	^ loggers
 ]
 
 { #category : #printing }
-MrlObjectsLogsCreator >> printOn: aStrem [
+MrlObjectGroupLogsCreator >> printOn: aStrem [
 	^ aStrem
 		<< 'Group';
 		space;
@@ -108,6 +109,6 @@ MrlObjectsLogsCreator >> printOn: aStrem [
 ]
 
 { #category : #actions }
-MrlObjectsLogsCreator >> save [
+MrlObjectGroupLogsCreator >> save [
 	loggers do: #save
 ]
