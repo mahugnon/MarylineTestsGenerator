@@ -16,6 +16,20 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+MrlBehavior class >> behaviorFromModel: aFamixPWBModel [
+	| famixBehaviors |
+	famixBehaviors := (aFamixPWBModel allWithType: FamixPWBFunction)
+		, (aFamixPWBModel allWithType: FamixPWBSubRoutine)
+		select: [ :each | each parentType isNotNil ].
+	^ self loadAll
+		flatCollect: [ :aBehavior | 
+			famixBehaviors
+				select: [ :each | 
+					each parentType name = aBehavior pwb_object
+						and: [ each name = aBehavior behavior_name ] ] ]
+]
+
+{ #category : #'as yet unclassified' }
 MrlBehavior class >> loadAll [
 	^ super loadAll reject: [ :each | each behavior_name isEmpty ]
 ]

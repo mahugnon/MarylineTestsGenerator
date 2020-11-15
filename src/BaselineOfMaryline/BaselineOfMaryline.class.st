@@ -20,7 +20,7 @@ BaselineOfMaryline >> baseline: spec [
 				package: 'Maryline-TestsDataGenerator'
 					with: [ spec requires: #('PowerBuilderParser') ];
 				package: 'Maryline-TestsDataGenerator-Model'
-					with: [ spec requires: #('Glorp' 'P3') ];
+					with: [ spec requires: #('Glorp' 'P3' 'P3-Glorp') ];
 				package: 'Maryline-TestsGenerator'
 					with: [ spec requires: #('Glorp' 'P3') ];
 				package: 'Maryline-TestsDataGenerator-Tests'
