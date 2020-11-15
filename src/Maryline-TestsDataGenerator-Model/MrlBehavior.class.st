@@ -21,12 +21,15 @@ MrlBehavior class >> behaviorFromModel: aFamixPWBModel [
 	famixBehaviors := (aFamixPWBModel allWithType: FamixPWBFunction)
 		, (aFamixPWBModel allWithType: FamixPWBSubRoutine)
 		select: [ :each | each parentType isNotNil ].
-	^ self loadAll
-		flatCollect: [ :aBehavior | 
-			famixBehaviors
-				select: [ :each | 
-					each parentType name = aBehavior pwb_object
-						and: [ each name = aBehavior behavior_name ] ] ]
+	^ aFamixPWBModel
+		setBusinessRuleFunctions:
+			((self loadAll
+				flatCollectAsSet: [ :aBehavior | 
+					famixBehaviors
+						select: [ :each | 
+							each parentType name = aBehavior pwb_object
+								and: [ each name = aBehavior behavior_name ] ] ])
+				groupedBy: #parentType)
 ]
 
 { #category : #'as yet unclassified' }
