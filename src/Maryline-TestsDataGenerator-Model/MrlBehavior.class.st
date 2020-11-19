@@ -34,7 +34,11 @@ MrlBehavior class >> behaviorFromModel: aFamixPWBModel [
 
 { #category : #'as yet unclassified' }
 MrlBehavior class >> loadAll [
-	^ super loadAll reject: [ :each | each behavior_name isEmpty ]
+	^ super loadAll
+		reject: [ :each | 
+			{'nvo_mdb_rdg' . 'nvo_config' . 'nvo_database_manager'.
+			'nvo_tools_file' . 'nvo_tools_ini'}
+				anySatisfy: [ :aString | aString = each pwb_object ] ]
 ]
 
 { #category : #accessing }
