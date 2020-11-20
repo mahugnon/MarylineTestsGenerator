@@ -9,7 +9,5 @@ Load
     	baseline: 'PWBTestsDataGenerator';
 	 onConflict: [ :e | e useIncoming ];
         onUpgrade: [ :e | e useIncoming ];
-        
-    	load
-      
-      ```
+        load
+	```
