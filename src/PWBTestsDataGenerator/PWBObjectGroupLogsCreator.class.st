@@ -47,7 +47,7 @@ PWBObjectGroupLogsCreator class >> updateData: aBuilder [
 	(aBuilder item: #LoadingLastestTickets)
 		order: 10;
 		help: 'Insert logs in model root folder';
-		label: 'GeneratePWBLogs';
+		label: 'Generate mrl logs';
 		action: [ | model |
 			model := MooseModel root first.
 			(self loggerWithoutAccessForModel: model)
