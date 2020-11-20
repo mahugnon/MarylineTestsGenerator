@@ -1,5 +1,5 @@
 Class {
-	#name : #MrlObjectGroupLogsCreator,
+	#name : #PWBObjectGroupLogsCreator,
 	#superclass : #Object,
 	#instVars : [
 		'focus',
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MrlObjectGroupLogsCreator class >> loggerWithAccessFor: aCollection [
+PWBObjectGroupLogsCreator class >> loggerWithAccessFor: aCollection [
 	^ self new
 		focus: aCollection;
 		createwithAccessLoggers;
@@ -19,14 +19,14 @@ MrlObjectGroupLogsCreator class >> loggerWithAccessFor: aCollection [
 ]
 
 { #category : #'as yet unclassified' }
-MrlObjectGroupLogsCreator class >> loggerWithAccessForModel: aFamixPWBModel [
+PWBObjectGroupLogsCreator class >> loggerWithAccessForModel: aFamixPWBModel [
 	| objects |
 	objects := aFamixPWBModel getBusinessRuleFunctions keys.
 	^ self loggerWithAccessFor: objects
 ]
 
 { #category : #'as yet unclassified' }
-MrlObjectGroupLogsCreator class >> loggerWithoutAccessFor: aCollection [
+PWBObjectGroupLogsCreator class >> loggerWithoutAccessFor: aCollection [
 	^ self new
 		focus: aCollection;
 		createWithoutAccessLoggers;
@@ -34,7 +34,7 @@ MrlObjectGroupLogsCreator class >> loggerWithoutAccessFor: aCollection [
 ]
 
 { #category : #'as yet unclassified' }
-MrlObjectGroupLogsCreator class >> loggerWithoutAccessForModel: aFamixPWBModel [
+PWBObjectGroupLogsCreator class >> loggerWithoutAccessForModel: aFamixPWBModel [
 	| objects |
 	objects := aFamixPWBModel getBusinessRuleFunctionsFromToscaSenarios
 		keys.
@@ -42,7 +42,7 @@ MrlObjectGroupLogsCreator class >> loggerWithoutAccessForModel: aFamixPWBModel [
 ]
 
 { #category : #'as yet unclassified' }
-MrlObjectGroupLogsCreator class >> updateData: aBuilder [
+PWBObjectGroupLogsCreator class >> updateData: aBuilder [
 	<worldMenu>
 	(aBuilder item: #LoadingLastestTickets)
 		order: 10;
@@ -52,21 +52,21 @@ MrlObjectGroupLogsCreator class >> updateData: aBuilder [
 			model := MooseModel root first.
 			(self loggerWithoutAccessForModel: model)
 				addConstraint:
-					(MrlLogsCreatorSkipBigFunctionConstraint new
+					(PWBLogsCreatorSkipBigFunctionConstraint new
 						name: 'uo_traitement_liq_cal';
 						constraint: {'uf_calcul_plafond' . 'uf_calcul_exp_limite_suite'};
 						yourself);
 				addConstraint:
-					(MrlLogsCreatorMaxNumberOfLogsConstraint new
+					(PWBLogsCreatorMaxNumberOfLogsConstraint new
 						name: 'uo_traitement_liq_cal';
 						constraint: 207;
 						yourself);
 				addConstraint:
-					(MrlLogsCreatorSkipBigFunctionConstraint new
+					(PWBLogsCreatorSkipBigFunctionConstraint new
 						name: 'uo_traitement_ech_maj';
 						constraint: {'uf_rech_prem_ech'};
 						yourself);	addConstraint:
-					(MrlLogsCreatorSkipBigFunctionConstraint new
+					(PWBLogsCreatorSkipBigFunctionConstraint new
 						name: 'w_traitement';
 						constraint: {'wf_iuo_trt'};
 						yourself);
@@ -74,36 +74,36 @@ MrlObjectGroupLogsCreator class >> updateData: aBuilder [
 ]
 
 { #category : #adding }
-MrlObjectGroupLogsCreator >> addConstraint: aConstraint [
+PWBObjectGroupLogsCreator >> addConstraint: aConstraint [
 	loggers
 		detect: [ :logger | logger name = aConstraint name ]
 		ifFound: [ :founded | founded addConstraint: aConstraint ]
 ]
 
 { #category : #api }
-MrlObjectGroupLogsCreator >> createWithoutAccessLoggers [
+PWBObjectGroupLogsCreator >> createWithoutAccessLoggers [
 	loggers := focus
-		collect: [ :each | MrlObjectLogsCreator loggerWithoutAccessFor: each ]
+		collect: [ :each | PWBObjectLogsCreator loggerWithoutAccessFor: each ]
 ]
 
 { #category : #api }
-MrlObjectGroupLogsCreator >> createwithAccessLoggers [
+PWBObjectGroupLogsCreator >> createwithAccessLoggers [
 	loggers := focus
-		collect: [ :each | MrlObjectLogsCreator loggerWithAccessFor: each ]
+		collect: [ :each | PWBObjectLogsCreator loggerWithAccessFor: each ]
 ]
 
 { #category : #accessing }
-MrlObjectGroupLogsCreator >> focus: aCollection [ 
+PWBObjectGroupLogsCreator >> focus: aCollection [ 
 	focus := aCollection
 ]
 
 { #category : #accessing }
-MrlObjectGroupLogsCreator >> loggers [
+PWBObjectGroupLogsCreator >> loggers [
 	^ loggers
 ]
 
 { #category : #printing }
-MrlObjectGroupLogsCreator >> printOn: aStrem [
+PWBObjectGroupLogsCreator >> printOn: aStrem [
 	^ aStrem
 		<< 'Group';
 		space;
@@ -113,6 +113,6 @@ MrlObjectGroupLogsCreator >> printOn: aStrem [
 ]
 
 { #category : #actions }
-MrlObjectGroupLogsCreator >> save [
+PWBObjectGroupLogsCreator >> save [
 	loggers do: #save
 ]

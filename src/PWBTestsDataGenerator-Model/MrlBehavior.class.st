@@ -126,13 +126,13 @@ MrlBehavior >> createAssertionsFromData [
 				ifTrue: [ assertons
 						add:
 							(self
-								ensureCreateAssertion: MrlPWBFunctionWithBasicTypesParametersUnitAssertion
+								ensureCreateAssertion: PWBFunctionWithBasicTypesParametersUnitAssertion
 								with: key
 								and: value) ]
 				ifFalse: [ assertons
 						add:
 							(self
-								ensureCreateAssertion: MrlPWBFunctionWithDataWindowParametersUnitAssertion
+								ensureCreateAssertion: PWBFunctionWithDataWindowParametersUnitAssertion
 								with: key
 								and: value) ] ].
 	^ assertons

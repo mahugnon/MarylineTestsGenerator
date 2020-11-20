@@ -1,11 +1,11 @@
 Class {
-	#name : #MrlPWBFunctionWithBasicTypesParametersUnitAssertion,
-	#superclass : #MrlPWBAbstractParametersUnitAssertion,
+	#name : #PWBFunctionWithBasicTypesParametersUnitAssertion,
+	#superclass : #PWBAbstractParametersUnitAssertion,
 	#category : #'PWBTestsGenerator-assertions'
 }
 
 { #category : #printing }
-MrlPWBFunctionWithBasicTypesParametersUnitAssertion >> assertNilOn: stream [
+PWBFunctionWithBasicTypesParametersUnitAssertion >> assertNilOn: stream [
 	stream
 		<< 'this.assert(';
 		space;
@@ -19,7 +19,7 @@ MrlPWBFunctionWithBasicTypesParametersUnitAssertion >> assertNilOn: stream [
 ]
 
 { #category : #printing }
-MrlPWBFunctionWithBasicTypesParametersUnitAssertion >> printFunctionInvocationScriptOn: stream [
+PWBFunctionWithBasicTypesParametersUnitAssertion >> printFunctionInvocationScriptOn: stream [
 	| param localVar |
 	localVar := 'l_' , behaviorParent.
 	stream
@@ -49,14 +49,14 @@ MrlPWBFunctionWithBasicTypesParametersUnitAssertion >> printFunctionInvocationSc
 ]
 
 { #category : #printing }
-MrlPWBFunctionWithBasicTypesParametersUnitAssertion >> printPWBDeclarationScriptOn: stream [
+PWBFunctionWithBasicTypesParametersUnitAssertion >> printPWBDeclarationScriptOn: stream [
 	self printFunctionInvocationScriptOn: stream.
 	self printReturnAssertionOn: stream.
 	^ stream
 ]
 
 { #category : #printing }
-MrlPWBFunctionWithBasicTypesParametersUnitAssertion >> printReturnAssertionOn: stream [
+PWBFunctionWithBasicTypesParametersUnitAssertion >> printReturnAssertionOn: stream [
 	behaviorReturnValue mrlValue
 		ifNil: [ self assertNilOn: stream ]
 		ifNotNil: [ stream

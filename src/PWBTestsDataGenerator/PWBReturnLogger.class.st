@@ -1,28 +1,28 @@
 Class {
-	#name : #MrlReturnLogger,
-	#superclass : #MrlAbstractLogger,
+	#name : #PWBReturnLogger,
+	#superclass : #PWBAbstractLogger,
 	#category : #'PWBTestsDataGenerator-Models'
 }
 
 { #category : #accessing }
-MrlReturnLogger >> belongsTo [
+PWBReturnLogger >> belongsTo [
 	^ focus behavioral
 ]
 
 { #category : #'as yet unclassified' }
-MrlReturnLogger >> endOn: stream [
+PWBReturnLogger >> endOn: stream [
 	stream
 		<< '");';
 		tab
 ]
 
 { #category : #testing }
-MrlReturnLogger >> isReturnLogger [
+PWBReturnLogger >> isReturnLogger [
 	^ true
 ]
 
 { #category : #'as yet unclassified' }
-MrlReturnLogger >> logOn: stream [
+PWBReturnLogger >> logOn: stream [
 	self startOn: stream.
 	stream
 		<< focus returnValue asString;
@@ -35,11 +35,11 @@ MrlReturnLogger >> logOn: stream [
 ]
 
 { #category : #'as yet unclassified' }
-MrlReturnLogger >> sortingKey [ 
+PWBReturnLogger >> sortingKey [ 
 ^30
 ]
 
 { #category : #'as yet unclassified' }
-MrlReturnLogger >> startOn: stream [
+PWBReturnLogger >> startOn: stream [
 	stream << 'f_mrl_logger().return_value_logger().log('
 ]

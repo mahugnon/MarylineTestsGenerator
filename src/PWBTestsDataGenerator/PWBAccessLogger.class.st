@@ -1,31 +1,31 @@
 Class {
-	#name : #MrlAccessLogger,
-	#superclass : #MrlAbstractLogger,
+	#name : #PWBAccessLogger,
+	#superclass : #PWBAbstractLogger,
 	#category : #'PWBTestsDataGenerator-Models'
 }
 
 { #category : #'as yet unclassified' }
-MrlAccessLogger class >> canlog: anObject [
+PWBAccessLogger class >> canlog: anObject [
 	^ anObject isKindOf: FamixPWBAccess
 ]
 
 { #category : #'as yet unclassified' }
-MrlAccessLogger class >> canlog: anObject withTag: aTag [
+PWBAccessLogger class >> canlog: anObject withTag: aTag [
 	^ anObject isKindOf: FamixPWBAccess
 ]
 
 { #category : #accessing }
-MrlAccessLogger >> belongsTo [
+PWBAccessLogger >> belongsTo [
 	^ focus accessor
 ]
 
 { #category : #testing }
-MrlAccessLogger >> isAccessLogger [
+PWBAccessLogger >> isAccessLogger [
 	^ true
 ]
 
 { #category : #'as yet unclassified' }
-MrlAccessLogger >> logOn: stream [
+PWBAccessLogger >> logOn: stream [
 	self startOn: stream.
 	stream
 		<< focus variable name;
@@ -45,11 +45,11 @@ MrlAccessLogger >> logOn: stream [
 ]
 
 { #category : #'as yet unclassified' }
-MrlAccessLogger >> sortingKey [
+PWBAccessLogger >> sortingKey [
 ^20
 ]
 
 { #category : #'as yet unclassified' }
-MrlAccessLogger >> startOn: stream [
+PWBAccessLogger >> startOn: stream [
 	stream << 'f_mrl_logger().access_logger().log('
 ]

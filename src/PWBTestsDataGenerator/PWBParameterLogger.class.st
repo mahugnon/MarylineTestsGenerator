@@ -1,32 +1,32 @@
 Class {
-	#name : #MrlParameterLogger,
-	#superclass : #MrlAbstractLogger,
+	#name : #PWBParameterLogger,
+	#superclass : #PWBAbstractLogger,
 	#category : #'PWBTestsDataGenerator-Models'
 }
 
 { #category : #'as yet unclassified' }
-MrlParameterLogger class >> canlog: anObject [
+PWBParameterLogger class >> canlog: anObject [
 	^ anObject isKindOf: FamixPWBParameter
 ]
 
 { #category : #'as yet unclassified' }
-MrlParameterLogger class >> canlog: anObject withTag: aTag [
+PWBParameterLogger class >> canlog: anObject withTag: aTag [
 	^ (anObject isKindOf: FamixPWBParameter)
-		and: [ (MrlEmptyParameterLogger canlog: anObject withTag: aTag) not ]
+		and: [ (PWBEmptyParameterLogger canlog: anObject withTag: aTag) not ]
 ]
 
 { #category : #accessing }
-MrlParameterLogger >> belongsTo [
+PWBParameterLogger >> belongsTo [
 	^ focus behavioral
 ]
 
 { #category : #testing }
-MrlParameterLogger >> isParameterLogger [
+PWBParameterLogger >> isParameterLogger [
 	^ true
 ]
 
 { #category : #'as yet unclassified' }
-MrlParameterLogger >> logOn: stream [
+PWBParameterLogger >> logOn: stream [
 	self startOn: stream.
 	stream
 		<< focus name;
@@ -44,6 +44,6 @@ MrlParameterLogger >> logOn: stream [
 ]
 
 { #category : #public }
-MrlParameterLogger >> startOn: stream [
+PWBParameterLogger >> startOn: stream [
 	stream << 'f_mrl_logger().parameter_logger().log("'
 ]

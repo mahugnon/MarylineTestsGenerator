@@ -1,5 +1,5 @@
 Class {
-	#name : #MrlObjectLogsCreator,
+	#name : #PWBObjectLogsCreator,
 	#superclass : #Object,
 	#instVars : [
 		'focus',
@@ -13,7 +13,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MrlObjectLogsCreator class >> loggerWithAccessFor: aFamixPWBmajorObject [
+PWBObjectLogsCreator class >> loggerWithAccessFor: aFamixPWBmajorObject [
 	^ self new
 		focus: aFamixPWBmajorObject;
 		createLoggers;
@@ -22,7 +22,7 @@ MrlObjectLogsCreator class >> loggerWithAccessFor: aFamixPWBmajorObject [
 ]
 
 { #category : #'as yet unclassified' }
-MrlObjectLogsCreator class >> loggerWithoutAccessFor: aFamixPWBmajorObject [
+PWBObjectLogsCreator class >> loggerWithoutAccessFor: aFamixPWBmajorObject [
 	^ self new
 		focus: aFamixPWBmajorObject;
 		logAccess: false;
@@ -31,48 +31,48 @@ MrlObjectLogsCreator class >> loggerWithoutAccessFor: aFamixPWBmajorObject [
 ]
 
 { #category : #adding }
-MrlObjectLogsCreator >> addConstraint: aConstraint [
+PWBObjectLogsCreator >> addConstraint: aConstraint [
 	constraints add: aConstraint.
 	aConstraint logsCreator: self
 ]
 
 { #category : #accessing }
-MrlObjectLogsCreator >> completeSourceWithLogs [
+PWBObjectLogsCreator >> completeSourceWithLogs [
 	^ completeSourceWithLogs
 ]
 
 { #category : #accessing }
-MrlObjectLogsCreator >> constraint [
+PWBObjectLogsCreator >> constraint [
 	^ constraints
 ]
 
 { #category : #api }
-MrlObjectLogsCreator >> createLoggers [
+PWBObjectLogsCreator >> createLoggers [
 	loggers := (focus getBusinessRuleFunctions
 		flatCollect:
-			[ :each | MrlFunctionLoggerCreator loggersFor: each accessOption: logAccess ])
+			[ :each | PWBFunctionLoggerCreator loggersFor: each accessOption: logAccess ])
 		groupedBy: #position
 ]
 
 { #category : #accessing }
-MrlObjectLogsCreator >> focus [
+PWBObjectLogsCreator >> focus [
 	^ focus
 ]
 
 { #category : #accessing }
-MrlObjectLogsCreator >> focus: aFamixPWBmajorObject [
+PWBObjectLogsCreator >> focus: aFamixPWBmajorObject [
 	focus := aFamixPWBmajorObject
 ]
 
 { #category : #initialization }
-MrlObjectLogsCreator >> initialize [
+PWBObjectLogsCreator >> initialize [
 	super initialize.
 	logAccess := true.
 	constraints := OrderedCollection new
 ]
 
 { #category : #api }
-MrlObjectLogsCreator >> logA: a lessThanLogB: b [ 
+PWBObjectLogsCreator >> logA: a lessThanLogB: b [ 
 a position < b position 
 ifTrue: [ ^true ].
 a sortingKey < b sortingKey
@@ -81,28 +81,28 @@ ifTrue: [ ^true ].
 ]
 
 { #category : #initialization }
-MrlObjectLogsCreator >> logAccess: aBoolean [
+PWBObjectLogsCreator >> logAccess: aBoolean [
 	logAccess := aBoolean
 ]
 
 { #category : #accessors }
-MrlObjectLogsCreator >> loggers [
+PWBObjectLogsCreator >> loggers [
 	^ loggers
 ]
 
 { #category : #accessing }
-MrlObjectLogsCreator >> loggers: aCollection [ 
+PWBObjectLogsCreator >> loggers: aCollection [ 
 	loggers := aCollection
 ]
 
 { #category : #accessing }
-MrlObjectLogsCreator >> name [
+PWBObjectLogsCreator >> name [
 	name ifNil: [ name := focus name ].
 	^ name
 ]
 
 { #category : #api }
-MrlObjectLogsCreator >> prepareLogs [
+PWBObjectLogsCreator >> prepareLogs [
 	| originalSource |
 	originalSource := focus sourceAnchor completeText.
 	completeSourceWithLogs := String
@@ -120,7 +120,7 @@ MrlObjectLogsCreator >> prepareLogs [
 ]
 
 { #category : #printing }
-MrlObjectLogsCreator >> printOn: aStrem [
+PWBObjectLogsCreator >> printOn: aStrem [
 	^ aStrem
 		<< self name;
 		space;
@@ -130,7 +130,7 @@ MrlObjectLogsCreator >> printOn: aStrem [
 ]
 
 { #category : #actions }
-MrlObjectLogsCreator >> save [
+PWBObjectLogsCreator >> save [
 	| focusFile utf8bomHeader |
 	self prepareLogs.
 	utf8bomHeader := #[16rEF 16rBB 16rBF].

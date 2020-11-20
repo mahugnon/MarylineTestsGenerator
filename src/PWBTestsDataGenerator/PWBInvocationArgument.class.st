@@ -1,5 +1,5 @@
 Class {
-	#name : #MRLInvocationArgument,
+	#name : #PWBInvocationArgument,
 	#superclass : #Object,
 	#instVars : [
 		'sender',
@@ -16,27 +16,27 @@ Class {
 }
 
 { #category : #accessing }
-MRLInvocationArgument >> argumentName [
+PWBInvocationArgument >> argumentName [
 	^ argumentName
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> argumentName: anObject [
+PWBInvocationArgument >> argumentName: anObject [
 	argumentName := anObject
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> argumentValue [
+PWBInvocationArgument >> argumentValue [
 	^ argumentValue
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> argumentValue: anObject [
+PWBInvocationArgument >> argumentValue: anObject [
 	argumentValue := anObject
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> file [
+PWBInvocationArgument >> file [
 	file
 		ifNil: [ file := sender sourceAnchor rootFolder asFileReference
 				resolve: sender sourceAnchor fileName ].
@@ -44,7 +44,7 @@ MRLInvocationArgument >> file [
 ]
 
 { #category : #api }
-MRLInvocationArgument >> generateInSourceTextMrlLogStrings [
+PWBInvocationArgument >> generateInSourceTextMrlLogStrings [
 	| beforeSenderText afterSenderText senderText |
 	self flag: #toRemove.
 	beforeSenderText := file contents
@@ -68,7 +68,7 @@ MRLInvocationArgument >> generateInSourceTextMrlLogStrings [
 ]
 
 { #category : #api }
-MRLInvocationArgument >> generateInSourceTextMrlLogStrings: aString [
+PWBInvocationArgument >> generateInSourceTextMrlLogStrings: aString [
 	| newSenderText |
 	newSenderText := aString copy.
 	(self invocationLines: aString)
@@ -82,7 +82,7 @@ MRLInvocationArgument >> generateInSourceTextMrlLogStrings: aString [
 ]
 
 { #category : #api }
-MRLInvocationArgument >> insertMrlLogStringsIn: aString [
+PWBInvocationArgument >> insertMrlLogStringsIn: aString [
 	| result |
 	(self invocationLines: aString)
 		do: [ :aLine | 
@@ -93,44 +93,44 @@ MRLInvocationArgument >> insertMrlLogStringsIn: aString [
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> invocationLineNumber [
+PWBInvocationArgument >> invocationLineNumber [
 	^ invocationLineNumber
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> invocationLineNumber: anObject [
+PWBInvocationArgument >> invocationLineNumber: anObject [
 	invocationLineNumber := anObject
 ]
 
 { #category : #api }
-MRLInvocationArgument >> invocationLines: sourceText [
+PWBInvocationArgument >> invocationLines: sourceText [
 	^ QueryInsertMrlCodeLines new
 		runOn: sourceText
 		with: self invocationText
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> invocationText [
+PWBInvocationArgument >> invocationText [
 	^ invocationText
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> invocationText: anObject [
+PWBInvocationArgument >> invocationText: anObject [
 	invocationText := anObject
 ]
 
 { #category : #api }
-MRLInvocationArgument >> mrlAfterLogString [
+PWBInvocationArgument >> mrlAfterLogString [
 	^self mrlLogString: 'after'
 ]
 
 { #category : #api }
-MRLInvocationArgument >> mrlBeforeLogString [
+PWBInvocationArgument >> mrlBeforeLogString [
 	^ self mrlLogString: 'before'
 ]
 
 { #category : #api }
-MRLInvocationArgument >> mrlLogString: aString [
+PWBInvocationArgument >> mrlLogString: aString [
 	| printable |
 	printable := argumentName copy.
 	self replacementMap keys
@@ -164,7 +164,7 @@ MRLInvocationArgument >> mrlLogString: aString [
 ]
 
 { #category : #api }
-MRLInvocationArgument >> mrlLogStringsFor: aLine [
+PWBInvocationArgument >> mrlLogStringsFor: aLine [
 	^ String
 		streamContents: [ :aStream | 
 			aStream
@@ -176,17 +176,17 @@ MRLInvocationArgument >> mrlLogStringsFor: aLine [
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> receiver [
+PWBInvocationArgument >> receiver [
 	^ receiver
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> receiver: anObject [
+PWBInvocationArgument >> receiver: anObject [
 	receiver := anObject
 ]
 
 { #category : #api }
-MRLInvocationArgument >> replacementMap [
+PWBInvocationArgument >> replacementMap [
 	^ {('/' -> '_dividedBy_').
 	('<>' -> '_isDifferentFrom_').
 	($" -> '').
@@ -196,7 +196,7 @@ MRLInvocationArgument >> replacementMap [
 ]
 
 { #category : #api }
-MRLInvocationArgument >> saveMrlLogStrings [
+PWBInvocationArgument >> saveMrlLogStrings [
 	| file beforeSenderText afterSenderText senderText initSize |
 	file := sender sourceAnchor rootFolder asFileReference
 		resolve: sender sourceAnchor fileName.
@@ -225,31 +225,31 @@ MRLInvocationArgument >> saveMrlLogStrings [
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> sender [
+PWBInvocationArgument >> sender [
 	^ sender
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> sender: anObject [
+PWBInvocationArgument >> sender: anObject [
 	sender := anObject
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> startPosition [
+PWBInvocationArgument >> startPosition [
 	^ startPosition
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> startPosition: anObject [
+PWBInvocationArgument >> startPosition: anObject [
 	startPosition := anObject
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> stopPosition [
+PWBInvocationArgument >> stopPosition [
 	^ stopPosition
 ]
 
 { #category : #accessing }
-MRLInvocationArgument >> stopPosition: anObject [
+PWBInvocationArgument >> stopPosition: anObject [
 	stopPosition := anObject
 ]

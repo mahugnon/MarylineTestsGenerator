@@ -1,5 +1,5 @@
 Class {
-	#name : #MrlJobs,
+	#name : #PWBJobs,
 	#superclass : #Object,
 	#instVars : [
 		'izyProtectTarget'
@@ -8,6 +8,6 @@ Class {
 }
 
 { #category : #accessing }
-MrlJobs >> izyProtectRootFolder [
+PWBJobs >> izyProtectRootFolder [
 	^ izyProtectTarget parent
 ]

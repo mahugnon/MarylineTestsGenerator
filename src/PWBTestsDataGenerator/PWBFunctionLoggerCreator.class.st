@@ -1,5 +1,5 @@
 Class {
-	#name : #MrlFunctionLoggerCreator,
+	#name : #PWBFunctionLoggerCreator,
 	#superclass : #Object,
 	#instVars : [
 		'focus',
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MrlFunctionLoggerCreator class >> loggersFor: aFamixPWBBehavior [
+PWBFunctionLoggerCreator class >> loggersFor: aFamixPWBBehavior [
 	^ self new
 		focus: aFamixPWBBehavior;
 		createLoggers;
@@ -19,14 +19,14 @@ MrlFunctionLoggerCreator class >> loggersFor: aFamixPWBBehavior [
 ]
 
 { #category : #api }
-MrlFunctionLoggerCreator class >> loggersFor: aFamixPWBFunction accessOption: aBolean [
+PWBFunctionLoggerCreator class >> loggersFor: aFamixPWBFunction accessOption: aBolean [
 	^ aBolean
 		ifTrue: [ self loggersWithAccessFor: aFamixPWBFunction ]
 		ifFalse: [ self loggersWithoutAccessFor: aFamixPWBFunction ]
 ]
 
 { #category : #'as yet unclassified' }
-MrlFunctionLoggerCreator class >> loggersWithAccessFor: aFamixPWBBehavior [
+PWBFunctionLoggerCreator class >> loggersWithAccessFor: aFamixPWBBehavior [
 	^ self new
 		focus: aFamixPWBBehavior;
 		createLoggers;
@@ -34,7 +34,7 @@ MrlFunctionLoggerCreator class >> loggersWithAccessFor: aFamixPWBBehavior [
 ]
 
 { #category : #'as yet unclassified' }
-MrlFunctionLoggerCreator class >> loggersWithoutAccessFor: aFamixPWBBehavior [
+PWBFunctionLoggerCreator class >> loggersWithoutAccessFor: aFamixPWBBehavior [
 	^ self new
 		focus: aFamixPWBBehavior;
 		logAccess: false;
@@ -43,12 +43,12 @@ MrlFunctionLoggerCreator class >> loggersWithoutAccessFor: aFamixPWBBehavior [
 ]
 
 { #category : #accessing }
-MrlFunctionLoggerCreator >> accessLoggers [
+PWBFunctionLoggerCreator >> accessLoggers [
 	^ loggers select: #isAccessLogger
 ]
 
 { #category : #api }
-MrlFunctionLoggerCreator >> createLoggers [
+PWBFunctionLoggerCreator >> createLoggers [
 self createVariableLoggers:'before'.
 self createVariableLoggers:'after'.
 self createReturnLoggers
@@ -56,22 +56,22 @@ self createReturnLoggers
 ]
 
 { #category : #api }
-MrlFunctionLoggerCreator >> createReturnLogger: return [
-	^ MrlReturnLogger new
+PWBFunctionLoggerCreator >> createReturnLogger: return [
+	^ PWBReturnLogger new
 		focus: return;
 		position: return sourceAnchor startPos;
 		yourself
 ]
 
 { #category : #api }
-MrlFunctionLoggerCreator >> createReturnLoggers [
+PWBFunctionLoggerCreator >> createReturnLoggers [
 	loggers
 		addAll:
 			(focus returns collect: [ :return | self createReturnLogger: return ])
 ]
 
 { #category : #api }
-MrlFunctionLoggerCreator >> createVariableLoggers: aTag [
+PWBFunctionLoggerCreator >> createVariableLoggers: aTag [
 	loggers
 		addAll:
 			(self variables
@@ -79,58 +79,58 @@ MrlFunctionLoggerCreator >> createVariableLoggers: aTag [
 ]
 
 { #category : #api }
-MrlFunctionLoggerCreator >> createVariableLoggers: aVariable withTag: aTag [
+PWBFunctionLoggerCreator >> createVariableLoggers: aVariable withTag: aTag [
 	| logger |
 	^ aTag = 'before'
-		ifTrue: [ logger := (MrlAbstractLogger loggerFor: aVariable tag: aTag)
+		ifTrue: [ logger := (PWBAbstractLogger loggerFor: aVariable tag: aTag)
 				position: focus signature sourceAnchor endPos + 1.
 			{logger} ]
 		ifFalse: [ focus returns
 				collect: [ :return | 
-					(MrlAbstractLogger loggerFor: aVariable tag: aTag)
+					(PWBAbstractLogger loggerFor: aVariable tag: aTag)
 						position: return sourceAnchor startPos ] ]
 ]
 
 { #category : #accessing }
-MrlFunctionLoggerCreator >> focus: aFamixPWBBehavior [
+PWBFunctionLoggerCreator >> focus: aFamixPWBBehavior [
 	focus := aFamixPWBBehavior
 ]
 
 { #category : #initialization }
-MrlFunctionLoggerCreator >> initialize [
+PWBFunctionLoggerCreator >> initialize [
 	super initialize.
 	loggers := OrderedCollection new.
 	logAccess := true
 ]
 
 { #category : #accessing }
-MrlFunctionLoggerCreator >> logAccess: anObject [
+PWBFunctionLoggerCreator >> logAccess: anObject [
 	logAccess := anObject
 ]
 
 { #category : #accessing }
-MrlFunctionLoggerCreator >> loggers [
+PWBFunctionLoggerCreator >> loggers [
 	^ loggers
 ]
 
 { #category : #accessing }
-MrlFunctionLoggerCreator >> loggers: anObject [
+PWBFunctionLoggerCreator >> loggers: anObject [
 	loggers := anObject
 ]
 
 { #category : #accessing }
-MrlFunctionLoggerCreator >> name [
+PWBFunctionLoggerCreator >> name [
 	name ifNil: [ name := focus name ].
 	^ name
 ]
 
 { #category : #accessing }
-MrlFunctionLoggerCreator >> parameterLoggers [
+PWBFunctionLoggerCreator >> parameterLoggers [
 	^ loggers select: #isParameterLogger
 ]
 
 { #category : #printing }
-MrlFunctionLoggerCreator >> printOn: aStrem [
+PWBFunctionLoggerCreator >> printOn: aStrem [
 	^ aStrem
 		<< self name;
 		space;
@@ -140,12 +140,12 @@ MrlFunctionLoggerCreator >> printOn: aStrem [
 ]
 
 { #category : #accessing }
-MrlFunctionLoggerCreator >> returnLoggers [
+PWBFunctionLoggerCreator >> returnLoggers [
 	^ loggers select: #isReturnLogger
 ]
 
 { #category : #accessing }
-MrlFunctionLoggerCreator >> variables [
+PWBFunctionLoggerCreator >> variables [
 	^ logAccess
 		ifTrue: [ focus parameters , focus instanceVariableAccesses ]
 		ifFalse: [ focus parameters ]

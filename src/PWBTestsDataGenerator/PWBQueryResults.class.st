@@ -1,5 +1,5 @@
 Class {
-	#name : #MRLQueryResults,
+	#name : #PWBQueryResults,
 	#superclass : #Collection,
 	#instVars : [
 		'storage'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-MRLQueryResults class >> withAll: aCollection [
+PWBQueryResults class >> withAll: aCollection [
 	"Create a new collection containing all the elements from aCollection."
 
 	^ self new
@@ -17,7 +17,7 @@ MRLQueryResults class >> withAll: aCollection [
 ]
 
 { #category : #adding }
-MRLQueryResults >> add: newObject [
+PWBQueryResults >> add: newObject [
 	"Include newObject as one of the receiver's elements. Answer newObject. 
 	ArrayedCollections cannot respond to this message."
 
@@ -25,36 +25,36 @@ MRLQueryResults >> add: newObject [
 ]
 
 { #category : #adding }
-MRLQueryResults >> addAll: aCollection [
+PWBQueryResults >> addAll: aCollection [
 	storage := aCollection
 ]
 
 { #category : #enumerating }
-MRLQueryResults >> do: aBlock [
+PWBQueryResults >> do: aBlock [
 	"Evaluate aBlock with each of the receiver's elements as the argument."
 
 	^ storage do: aBlock
 ]
 
 { #category : #api }
-MRLQueryResults >> first [
+PWBQueryResults >> first [
 	^ storage first
 ]
 
 { #category : #adding }
-MRLQueryResults >> initialize [
+PWBQueryResults >> initialize [
 
 	super initialize.
 	self initialize: OrderedCollection new
 ]
 
 { #category : #adding }
-MRLQueryResults >> initialize: aCollectionForStorage [
+PWBQueryResults >> initialize: aCollectionForStorage [
 	storage := aCollectionForStorage
 ]
 
 { #category : #removing }
-MRLQueryResults >> remove: oldObject ifAbsent: anExceptionBlock [
+PWBQueryResults >> remove: oldObject ifAbsent: anExceptionBlock [
 	"Remove oldObject from the receiver's elements. If several of the 
 	elements are equal to oldObject, only one is removed. If no element is 
 	equal to oldObject, answer the result of evaluating anExceptionBlock. 

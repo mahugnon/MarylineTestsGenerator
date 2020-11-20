@@ -1,11 +1,11 @@
 Class {
-	#name : #MrlLogsCreatorMaxNumberOfLogsConstraint,
-	#superclass : #MrlLogsCreatorAbstractConstraint,
+	#name : #PWBLogsCreatorMaxNumberOfLogsConstraint,
+	#superclass : #PWBLogsCreatorAbstractConstraint,
 	#category : #'PWBTestsDataGenerator-Models'
 }
 
 { #category : #api }
-MrlLogsCreatorMaxNumberOfLogsConstraint >> apply [
+PWBLogsCreatorMaxNumberOfLogsConstraint >> apply [
 	| logs finalLogs functionList currentFunction |
 	logs := (logsCreator loggers values flatten
 		reject: [ :each | each isEmptyLogger ]) sortAscending: #position.

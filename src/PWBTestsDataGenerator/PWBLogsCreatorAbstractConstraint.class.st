@@ -1,5 +1,5 @@
 Class {
-	#name : #MrlLogsCreatorAbstractConstraint,
+	#name : #PWBLogsCreatorAbstractConstraint,
 	#superclass : #Object,
 	#instVars : [
 		'constraint',
@@ -10,32 +10,32 @@ Class {
 }
 
 { #category : #api }
-MrlLogsCreatorAbstractConstraint >> apply [
+PWBLogsCreatorAbstractConstraint >> apply [
 self subclassResponsibility 
 ]
 
 { #category : #accessing }
-MrlLogsCreatorAbstractConstraint >> constraint [
+PWBLogsCreatorAbstractConstraint >> constraint [
 	^ constraint
 ]
 
 { #category : #accessing }
-MrlLogsCreatorAbstractConstraint >> constraint: aConstraint [
+PWBLogsCreatorAbstractConstraint >> constraint: aConstraint [
 constraint := aConstraint 
 ]
 
 { #category : #accessing }
-MrlLogsCreatorAbstractConstraint >> logsCreator: aMrlObjectLogsCreator [ 
+PWBLogsCreatorAbstractConstraint >> logsCreator: aMrlObjectLogsCreator [ 
 	logsCreator := aMrlObjectLogsCreator.
 	self apply 
 ]
 
 { #category : #accessing }
-MrlLogsCreatorAbstractConstraint >> name [
+PWBLogsCreatorAbstractConstraint >> name [
 	^ name
 ]
 
 { #category : #accessing }
-MrlLogsCreatorAbstractConstraint >> name: aString [
+PWBLogsCreatorAbstractConstraint >> name: aString [
 	name := aString
 ]

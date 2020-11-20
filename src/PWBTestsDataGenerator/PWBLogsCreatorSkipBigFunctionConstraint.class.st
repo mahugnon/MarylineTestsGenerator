@@ -1,11 +1,11 @@
 Class {
-	#name : #MrlLogsCreatorSkipBigFunctionConstraint,
-	#superclass : #MrlLogsCreatorAbstractConstraint,
+	#name : #PWBLogsCreatorSkipBigFunctionConstraint,
+	#superclass : #PWBLogsCreatorAbstractConstraint,
 	#category : #'PWBTestsDataGenerator-Models'
 }
 
 { #category : #api }
-MrlLogsCreatorSkipBigFunctionConstraint >> apply [
+PWBLogsCreatorSkipBigFunctionConstraint >> apply [
 	| loggers |
 	loggers := (logsCreator loggers values flatten
 		select: [ :log | 

@@ -1,11 +1,11 @@
 Class {
-	#name : #MrlPWBFunctionWithDataWindowParametersUnitAssertion,
-	#superclass : #MrlPWBAbstractParametersUnitAssertion,
+	#name : #PWBFunctionWithDataWindowParametersUnitAssertion,
+	#superclass : #PWBAbstractParametersUnitAssertion,
 	#category : #'PWBTestsGenerator-assertions'
 }
 
 { #category : #printing }
-MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printFunctionInvocationScriptOn: stream [
+PWBFunctionWithDataWindowParametersUnitAssertion >> printFunctionInvocationScriptOn: stream [
 	| param localVar |
 	self printParameterInitializationOn: stream.
 	localVar := 'l_' , behaviorParent.
@@ -37,7 +37,7 @@ MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printFunctionInvocationSc
 ]
 
 { #category : #printing }
-MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printPWBDeclarationScriptOn: stream [
+PWBFunctionWithDataWindowParametersUnitAssertion >> printPWBDeclarationScriptOn: stream [
 	self printWindowDwSetUpOn: stream.
 	self printFunctionInvocationScriptOn: stream.
 	stream
@@ -58,7 +58,7 @@ MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printPWBDeclarationScript
 ]
 
 { #category : #printing }
-MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printParameterInitializationOn: stream [
+PWBFunctionWithDataWindowParametersUnitAssertion >> printParameterInitializationOn: stream [
 	self mrlParameters
 		do: [ :param | 
 			param isPWBDataWindow
@@ -77,7 +77,7 @@ MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printParameterInitializat
 ]
 
 { #category : #printing }
-MrlPWBFunctionWithDataWindowParametersUnitAssertion >> printWindowDwSetUpOn: stream [
+PWBFunctionWithDataWindowParametersUnitAssertion >> printWindowDwSetUpOn: stream [
 	^ (MarylineDWFieldTypeExtractor
 		parameter: (self mrlParameters detect: [ :param | param isPWBDataWindow ]))
 		extractOn: stream

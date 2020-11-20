@@ -1,5 +1,5 @@
 Class {
-	#name : #MrlAbstractLogger,
+	#name : #PWBAbstractLogger,
 	#superclass : #Object,
 	#instVars : [
 		'position',
@@ -10,17 +10,17 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-MrlAbstractLogger class >> canlog: anObject [
+PWBAbstractLogger class >> canlog: anObject [
 	^ false
 ]
 
 { #category : #'as yet unclassified' }
-MrlAbstractLogger class >> canlog: anObject withTag: aTag [
+PWBAbstractLogger class >> canlog: anObject withTag: aTag [
 	^ false
 ]
 
 { #category : #'as yet unclassified' }
-MrlAbstractLogger class >> loggerFor: anObject tag: aTag [
+PWBAbstractLogger class >> loggerFor: anObject tag: aTag [
 	^ (self subclasses
 		detect: [ :sub | sub canlog: anObject withTag: aTag ]
 		ifNone: [ NotFound signal: 'Logger not found ... ' ]) new
@@ -30,69 +30,69 @@ MrlAbstractLogger class >> loggerFor: anObject tag: aTag [
 ]
 
 { #category : #accessing }
-MrlAbstractLogger >> belongsTo [
+PWBAbstractLogger >> belongsTo [
 self subclassResponsibility 
 ]
 
 { #category : #'as yet unclassified' }
-MrlAbstractLogger >> endOn: stream [
+PWBAbstractLogger >> endOn: stream [
 	stream
 		<< '");';
 		tab
 ]
 
 { #category : #accessors }
-MrlAbstractLogger >> focus [
+PWBAbstractLogger >> focus [
 	^ focus
 ]
 
 { #category : #accessing }
-MrlAbstractLogger >> focus: aFamixPWBParameter [
+PWBAbstractLogger >> focus: aFamixPWBParameter [
 	focus := aFamixPWBParameter.
 
 ]
 
 { #category : #testing }
-MrlAbstractLogger >> isAccessLogger [
+PWBAbstractLogger >> isAccessLogger [
 	^ false
 ]
 
 { #category : #testing }
-MrlAbstractLogger >> isEmptyLogger [
+PWBAbstractLogger >> isEmptyLogger [
 	^ false
 ]
 
 { #category : #testing }
-MrlAbstractLogger >> isParameterLogger [
+PWBAbstractLogger >> isParameterLogger [
 	^ false
 ]
 
 { #category : #testing }
-MrlAbstractLogger >> isReturnLogger [
+PWBAbstractLogger >> isReturnLogger [
 	^ false
 ]
 
 { #category : #'as yet unclassified' }
-MrlAbstractLogger >> logOn: aStream [ 
+PWBAbstractLogger >> logOn: aStream [ 
 self subclassResponsibility 
 ]
 
 { #category : #accessors }
-MrlAbstractLogger >> position [
+PWBAbstractLogger >> position [
 	^ position
 ]
 
 { #category : #accessor }
-MrlAbstractLogger >> position: anInteger [ 
+PWBAbstractLogger >> position: anInteger [ 
 	position := anInteger
 ]
 
 { #category : #accessors }
-MrlAbstractLogger >> tag [
+PWBAbstractLogger >> tag [
 	^ tag
 ]
 
 { #category : #accessing }
-MrlAbstractLogger >> tag: aString [ 
+PWBAbstractLogger >> tag: aString [ 
 	tag := aString
 ]

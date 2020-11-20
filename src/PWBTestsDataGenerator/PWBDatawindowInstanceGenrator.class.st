@@ -1,5 +1,5 @@
 Class {
-	#name : #MRLDatawindowInstanceGenrator,
+	#name : #PWBDatawindowInstanceGenrator,
 	#superclass : #Object,
 	#instVars : [
 		'name',
@@ -12,12 +12,12 @@ Class {
 }
 
 { #category : #accessing }
-MRLDatawindowInstanceGenrator >> cleanSyntax [
+PWBDatawindowInstanceGenrator >> cleanSyntax [
 	^ cleanSyntax
 ]
 
 { #category : #'as yet unclassified' }
-MRLDatawindowInstanceGenrator >> generationCreationCreationScript [
+PWBDatawindowInstanceGenrator >> generationCreationCreationScript [
 	script := String
 		streamContents: [ :stream | 
 			self printCreateDatawindowScriptOn: stream.
@@ -31,13 +31,13 @@ MRLDatawindowInstanceGenrator >> generationCreationCreationScript [
 ]
 
 { #category : #initialization }
-MRLDatawindowInstanceGenrator >> initialize [ 
+PWBDatawindowInstanceGenrator >> initialize [ 
 super initialize .
 script := ''.
 ]
 
 { #category : #api }
-MRLDatawindowInstanceGenrator >> initializeDatawindowScript [
+PWBDatawindowInstanceGenrator >> initializeDatawindowScript [
 	^ String
 		streamContents: [ :stream | 
 			stream
@@ -54,28 +54,28 @@ MRLDatawindowInstanceGenrator >> initializeDatawindowScript [
 ]
 
 { #category : #accessing }
-MRLDatawindowInstanceGenrator >> name [
+PWBDatawindowInstanceGenrator >> name [
 	^ name
 ]
 
 { #category : #accessing }
-MRLDatawindowInstanceGenrator >> name: aString [ 
+PWBDatawindowInstanceGenrator >> name: aString [ 
 	name := aString
 ]
 
 { #category : #accessing }
-MRLDatawindowInstanceGenrator >> originalSyntax [
+PWBDatawindowInstanceGenrator >> originalSyntax [
 	^ originalSyntax
 ]
 
 { #category : #accessing }
-MRLDatawindowInstanceGenrator >> originalSyntax: aString [
+PWBDatawindowInstanceGenrator >> originalSyntax: aString [
 	originalSyntax := aString.
 	self syntaxCleaning
 ]
 
 { #category : #api }
-MRLDatawindowInstanceGenrator >> printCreateDatawindowScriptOn: stream [
+PWBDatawindowInstanceGenrator >> printCreateDatawindowScriptOn: stream [
 	^ stream
 		<< 'datawindow';
 		space;
@@ -90,7 +90,7 @@ MRLDatawindowInstanceGenrator >> printCreateDatawindowScriptOn: stream [
 ]
 
 { #category : #'as yet unclassified' }
-MRLDatawindowInstanceGenrator >> printSelectSqlOn: aStream [
+PWBDatawindowInstanceGenrator >> printSelectSqlOn: aStream [
 	aStream
 		<< name;
 		<< '.SetSQLSelect(';
@@ -103,27 +103,27 @@ MRLDatawindowInstanceGenrator >> printSelectSqlOn: aStream [
 ]
 
 { #category : #accessing }
-MRLDatawindowInstanceGenrator >> script [
+PWBDatawindowInstanceGenrator >> script [
 	^ script
 ]
 
 { #category : #accessing }
-MRLDatawindowInstanceGenrator >> script: aString [ 
+PWBDatawindowInstanceGenrator >> script: aString [ 
 	script := aString
 ]
 
 { #category : #accessing }
-MRLDatawindowInstanceGenrator >> selectSql [
+PWBDatawindowInstanceGenrator >> selectSql [
 	^ selectSql
 ]
 
 { #category : #accessing }
-MRLDatawindowInstanceGenrator >> selectSql: anObject [
+PWBDatawindowInstanceGenrator >> selectSql: anObject [
 	selectSql := anObject
 ]
 
 { #category : #api }
-MRLDatawindowInstanceGenrator >> syntaxCleaning [
+PWBDatawindowInstanceGenrator >> syntaxCleaning [
 	cleanSyntax := originalSyntax
 		replaceAllRegex: 'release.*datawindow\(.*no \)'
 		with:
@@ -139,7 +139,7 @@ detail(height=72 color="536870912" )'
 ]
 
 { #category : #'as yet unclassified' }
-MRLDatawindowInstanceGenrator >> tranObjectString: aStream [
+PWBDatawindowInstanceGenrator >> tranObjectString: aStream [
 	aStream
 		<< name;
 		<< '.SetTransObject(SqlCa)';

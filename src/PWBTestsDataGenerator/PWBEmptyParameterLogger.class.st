@@ -1,31 +1,31 @@
 Class {
-	#name : #MrlEmptyParameterLogger,
-	#superclass : #MrlAbstractLogger,
+	#name : #PWBEmptyParameterLogger,
+	#superclass : #PWBAbstractLogger,
 	#category : #'PWBTestsDataGenerator-Models'
 }
 
 { #category : #'as yet unclassified' }
-MrlEmptyParameterLogger class >> canlog: anObject withTag: aTag [
+PWBEmptyParameterLogger class >> canlog: anObject withTag: aTag [
 	^ (anObject isKindOf: FamixPWBParameter)
 		and: [ anObject isReadOnly and: [ aTag = 'after' ] ]
 ]
 
 { #category : #accessing }
-MrlEmptyParameterLogger >> belongsTo [
+PWBEmptyParameterLogger >> belongsTo [
 	^ focus behavioral
 ]
 
 { #category : #testing }
-MrlEmptyParameterLogger >> isEmptyLogger [
+PWBEmptyParameterLogger >> isEmptyLogger [
 	^ true
 ]
 
 { #category : #'as yet unclassified' }
-MrlEmptyParameterLogger >> logOn: stream [
+PWBEmptyParameterLogger >> logOn: stream [
 	^ stream
 ]
 
 { #category : #'as yet unclassified' }
-MrlEmptyParameterLogger >> sortingKey [
+PWBEmptyParameterLogger >> sortingKey [
 ^50
 ]

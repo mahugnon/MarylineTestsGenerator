@@ -1,5 +1,5 @@
 Class {
-	#name : #MrlPWBAbstractParametersUnitAssertion,
+	#name : #PWBAbstractParametersUnitAssertion,
 	#superclass : #Object,
 	#instVars : [
 		'mrlParameters',
@@ -13,57 +13,57 @@ Class {
 }
 
 { #category : #accessing }
-MrlPWBAbstractParametersUnitAssertion >> behaviorName [
+PWBAbstractParametersUnitAssertion >> behaviorName [
 	^ behaviorName
 ]
 
 { #category : #accessing }
-MrlPWBAbstractParametersUnitAssertion >> behaviorName: anObject [
+PWBAbstractParametersUnitAssertion >> behaviorName: anObject [
 	behaviorName := anObject
 ]
 
 { #category : #accessing }
-MrlPWBAbstractParametersUnitAssertion >> behaviorParent [
+PWBAbstractParametersUnitAssertion >> behaviorParent [
 	^ behaviorParent
 ]
 
 { #category : #accessing }
-MrlPWBAbstractParametersUnitAssertion >> behaviorParent: anObject [
+PWBAbstractParametersUnitAssertion >> behaviorParent: anObject [
 	behaviorParent := anObject
 ]
 
 { #category : #accessing }
-MrlPWBAbstractParametersUnitAssertion >> behaviorReturnValue [
+PWBAbstractParametersUnitAssertion >> behaviorReturnValue [
 	^ behaviorReturnValue
 ]
 
 { #category : #accessing }
-MrlPWBAbstractParametersUnitAssertion >> behaviorReturnValue: anObject [
+PWBAbstractParametersUnitAssertion >> behaviorReturnValue: anObject [
 	behaviorReturnValue := anObject
 ]
 
 { #category : #accessing }
-MrlPWBAbstractParametersUnitAssertion >> mrlParameters [
+PWBAbstractParametersUnitAssertion >> mrlParameters [
 	^ mrlParameters sortAscending: #startPosition
 ]
 
 { #category : #accessing }
-MrlPWBAbstractParametersUnitAssertion >> mrlParameters: anObject [
+PWBAbstractParametersUnitAssertion >> mrlParameters: anObject [
 	mrlParameters := anObject
 ]
 
 { #category : #accessing }
-MrlPWBAbstractParametersUnitAssertion >> originalBehavior [
+PWBAbstractParametersUnitAssertion >> originalBehavior [
 	^ originalBehavior
 ]
 
 { #category : #accessing }
-MrlPWBAbstractParametersUnitAssertion >> originalBehavior: anObject [
+PWBAbstractParametersUnitAssertion >> originalBehavior: anObject [
 	originalBehavior := anObject
 ]
 
 { #category : #printing }
-MrlPWBAbstractParametersUnitAssertion >> printPWBDeclarationScript [
+PWBAbstractParametersUnitAssertion >> printPWBDeclarationScript [
 	| localVar param |
 	localVar := 'l_' , behaviorParent.
 	^ String
@@ -107,11 +107,11 @@ MrlPWBAbstractParametersUnitAssertion >> printPWBDeclarationScript [
 ]
 
 { #category : #accessing }
-MrlPWBAbstractParametersUnitAssertion >> timestamp [
+PWBAbstractParametersUnitAssertion >> timestamp [
 	^ timestamp
 ]
 
 { #category : #accessing }
-MrlPWBAbstractParametersUnitAssertion >> timestamp: aString [
+PWBAbstractParametersUnitAssertion >> timestamp: aString [
 	timestamp := aString
 ]
