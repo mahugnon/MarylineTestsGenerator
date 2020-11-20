@@ -44,8 +44,7 @@ MrlFunctionLoggerCreatorTests >> setUp [
 	famixModel := FamixPWBModel new.
 	testObject := FamixPWBUserObject new
 		name: 'testObject';
-		mooseModel: famixModel;
-		yourSelf.
+		mooseModel: famixModel.
 	self createTestFunctions
 ]
 

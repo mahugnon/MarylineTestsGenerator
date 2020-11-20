@@ -17,8 +17,7 @@ MrlAccessLoggerTests >> testAfterLogIsCorrect [
 	| testFunction testAccess log testObject testVariable |
 	testObject := FamixPWBUserObject new
 		name: 'testObject';
-		mooseModel: famixModel;
-		yourSelf.
+		mooseModel: famixModel.
 	testVariable := FamixPWBInstanceVariable new
 		name: 'testVariable';
 		parentType: testObject.
@@ -43,8 +42,7 @@ MrlAccessLoggerTests >> testBeforeLogIsCorrect [
 	| testFunction testAccess log testObject testVariable |
 	testObject := FamixPWBUserObject new
 		name: 'testObject';
-		mooseModel: famixModel;
-		yourSelf.
+		mooseModel: famixModel.
 	testVariable := FamixPWBInstanceVariable new
 		name: 'testVariable';
 		parentType: testObject.

@@ -20,8 +20,7 @@ MrlReturnTests >> testLogIsCorrect [
 		parentType:
 			(FamixPWBUserObject new
 				name: 'testObject';
-				mooseModel: famixModel;
-				yourSelf).
+				mooseModel: famixModel).
 	testReturn := FamixPWBFunctionReturn new
 		behavioral: testFunction;
 		returnValue: '1'.

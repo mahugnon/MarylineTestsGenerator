@@ -17,8 +17,7 @@ MrlParameterLoggerTests >> setUp [
 		parentType:
 			(FamixPWBUserObject new
 				name: 'testObject';
-				mooseModel: famixModel;
-				yourSelf).
+				mooseModel: famixModel).
 	testParameter := FamixPWBParameter new
 		behavioral: testFunction;
 		name: 'testParameter'
