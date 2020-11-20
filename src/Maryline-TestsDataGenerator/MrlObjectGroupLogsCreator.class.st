@@ -65,6 +65,10 @@ MrlObjectGroupLogsCreator class >> updateData: aBuilder [
 					(MrlLogsCreatorSkipBigFunctionConstraint new
 						name: 'uo_traitement_ech_maj';
 						constraint: {'uf_rech_prem_ech'};
+						yourself);	addConstraint:
+					(MrlLogsCreatorSkipBigFunctionConstraint new
+						name: 'w_traitement';
+						constraint: {'wf_iuo_trt'};
 						yourself);
 				save ]
 ]
