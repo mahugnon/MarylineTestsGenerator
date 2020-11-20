@@ -17,14 +17,14 @@ BaselineOfMaryline >> baseline: spec [
 		do: [ self baselineOfPowerBuilderParser: spec.
 			spec
 				package: 'Iceberg-ProjectLocator';
-				package: 'Maryline-TestsDataGenerator'
+				package: 'PWBTestsDataGenerator'
 					with: [ spec requires: #('PowerBuilderParser') ];
-				package: 'Maryline-TestsDataGenerator-Model'
+				package: 'PWBTestsDataGenerator-Model'
 					with: [ spec requires: #('Glorp' 'P3') ];
-				package: 'Maryline-TestsGenerator'
+				package: 'PWBTestsGenerator'
 					with: [ spec requires: #('Glorp' 'P3') ];
-				package: 'Maryline-TestsDataGenerator-Tests'
-					with: [ spec requires: #('Maryline-TestsDataGenerator') ] ]
+				package: 'PWBTestsDataGenerator-Tests'
+					with: [ spec requires: #('PWBTestsDataGenerator') ] ]
 ]
 
 { #category : #baselines }

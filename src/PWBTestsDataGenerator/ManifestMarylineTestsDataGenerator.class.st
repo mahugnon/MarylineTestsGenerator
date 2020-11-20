@@ -1,0 +1,13 @@
+"
+I store metadata for this package. These meta data are used by other tools such as the SmalllintManifestChecker and the critics Browser
+"
+Class {
+	#name : #ManifestMarylineTestsDataGenerator,
+	#superclass : #PackageManifest,
+	#category : #'PWBTestsDataGenerator-Manifest'
+}
+
+{ #category : #'code-critics' }
+ManifestMarylineTestsDataGenerator class >> ruleRBMethodSourceContainsLinefeedsRuleV1FalsePositive [
+	^ #(#(#(#RGClassDefinition #(#InsertLogBeforeFunction)) #'2020-10-08T15:16:27.243041+02:00') #(#(#RGClassDefinition #(#InsertLogAfterFunction)) #'2020-10-08T18:33:15.910897+02:00') #(#(#RGClassDefinition #(#InsertLogBeforeFunction)) #'2020-10-08T19:52:44.915642+02:00') )
+]
