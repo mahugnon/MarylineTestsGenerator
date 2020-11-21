@@ -1,5 +1,5 @@
 Class {
-	#name : #MrlObjectLoggerCreatorTests,
+	#name : #PWBObjectLoggerCreatorTests,
 	#superclass : #TestCase,
 	#instVars : [
 		'famixModel',
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #running }
-MrlObjectLoggerCreatorTests >> createAccesses [
+PWBObjectLoggerCreatorTests >> createAccesses [
 	| testAttribute |
 	testAttribute := FamixPWBAttribute new
 		name: 'testAttribute';
@@ -25,7 +25,7 @@ MrlObjectLoggerCreatorTests >> createAccesses [
 ]
 
 { #category : #running }
-MrlObjectLoggerCreatorTests >> createFunctions [
+PWBObjectLoggerCreatorTests >> createFunctions [
 	testFunction1 := FamixPWBFunction new
 		name: 'testfunction1';
 		parentType: testObject;
@@ -43,7 +43,7 @@ MrlObjectLoggerCreatorTests >> createFunctions [
 ]
 
 { #category : #running }
-MrlObjectLoggerCreatorTests >> createParameters [
+PWBObjectLoggerCreatorTests >> createParameters [
 	FamixPWBParameter new
 		name: 'testParameter1';
 		parameterType:
@@ -61,7 +61,7 @@ MrlObjectLoggerCreatorTests >> createParameters [
 ]
 
 { #category : #running }
-MrlObjectLoggerCreatorTests >> createReturns [
+PWBObjectLoggerCreatorTests >> createReturns [
 	FamixPWBFunctionReturn new
 		behavioral: testFunction1;
 		sourceAnchor: (FamixPWBIndexedFileAnchor new startPos: 46);
@@ -82,7 +82,7 @@ MrlObjectLoggerCreatorTests >> createReturns [
 ]
 
 { #category : #running }
-MrlObjectLoggerCreatorTests >> createSignatures [
+PWBObjectLoggerCreatorTests >> createSignatures [
 	FamixPWBBehaviorSignature new
 		mooseModel: famixModel;
 		behavioral: testFunction2;
@@ -100,7 +100,7 @@ MrlObjectLoggerCreatorTests >> createSignatures [
 ]
 
 { #category : #running }
-MrlObjectLoggerCreatorTests >> setUp [
+PWBObjectLoggerCreatorTests >> setUp [
 	famixModel := FamixPWBModel new.
 	testObject := FamixPWBUserObject new
 		name: 'testObject1';
@@ -120,7 +120,7 @@ MrlObjectLoggerCreatorTests >> setUp [
 ]
 
 { #category : #running }
-MrlObjectLoggerCreatorTests >> sourceExample [
+PWBObjectLoggerCreatorTests >> sourceExample [
 	^ 'private function integer testFunction1 ();
   return LLONG
 end function
@@ -133,12 +133,12 @@ end function'
 ]
 
 { #category : #'as yet unclassified' }
-MrlObjectLoggerCreatorTests >> sourceexampleWithLogs [
-^'private function integer testFunction1 ();
+PWBObjectLoggerCreatorTests >> sourceexampleWithLogs [
+^'private function integer testFunction1 ();	 string ls_time = String(DateTime(Today(), Now()),"DD/MM/YYYY HH:MM:SS:FFF"); 
   	f_mrl_logger().return_value_logger().log(LLONG,"testfunction1","testObject1");	return LLONG
 end function
 
-private function integer testFunction2 (long testParameter1, string testParameter2);	f_mrl_logger().parameter_logger().log("testParameter1",testParameter1,"testObject1","testfunction2","before");	f_mrl_logger().parameter_logger().log("testParameter2",testParameter2,"testObject1","testfunction2","before");	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","before","testfunction2","testObject1");	 
+private function integer testFunction2 (long testParameter1, string testParameter2);	 string ls_time = String(DateTime(Today(), Now()),"DD/MM/YYYY HH:MM:SS:FFF"); f_mrl_logger().parameter_logger().log("testParameter1",testParameter1,"testObject1","testfunction2","before");	f_mrl_logger().parameter_logger().log("testParameter2",testParameter2,"testObject1","testfunction2","before");	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","before","testfunction2","testObject1");	 
 this.ilong = 0
  if aLong >0 then 	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","after","testfunction2","testObject1");	f_mrl_logger().return_value_logger().log(1,"testfunction2","testObject1");	return 1
 	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","after","testfunction2","testObject1");	f_mrl_logger().return_value_logger().log(0,"testfunction2","testObject1");	retun 0
@@ -146,21 +146,21 @@ end function'
 ]
 
 { #category : #tests }
-MrlObjectLoggerCreatorTests >> testCreateObjectLoggers [
+PWBObjectLoggerCreatorTests >> testCreateObjectLoggers [
 	| logger |
 	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
-	self assert: logger loggers values flatten size equals: 12
+	self assert: logger loggers values flatten size equals: 14
 ]
 
 { #category : #tests }
-MrlObjectLoggerCreatorTests >> testCreateObjectsLogger [
+PWBObjectLoggerCreatorTests >> testCreateObjectsLogger [
 	| logger |
 	logger := PWBObjectGroupLogsCreator loggerWithAccessFor: {testObject}.
 	self assert: logger loggers size equals: 1
 ]
 
 { #category : #tests }
-MrlObjectLoggerCreatorTests >> testPrintObjectLogs [
+PWBObjectLoggerCreatorTests >> testPrintObjectLogs [
 	| logger |
 	logger := (PWBObjectLogsCreator loggerWithAccessFor: testObject)
 		prepareLogs.
@@ -170,16 +170,16 @@ MrlObjectLoggerCreatorTests >> testPrintObjectLogs [
 ]
 
 { #category : #'as yet unclassified' }
-MrlObjectLoggerCreatorTests >> testsAddNumberOfLoggersConstraint [
+PWBObjectLoggerCreatorTests >> testsAddNumberOfLoggersConstraint [
 	| logger |
 	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
 	logger
 		addConstraint: (PWBLogsCreatorMaxNumberOfLogsConstraint new constraint: 5).
-	self assert: logger loggers values  flatten size equals: 1
+	self assert: logger loggers values  flatten size equals: 2
 ]
 
 { #category : #'as yet unclassified' }
-MrlObjectLoggerCreatorTests >> testsAddNumberOfLoggersConstraint2 [
+PWBObjectLoggerCreatorTests >> testsAddNumberOfLoggersConstraint2 [
 	| logger |
 	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
 	logger
@@ -188,11 +188,11 @@ MrlObjectLoggerCreatorTests >> testsAddNumberOfLoggersConstraint2 [
 				name: 'testObject';
 				constraint: 15;
 				yourself).
-	self assert: logger loggers values flatten size equals: 12
+	self assert: logger loggers values flatten size equals: 14
 ]
 
 { #category : #'as yet unclassified' }
-MrlObjectLoggerCreatorTests >> testsAddSkipLargFunctionConstraint [
+PWBObjectLoggerCreatorTests >> testsAddSkipLargFunctionConstraint [
 	| logger |
 	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
 	logger
@@ -201,5 +201,5 @@ MrlObjectLoggerCreatorTests >> testsAddSkipLargFunctionConstraint [
 				constraint: {'testfunction1'}).
 	self
 		assert:
-		logger loggers values flatten size equals: 7
+		logger loggers values flatten size equals: 8
 ]

@@ -1,5 +1,5 @@
 Class {
-	#name : #MrlFunctionLoggerCreatorTests,
+	#name : #PWBFunctionLoggerCreatorTests,
 	#superclass : #TestCase,
 	#instVars : [
 		'famixModel',
@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : #tests }
-MrlFunctionLoggerCreatorTests >> createAccess [
+PWBFunctionLoggerCreatorTests >> createAccess [
 	| testAttribute |
 	testAttribute := FamixPWBAttribute new
 		name: 'testAttribute';
@@ -24,7 +24,7 @@ MrlFunctionLoggerCreatorTests >> createAccess [
 ]
 
 { #category : #tests }
-MrlFunctionLoggerCreatorTests >> createParameter [
+PWBFunctionLoggerCreatorTests >> createParameter [
 	^ FamixPWBParameter new
 		mooseModel: famixModel;
 		name: 'testParameter';
@@ -33,7 +33,7 @@ MrlFunctionLoggerCreatorTests >> createParameter [
 ]
 
 { #category : #tests }
-MrlFunctionLoggerCreatorTests >> createTestFunctions [
+PWBFunctionLoggerCreatorTests >> createTestFunctions [
 	testFunction := FamixPWBFunction new mooseModel: famixModel.
 	FamixPWBBehaviorSignature new
 		behavioral: testFunction;
@@ -45,7 +45,7 @@ MrlFunctionLoggerCreatorTests >> createTestFunctions [
 ]
 
 { #category : #running }
-MrlFunctionLoggerCreatorTests >> setUp [
+PWBFunctionLoggerCreatorTests >> setUp [
 	"Hooks that subclasses may override to define the fixture of test."
 
 	famixModel := FamixPWBModel new.
@@ -56,7 +56,7 @@ MrlFunctionLoggerCreatorTests >> setUp [
 ]
 
 { #category : #tests }
-MrlFunctionLoggerCreatorTests >> testCreateParameterAccessLoggers [
+PWBFunctionLoggerCreatorTests >> testCreateParameterAccessLoggers [
 	| logCreator |
 	self createAccess.
 	FamixPWBFunctionReturn new
@@ -76,7 +76,7 @@ MrlFunctionLoggerCreatorTests >> testCreateParameterAccessLoggers [
 ]
 
 { #category : #tests }
-MrlFunctionLoggerCreatorTests >> testCreateParameterAfterLoggers [
+PWBFunctionLoggerCreatorTests >> testCreateParameterAfterLoggers [
 	| logCreator createdLogger |
 	self createParameter.
 	FamixPWBFunctionReturn new
@@ -98,7 +98,7 @@ MrlFunctionLoggerCreatorTests >> testCreateParameterAfterLoggers [
 ]
 
 { #category : #tests }
-MrlFunctionLoggerCreatorTests >> testCreateParameterAfterLoggers1 [
+PWBFunctionLoggerCreatorTests >> testCreateParameterAfterLoggers1 [
 	| logCreator |
 self createParameter.
 	FamixPWBFunctionReturn new
@@ -128,7 +128,7 @@ self createParameter.
 ]
 
 { #category : #tests }
-MrlFunctionLoggerCreatorTests >> testCreateParameterAfterLoggers2 [
+PWBFunctionLoggerCreatorTests >> testCreateParameterAfterLoggers2 [
 	| logCreator createdLogger parameter |
 	parameter := self createParameter.
 	parameter parameterType: FamixPWBBasicType new;
@@ -152,7 +152,7 @@ MrlFunctionLoggerCreatorTests >> testCreateParameterAfterLoggers2 [
 ]
 
 { #category : #tests }
-MrlFunctionLoggerCreatorTests >> testCreateParameterBeforeLoggers [
+PWBFunctionLoggerCreatorTests >> testCreateParameterBeforeLoggers [
 	| logCreator createdLogger |
 	FamixPWBParameter new
 		mooseModel: famixModel;
@@ -177,7 +177,7 @@ MrlFunctionLoggerCreatorTests >> testCreateParameterBeforeLoggers [
 ]
 
 { #category : #tests }
-MrlFunctionLoggerCreatorTests >> testCreateParameterLoggers [
+PWBFunctionLoggerCreatorTests >> testCreateParameterLoggers [
 	| logCreator testReturn createdLogger |
 	testReturn := FamixPWBFunctionReturn new
 		mooseModel: famixModel;
@@ -199,7 +199,7 @@ MrlFunctionLoggerCreatorTests >> testCreateParameterLoggers [
 ]
 
 { #category : #tests }
-MrlFunctionLoggerCreatorTests >> testCreateReturnLoggers [
+PWBFunctionLoggerCreatorTests >> testCreateReturnLoggers [
 	| logCreator testReturn createdLogger |
 	testReturn := FamixPWBFunctionReturn new
 		mooseModel: famixModel;
@@ -221,7 +221,7 @@ MrlFunctionLoggerCreatorTests >> testCreateReturnLoggers [
 ]
 
 { #category : #tests }
-MrlFunctionLoggerCreatorTests >> testCreateRightLoggers [
+PWBFunctionLoggerCreatorTests >> testCreateRightLoggers [
 	| logCreator |
 	FamixPWBBehaviorSignature new
 		behavioral: testFunction;
@@ -245,7 +245,7 @@ MrlFunctionLoggerCreatorTests >> testCreateRightLoggers [
 ]
 
 { #category : #tests }
-MrlFunctionLoggerCreatorTests >> testCreateTimestampLoggers [
+PWBFunctionLoggerCreatorTests >> testCreateTimestampLoggers [
 	FamixPWBBehaviorSignature new
 		behavioral: testFunction;
 		mooseModel: famixModel;

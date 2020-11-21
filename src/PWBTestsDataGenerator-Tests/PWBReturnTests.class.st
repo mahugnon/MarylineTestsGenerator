@@ -1,5 +1,5 @@
 Class {
-	#name : #MrlReturnTests,
+	#name : #PWBReturnTests,
 	#superclass : #TestCase,
 	#instVars : [
 		'famixModel'
@@ -8,12 +8,12 @@ Class {
 }
 
 { #category : #running }
-MrlReturnTests >> setUp [
+PWBReturnTests >> setUp [
 	famixModel := FamixPWBModel new
 ]
 
 { #category : #running }
-MrlReturnTests >> testLogIsCorrect [
+PWBReturnTests >> testLogIsCorrect [
 	| testFunction testReturn log |
 	testFunction := FamixPWBFunction new
 		name: 'testFunction';
@@ -36,7 +36,7 @@ MrlReturnTests >> testLogIsCorrect [
 ]
 
 { #category : #running }
-MrlReturnTests >> testLogStartIsCorrect [
+PWBReturnTests >> testLogStartIsCorrect [
 	| log |
 	log := String
 		streamContents: [ :stream | PWBReturnLogger  new startOn: stream ].

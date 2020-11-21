@@ -1,5 +1,5 @@
 Class {
-	#name : #MrlAccessLoggerTests,
+	#name : #PWBAccessLoggerTests,
 	#superclass : #TestCase,
 	#instVars : [
 		'famixModel'
@@ -8,12 +8,12 @@ Class {
 }
 
 { #category : #running }
-MrlAccessLoggerTests >> setUp [
+PWBAccessLoggerTests >> setUp [
 	famixModel := FamixPWBModel new
 ]
 
 { #category : #running }
-MrlAccessLoggerTests >> testAfterLogIsCorrect [
+PWBAccessLoggerTests >> testAfterLogIsCorrect [
 	| testFunction testAccess log testObject testVariable |
 	testObject := FamixPWBUserObject new
 		name: 'testObject';
@@ -38,7 +38,7 @@ MrlAccessLoggerTests >> testAfterLogIsCorrect [
 ]
 
 { #category : #running }
-MrlAccessLoggerTests >> testBeforeLogIsCorrect [
+PWBAccessLoggerTests >> testBeforeLogIsCorrect [
 	| testFunction testAccess log testObject testVariable |
 	testObject := FamixPWBUserObject new
 		name: 'testObject';
@@ -63,7 +63,7 @@ MrlAccessLoggerTests >> testBeforeLogIsCorrect [
 ]
 
 { #category : #running }
-MrlAccessLoggerTests >> testLogStartIsCorrect [
+PWBAccessLoggerTests >> testLogStartIsCorrect [
 	| log |
 	log := String
 		streamContents: [ :stream | PWBAccessLogger  new startOn: stream ].
