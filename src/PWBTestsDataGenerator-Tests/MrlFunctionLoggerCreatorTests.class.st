@@ -34,7 +34,14 @@ MrlFunctionLoggerCreatorTests >> createParameter [
 
 { #category : #tests }
 MrlFunctionLoggerCreatorTests >> createTestFunctions [
-	testFunction := FamixPWBFunction new mooseModel: famixModel
+	testFunction := FamixPWBFunction new mooseModel: famixModel.
+	FamixPWBBehaviorSignature new
+		behavioral: testFunction;
+		mooseModel: famixModel;
+		sourceAnchor:
+			(FamixPWBIndexedFileAnchor new
+				mooseModel: famixModel;
+				endPos: 18).
 ]
 
 { #category : #running }
@@ -231,8 +238,23 @@ MrlFunctionLoggerCreatorTests >> testCreateRightLoggers [
 		focus: testFunction;
 		createLoggers;
 		yourself.
-	self assert: logCreator loggers size equals: 5.
+	self assert: logCreator loggers size equals: 6.
 	self assert: logCreator parameterLoggers size equals: 2.
 	self assert: logCreator returnLoggers size equals: 1.
 	self assert: logCreator accessLoggers size equals: 2
+]
+
+{ #category : #tests }
+MrlFunctionLoggerCreatorTests >> testCreateTimestampLoggers [
+	FamixPWBBehaviorSignature new
+		behavioral: testFunction;
+		mooseModel: famixModel;
+		sourceAnchor:
+			(FamixPWBIndexedFileAnchor new
+				mooseModel: famixModel;
+				endPos: 18).
+	self
+		assert:
+			(PWBFunctionLoggerCreator loggersFor: testFunction) anyOne
+				isTimestampLogger
 ]

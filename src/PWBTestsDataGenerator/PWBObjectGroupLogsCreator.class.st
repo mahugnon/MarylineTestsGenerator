@@ -54,7 +54,9 @@ PWBObjectGroupLogsCreator class >> updateData: aBuilder [
 				addConstraint:
 					(PWBLogsCreatorSkipBigFunctionConstraint new
 						name: 'uo_traitement_liq_cal';
-						constraint: {'uf_calcul_plafond' . 'uf_calcul_exp_limite_suite'};
+						constraint:
+							{'uf_calcul_plafond' . 'uf_calcul_exp_limite_suite'.
+							'uf_init_adherent'};
 						yourself);
 				addConstraint:
 					(PWBLogsCreatorMaxNumberOfLogsConstraint new
@@ -65,7 +67,13 @@ PWBObjectGroupLogsCreator class >> updateData: aBuilder [
 					(PWBLogsCreatorSkipBigFunctionConstraint new
 						name: 'uo_traitement_ech_maj';
 						constraint: {'uf_rech_prem_ech'};
-						yourself);	addConstraint:
+						yourself);
+				addConstraint:
+					(PWBLogsCreatorSkipBigFunctionConstraint new
+						name: 'w_traitement';
+						constraint: {'wf_iuo_trt'};
+						yourself);
+				addConstraint:
 					(PWBLogsCreatorSkipBigFunctionConstraint new
 						name: 'w_traitement';
 						constraint: {'wf_iuo_trt'};

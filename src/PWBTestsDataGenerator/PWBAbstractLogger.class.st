@@ -72,6 +72,11 @@ PWBAbstractLogger >> isReturnLogger [
 	^ false
 ]
 
+{ #category : #testing }
+PWBAbstractLogger >> isTimestampLogger [
+	^ false
+]
+
 { #category : #'as yet unclassified' }
 PWBAbstractLogger >> logOn: aStream [ 
 self subclassResponsibility 

@@ -49,6 +49,7 @@ PWBFunctionLoggerCreator >> accessLoggers [
 
 { #category : #api }
 PWBFunctionLoggerCreator >> createLoggers [
+self createTimestampLogger.
 self createVariableLoggers:'before'.
 self createVariableLoggers:'after'.
 self createReturnLoggers
@@ -68,6 +69,14 @@ PWBFunctionLoggerCreator >> createReturnLoggers [
 	loggers
 		addAll:
 			(focus returns collect: [ :return | self createReturnLogger: return ])
+]
+
+{ #category : #api }
+PWBFunctionLoggerCreator >> createTimestampLogger [
+	loggers
+		add:
+			((PWBTimestampLogger loggerFor: focus)
+				position: focus signature sourceAnchor endPos + 1)
 ]
 
 { #category : #api }
