@@ -1,7 +1,7 @@
 Class {
 	#name : #PWBAccessLogger,
 	#superclass : #PWBAbstractLogger,
-	#category : #'PWBTestsDataGenerator-Models'
+	#category : #'PWBTestsDataGenerator-Logger'
 }
 
 { #category : #'as yet unclassified' }

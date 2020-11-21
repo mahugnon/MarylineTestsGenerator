@@ -6,7 +6,7 @@ Class {
 		'logsCreator',
 		'name'
 	],
-	#category : #'PWBTestsDataGenerator-Models'
+	#category : #'PWBTestsDataGenerator-LogsCreators'
 }
 
 { #category : #api }

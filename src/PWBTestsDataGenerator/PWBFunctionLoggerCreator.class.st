@@ -7,7 +7,7 @@ Class {
 		'logAccess',
 		'name'
 	],
-	#category : #'PWBTestsDataGenerator-Models'
+	#category : #'PWBTestsDataGenerator-LogsCreators'
 }
 
 { #category : #'as yet unclassified' }

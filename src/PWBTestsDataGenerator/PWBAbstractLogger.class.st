@@ -6,7 +6,7 @@ Class {
 		'tag',
 		'focus'
 	],
-	#category : #'PWBTestsDataGenerator-Models'
+	#category : #'PWBTestsDataGenerator-Logger'
 }
 
 { #category : #'as yet unclassified' }
@@ -37,7 +37,7 @@ self subclassResponsibility
 { #category : #'as yet unclassified' }
 PWBAbstractLogger >> endOn: stream [
 	stream
-		<< '");';
+		<< '",ls_time);';
 		tab
 ]
 

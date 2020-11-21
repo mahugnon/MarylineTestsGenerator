@@ -1,7 +1,7 @@
 Class {
 	#name : #PWBLogsCreatorMaxNumberOfLogsConstraint,
 	#superclass : #PWBLogsCreatorAbstractConstraint,
-	#category : #'PWBTestsDataGenerator-Models'
+	#category : #'PWBTestsDataGenerator-LogsCreators'
 }
 
 { #category : #api }

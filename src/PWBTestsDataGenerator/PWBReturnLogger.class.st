@@ -1,19 +1,12 @@
 Class {
 	#name : #PWBReturnLogger,
 	#superclass : #PWBAbstractLogger,
-	#category : #'PWBTestsDataGenerator-Models'
+	#category : #'PWBTestsDataGenerator-Logger'
 }
 
 { #category : #accessing }
 PWBReturnLogger >> belongsTo [
 	^ focus behavioral
-]
-
-{ #category : #'as yet unclassified' }
-PWBReturnLogger >> endOn: stream [
-	stream
-		<< '");';
-		tab
 ]
 
 { #category : #testing }

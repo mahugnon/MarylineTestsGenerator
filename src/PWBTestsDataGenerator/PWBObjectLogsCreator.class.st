@@ -9,7 +9,7 @@ Class {
 		'name',
 		'constraints'
 	],
-	#category : #'PWBTestsDataGenerator-Models'
+	#category : #'PWBTestsDataGenerator-LogsCreators'
 }
 
 { #category : #'as yet unclassified' }

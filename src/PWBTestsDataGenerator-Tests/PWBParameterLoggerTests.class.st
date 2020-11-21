@@ -35,7 +35,7 @@ PWBParameterLoggerTests >> testAterLogIsCorrect [
 	self
 		assert: log
 		equals:
-			'f_mrl_logger().parameter_logger().log("testParameter",testParameter,"testObject","testFunction","after");	'
+			'f_mrl_logger().parameter_logger().log("testParameter",testParameter,"testObject","testFunction","after",ls_time);	'
 ]
 
 { #category : #tests }
@@ -84,7 +84,7 @@ PWBParameterLoggerTests >> testBeforeLogIsCorrect [
 	self
 		assert: log
 		equals:
-			'f_mrl_logger().parameter_logger().log("testParameter",testParameter,"testObject","testFunction","before");	'
+			'f_mrl_logger().parameter_logger().log("testParameter",testParameter,"testObject","testFunction","before",ls_time);	'
 ]
 
 { #category : #tests }
@@ -100,7 +100,7 @@ PWBParameterLoggerTests >> testLogEndIsCorrect [
 	| log |
 	log := String
 		streamContents: [ :stream | PWBParameterLogger new endOn: stream ].
-	self assert: log equals: '");	'
+	self assert: log equals: '",ls_time);	'
 ]
 
 { #category : #tests }
