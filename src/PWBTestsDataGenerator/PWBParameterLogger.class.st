@@ -43,6 +43,11 @@ PWBParameterLogger >> logOn: stream [
 	^ stream
 ]
 
+{ #category : #'as yet unclassified' }
+PWBParameterLogger >> sortingKey [
+^10
+]
+
 { #category : #public }
 PWBParameterLogger >> startOn: stream [
 	stream << 'f_mrl_logger().parameter_logger().log("'

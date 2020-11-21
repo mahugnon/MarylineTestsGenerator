@@ -24,7 +24,15 @@ PWBTimestampLogger >> isTimestampLogger [
 { #category : #'as yet unclassified' }
 PWBTimestampLogger >> logOn: aStream [
 	aStream
+		lf;
+		<< ' string ls_time ';
+		lf;
 		<<
-			' string ls_time = String(DateTime(Today(), Now()),"DD/MM/YYYY HH:MM:SS:FFF");';
-		space
+			'ls_time = String(DateTime(Today(), Now()),"DD/MM/YYYY HH:MM:SS:FFF")';
+		lf
+]
+
+{ #category : #'as yet unclassified' }
+PWBTimestampLogger >> sortingKey [
+^5
 ]

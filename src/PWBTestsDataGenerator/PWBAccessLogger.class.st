@@ -46,7 +46,7 @@ PWBAccessLogger >> logOn: stream [
 
 { #category : #'as yet unclassified' }
 PWBAccessLogger >> sortingKey [
-^20
+^15
 ]
 
 { #category : #'as yet unclassified' }

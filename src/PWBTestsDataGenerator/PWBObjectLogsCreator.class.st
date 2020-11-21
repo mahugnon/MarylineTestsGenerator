@@ -114,7 +114,9 @@ PWBObjectLogsCreator >> prepareLogs [
 					stream
 						<< (originalSource copyFrom: start to: key - 1);
 						tab.
-					(loggers at: key) do: [ :value | value logOn: stream ].
+					((loggers at: key)
+						sorted: [ :a :b | a sortingKey < b sortingKey ])
+						do: [ :value | value logOn: stream ].
 					start := key ].
 			stream << (originalSource copyFrom: start to: originalSource size) ]
 ]

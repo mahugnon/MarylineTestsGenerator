@@ -34,7 +34,7 @@ PWBAccessLoggerTests >> testAfterLogIsCorrect [
 				tag: 'after';
 				focus: testAccess;
 				logOn: stream ].
-	self assert: log equals: 'f_mrl_logger().access_logger().log(testVariable,"testVariable","testObject","after","testFunction","testObject");	'
+	self assert: log equals: 'f_mrl_logger().access_logger().log(testVariable,"testVariable","testObject","after","testFunction","testObject",ls_time);	'
 ]
 
 { #category : #running }
@@ -59,7 +59,7 @@ PWBAccessLoggerTests >> testBeforeLogIsCorrect [
 				tag: 'before';
 				focus: testAccess;
 				logOn: stream ].
-	self assert: log equals: 'f_mrl_logger().access_logger().log(testVariable,"testVariable","testObject","before","testFunction","testObject");	'
+	self assert: log equals: 'f_mrl_logger().access_logger().log(testVariable,"testVariable","testObject","before","testFunction","testObject",ls_time);	'
 ]
 
 { #category : #running }

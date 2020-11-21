@@ -32,7 +32,7 @@ PWBReturnTests >> testLogIsCorrect [
 	self
 		assert: log
 		equals:
-			'f_mrl_logger().return_value_logger().log(1,"testFunction","testObject");	'
+			'f_mrl_logger().return_value_logger().log(1,"testFunction","testObject",ls_time);	'
 ]
 
 { #category : #running }

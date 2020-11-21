@@ -29,7 +29,7 @@ PWBReturnLogger >> logOn: stream [
 
 { #category : #'as yet unclassified' }
 PWBReturnLogger >> sortingKey [ 
-^30
+^20
 ]
 
 { #category : #'as yet unclassified' }

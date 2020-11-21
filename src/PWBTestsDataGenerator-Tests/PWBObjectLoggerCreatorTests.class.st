@@ -134,11 +134,17 @@ end function'
 
 { #category : #'as yet unclassified' }
 PWBObjectLoggerCreatorTests >> sourceExampleWithLogs [
-^'private function integer testFunction1 ();	 string ls_time = String(DateTime(Today(), Now()),"DD/MM/YYYY HH:MM:SS:FFF"); 
+^'private function integer testFunction1 ();	
+ string ls_time 
+ls_time = String(DateTime(Today(), Now()),"DD/MM/YYYY HH:MM:SS:FFF")
+
   	f_mrl_logger().return_value_logger().log(LLONG,"testfunction1","testObject1",ls_time);	return LLONG
 end function
 
-private function integer testFunction2 (long testParameter1, string testParameter2);	 string ls_time = String(DateTime(Today(), Now()),"DD/MM/YYYY HH:MM:SS:FFF"); f_mrl_logger().parameter_logger().log("testParameter1",testParameter1,"testObject1","testfunction2","before",ls_time);	f_mrl_logger().parameter_logger().log("testParameter2",testParameter2,"testObject1","testfunction2","before",ls_time);	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","before","testfunction2","testObject1",ls_time);	 
+private function integer testFunction2 (long testParameter1, string testParameter2);	
+ string ls_time 
+ls_time = String(DateTime(Today(), Now()),"DD/MM/YYYY HH:MM:SS:FFF");
+f_mrl_logger().parameter_logger().log("testParameter1",testParameter1,"testObject1","testfunction2","before",ls_time);	f_mrl_logger().parameter_logger().log("testParameter2",testParameter2,"testObject1","testfunction2","before",ls_time);	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","before","testfunction2","testObject1",ls_time);	 
 this.ilong = 0
  if aLong >0 then 	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","after","testfunction2","testObject1",ls_time);	f_mrl_logger().return_value_logger().log(1,"testfunction2","testObject1",ls_time);	return 1
 	f_mrl_logger().access_logger().log(testAttribute,"testAttribute","testObject1","after","testfunction2","testObject1",ls_time);	f_mrl_logger().return_value_logger().log(0,"testfunction2","testObject1",ls_time);	retun 0
@@ -165,7 +171,10 @@ PWBObjectLoggerCreatorTests >> testPrintObjectLogs [
 	logger := (PWBObjectLogsCreator loggerWithAccessFor: testObject)
 		prepareLogs.
 	self
-		assert: logger completeSourceWithLogs
+		assert:
+			(logger completeSourceWithLogs
+				copyReplaceAll: String lf
+				with: String cr)
 		equals: self sourceExampleWithLogs
 ]
 
