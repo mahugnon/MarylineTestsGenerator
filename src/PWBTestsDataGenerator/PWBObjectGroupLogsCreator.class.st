@@ -44,7 +44,7 @@ PWBObjectGroupLogsCreator class >> loggerWithoutAccessForModel: aFamixPWBModel [
 PWBObjectGroupLogsCreator class >> updateData: aBuilder [
 	<worldMenu>
 	(aBuilder item: #LoadingLastestTickets)
-		order: 10;
+		parent: #PWBTools;
 		help: 'Insert logs in model root folder';
 		label: 'Generate mrl logs';
 		action: [ | model |
