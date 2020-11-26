@@ -7,4 +7,10 @@ SmalltalkCISpec {
       #platforms : [  #pharo ]
     }
   ]
+   ,
+  #testing : {
+    #coverage : {
+      #packages : [ 'PWBTestsDataGenerator*' ]
+    }
+  }
 }
