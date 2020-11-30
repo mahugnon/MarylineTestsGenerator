@@ -36,8 +36,7 @@ PWBObjectGroupLogsCreator class >> loggerWithoutAccessFor: aCollection [
 { #category : #'as yet unclassified' }
 PWBObjectGroupLogsCreator class >> loggerWithoutAccessForModel: aFamixPWBModel [
 	| objects |
-	objects := aFamixPWBModel getBusinessRuleFunctionsFromToscaSenarios
-		keys.
+	objects := aFamixPWBModel getBusinessRuleFunctions keys.
 	^ self loggerWithoutAccessFor: objects
 ]
 
