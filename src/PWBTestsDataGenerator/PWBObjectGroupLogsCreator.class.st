@@ -78,6 +78,11 @@ PWBObjectGroupLogsCreator class >> updateData: aBuilder [
 						name: 'w_traitement';
 						constraint: {'wf_iuo_trt'};
 						yourself);
+				addConstraint:
+					(PWBLogsCreatorSkipBigFunctionConstraint new
+						name: 'f_videsinull';
+						constraint: {'f_videsinull'};
+						yourself);
 				save ]
 ]
 
