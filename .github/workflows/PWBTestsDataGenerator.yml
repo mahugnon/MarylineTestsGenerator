@@ -1,4 +1,4 @@
-name: smalltalkCI Self Test
+name: PWBTestsDataGenerator health   
 
 on: [push, pull_request]
 
