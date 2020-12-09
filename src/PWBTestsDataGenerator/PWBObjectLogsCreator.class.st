@@ -17,7 +17,6 @@ PWBObjectLogsCreator class >> loggerWithAccessFor: aFamixPWBmajorObject [
 	^ self new
 		focus: aFamixPWBmajorObject;
 		createLoggers;
-		prepareLogs;
 		yourself
 ]
 

@@ -52,14 +52,18 @@ PWBAccessLoggerTests >> testBeforeLogIsCorrect [
 		yourself.
 	testAccess := FamixPWBAccess new
 		accessor: testFunction;
-		variable: testVariable.
+		variable: testVariable;
+		sourceAnchor: (FAMIXSourceTextAnchor new source: 'this.testVariable').
 	log := String
 		streamContents: [ :stream | 
 			PWBAccessLogger new
 				tag: 'before';
 				focus: testAccess;
 				logOn: stream ].
-	self assert: log equals: 'f_mrl_logger().access_logger().log(testVariable,"testVariable","testObject","before","testFunction","testObject",ls_time);	'
+	self
+		assert: log
+		equals:
+			'f_mrl_logger().access_logger().log(this.testVariable,"testVariable","testObject","before","testFunction","testObject",ls_time);	'
 ]
 
 { #category : #running }

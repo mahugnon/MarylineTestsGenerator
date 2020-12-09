@@ -28,7 +28,7 @@ PWBAccessLogger >> isAccessLogger [
 PWBAccessLogger >> logOn: stream [
 	self startOn: stream.
 	stream
-		<< focus variable name;
+		<< focus sourceText;
 		<< ',"';
 		<< focus variable name;
 		<< '","';
