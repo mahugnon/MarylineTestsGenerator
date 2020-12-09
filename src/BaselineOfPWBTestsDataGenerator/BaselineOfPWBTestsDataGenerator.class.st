@@ -25,7 +25,7 @@ BaselineOfPWBTestsDataGenerator >> baselineOfPWBTracers: spec [
 	spec
 		baseline: 'PWBTracers'
 		with: [ spec
-				repository: 'github://mahugnon/PWBTracers' ]
+				repository: 'github://mahugnon/PWBTracers:main' ]
 ]
 
 { #category : #baselines }
@@ -33,7 +33,7 @@ BaselineOfPWBTestsDataGenerator >> baselineOfPWBUtilities: spec [
 	spec
 		baseline: 'PWBUtilities'
 		with: [ spec
-				repository: 'github://mahugnon/PWBUtilities' ]
+				repository: 'github://mahugnon/PWBUtilities:main' ]
 ]
 
 { #category : #baselines }
@@ -41,5 +41,5 @@ BaselineOfPWBTestsDataGenerator >> baselineOfPowerBuilderParser: spec [
 	spec
 		baseline: 'PowerBuilderParser'
 		with: [ spec
-				repository: 'github://moosetechnology/PowerBuilderParser' ]
+				repository: 'github://moosetechnology/PowerBuilderParser:main' ]
 ]
