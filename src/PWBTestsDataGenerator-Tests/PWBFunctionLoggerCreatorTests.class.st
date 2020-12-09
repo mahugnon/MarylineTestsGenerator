@@ -20,7 +20,8 @@ PWBFunctionLoggerCreatorTests >> createAccess [
 	FamixPWBAccess new
 		source: testFunction;
 		target: testAttribute;
-		mooseModel: famixModel
+		mooseModel: famixModel;
+		isWrite: true
 ]
 
 { #category : #tests }
