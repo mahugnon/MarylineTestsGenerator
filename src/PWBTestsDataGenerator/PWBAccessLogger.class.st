@@ -26,11 +26,13 @@ PWBAccessLogger >> isAccessLogger [
 
 { #category : #'as yet unclassified' }
 PWBAccessLogger >> logOn: stream [
+	| varName |
+	varName := focus sourceText.
 	self startOn: stream.
 	stream
-		<< focus sourceText;
+		<< varName;
 		<< ',"';
-		<< focus variable name;
+		<< (varName copyReplaceAll: 'this.' with: '');
 		<< '","';
 		<< focus variable parentType name;
 		<< '","';
