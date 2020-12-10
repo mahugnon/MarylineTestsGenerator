@@ -49,7 +49,7 @@ PWBObjectLogsCreator >> constraint [
 PWBObjectLogsCreator >> createLoggers [
 	loggers := (focus getBusinessRuleFunctions
 		flatCollect:
-			[ :each | PWBFunctionLoggerCreator loggersFor: each accessOption: logAccess ])
+			[ :each | PWBBehaviorLoggerCreator loggersFor: each accessOption: logAccess ])
 		groupedBy: #position
 ]
 

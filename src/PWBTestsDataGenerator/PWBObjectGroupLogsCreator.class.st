@@ -46,10 +46,10 @@ PWBObjectGroupLogsCreator class >> updateData: aBuilder [
 	(aBuilder item: #LoadingLastestTickets)
 		parent: #PWBTools;
 		help: 'Insert logs in model root folder';
-		label: 'Generate mrl logs';
+		label: 'Generate logs script';
 		action: [ | model |
 			model := MooseModel root first.
-			(self loggerWithoutAccessForModel: model)
+			(self loggerWithAccessForModel: model)
 				addConstraint:
 					(PWBLogsCreatorSkipBigFunctionConstraint new
 						name: 'uo_traitement_liq_cal';
