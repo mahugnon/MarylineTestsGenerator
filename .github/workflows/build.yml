@@ -22,18 +22,20 @@ jobs:
         timeout-minutes: 15
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-   #Coverall       
-      - name: Use Node.js 10.x
-        uses: actions/setup-node@v1
-        with:
-         node-version: 10.x
 
-      - name: npm install, make test-coverage
-        run: |
-          npm install
-          make test-coverage
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
+#Coverall
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@v1.1.2
         with:
-         github-token: ${{ secrets.GITHUB_TOKEN }}  
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ${{matrix.os}}-${{matrix.smalltalk}}
+  #        parallel: true
+  # finish:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Coveralls Finished
+  #     uses: coverallsapp/github-action@master
+  #     with:
+  #       github-token: ${{ secrets.github_token }}
+  #       parallel-finished: true
