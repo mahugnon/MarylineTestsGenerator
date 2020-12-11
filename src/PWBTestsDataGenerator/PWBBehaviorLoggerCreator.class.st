@@ -144,6 +144,6 @@ PWBBehaviorLoggerCreator >> printOn: aStrem [
 { #category : #accessing }
 PWBBehaviorLoggerCreator >> variables [
 	^ logAccess
-		ifTrue: [ focus parameters , focus instanceVariableAccesses ]
+		ifTrue: [ focus parameters , focus getOneAccessPerInsVarAccessed ]
 		ifFalse: [ focus parameters ]
 ]

@@ -32,6 +32,6 @@ PWBFunctionLoggerCreator >> returnLoggers [
 { #category : #accessing }
 PWBFunctionLoggerCreator >> variables [
 	^ logAccess
-		ifTrue: [ focus parameters , focus instanceVariableAccesses ]
+		ifTrue: [ focus parameters , focus getOneAccessPerInsVarAccessed ]
 		ifFalse: [ focus parameters ]
 ]
