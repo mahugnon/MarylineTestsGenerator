@@ -42,6 +42,36 @@ PWBAccessLoggerTests >> testAfterLogIsCorrect [
 ]
 
 { #category : #running }
+PWBAccessLoggerTests >> testBeforeLogDataObjectIsCorrect [
+	| testFunction testAccess log testObject testVariable |
+	
+	testObject := FamixPWBUserObject new
+		name: 'testObject';
+		mooseModel: famixModel.
+	testVariable := FamixPWBInstanceVariable new
+		name: 'dataobject';
+		parentType: testObject.
+	testFunction := FamixPWBFunction new
+		name: 'testFunction';
+		parentType: testObject;
+		yourself.
+	testAccess := FamixPWBAccess new
+		accessor: testFunction;
+		variable: testVariable;
+		sourceAnchor: (FAMIXSourceTextAnchor new source: 'this.myvar.dataobject').
+	log := String
+		streamContents: [ :stream | 
+			PWBAccessLogger new
+				tag: 'before';
+				focus: testAccess;
+				logOn: stream ].
+	self
+		assert: log
+		equals:
+			'f_mrl_logger().access_logger().log(this.myvar,"myvar","testObject","before","testFunction","testObject",ls_time);	'
+]
+
+{ #category : #running }
 PWBAccessLoggerTests >> testBeforeLogIsCorrect [
 	| testFunction testAccess log testObject testVariable |
 	testObject := FamixPWBUserObject new
