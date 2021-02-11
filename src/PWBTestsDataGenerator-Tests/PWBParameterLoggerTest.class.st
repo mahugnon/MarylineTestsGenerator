@@ -1,16 +1,16 @@
 Class {
-	#name : #PWBParameterLoggerTests,
+	#name : #PWBParameterLoggerTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'famixModel',
-		'testFunction',
 		'testParameter'
 	],
 	#category : #'PWBTestsDataGenerator-Tests'
 }
 
 { #category : #running }
-PWBParameterLoggerTests >> setUp [
+PWBParameterLoggerTest >> setUp [
+	| famixModel testFunction |
+	super setUp.
 	famixModel := FamixPWBModel new.
 	testFunction := FamixPWBFunction new
 		name: 'testFunction';
@@ -24,7 +24,7 @@ PWBParameterLoggerTests >> setUp [
 ]
 
 { #category : #running }
-PWBParameterLoggerTests >> testAterLogIsCorrect [
+PWBParameterLoggerTest >> testAterLogIsCorrect [
 	| log |
 	log := String
 		streamContents: [ :stream | 
@@ -39,7 +39,7 @@ PWBParameterLoggerTests >> testAterLogIsCorrect [
 ]
 
 { #category : #tests }
-PWBParameterLoggerTests >> testBasicTypeParameterAfterLoggerISEmptyLogger [
+PWBParameterLoggerTest >> testBasicTypeParameterAfterLoggerISEmptyLogger [
 	| logger |
 	testParameter parameterType: FamixPWBBasicType new;parameterOption: 'ref'.
 	logger := PWBAbstractLogger loggerFor: testParameter tag: 'after'.
@@ -47,7 +47,7 @@ PWBParameterLoggerTests >> testBasicTypeParameterAfterLoggerISEmptyLogger [
 ]
 
 { #category : #tests }
-PWBParameterLoggerTests >> testBasicTypeParameterAfterLoggerISEmptyLogger1 [
+PWBParameterLoggerTest >> testBasicTypeParameterAfterLoggerISEmptyLogger1 [
 	| logger |
 	testParameter parameterType: FamixPWBBasicType new.
 	testParameter parameterOption: 'readOnly'.
@@ -56,7 +56,7 @@ PWBParameterLoggerTests >> testBasicTypeParameterAfterLoggerISEmptyLogger1 [
 ]
 
 { #category : #tests }
-PWBParameterLoggerTests >> testBasicTypeParameterBeforeLoggerISMrlParameterLogger [
+PWBParameterLoggerTest >> testBasicTypeParameterBeforeLoggerISMrlParameterLogger [
 	| logger |
 	testParameter parameterType: FamixPWBBasicType new.
 	logger := PWBAbstractLogger loggerFor: testParameter tag: 'before'.
@@ -64,7 +64,7 @@ PWBParameterLoggerTests >> testBasicTypeParameterBeforeLoggerISMrlParameterLogge
 ]
 
 { #category : #tests }
-PWBParameterLoggerTests >> testBasicTypeRefParameterAfterLoggerIsMrlParameterLogger2 [
+PWBParameterLoggerTest >> testBasicTypeRefParameterAfterLoggerIsMrlParameterLogger2 [
 	| logger |
 	testParameter parameterType: FamixPWBBasicType new.
 
@@ -73,7 +73,7 @@ PWBParameterLoggerTests >> testBasicTypeRefParameterAfterLoggerIsMrlParameterLog
 ]
 
 { #category : #running }
-PWBParameterLoggerTests >> testBeforeLogIsCorrect [
+PWBParameterLoggerTest >> testBeforeLogIsCorrect [
 	| log |
 	log := String
 		streamContents: [ :stream | 
@@ -88,7 +88,7 @@ PWBParameterLoggerTests >> testBeforeLogIsCorrect [
 ]
 
 { #category : #tests }
-PWBParameterLoggerTests >> testCustomTypeParameterLoggerIsMrlParameterLogger [
+PWBParameterLoggerTest >> testCustomTypeParameterLoggerIsMrlParameterLogger [
 	| logger |
 	testParameter parameterType: FamixPWBCustomType new.
 	logger := PWBAbstractLogger loggerFor: testParameter tag: 'after'.
@@ -96,7 +96,7 @@ PWBParameterLoggerTests >> testCustomTypeParameterLoggerIsMrlParameterLogger [
 ]
 
 { #category : #tests }
-PWBParameterLoggerTests >> testLogEndIsCorrect [
+PWBParameterLoggerTest >> testLogEndIsCorrect [
 	| log |
 	log := String
 		streamContents: [ :stream | PWBParameterLogger new endOn: stream ].
@@ -104,7 +104,7 @@ PWBParameterLoggerTests >> testLogEndIsCorrect [
 ]
 
 { #category : #tests }
-PWBParameterLoggerTests >> testLogStartIsCorrect [
+PWBParameterLoggerTest >> testLogStartIsCorrect [
 	| log |
 	log := String
 		streamContents: [ :stream | PWBParameterLogger new startOn: stream ].

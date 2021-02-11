@@ -1,5 +1,5 @@
 Class {
-	#name : #PWBObjectLoggerCreatorTests,
+	#name : #PWBObjectLoggerCreatorTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'famixModel',
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #running }
-PWBObjectLoggerCreatorTests >> createAccesses [
+PWBObjectLoggerCreatorTest >> createAccesses [
 	| testAttribute |
 	testAttribute := FamixPWBAttribute new
 		name: 'testAttribute';
@@ -27,7 +27,7 @@ PWBObjectLoggerCreatorTests >> createAccesses [
 ]
 
 { #category : #running }
-PWBObjectLoggerCreatorTests >> createFunctions [
+PWBObjectLoggerCreatorTest >> createFunctions [
 	testFunction1 := FamixPWBFunction new
 		name: 'testfunction1';
 		parentType: testObject;
@@ -45,7 +45,7 @@ PWBObjectLoggerCreatorTests >> createFunctions [
 ]
 
 { #category : #running }
-PWBObjectLoggerCreatorTests >> createParameters [
+PWBObjectLoggerCreatorTest >> createParameters [
 	FamixPWBParameter new
 		name: 'testParameter1';
 		parameterType:
@@ -63,7 +63,7 @@ PWBObjectLoggerCreatorTests >> createParameters [
 ]
 
 { #category : #running }
-PWBObjectLoggerCreatorTests >> createReturns [
+PWBObjectLoggerCreatorTest >> createReturns [
 	FamixPWBFunctionReturn new
 		behavioral: testFunction1;
 		sourceAnchor: (FamixPWBIndexedFileAnchor new startPos: 46);
@@ -84,7 +84,7 @@ PWBObjectLoggerCreatorTests >> createReturns [
 ]
 
 { #category : #running }
-PWBObjectLoggerCreatorTests >> createSignatures [
+PWBObjectLoggerCreatorTest >> createSignatures [
 	FamixPWBBehaviorSignature new
 		mooseModel: famixModel;
 		behavioral: testFunction2;
@@ -102,7 +102,8 @@ PWBObjectLoggerCreatorTests >> createSignatures [
 ]
 
 { #category : #running }
-PWBObjectLoggerCreatorTests >> setUp [
+PWBObjectLoggerCreatorTest >> setUp [
+	super setUp.
 	famixModel := FamixPWBModel new.
 	testObject := FamixPWBUserObject new
 		name: 'testObject1';
@@ -122,7 +123,7 @@ PWBObjectLoggerCreatorTests >> setUp [
 ]
 
 { #category : #running }
-PWBObjectLoggerCreatorTests >> sourceExample [
+PWBObjectLoggerCreatorTest >> sourceExample [
 	^ 'private function integer testFunction1 ();
   return LLONG
 end function
@@ -134,8 +135,8 @@ retun 0
 end function'
 ]
 
-{ #category : #'as yet unclassified' }
-PWBObjectLoggerCreatorTests >> sourceExampleWithLogs [
+{ #category : #running }
+PWBObjectLoggerCreatorTest >> sourceExampleWithLogs [
 	^'private function integer testFunction1 ();	
  string ls_time 
 ls_time = String(DateTime(Today(), Now()),"DD/MM/YYYY HH:MM:SS:FFF")
@@ -154,34 +155,7 @@ end function'
 ]
 
 { #category : #tests }
-PWBObjectLoggerCreatorTests >> testCreateObjectLoggers [
-	| logger |
-	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
-	self assert: logger loggers values flatten size equals: 14
-]
-
-{ #category : #tests }
-PWBObjectLoggerCreatorTests >> testCreateObjectsLogger [
-	| logger |
-	logger := PWBObjectGroupLogsCreator loggerWithAccessFor: {testObject}.
-	self assert: logger loggers size equals: 1
-]
-
-{ #category : #tests }
-PWBObjectLoggerCreatorTests >> testPrintObjectLogs [
-	| logger |
-	logger := (PWBObjectLogsCreator loggerWithAccessFor: testObject)
-		prepareLogs.
-	self
-		assert:
-			(logger completeSourceWithLogs
-				copyReplaceAll: String lf
-				with: String cr)
-		equals: self sourceExampleWithLogs
-]
-
-{ #category : #'as yet unclassified' }
-PWBObjectLoggerCreatorTests >> testsAddNumberOfLoggersConstraint [
+PWBObjectLoggerCreatorTest >> testAddNumberOfLoggersConstraint [
 	| logger |
 	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
 	logger
@@ -189,8 +163,8 @@ PWBObjectLoggerCreatorTests >> testsAddNumberOfLoggersConstraint [
 	self assert: logger loggers values  flatten size equals: 2
 ]
 
-{ #category : #'as yet unclassified' }
-PWBObjectLoggerCreatorTests >> testsAddNumberOfLoggersConstraint2 [
+{ #category : #tests }
+PWBObjectLoggerCreatorTest >> testAddNumberOfLoggersConstraint2 [
 	| logger |
 	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
 	logger
@@ -202,8 +176,8 @@ PWBObjectLoggerCreatorTests >> testsAddNumberOfLoggersConstraint2 [
 	self assert: logger loggers values flatten size equals: 14
 ]
 
-{ #category : #'as yet unclassified' }
-PWBObjectLoggerCreatorTests >> testsAddSkipLargFunctionConstraint [
+{ #category : #tests }
+PWBObjectLoggerCreatorTest >> testAddSkipLargFunctionConstraint [
 	| logger |
 	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
 	logger
@@ -213,4 +187,31 @@ PWBObjectLoggerCreatorTests >> testsAddSkipLargFunctionConstraint [
 	self
 		assert:
 		logger loggers values flatten size equals: 8
+]
+
+{ #category : #tests }
+PWBObjectLoggerCreatorTest >> testCreateObjectLoggers [
+	| logger |
+	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
+	self assert: logger loggers values flatten size equals: 14
+]
+
+{ #category : #tests }
+PWBObjectLoggerCreatorTest >> testCreateObjectsLogger [
+	| logger |
+	logger := PWBObjectGroupLogsCreator loggerWithAccessFor: {testObject}.
+	self assert: logger loggers size equals: 1
+]
+
+{ #category : #tests }
+PWBObjectLoggerCreatorTest >> testPrintObjectLogs [
+	| logger |
+	logger := (PWBObjectLogsCreator loggerWithAccessFor: testObject)
+		prepareLogs.
+	self
+		assert:
+			(logger completeSourceWithLogs
+				copyReplaceAll: String lf
+				with: String cr)
+		equals: self sourceExampleWithLogs
 ]

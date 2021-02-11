@@ -3,15 +3,23 @@ I'm a logger creator for a collection of  PowerBuilder objects
 "
 Class {
 	#name : #PWBObjectGroupLogsCreator,
-	#superclass : #Object,
+	#superclass : #SpPresenter,
 	#instVars : [
 		'focus',
 		'loggers',
 		'name',
-		'constraints'
+		'constraints',
+		'modelSelector'
 	],
 	#category : #'PWBTestsDataGenerator-LogsCreators'
 }
+
+{ #category : #specs }
+PWBObjectGroupLogsCreator class >> defaultSpec [
+	^ SpBoxLayout newVertical
+		add: #modelSelector;
+		yourself
+]
 
 { #category : #'as yet unclassified' }
 PWBObjectGroupLogsCreator class >> loggerWithAccessFor: aCollection [
@@ -44,15 +52,13 @@ PWBObjectGroupLogsCreator class >> loggerWithoutAccessForModel: aFamixPWBModel [
 ]
 
 { #category : #'as yet unclassified' }
-PWBObjectGroupLogsCreator class >> updateData: aBuilder [
-	<worldMenu>
-	(aBuilder item: #LoadingLastestTickets)
-		parent: #PWBTools;
-		help: 'Insert logs in model root folder';
-		label: 'Generate logs script';
-		action: [ | model |
-			model := MooseModel root first.
-			(self loggerWithAccessForModel: model)
+PWBObjectGroupLogsCreator class >> run [
+	<example>
+	| logCreator |
+	logCreator := self new.
+	logCreator openWithSpec.
+	logCreator window
+		whenWillCloseDo: [ logCreator
 				addConstraint:
 					(PWBLogsCreatorSkipBigFunctionConstraint new
 						name: 'uo_traitement_liq_cal';
@@ -88,6 +94,17 @@ PWBObjectGroupLogsCreator class >> updateData: aBuilder [
 				save ]
 ]
 
+{ #category : #'as yet unclassified' }
+PWBObjectGroupLogsCreator class >> updateData: aBuilder [
+	<worldMenu>
+	(aBuilder item: #LoadingLastestTickets)
+		parent: #PWBTools;
+		help: 'Insert logs in model root folder';
+		label: 'Generate logs script';
+		action:
+				[ self run ]
+]
+
 { #category : #adding }
 PWBObjectGroupLogsCreator >> addConstraint: aConstraint [
 	loggers
@@ -112,6 +129,27 @@ PWBObjectGroupLogsCreator >> focus: aCollection [
 	focus := aCollection
 ]
 
+{ #category : #initialization }
+PWBObjectGroupLogsCreator >> initializePresenters [
+	modelSelector := self instantiate: SpLabelledDropList.
+	modelSelector label: 'Select model:'.
+	modelSelector dropList help: 'Select the PowerBuilder model'.
+	modelSelector
+		items: MooseModel root allModels;
+		display: [ :model | model name ];
+		whenSelectedItemChangedDo: [ :model | 
+			self window close.
+			self runOn: model ]
+]
+
+{ #category : #initialization }
+PWBObjectGroupLogsCreator >> initializeWindow: aWindowPresenter [
+
+	aWindowPresenter 
+		title: 'PWB Logs creator';
+		initialExtent: 500@100
+]
+
 { #category : #accessing }
 PWBObjectGroupLogsCreator >> loggers [
 	^ loggers
@@ -125,6 +163,12 @@ PWBObjectGroupLogsCreator >> printOn: aStrem [
 		<< '(';
 		<< loggers size asString;
 		<< ')'
+]
+
+{ #category : #initialization }
+PWBObjectGroupLogsCreator >> runOn: model [
+	self focus: model getBusinessRuleFunctions keys.
+	self createwithAccessLoggers
 ]
 
 { #category : #actions }
