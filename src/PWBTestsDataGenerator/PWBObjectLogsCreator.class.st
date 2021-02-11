@@ -102,6 +102,7 @@ PWBObjectLogsCreator >> name [
 { #category : #api }
 PWBObjectLogsCreator >> prepareLogs [
 	| originalSource positions |
+	self loggedBehaviors do: #logged.
 	positions := self loggers collectAsSet: #position.
 	originalSource := focus sourceAnchor completeText.
 	completeSourceWithLogs := String

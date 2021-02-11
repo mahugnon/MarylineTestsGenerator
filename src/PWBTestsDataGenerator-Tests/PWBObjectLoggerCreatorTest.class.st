@@ -188,6 +188,14 @@ PWBObjectLoggerCreatorTest >> testAddSkipLargFunctionConstraint [
 ]
 
 { #category : #tests }
+PWBObjectLoggerCreatorTest >> testBehaviorAreSetToLogged [
+	| logger |
+	logger := (PWBObjectLogsCreator loggerWithAccessFor: testObject)
+		prepareLogs.
+	self assert: logger loggedBehaviors anyOne isLogged
+]
+
+{ #category : #tests }
 PWBObjectLoggerCreatorTest >> testCreateObjectLoggers [
 	| logger |
 	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
