@@ -114,7 +114,7 @@ PWBObjectLoggerCreatorTests >> setUp [
 	self createAccesses.
 	self createParameters.
 	famixModel
-		setBusinessRuleFunctions:
+		businessRuleFunctions:
 			{(testObject
 				->
 					{testFunction1.
