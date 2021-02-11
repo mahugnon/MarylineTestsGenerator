@@ -45,10 +45,9 @@ PWBObjectLogsCreator >> completeSourceWithLogs [
 
 { #category : #api }
 PWBObjectLogsCreator >> createLoggers [
-	loggers := (focus getBusinessRuleFunctions
+	loggers := focus getBusinessRuleFunctions
 		flatCollect:
-			[ :each | PWBBehaviorLoggerCreator loggersFor: each accessOption: logAccess ])
-		groupedBy: #position
+			[ :each | PWBBehaviorLoggerCreator loggersFor: each accessOption: logAccess ]
 ]
 
 { #category : #accessing }
@@ -73,6 +72,12 @@ PWBObjectLogsCreator >> logAccess: aBoolean [
 	logAccess := aBoolean
 ]
 
+{ #category : #'as yet unclassified' }
+PWBObjectLogsCreator >> loggedBehaviors [
+	^ self loggers values flatten
+		collectAsSet: [ :each | each behavioral ]
+]
+
 { #category : #accessors }
 PWBObjectLogsCreator >> loggers [
 	^ loggers
@@ -83,6 +88,12 @@ PWBObjectLogsCreator >> loggers: aCollection [
 	loggers := aCollection
 ]
 
+{ #category : #api }
+PWBObjectLogsCreator >> loggersWithPosition: position [
+	^ (loggers select: [ :logger | logger position = position ])
+		sorted: [ :a :b | a sortingKey < b sortingKey ]
+]
+
 { #category : #accessing }
 PWBObjectLogsCreator >> name [
 	name ifNil: [ name := focus name ].
@@ -91,21 +102,21 @@ PWBObjectLogsCreator >> name [
 
 { #category : #api }
 PWBObjectLogsCreator >> prepareLogs [
-	| originalSource |
+	| originalSource positions |
+	positions := self loggers collectAsSet: #position.
 	originalSource := focus sourceAnchor completeText.
 	completeSourceWithLogs := String
 		streamContents: [ :stream | 
 			| start |
 			start := 1.
-			(loggers keys sort: [ :a :b | a < b ])
-				do: [ :key | 
+			(positions sorted: [ :a :b | a < b ])
+				do: [ :position | 
 					stream
-						<< (originalSource copyFrom: start to: key - 1);
+						<< (originalSource copyFrom: start to: position - 1);
 						tab.
-					((loggers at: key)
-						sorted: [ :a :b | a sortingKey < b sortingKey ])
+					(self loggersWithPosition: position)
 						do: [ :value | value logOn: stream ].
-					start := key ].
+					start := position ].
 			stream << (originalSource copyFrom: start to: originalSource size) ]
 ]
 

@@ -17,7 +17,8 @@ Class {
 { #category : #specs }
 PWBObjectGroupLogsCreator class >> defaultSpec [
 	^ SpBoxLayout newVertical
-		add: #modelSelector;
+		add: #modelSelector
+			withConstraints: [ :constraint | constraint height: self toolbarHeight ];
 		yourself
 ]
 
@@ -56,42 +57,7 @@ PWBObjectGroupLogsCreator class >> run [
 	<example>
 	| logCreator |
 	logCreator := self new.
-	logCreator openWithSpec.
-	logCreator window
-		whenWillCloseDo: [ logCreator
-				addConstraint:
-					(PWBLogsCreatorSkipBigFunctionConstraint new
-						name: 'uo_traitement_liq_cal';
-						constraint:
-							{'uf_calcul_plafond' . 'uf_calcul_exp_limite_suite'.
-							'uf_init_adherent'};
-						yourself);
-				addConstraint:
-					(PWBLogsCreatorMaxNumberOfLogsConstraint new
-						name: 'uo_traitement_liq_cal';
-						constraint: 207;
-						yourself);
-				addConstraint:
-					(PWBLogsCreatorSkipBigFunctionConstraint new
-						name: 'uo_traitement_ech_maj';
-						constraint: {'uf_rech_prem_ech'};
-						yourself);
-				addConstraint:
-					(PWBLogsCreatorSkipBigFunctionConstraint new
-						name: 'w_traitement';
-						constraint: {'wf_iuo_trt'};
-						yourself);
-				addConstraint:
-					(PWBLogsCreatorSkipBigFunctionConstraint new
-						name: 'w_traitement';
-						constraint: {'wf_iuo_trt'};
-						yourself);
-				addConstraint:
-					(PWBLogsCreatorSkipBigFunctionConstraint new
-						name: 'f_videsinull';
-						constraint: {'f_videsinull'};
-						yourself);
-				save ]
+	logCreator openWithSpec
 ]
 
 { #category : #'as yet unclassified' }
@@ -110,6 +76,43 @@ PWBObjectGroupLogsCreator >> addConstraint: aConstraint [
 	loggers
 		detect: [ :logger | logger name = aConstraint name ]
 		ifFound: [ :founded | founded addConstraint: aConstraint ]
+]
+
+{ #category : #'as yet unclassified' }
+PWBObjectGroupLogsCreator >> applyConstraints [
+	self
+		addConstraint:
+			(PWBLogsCreatorSkipBigFunctionConstraint new
+				name: 'uo_traitement_liq_cal';
+				constraint:
+					{'uf_calcul_plafond' . 'uf_calcul_exp_limite_suite'.
+					'uf_init_adherent'};
+				yourself);
+		addConstraint:
+			(PWBLogsCreatorMaxNumberOfLogsConstraint new
+				name: 'uo_traitement_liq_cal';
+				constraint: 207;
+				yourself);
+		addConstraint:
+			(PWBLogsCreatorSkipBigFunctionConstraint new
+				name: 'uo_traitement_ech_maj';
+				constraint: {'uf_rech_prem_ech'};
+				yourself);
+		addConstraint:
+			(PWBLogsCreatorSkipBigFunctionConstraint new
+				name: 'w_traitement';
+				constraint: {'wf_iuo_trt'};
+				yourself);
+		addConstraint:
+			(PWBLogsCreatorSkipBigFunctionConstraint new
+				name: 'w_traitement';
+				constraint: {'wf_iuo_trt'};
+				yourself);
+		addConstraint:
+			(PWBLogsCreatorSkipBigFunctionConstraint new
+				name: 'f_videsinull';
+				constraint: {'f_videsinull'};
+				yourself)
 ]
 
 { #category : #api }
@@ -136,6 +139,7 @@ PWBObjectGroupLogsCreator >> initializePresenters [
 	modelSelector dropList help: 'Select the PowerBuilder model'.
 	modelSelector
 		items: MooseModel root allModels;
+		selectIndex: 1;
 		display: [ :model | model name ];
 		whenSelectedItemChangedDo: [ :model | 
 			self window close.
@@ -148,6 +152,11 @@ PWBObjectGroupLogsCreator >> initializeWindow: aWindowPresenter [
 	aWindowPresenter 
 		title: 'PWB Logs creator';
 		initialExtent: 500@100
+]
+
+{ #category : #api }
+PWBObjectGroupLogsCreator >> loggedBehaviors [
+	^ self loggers collect: [ :each | each loggedBehaviors ]
 ]
 
 { #category : #accessing }
@@ -168,7 +177,9 @@ PWBObjectGroupLogsCreator >> printOn: aStrem [
 { #category : #initialization }
 PWBObjectGroupLogsCreator >> runOn: model [
 	self focus: model getBusinessRuleFunctions keys.
-	self createwithAccessLoggers
+	self createwithAccessLoggers.
+	1 halt.
+	self applyConstraints
 ]
 
 { #category : #actions }

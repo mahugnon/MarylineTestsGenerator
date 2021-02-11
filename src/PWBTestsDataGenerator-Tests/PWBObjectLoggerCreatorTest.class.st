@@ -160,7 +160,7 @@ PWBObjectLoggerCreatorTest >> testAddNumberOfLoggersConstraint [
 	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
 	logger
 		addConstraint: (PWBLogsCreatorMaxNumberOfLogsConstraint new constraint: 5).
-	self assert: logger loggers values  flatten size equals: 2
+	self assert: logger loggers size equals: 2
 ]
 
 { #category : #tests }
@@ -173,7 +173,7 @@ PWBObjectLoggerCreatorTest >> testAddNumberOfLoggersConstraint2 [
 				name: 'testObject';
 				constraint: 15;
 				yourself).
-	self assert: logger loggers values flatten size equals: 14
+	self assert: logger loggers size equals: 14
 ]
 
 { #category : #tests }
@@ -184,16 +184,14 @@ PWBObjectLoggerCreatorTest >> testAddSkipLargFunctionConstraint [
 		addConstraint:
 			(PWBLogsCreatorSkipBigFunctionConstraint new
 				constraint: {'testfunction1'}).
-	self
-		assert:
-		logger loggers values flatten size equals: 8
+	self assert: logger loggers size equals: 8
 ]
 
 { #category : #tests }
 PWBObjectLoggerCreatorTest >> testCreateObjectLoggers [
 	| logger |
 	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
-	self assert: logger loggers values flatten size equals: 14
+	self assert: logger loggers size equals: 14
 ]
 
 { #category : #tests }
@@ -201,6 +199,15 @@ PWBObjectLoggerCreatorTest >> testCreateObjectsLogger [
 	| logger |
 	logger := PWBObjectGroupLogsCreator loggerWithAccessFor: {testObject}.
 	self assert: logger loggers size equals: 1
+]
+
+{ #category : #tests }
+PWBObjectLoggerCreatorTest >> testLoggedBehaviors [
+	| logger |
+	logger := PWBObjectGroupLogsCreator loggerWithAccessFor: {testObject}.
+	self
+		assertCollection: logger loggedBehaviors
+		hasSameElements: {testFunction1}
 ]
 
 { #category : #tests }
