@@ -5,3 +5,8 @@ FamixPWBEntity >> getBusinessRuleFunctions [
 	^ (self mooseModel getBusinessRuleFunctions at: self ifAbsent: {})
 		reject: [ :each | each isLogged ]
 ]
+
+{ #category : #'*PWBTestsDataGenerator' }
+FamixPWBEntity >> isParameter [
+	^ false
+]
