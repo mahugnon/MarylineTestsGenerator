@@ -160,7 +160,11 @@ PWBObjectLoggerCreatorTest >> testAddNumberOfLoggersConstraint [
 	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
 	logger
 		addConstraint: (PWBLogsCreatorMaxNumberOfLogsConstraint new constraint: 5).
-	self assert: logger loggers size equals: 2
+	self assert: logger loggers size equals: 2.
+	logger prepareLogs.
+	self
+		assert: testObject getBusinessRuleFunctions anyOne
+		equals: testFunction2
 ]
 
 { #category : #tests }
@@ -184,7 +188,11 @@ PWBObjectLoggerCreatorTest >> testAddSkipLargFunctionConstraint [
 		addConstraint:
 			(PWBLogsCreatorSkipBigFunctionConstraint new
 				constraint: {'testfunction1'}).
-	self assert: logger loggers size equals: 8
+	self assert: logger loggers size equals: 8.
+	logger prepareLogs.
+	self
+		assert: testObject getBusinessRuleFunctions anyOne
+		equals: testFunction1
 ]
 
 { #category : #tests }
@@ -192,7 +200,8 @@ PWBObjectLoggerCreatorTest >> testBehaviorAreSetToLogged [
 	| logger |
 	logger := (PWBObjectLogsCreator loggerWithAccessFor: testObject)
 		prepareLogs.
-	self assert: logger loggedBehaviors anyOne isLogged
+	self assert: logger loggedBehaviors anyOne isLogged.
+	self assert: testObject getBusinessRuleFunctions isEmpty
 ]
 
 { #category : #tests }

@@ -13,5 +13,5 @@ FamixPWBBehavioral >> isLogged [
 
 { #category : #'*PWBTestsDataGenerator' }
 FamixPWBBehavioral >> logged [
-	self attributeAt: #logState ifAbsentPut: true
+	self attributeAt: #logState put: true
 ]

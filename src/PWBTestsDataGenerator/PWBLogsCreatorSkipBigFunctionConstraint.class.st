@@ -14,6 +14,6 @@ PWBLogsCreatorSkipBigFunctionConstraint >> apply [
 			(logsCreator loggers
 				select: [ :log | 
 					(constraint
-						allSatisfy: [ :functionName | log belongsTo name ~= functionName ])
+						noneSatisfy: [ :functionName | log belongsTo name = functionName ])
 						and: [ log isEmptyLogger not ] ])
 ]
