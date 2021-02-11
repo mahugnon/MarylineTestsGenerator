@@ -214,14 +214,20 @@ PWBObjectLoggerCreatorTest >> testCreateObjectLoggers [
 { #category : #tests }
 PWBObjectLoggerCreatorTest >> testCreateObjectsLogger [
 	| logger |
-	logger := PWBObjectGroupLogsCreator loggerWithAccessFor: {testObject}.
+	logger := PWBObjectGroupLogsCreator new
+		focus: {testObject};
+		createwithAccessLoggers;
+		yourself.
 	self assert: logger loggers size equals: 1
 ]
 
 { #category : #tests }
 PWBObjectLoggerCreatorTest >> testLoggedBehaviors [
 	| logger |
-	logger := PWBObjectGroupLogsCreator loggerWithAccessFor: {testObject}.
+	logger := PWBObjectGroupLogsCreator new
+		focus: {testObject};
+		createwithAccessLoggers;
+		yourself.
 	self
 		assertCollection: logger loggedBehaviors
 		hasSameElements:

@@ -29,3 +29,9 @@ FamixPWBModel >> getRuntimeBehaviors [
 					(businessRuleFunctions at: founded parentType) add: founded ]
 				ifNone: [  ] ]
 ]
+
+{ #category : #'*PWBTestsDataGenerator' }
+FamixPWBModel >> resetLogState [
+	self allModelBehaviourals
+		do: [ :each | each privateState attributeAt: #logState put: false ]
+]

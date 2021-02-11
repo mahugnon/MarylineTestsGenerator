@@ -26,36 +26,6 @@ PWBObjectGroupLogsCreator class >> defaultSpec [
 ]
 
 { #category : #'as yet unclassified' }
-PWBObjectGroupLogsCreator class >> loggerWithAccessFor: aCollection [
-	^ self new
-		focus: aCollection;
-		createwithAccessLoggers;
-		yourself
-]
-
-{ #category : #'as yet unclassified' }
-PWBObjectGroupLogsCreator class >> loggerWithAccessForModel: aFamixPWBModel [
-	| objects |
-	objects := aFamixPWBModel getBusinessRuleFunctions keys.
-	^ self loggerWithAccessFor: objects
-]
-
-{ #category : #'as yet unclassified' }
-PWBObjectGroupLogsCreator class >> loggerWithoutAccessFor: aCollection [
-	^ self new
-		focus: aCollection;
-		createWithoutAccessLoggers;
-		yourself
-]
-
-{ #category : #'as yet unclassified' }
-PWBObjectGroupLogsCreator class >> loggerWithoutAccessForModel: aFamixPWBModel [
-	| objects |
-	objects := aFamixPWBModel getBusinessRuleFunctions keys.
-	^ self loggerWithoutAccessFor: objects
-]
-
-{ #category : #'as yet unclassified' }
 PWBObjectGroupLogsCreator class >> run [
 	<example>
 	| logCreator |
