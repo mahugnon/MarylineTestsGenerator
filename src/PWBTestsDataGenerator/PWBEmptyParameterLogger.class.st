@@ -1,3 +1,6 @@
+"
+I represent a no parameter. I'm used as a null object pattern
+"
 Class {
 	#name : #PWBEmptyParameterLogger,
 	#superclass : #PWBAbstractLogger,
@@ -6,7 +9,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 PWBEmptyParameterLogger class >> canlog: anObject withTag: aTag [
-	^ (anObject isKindOf: FamixPWBParameter)
+	^ anObject isParameter
 		and: [ anObject isReadOnly and: [ aTag = 'after' ] ]
 ]
 
@@ -20,12 +23,12 @@ PWBEmptyParameterLogger >> isEmptyLogger [
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #sorting }
 PWBEmptyParameterLogger >> logOn: stream [
 	^ stream
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #sorting }
 PWBEmptyParameterLogger >> sortingKey [
 ^50
 ]

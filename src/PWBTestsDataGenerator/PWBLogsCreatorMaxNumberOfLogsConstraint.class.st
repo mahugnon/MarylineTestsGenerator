@@ -1,3 +1,6 @@
+"
+I am a constraint  to apply for Loggers. When I am applyied, I limit the number of logs of a Powerbuilder object
+"
 Class {
 	#name : #PWBLogsCreatorMaxNumberOfLogsConstraint,
 	#superclass : #PWBLogsCreatorAbstractConstraint,

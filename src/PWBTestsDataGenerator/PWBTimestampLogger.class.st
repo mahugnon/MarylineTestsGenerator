@@ -1,3 +1,6 @@
+"
+I represent a timestamp  log
+"
 Class {
 	#name : #PWBTimestampLogger,
 	#superclass : #PWBAbstractLogger,
@@ -11,7 +14,7 @@ PWBTimestampLogger class >> loggerFor: aFamixPWBBehavior [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 PWBTimestampLogger >> belongsTo [
 	^ focus
 ]
@@ -21,7 +24,7 @@ PWBTimestampLogger >> isTimestampLogger [
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #logging }
 PWBTimestampLogger >> logOn: aStream [
 	aStream
 		lf;
@@ -32,7 +35,7 @@ PWBTimestampLogger >> logOn: aStream [
 		lf
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #sorting }
 PWBTimestampLogger >> sortingKey [
 ^5
 ]

@@ -1,3 +1,6 @@
+"
+I represent  an access log
+"
 Class {
 	#name : #PWBAccessLogger,
 	#superclass : #PWBAbstractLogger,
@@ -5,13 +8,8 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-PWBAccessLogger class >> canlog: anObject [
-	^ anObject isKindOf: FamixPWBAccess
-]
-
-{ #category : #'as yet unclassified' }
 PWBAccessLogger class >> canlog: anObject withTag: aTag [
-	^ anObject isKindOf: FamixPWBAccess
+	^ anObject isAccess
 ]
 
 { #category : #accessing }
@@ -24,7 +22,7 @@ PWBAccessLogger >> isAccessLogger [
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : #logging }
 PWBAccessLogger >> logOn: stream [
 	| varName |
 	"Dataobject allways belongsTo  a datawindow attribute. The goal here is to log the datawindow instead of the dataobject. Because the data object might be the same but data have changed"
@@ -50,12 +48,12 @@ PWBAccessLogger >> logOn: stream [
 	^ stream
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #sorting }
 PWBAccessLogger >> sortingKey [
 ^15
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #logging }
 PWBAccessLogger >> startOn: stream [
 	stream << 'f_mrl_logger().access_logger().log('
 ]

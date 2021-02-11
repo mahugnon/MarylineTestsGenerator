@@ -1,3 +1,6 @@
+"
+I am a constraint  to apply for Loggers
+"
 Class {
 	#name : #PWBLogsCreatorAbstractConstraint,
 	#superclass : #Object,
@@ -12,11 +15,6 @@ Class {
 { #category : #api }
 PWBLogsCreatorAbstractConstraint >> apply [
 self subclassResponsibility 
-]
-
-{ #category : #accessing }
-PWBLogsCreatorAbstractConstraint >> constraint [
-	^ constraint
 ]
 
 { #category : #accessing }

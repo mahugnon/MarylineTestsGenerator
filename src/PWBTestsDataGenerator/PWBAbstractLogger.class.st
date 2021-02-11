@@ -1,3 +1,6 @@
+"
+I represent the general structure of a log
+"
 Class {
 	#name : #PWBAbstractLogger,
 	#superclass : #Object,
@@ -8,11 +11,6 @@ Class {
 	],
 	#category : #'PWBTestsDataGenerator-Logger'
 }
-
-{ #category : #'as yet unclassified' }
-PWBAbstractLogger class >> canlog: anObject [
-	^ false
-]
 
 { #category : #'as yet unclassified' }
 PWBAbstractLogger class >> canlog: anObject withTag: aTag [
@@ -34,7 +32,7 @@ PWBAbstractLogger >> belongsTo [
 self subclassResponsibility 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #logging }
 PWBAbstractLogger >> endOn: stream [
 	stream
 		<< '",ls_time);';
@@ -77,7 +75,7 @@ PWBAbstractLogger >> isTimestampLogger [
 	^ false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #logging }
 PWBAbstractLogger >> logOn: aStream [ 
 self subclassResponsibility 
 ]
@@ -90,6 +88,11 @@ PWBAbstractLogger >> position [
 { #category : #accessor }
 PWBAbstractLogger >> position: anInteger [ 
 	position := anInteger
+]
+
+{ #category : #sorting }
+PWBAbstractLogger >> sortingKey [
+	self subclassResponsibility
 ]
 
 { #category : #accessors }

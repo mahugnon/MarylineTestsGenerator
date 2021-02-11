@@ -1,3 +1,6 @@
+"
+I represent a return value log
+"
 Class {
 	#name : #PWBReturnLogger,
 	#superclass : #PWBAbstractLogger,
@@ -14,7 +17,7 @@ PWBReturnLogger >> isReturnLogger [
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #logging }
 PWBReturnLogger >> logOn: stream [
 	self startOn: stream.
 	stream
@@ -27,12 +30,12 @@ PWBReturnLogger >> logOn: stream [
 	^ stream
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #sorting }
 PWBReturnLogger >> sortingKey [ 
 ^20
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #logging }
 PWBReturnLogger >> startOn: stream [
 	stream << 'f_mrl_logger().return_value_logger().log('
 ]

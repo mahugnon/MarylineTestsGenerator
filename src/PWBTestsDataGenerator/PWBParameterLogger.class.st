@@ -1,3 +1,6 @@
+"
+I represent a parameter log
+"
 Class {
 	#name : #PWBParameterLogger,
 	#superclass : #PWBAbstractLogger,
@@ -5,13 +8,8 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-PWBParameterLogger class >> canlog: anObject [
-	^ anObject isKindOf: FamixPWBParameter
-]
-
-{ #category : #'as yet unclassified' }
 PWBParameterLogger class >> canlog: anObject withTag: aTag [
-	^ (anObject isKindOf: FamixPWBParameter)
+	^ anObject isParameter
 		and: [ (PWBEmptyParameterLogger canlog: anObject withTag: aTag) not ]
 ]
 
@@ -25,7 +23,7 @@ PWBParameterLogger >> isParameterLogger [
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #logging }
 PWBParameterLogger >> logOn: stream [
 	self startOn: stream.
 	stream
@@ -43,7 +41,7 @@ PWBParameterLogger >> logOn: stream [
 	^ stream
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #sorting }
 PWBParameterLogger >> sortingKey [
 ^10
 ]

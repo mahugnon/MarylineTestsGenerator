@@ -1,3 +1,6 @@
+"
+I'm a logger creator for a collection of  PowerBuilder objects
+"
 Class {
 	#name : #PWBObjectGroupLogsCreator,
 	#superclass : #Object,

@@ -1,3 +1,6 @@
+"
+I'm a logger creator for a Behavior
+"
 Class {
 	#name : #PWBBehaviorLoggerCreator,
 	#superclass : #Object,
@@ -57,11 +60,9 @@ PWBBehaviorLoggerCreator >> accessLoggers [
 
 { #category : #api }
 PWBBehaviorLoggerCreator >> createLoggers [
-self createTimestampLogger.
-self createVariableLoggers:'before'.
-self createVariableLoggers:'after'.
-self createReturnLoggers
-	
+	self createTimestampLogger.
+	self createVariableLoggers: 'before'.
+	self createVariableLoggers: 'after'
 ]
 
 { #category : #api }

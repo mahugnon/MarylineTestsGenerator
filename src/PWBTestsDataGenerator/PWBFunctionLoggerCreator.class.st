@@ -1,3 +1,6 @@
+"
+I'm a logger creator for a PowerBuilder Function
+"
 Class {
 	#name : #PWBFunctionLoggerCreator,
 	#superclass : #PWBBehaviorLoggerCreator,
@@ -7,6 +10,12 @@ Class {
 { #category : #visiting }
 PWBFunctionLoggerCreator class >> accept: aFamixPWBBehavior [
 	^ aFamixPWBBehavior class = FamixPWBFunction
+]
+
+{ #category : #api }
+PWBFunctionLoggerCreator >> createLoggers [
+	super createLoggers.
+	self createReturnLoggers
 ]
 
 { #category : #api }
@@ -27,11 +36,4 @@ PWBFunctionLoggerCreator >> createReturnLoggers [
 { #category : #accessing }
 PWBFunctionLoggerCreator >> returnLoggers [
 	^ loggers select: #isReturnLogger
-]
-
-{ #category : #accessing }
-PWBFunctionLoggerCreator >> variables [
-	^ logAccess
-		ifTrue: [ focus parameters , focus getOneAccessPerInsVarAccessed ]
-		ifFalse: [ focus parameters ]
 ]

@@ -1,3 +1,6 @@
+"
+I am a constraint  to apply for Loggers. When I am applyied, I remove big function specified in my configuration
+"
 Class {
 	#name : #PWBLogsCreatorSkipBigFunctionConstraint,
 	#superclass : #PWBLogsCreatorAbstractConstraint,

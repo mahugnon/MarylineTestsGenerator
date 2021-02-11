@@ -1,3 +1,6 @@
+"
+I'm a logger creator for a   PowerBuilder object
+"
 Class {
 	#name : #PWBObjectLogsCreator,
 	#superclass : #Object,
@@ -40,11 +43,6 @@ PWBObjectLogsCreator >> completeSourceWithLogs [
 	^ completeSourceWithLogs
 ]
 
-{ #category : #accessing }
-PWBObjectLogsCreator >> constraint [
-	^ constraints
-]
-
 { #category : #api }
 PWBObjectLogsCreator >> createLoggers [
 	loggers := (focus getBusinessRuleFunctions
@@ -68,15 +66,6 @@ PWBObjectLogsCreator >> initialize [
 	super initialize.
 	logAccess := true.
 	constraints := OrderedCollection new
-]
-
-{ #category : #api }
-PWBObjectLogsCreator >> logA: a lessThanLogB: b [ 
-a position < b position 
-ifTrue: [ ^true ].
-a sortingKey < b sortingKey
-ifTrue: [ ^true ].
-^false
 ]
 
 { #category : #initialization }
