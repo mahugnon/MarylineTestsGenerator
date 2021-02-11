@@ -74,8 +74,7 @@ PWBObjectLogsCreator >> logAccess: aBoolean [
 
 { #category : #'as yet unclassified' }
 PWBObjectLogsCreator >> loggedBehaviors [
-	^ self loggers values flatten
-		collectAsSet: [ :each | each behavioral ]
+	^ self loggers collectAsSet: [ :each | each belongsTo ]
 ]
 
 { #category : #accessors }

@@ -207,7 +207,9 @@ PWBObjectLoggerCreatorTest >> testLoggedBehaviors [
 	logger := PWBObjectGroupLogsCreator loggerWithAccessFor: {testObject}.
 	self
 		assertCollection: logger loggedBehaviors
-		hasSameElements: {testFunction1}
+		hasSameElements:
+			{testFunction1.
+			testFunction2}
 ]
 
 { #category : #tests }

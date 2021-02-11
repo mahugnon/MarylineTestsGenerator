@@ -11,6 +11,9 @@ Class {
 		'constraints',
 		'modelSelector'
 	],
+	#classVars : [
+		'alReady'
+	],
 	#category : #'PWBTestsDataGenerator-LogsCreators'
 }
 
@@ -156,7 +159,7 @@ PWBObjectGroupLogsCreator >> initializeWindow: aWindowPresenter [
 
 { #category : #api }
 PWBObjectGroupLogsCreator >> loggedBehaviors [
-	^ self loggers collect: [ :each | each loggedBehaviors ]
+	^ self loggers flatCollect: [ :each | each loggedBehaviors ]
 ]
 
 { #category : #accessing }
@@ -178,7 +181,6 @@ PWBObjectGroupLogsCreator >> printOn: aStrem [
 PWBObjectGroupLogsCreator >> runOn: model [
 	self focus: model getBusinessRuleFunctions keys.
 	self createwithAccessLoggers.
-	1 halt.
 	self applyConstraints
 ]
 
