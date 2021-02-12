@@ -243,6 +243,33 @@ PWBObjectLoggerCreatorTest >> testLoggedBehaviors [
 ]
 
 { #category : #tests }
+PWBObjectLoggerCreatorTest >> testObjectLoggerCreatorName [
+	| logger |
+	logger := PWBObjectLogsCreator new focus: testObject.
+	self assert: logger name equals: 'testObject1'
+]
+
+{ #category : #tests }
+PWBObjectLoggerCreatorTest >> testPWBObjectCollectionLogCreatorPrintOn [
+	| name logger |
+	logger := PWBObjectGroupLogsCreator new
+		focus: {testObject};
+		createWithoutAccessLoggers.
+	name := String streamContents: [ :stream | logger printOn: stream ].
+	self assert: name equals: 'Group (1)'
+]
+
+{ #category : #tests }
+PWBObjectLoggerCreatorTest >> testPWBObjectLoggerCreatorPrintOn [
+	| name logger |
+	logger := PWBObjectLogsCreator new
+		focus: testObject;
+		createLoggers.
+	name := String streamContents: [ :stream | logger printOn: stream ].
+	self assert: name equals: 'testObject1 (14)'
+]
+
+{ #category : #tests }
 PWBObjectLoggerCreatorTest >> testPrintObjectLogs [
 	| logger |
 	logger := (PWBObjectLogsCreator loggerWithAccessFor: testObject)
