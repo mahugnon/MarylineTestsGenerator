@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'constraint',
 		'logsCreator',
-		'name'
+		'pwbObjectName'
 	],
 	#category : #'PWBTestsDataGenerator-LogsCreators'
 }
@@ -29,11 +29,11 @@ PWBLogsCreatorAbstractConstraint >> logsCreator: aMrlObjectLogsCreator [
 ]
 
 { #category : #accessing }
-PWBLogsCreatorAbstractConstraint >> name [
-	^ name
+PWBLogsCreatorAbstractConstraint >> pwbObjectName [
+	^ pwbObjectName
 ]
 
 { #category : #accessing }
-PWBLogsCreatorAbstractConstraint >> name: aString [
-	name := aString
+PWBLogsCreatorAbstractConstraint >> pwbObjectName: aString [
+	pwbObjectName := aString
 ]

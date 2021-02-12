@@ -132,12 +132,13 @@ PWBObjectLoggerCreatorTest >> testAddNumberOfLoggersConstraint [
 
 { #category : #tests }
 PWBObjectLoggerCreatorTest >> testAddNumberOfLoggersConstraint2 [
-	logger
-		addConstraint:
-			(PWBLogsCreatorMaxNumberOfLogsConstraint new
-				name: 'testObject';
-				constraint: 15;
-				yourself).
+	| constraint |
+	constraint := PWBLogsCreatorMaxNumberOfLogsConstraint new
+		pwbObjectName: 'testObject';
+		constraint: 15;
+		yourself.
+	self assert: constraint pwbObjectName equals: 'testObject'.
+	logger addConstraint: constraint.
 	self assert: logger loggers size equals: 14
 ]
 

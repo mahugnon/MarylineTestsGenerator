@@ -56,19 +56,19 @@ PWBObjectGroupLogsCreator >> applyConstraints [
 	self
 		addConstraint:
 			(PWBLogsCreatorSkipBigFunctionConstraint new
-				name: 'uo_traitement_liq_cal';
+				pwbObjectName: 'uo_traitement_liq_cal';
 				constraint:
 					{'uf_calcul_plafond' . 'uf_calcul_exp_limite_suite'.
 					'uf_init_adherent'};
 				yourself);
 		addConstraint:
 			(PWBLogsCreatorMaxNumberOfLogsConstraint new
-				name: 'uo_traitement_liq_cal';
+				pwbObjectName: 'uo_traitement_liq_cal';
 				constraint: 207;
 				yourself);
 		addConstraint:
 			(PWBLogsCreatorSkipBigFunctionConstraint new
-				name: 'uo_traitement_ech_maj';
+				pwbObjectName: 'uo_traitement_ech_maj';
 				constraint: {'uf_rech_prem_ech'};
 				yourself);
 		addConstraint:
