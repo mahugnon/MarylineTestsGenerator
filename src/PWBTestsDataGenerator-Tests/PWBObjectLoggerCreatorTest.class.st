@@ -1,12 +1,6 @@
 Class {
 	#name : #PWBObjectLoggerCreatorTest,
-	#superclass : #TestCase,
-	#instVars : [
-		'famixModel',
-		'testFunction1',
-		'testObject',
-		'testFunction2'
-	],
+	#superclass : #PWBAbstractObjectLoggerCreatorTest,
 	#category : #'PWBTestsDataGenerator-Tests'
 }
 
@@ -42,6 +36,11 @@ PWBObjectLoggerCreatorTest >> createFunctions [
 			(FamixPWBIndexedFileAnchor new
 				startPos: 73;
 				endPos: 220)
+]
+
+{ #category : #running }
+PWBObjectLoggerCreatorTest >> createLogger [
+	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject
 ]
 
 { #category : #running }
@@ -102,40 +101,6 @@ PWBObjectLoggerCreatorTest >> createSignatures [
 ]
 
 { #category : #running }
-PWBObjectLoggerCreatorTest >> setUp [
-	super setUp.
-	famixModel := FamixPWBModel new.
-	testObject := FamixPWBUserObject new
-		name: 'testObject1';
-		mooseModel: famixModel;
-		sourceAnchor: (FAMIXSourceTextAnchor new source: self sourceExample).
-	self createFunctions.
-	self createReturns.
-	self createSignatures.
-	self createAccesses.
-	self createParameters.
-	famixModel
-		businessRuleFunctions:
-			{(testObject
-				->
-					{testFunction1.
-					testFunction2})} asOrderedDictionary
-]
-
-{ #category : #running }
-PWBObjectLoggerCreatorTest >> sourceExample [
-	^ 'private function integer testFunction1 ();
-  return LLONG
-end function
-
-private function integer testFunction2 (long testParameter1, string testParameter2); 
-this.ilong = 0
- if aLong >0 then return 1
-retun 0
-end function'
-]
-
-{ #category : #running }
 PWBObjectLoggerCreatorTest >> sourceExampleWithLogs [
 	^'private function integer testFunction1 ();	
  string ls_time 
@@ -156,8 +121,6 @@ end function'
 
 { #category : #tests }
 PWBObjectLoggerCreatorTest >> testAddNumberOfLoggersConstraint [
-	| logger |
-	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
 	logger
 		addConstraint: (PWBLogsCreatorMaxNumberOfLogsConstraint new constraint: 5).
 	self assert: logger loggers size equals: 2.
@@ -169,8 +132,6 @@ PWBObjectLoggerCreatorTest >> testAddNumberOfLoggersConstraint [
 
 { #category : #tests }
 PWBObjectLoggerCreatorTest >> testAddNumberOfLoggersConstraint2 [
-	| logger |
-	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
 	logger
 		addConstraint:
 			(PWBLogsCreatorMaxNumberOfLogsConstraint new
@@ -182,8 +143,6 @@ PWBObjectLoggerCreatorTest >> testAddNumberOfLoggersConstraint2 [
 
 { #category : #tests }
 PWBObjectLoggerCreatorTest >> testAddSkipLargFunctionConstraint [
-	| logger |
-	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
 	logger
 		addConstraint:
 			(PWBLogsCreatorSkipBigFunctionConstraint new
@@ -197,35 +156,20 @@ PWBObjectLoggerCreatorTest >> testAddSkipLargFunctionConstraint [
 
 { #category : #tests }
 PWBObjectLoggerCreatorTest >> testBehaviorAreSetToLogged [
-	| logger |
-	logger := (PWBObjectLogsCreator loggerWithAccessFor: testObject)
-		prepareLogs.
+	logger prepareLogs.
 	self assert: logger loggedBehaviors anyOne isLogged.
 	self assert: testObject getBusinessRuleFunctions isEmpty
 ]
 
 { #category : #tests }
 PWBObjectLoggerCreatorTest >> testCreateObjectLoggers [
-	| logger |
-	logger := PWBObjectLogsCreator loggerWithAccessFor: testObject.
 	self assert: logger loggers size equals: 14
 ]
 
 { #category : #tests }
 PWBObjectLoggerCreatorTest >> testCreateObjectLoggersWithoutAccess [
-	| logger |
 	logger := PWBObjectLogsCreator loggerWithoutAccessFor: testObject.
 	self assert: logger loggers size equals: 11
-]
-
-{ #category : #tests }
-PWBObjectLoggerCreatorTest >> testCreateObjectsLogger [
-	| logger |
-	logger := PWBObjectGroupLogsCreator new
-		focus: {testObject};
-		createwithAccessLoggers;
-		yourself.
-	self assert: logger loggers size equals: 1
 ]
 
 { #category : #tests }
@@ -244,50 +188,24 @@ PWBObjectLoggerCreatorTest >> testLoggedBehaviors [
 
 { #category : #tests }
 PWBObjectLoggerCreatorTest >> testObjectLoggerCreatorName [
-	| logger |
-	logger := PWBObjectLogsCreator new focus: testObject.
 	self assert: logger name equals: 'testObject1'
 ]
 
 { #category : #tests }
-PWBObjectLoggerCreatorTest >> testPWBObjectCollectionLogCreatorPrintOn [
-	| name logger |
-	logger := PWBObjectGroupLogsCreator new
-		focus: {testObject};
-		createWithoutAccessLoggers.
-	name := String streamContents: [ :stream | logger printOn: stream ].
-	self assert: name equals: 'Group (1)'
-]
-
-{ #category : #tests }
 PWBObjectLoggerCreatorTest >> testPWBObjectLoggerCreatorPrintOn [
-	| name logger |
-	logger := PWBObjectLogsCreator new
-		focus: testObject;
-		createLoggers.
+	| name |
+	logger prepareLogs.
 	name := String streamContents: [ :stream | logger printOn: stream ].
 	self assert: name equals: 'testObject1 (14)'
 ]
 
 { #category : #tests }
 PWBObjectLoggerCreatorTest >> testPrintObjectLogs [
-	| logger |
-	logger := (PWBObjectLogsCreator loggerWithAccessFor: testObject)
-		prepareLogs.
+	logger prepareLogs.
 	self
 		assert:
 			(logger completeSourceWithLogs
 				copyReplaceAll: String lf
 				with: String cr)
 		equals: self sourceExampleWithLogs
-]
-
-{ #category : #tests }
-PWBObjectLoggerCreatorTest >> testPrintOn [
-	| name logger |
-	logger := PWBObjectGroupLogsCreator new
-		focus: {testObject};
-		createWithoutAccessLoggers.
-	name := String streamContents: [ :stream | logger printOn: stream ].
-	self assert: name equals: 'Group (1)'
 ]
