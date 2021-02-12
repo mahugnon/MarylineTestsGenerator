@@ -32,3 +32,9 @@ PWBObjectCollectionLoggerCreatorTest >> testPWBObjectCollectionLogCreatorPrintOn
 	name := String streamContents: [ :stream | logger printOn: stream ].
 	self assert: name equals: 'Group (1)'
 ]
+
+{ #category : #tests }
+PWBObjectCollectionLoggerCreatorTest >> testRunOn [
+	logger runOn: famixModel.
+	self assert: logger loggers anyOne loggers size equals: 14
+]

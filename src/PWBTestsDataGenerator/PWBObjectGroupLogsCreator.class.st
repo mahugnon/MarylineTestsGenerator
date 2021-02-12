@@ -47,7 +47,7 @@ PWBObjectGroupLogsCreator class >> updateData: aBuilder [
 { #category : #adding }
 PWBObjectGroupLogsCreator >> addConstraint: aConstraint [
 	loggers
-		detect: [ :logger | logger name = aConstraint name ]
+		detect: [ :logger | logger name = aConstraint pwbObjectName ]
 		ifFound: [ :founded | founded addConstraint: aConstraint ]
 ]
 
@@ -73,17 +73,17 @@ PWBObjectGroupLogsCreator >> applyConstraints [
 				yourself);
 		addConstraint:
 			(PWBLogsCreatorSkipBigFunctionConstraint new
-				name: 'w_traitement';
+				pwbObjectName: 'w_traitement';
 				constraint: {'wf_iuo_trt'};
 				yourself);
 		addConstraint:
 			(PWBLogsCreatorSkipBigFunctionConstraint new
-				name: 'w_traitement';
+				pwbObjectName: 'w_traitement';
 				constraint: {'wf_iuo_trt'};
 				yourself);
 		addConstraint:
 			(PWBLogsCreatorSkipBigFunctionConstraint new
-				name: 'f_videsinull';
+				pwbObjectName: 'f_videsinull';
 				constraint: {'f_videsinull'};
 				yourself)
 ]
