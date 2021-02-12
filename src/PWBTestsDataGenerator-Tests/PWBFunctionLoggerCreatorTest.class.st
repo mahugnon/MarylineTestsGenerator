@@ -262,6 +262,13 @@ PWBFunctionLoggerCreatorTest >> testCreateTimestampLoggers [
 ]
 
 { #category : #tests }
+PWBFunctionLoggerCreatorTest >> testFunctionLogsCreatorAcceptFunction [
+	self assert: (PWBFunctionLoggerCreator accept: FamixPWBFunction new).
+	self deny: (PWBFunctionLoggerCreator accept: FamixPWBEvent new).
+	self deny: (PWBFunctionLoggerCreator accept: FamixPWBSubRoutine new)
+]
+
+{ #category : #tests }
 PWBFunctionLoggerCreatorTest >> testPrintOn [
 	| value |
 	testFunction name: 'uf_testFunction'.
@@ -271,4 +278,12 @@ PWBFunctionLoggerCreatorTest >> testPrintOn [
 				focus: testFunction;
 				printOn: stream ].
 	self assert: value equals: 'uf_testFunction (0)'
+]
+
+{ #category : #tests }
+PWBFunctionLoggerCreatorTest >> testSubroutineLogsCreatorAcceptSubroutine [
+	self
+		assert: (PWBSubRoutineLoggerCreator accept: FamixPWBSubRoutine new).
+	self deny: (PWBSubRoutineLoggerCreator accept: FamixPWBEvent new).
+	self deny: (PWBSubRoutineLoggerCreator accept: FamixPWBFunction new)
 ]
