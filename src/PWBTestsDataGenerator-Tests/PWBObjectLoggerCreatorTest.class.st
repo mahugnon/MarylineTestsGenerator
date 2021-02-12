@@ -212,6 +212,13 @@ PWBObjectLoggerCreatorTest >> testCreateObjectLoggers [
 ]
 
 { #category : #tests }
+PWBObjectLoggerCreatorTest >> testCreateObjectLoggersWithoutAccess [
+	| logger |
+	logger := PWBObjectLogsCreator loggerWithoutAccessFor: testObject.
+	self assert: logger loggers size equals: 11
+]
+
+{ #category : #tests }
 PWBObjectLoggerCreatorTest >> testCreateObjectsLogger [
 	| logger |
 	logger := PWBObjectGroupLogsCreator new
@@ -246,4 +253,14 @@ PWBObjectLoggerCreatorTest >> testPrintObjectLogs [
 				copyReplaceAll: String lf
 				with: String cr)
 		equals: self sourceExampleWithLogs
+]
+
+{ #category : #tests }
+PWBObjectLoggerCreatorTest >> testPrintOn [
+	| name logger |
+	logger := PWBObjectGroupLogsCreator new
+		focus: {testObject};
+		createWithoutAccessLoggers.
+	name := String streamContents: [ :stream | logger printOn: stream ].
+	self assert: name equals: 'Group (1)'
 ]

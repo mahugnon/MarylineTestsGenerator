@@ -260,3 +260,15 @@ PWBFunctionLoggerCreatorTest >> testCreateTimestampLoggers [
 			(PWBFunctionLoggerCreator loggersFor: testFunction) anyOne
 				isTimestampLogger
 ]
+
+{ #category : #tests }
+PWBFunctionLoggerCreatorTest >> testPrintOn [
+	| value |
+	testFunction name: 'uf_testFunction'.
+	value := String
+		streamContents: [ :stream | 
+			PWBFunctionLoggerCreator new
+				focus: testFunction;
+				printOn: stream ].
+	self assert: value equals: 'uf_testFunction (0)'
+]
