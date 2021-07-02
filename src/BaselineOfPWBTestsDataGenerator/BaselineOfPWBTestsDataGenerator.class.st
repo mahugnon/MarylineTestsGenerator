@@ -12,8 +12,7 @@ BaselineOfPWBTestsDataGenerator >> baseline: spec [
 		baselineOfPWBTracers: spec.
 	spec
 		for: #common
-		do: [ self baselineOfPowerBuilderParser: spec.
-			spec
+		do: [ spec
 				package: 'PWBTestsDataGenerator'
 					with: [ spec requires: #('PowerBuilderParser') ];
 				package: 'PWBTestsDataGenerator-Tests'
@@ -34,12 +33,4 @@ BaselineOfPWBTestsDataGenerator >> baselineOfPWBUtilities: spec [
 		baseline: 'PWBUtilities'
 		with: [ spec
 				repository: 'github://mahugnon/PWBUtilities:main' ]
-]
-
-{ #category : #baselines }
-BaselineOfPWBTestsDataGenerator >> baselineOfPowerBuilderParser: spec [
-	spec
-		baseline: 'PowerBuilderParser'
-		with: [ spec
-				repository: 'github://moosetechnology/PowerBuilderParser:main' ]
 ]
