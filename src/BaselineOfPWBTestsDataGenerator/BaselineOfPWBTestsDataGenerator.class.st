@@ -14,7 +14,7 @@ BaselineOfPWBTestsDataGenerator >> baseline: spec [
 		for: #common
 		do: [ spec
 				package: 'PWBTestsDataGenerator'
-					with: [ spec requires: #('PowerBuilderParser') ];
+					with: [ spec requires: #('PWBUtilities') ];
 				package: 'PWBTestsDataGenerator-Tests'
 					with: [ spec requires: #('PWBTestsDataGenerator') ] ]
 ]
